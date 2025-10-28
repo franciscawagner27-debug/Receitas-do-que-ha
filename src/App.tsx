@@ -54,7 +54,8 @@ export default function App() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
-              <RecipeCard key={r.id} r={r} onOpen={() => {}} />
+              <RecipeCard key={r.id} recipe={r} />
+
             ))}
           </div>
         )}
