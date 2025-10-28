@@ -53,12 +53,13 @@ export default function AddRecipe() {
         className="w-full p-2 mb-3 rounded border"
       />
 
-      <button
-        type="submit"
-        className="bg-terracotta text-white font-semibold py-2 px-4 rounded"
-      >
-        Guardar Receita
-      </button>
+     <button
+  type="submit"
+  className="bg-olive hover:bg-terracotta text-white font-semibold py-2 px-5 rounded-xl shadow-soft transition-all"
+>
+  Guardar Receita
+</button>
+
     </form>
   )
 }
