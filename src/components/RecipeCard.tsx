@@ -1,35 +1,23 @@
-import React from 'react'
-import type { Recipe } from '../types'
+import React from "react";
+import type { Recipe } from "../types";
 
-interface RecipeCardProps {
-  r: Recipe
-  onOpen: (recipe: Recipe) => void
-}
-
-export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
+export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
-    <div
-      className="card cursor-pointer p-4 card-hover"
-      onClick={() => onOpen(r)}
-    >
-      {r.image && (
-        <img
-          src={r.image}
-          alt={r.title}
-          className="rounded-xl mb-3 w-full h-48 object-cover"
-        />
-      )}
-      <h2 className="text-xl font-semibold mb-2">{r.title}</h2>
-      <div className="flex flex-wrap gap-2 mb-3">
-        {r.tags?.map((tag) => (
-          <span key={tag} className="badge">
-            {tag}
-          </span>
-        ))}
+    <div className="bg-white shadow-soft rounded-2xl overflow-hidden border border-beige hover:shadow-lg transition-all">
+      <img
+        src={recipe.image || "https://via.placeholder.com/400x250?text=Receita"}
+        alt={recipe.title}
+        className="w-full h-56 object-cover"
+      />
+      <div className="p-5">
+        <h2 className="text-2xl font-serif text-olive mb-2">{recipe.title}</h2>
+        <p className="text-sm text-stone/80 mb-3 font-sans">
+          Ingredientes: {recipe.ingredients.join(", ")}
+        </p>
+        <p className="text-sm text-stone/70 font-sans">
+          {recipe.steps.slice(0, 2).join(". ")}...
+        </p>
       </div>
-      <p className="text-sm text-stone">
-        {r.ingredients.slice(0, 3).join(', ')}...
-      </p>
     </div>
-  )
+  );
 }
