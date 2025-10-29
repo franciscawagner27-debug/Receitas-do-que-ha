@@ -1,5 +1,4 @@
 import React from "react"
-
 export default function Hero() {
   return (
     <section className="relative w-full h-[420px] overflow-hidden mb-8 rounded-2xl shadow-md">
