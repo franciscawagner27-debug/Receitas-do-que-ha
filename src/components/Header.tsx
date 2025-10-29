@@ -1,6 +1,4 @@
 import React from "react";
-
-
 export default function Header() {
   return (
     <header className="bg-olive/10 border-b border-olive/30 py-6 mb-10 shadow-soft">
