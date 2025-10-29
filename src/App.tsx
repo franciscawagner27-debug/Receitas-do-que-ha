@@ -3,6 +3,7 @@ import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
 import { supabase } from './lib/supabase'
 import Header from './components/Header'
+import Hero from './components/Hero'
 import RecipeCard from './components/RecipeCard'
 import AddRecipe from './components/AddRecipe'
 
@@ -38,6 +39,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-beige text-charcoal font-sans">
       <Header />
+      <Hero />
 
       <main className="max-w-5xl mx-auto p-6">
         <div className="mb-8">
@@ -50,12 +52,13 @@ export default function App() {
         </div>
 
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
+          <p className="text-center text-stone">
+            Nenhuma receita encontrada.
+          </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
-              <RecipeCard key={r.id} recipe={r} />
-
+              <RecipeCard key={r.id} r={r} onOpen={() => {}} />
             ))}
           </div>
         )}
