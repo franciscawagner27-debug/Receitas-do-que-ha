@@ -95,4 +95,43 @@ export default function App() {
         {sortedRecipes.length === 0 ? (
           <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
-          <div className="g
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {sortedRecipes.map((r) => (
+              <div
+                key={r.id}
+                className="p-5 bg-white rounded-2xl shadow-sm border border-stone/20"
+              >
+                <h2 className="text-lg font-serif text-olive mb-2">{r.title}</h2>
+
+                {r.image && (
+                  <img
+                    src={r.image}
+                    alt={r.title}
+                    className="w-full h-40 object-cover rounded-lg mb-3"
+                  />
+                )}
+
+                <p className="text-sm text-stone mb-2">
+                  Ingredientes:{' '}
+                  {Array.isArray(r.ingredients)
+                    ? r.ingredients.join(', ')
+                    : r.ingredients}
+                </p>
+
+                {r.time_minutes && (
+                  <p className="text-xs text-stone/80">
+                    ⏱️ {r.time_minutes} minutos
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+
+      <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
+        © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
+      </footer>
+    </div>
+  )
+}
