@@ -17,7 +17,7 @@ export default function App() {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 👉 Filtro de pesquisa robusto e tolerante
+  // 👉 Filtro de pesquisa robusto
   useEffect(() => {
     const normalize = (text: string) =>
       text
@@ -78,10 +78,22 @@ export default function App() {
           </p>
         </div>
 
+        {/* 🧩 BLOCO DE DEBUG — lista de títulos */}
+        {recipes.length > 0 && (
+          <div className="mb-6 p-4 bg-olive/5 border border-olive/20 rounded-lg">
+            <p className="text-sm text-stone mb-2">
+              DEBUG: lista de títulos das receitas:
+            </p>
+            <ul className="list-disc ml-5 text-sm text-charcoal">
+              {recipes.map((r) => (
+                <li key={r.id}>{r.title}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">
-            Nenhuma receita encontrada.
-          </p>
+          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
