@@ -11,7 +11,7 @@ export default function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-beige/50 to-transparent flex flex-col items-center justify-end pb-10 px-4">
         <Logo />
-        <h1 className="text-4xl md:text-5xl font-serif text-olive mb-3 drop-shadow bg-beige/50 px-5 py-2 rounded-md backdrop-blur-sm">
+        <h1 className="text-4xl md:text-5xl font-serif text-olive drop-shadow-[0_3px_6px_rgba(255,255,255,0.7)] mb-3">
           Receitas do que há
         </h1>
         <p className="text-lg md:text-xl text-stone/90 max-w-xl text-center">
