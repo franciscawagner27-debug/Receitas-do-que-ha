@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -24,13 +25,15 @@ export default function App() {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 🔎 Filtro de pesquisa robusto e flexível
+  // 🔎 Filtro de pesquisa tolerante e robusto
   useEffect(() => {
+    // função que limpa e normaliza o texto
     const normalize = (text: string) =>
       text
         .toLowerCase()
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\u0300-\u036f]/g, '') // remove acentos
+        .replace(/[.,;:!?]/g, '') // remove vírgulas, pontos, etc.
         .trim()
 
     const term = normalize(search)
@@ -46,13 +49,10 @@ export default function App() {
 
       const text = normalize(ingArray.join(' '))
       const found = text.includes(term)
-
-      // Debug log
       console.log('→', r.title, '| procura:', term, '| encontrado?', found)
       return found
     })
 
-    // Se não encontrou nada, mostra tudo (fallback)
     if (matches.length === 0) {
       console.warn('Nenhuma receita bateu com a pesquisa, a mostrar todas.')
       setFilteredRecipes(recipes)
@@ -61,7 +61,7 @@ export default function App() {
     }
   }, [search, recipes])
 
-  // 👉 Ordenar por título (opcional)
+  // 👉 Ordenar por título
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
   }, [filteredRecipes])
