@@ -15,8 +15,9 @@ export default function App() {
 
   // 👉 Teste: ver no console o que o Supabase está a devolver
   useEffect(() => {
-    console.log('Receitas carregadas:', recipes)
-  }, [recipes])
+    console.log('Receitas carregadas:', recipes) if (recipes.length > 0) {
+    console.log('Exemplo de receita:', recipes[0])
+  }  }, [recipes])
 
   // Busca receitas ao carregar
   useEffect(() => {
