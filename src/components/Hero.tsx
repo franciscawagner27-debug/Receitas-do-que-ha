@@ -14,7 +14,7 @@ export default function Hero() {
         <h1 className="text-5xl md:text-6xl font-serif text-white mb-3 px-5 py-2 rounded-md bg-charcoal/60">
           Receitas do que há
         </h1>
-        <p className="text-lg md:text-xl text-stone/90 max-w-xl text-center">
+        <p className="text-lg md:text-xl text-beige/90 max-w-xl text-center">
           Descobre o que podes cozinhar com o que tens em casa.
         </p>
       </div>
