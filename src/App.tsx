@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -5,7 +6,7 @@ import { supabase } from './lib/supabase'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import RecipeCard from './components/RecipeCard'
-import AddRecipe from './components/AddRecipe'
+// import AddRecipe from './components/AddRecipe' // 👈 Mantido para futura utilização
 
 export default function App() {
   const [search, setSearch] = useState('')
@@ -64,7 +65,7 @@ export default function App() {
         )}
       </main>
 
-      <AddRecipe />
+      {/* <AddRecipe />  👈 Temporariamente desativado */}
 
       <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
         © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
