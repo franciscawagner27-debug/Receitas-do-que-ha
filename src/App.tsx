@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -12,12 +11,12 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 👉 Buscar receitas ao montar
+  // Buscar receitas ao montar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 👉 Filtro de pesquisa robusto
+  // Filtro de pesquisa
   useEffect(() => {
     const normalize = (text: string) =>
       text
@@ -34,28 +33,22 @@ export default function App() {
       return
     }
 
-    try {
-      const matches = recipes.filter((r) => {
-        if (!r || !('ingredients' in r)) return false
+    const matches = recipes.filter((r) => {
+      if (!r || !('ingredients' in r)) return false
 
-        const ingArray = Array.isArray(r.ingredients)
-          ? r.ingredients
-          : typeof r.ingredients === 'string'
-            ? r.ingredients.split(',')
-            : []
+      const ingArray = Array.isArray(r.ingredients)
+        ? r.ingredients
+        : typeof r.ingredients === 'string'
+          ? r.ingredients.split(',')
+          : []
 
-        const text = normalize(ingArray.join(' '))
-        return text.includes(term)
-      })
+      const text = normalize(ingArray.join(' '))
+      return text.includes(term)
+    })
 
-      setFilteredRecipes(matches)
-    } catch (err) {
-      console.error('Erro no filtro de pesquisa:', err)
-      setFilteredRecipes(recipes)
-    }
+    setFilteredRecipes(matches)
   }, [search, recipes])
 
-  // 👉 Ordenar por título
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
   }, [filteredRecipes])
@@ -78,22 +71,10 @@ export default function App() {
           </p>
         </div>
 
-        {/* 🧩 BLOCO DE DEBUG — lista de títulos */}
-        {recipes.length > 0 && (
-          <div className="mb-6 p-4 bg-olive/5 border border-olive/20 rounded-lg">
-            <p className="text-sm text-stone mb-2">
-              DEBUG: lista de títulos das receitas:
-            </p>
-            <ul className="list-disc ml-5 text-sm text-charcoal">
-              {recipes.map((r) => (
-                <li key={r.id}>{r.title}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
+          <p className="text-center text-stone">
+            Nenhuma receita encontrada.
+          </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
@@ -102,8 +83,6 @@ export default function App() {
           </div>
         )}
       </main>
-
-      {/* <AddRecipe /> */}
 
       <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
         © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
