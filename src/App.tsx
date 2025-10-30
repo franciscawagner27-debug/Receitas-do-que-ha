@@ -12,13 +12,24 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 👉 Buscar receitas ao montar
+  // 1) buscar receitas
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 👉 Filtro de pesquisa robusto
+  // 2) logar o que vem
   useEffect(() => {
+    console.log('📦 receitas do Supabase:', recipes)
+    if (recipes.length > 0) {
+      console.log('📦 primeira receita:', recipes[0])
+    }
+  }, [recipes])
+
+  // 3) filtro
+  useEffect(() => {
+    console.log('🟡 pesquisa mudou para:', search)
+
+    // função de normalização
     const normalize = (text: string) =>
       text
         .toLowerCase()
@@ -28,25 +39,52 @@ export default function App() {
         .trim()
 
     const term = normalize(search)
+
+    // se não há pesquisa → mostra todas
     if (!term) {
+      console.log('🔵 sem termo → mostrar todas')
       setFilteredRecipes(recipes)
       return
     }
 
-    const matches = recipes.filter((r) => {
-      const ingArray = Array.isArray(r.ingredients)
-        ? r.ingredients
-        : String(r.ingredients || '').split(',')
+    try {
+      const matches = recipes.filter((r) => {
+        // se a receita não tem ingredientes, não quebra
+        if (!r || !('ingredients' in r)) {
+          console.warn('⚠️ receita sem ingredients:', r)
+          return false
+        }
 
-      const text = normalize(ingArray.join(' '))
-      return text.includes(term)
-    })
+        const ingArray = Array.isArray(r.ingredients)
+          ? r.ingredients
+          : typeof r.ingredients === 'string'
+            ? r.ingredients.split(',')
+            : []
 
-    // Atualiza sempre o estado (mesmo que vazio)
-    setFilteredRecipes(matches)
+        const text = normalize(ingArray.join(' '))
+
+        const found = text.includes(term)
+
+        console.log('→', r.title, '| texto:', text, '| procura:', term, '| encontrou?', found)
+
+        return found
+      })
+
+      // se não encontrou nada, mostra todas (por enquanto)
+      if (matches.length === 0) {
+        console.warn('⚠️ nenhuma receita bateu, a mostrar todas (por enquanto)')
+        setFilteredRecipes(recipes)
+      } else {
+        setFilteredRecipes(matches)
+      }
+    } catch (err) {
+      console.error('❌ erro no filtro:', err)
+      // se der erro, não deixamos o site vazio
+      setFilteredRecipes(recipes)
+    }
   }, [search, recipes])
 
-  // 👉 Ordenar por título (opcional)
+  // 4) ordenar
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
   }, [filteredRecipes])
@@ -64,8 +102,12 @@ export default function App() {
             placeholder="Procurar por ingredientes..."
             className="w-full p-3 border border-stone/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-terracotta"
           />
+          <p className="text-xs text-stone mt-2">
+            A pesquisar por: <strong>{search || '— (tudo)'}</strong>
+          </p>
         </div>
 
+        {/* se não houver NADA MESMO */}
         {sortedRecipes.length === 0 ? (
           <p className="text-center text-stone">
             Nenhuma receita encontrada.
