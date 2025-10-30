@@ -10,44 +10,44 @@ export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
   return (
     <article
       onClick={() => onOpen?.(r)}
-      className="group cursor-pointer bg-white rounded-2xl shadow-sm border border-stone/20 overflow-hidden transition hover:shadow-md hover:-translate-y-0.5"
+      className="group cursor-pointer bg-white text-charcoal rounded-2xl shadow-md border border-stone/30 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-beige/40 relative z-10 min-h-[280px]"
     >
       {/* imagem */}
-      <div className="relative h-40 w-full bg-beige">
+      <div className="relative h-40 w-full bg-stone/10">
         {r.image ? (
           <img
             src={r.image}
             alt={r.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-stone/60 text-sm">
-            sem imagem
+          <div className="flex items-center justify-center h-full text-stone/60 text-sm italic">
+            (sem imagem)
           </div>
         )}
       </div>
 
       {/* conteúdo */}
       <div className="p-4">
-        <h2 className="text-lg font-serif text-olive mb-2 line-clamp-2">
+        <h2 className="text-lg font-serif text-olive mb-2 leading-snug line-clamp-2">
           {r.title}
         </h2>
 
         {r.time_minutes && (
-          <p className="text-xs text-stone/70 mb-1">
+          <p className="text-xs text-stone/80 mb-1">
             ⏱️ {r.time_minutes} minutos
           </p>
         )}
 
         {Array.isArray(r.ingredients) && r.ingredients.length > 0 && (
-          <p className="text-sm text-stone/80 line-clamp-2">
-            {r.ingredients.slice(0, 4).join(", ")}
-            {r.ingredients.length > 4 ? "..." : ""}
+          <p className="text-sm text-stone/90 line-clamp-2 mb-2">
+            {r.ingredients.slice(0, 5).join(", ")}
+            {r.ingredients.length > 5 ? "..." : ""}
           </p>
         )}
 
         {Array.isArray(r.tags) && r.tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1">
             {r.tags.map((tag, i) => (
               <span
                 key={i}
