@@ -11,7 +11,7 @@ export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
   return (
     <article
       onClick={() => onOpen?.(r)}
-      className="group cursor-pointer bg-white text-charcoal rounded-2xl shadow-md border border-stone/30 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-beige/40 relative z-10 min-h-[280px]"
+      className="group cursor-pointer bg-white text-charcoal rounded-2xl shadow-md border border-stone/30 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-beige/40 min-h-[280px]"
     >
       {/* imagem */}
       <div className="relative h-40 w-full bg-stone/10">
@@ -30,16 +30,19 @@ export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
 
       {/* conteúdo */}
       <div className="p-4">
+        {/* ✅ título — aparece só uma vez */}
         <h2 className="text-lg font-serif text-olive mb-2 leading-snug line-clamp-2">
           {r.title}
         </h2>
 
+        {/* tempo de confeção */}
         {r.time_minutes && (
           <p className="text-xs text-stone/80 mb-2">
             ⏱️ {r.time_minutes} minutos
           </p>
         )}
 
+        {/* ingredientes */}
         {Array.isArray(r.ingredients) && r.ingredients.length > 0 && (
           <p className="text-sm text-stone/90 line-clamp-2 mb-3">
             {r.ingredients.slice(0, 5).join(", ")}
@@ -47,6 +50,7 @@ export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
           </p>
         )}
 
+        {/* tags */}
         {Array.isArray(r.tags) && r.tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {r.tags.map((tag, i) => (
