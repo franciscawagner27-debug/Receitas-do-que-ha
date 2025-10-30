@@ -9,9 +9,9 @@ export default function Hero() {
         alt="Mesa rústica com ingredientes de cozinha"
         className="w-full h-full object-cover brightness-95 saturate-110"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-beige/50 to-transparent flex flex-col items-center justify-end pb-10 px-4">
+      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent flex flex-col items-center justify-end pb-10 px-4">
         <Logo />
-        <h1 className="text-4xl md:text-5xl font-serif text-olive drop-shadow-[0_3px_6px_rgba(255,255,255,0.7)] mb-3">
+        <h1 className="text-5xl md:text-6xl font-serif text-white mb-3 px-5 py-2 rounded-md bg-charcoal/60">
           Receitas do que há
         </h1>
         <p className="text-lg md:text-xl text-stone/90 max-w-xl text-center">
