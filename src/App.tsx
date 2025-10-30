@@ -6,14 +6,13 @@ import { supabase } from './lib/supabase'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import RecipeCard from './components/RecipeCard'
-// import AddRecipe from './components/AddRecipe' // 👈 Desativado temporariamente
+// import AddRecipe from './components/AddRecipe'
 
 export default function App() {
   const [search, setSearch] = useState('')
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 👉 LOG para vermos o que está a vir do Supabase
   useEffect(() => {
     console.log('Receitas carregadas:', recipes)
     if (recipes.length > 0) {
@@ -21,33 +20,36 @@ export default function App() {
     }
   }, [recipes])
 
-  // 👉 Buscar receitas ao montar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 👉 Filtro por ingrediente
+  // 🔎 Filtro de pesquisa aprimorado
   useEffect(() => {
     if (!search.trim()) {
-      // sem pesquisa → mostra todas
       setFilteredRecipes(recipes)
     } else {
-      const lower = search.toLowerCase()
+      const lower = search
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // remove acentos
 
       setFilteredRecipes(
         recipes.filter((r) => {
-          // ⚠️ aqui ainda estamos a assumir que o campo se chama "ingredients"
-          // já vamos ajustar quando soubermos o que vem no console
           const ingredients = Array.isArray(r.ingredients)
-            ? r.ingredients.join(' ')
-            : String(r.ingredients || '')
-          return ingredients.toLowerCase().includes(lower)
+            ? r.ingredients.join(' ').toLowerCase()
+            : String(r.ingredients || '').toLowerCase()
+
+          const normalizedIngredients = ingredients
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+
+          return normalizedIngredients.includes(lower)
         })
       )
     }
   }, [search, recipes])
 
-  // 👉 ordenar por título (opcional)
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) =>
       a.title.localeCompare(b.title)
