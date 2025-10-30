@@ -11,50 +11,48 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // log para debug
+  // 👉 Ver o que vem do Supabase
   useEffect(() => {
     console.log('Receitas carregadas:', recipes)
-    if (recipes.length > 0) console.log('Exemplo de receita:', recipes[0])
+    if (recipes.length > 0) {
+      console.log('Exemplo de receita:', recipes[0])
+    }
   }, [recipes])
 
-  // buscar receitas
+  // 👉 Buscar receitas ao montar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 🔎 filtro de pesquisa — agora com correspondência parcial
+  // 🔎 Filtro de pesquisa robusto e flexível
   useEffect(() => {
-    if (!search.trim()) {
+    const normalize = (text: string) =>
+      text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim()
+
+    const term = normalize(search)
+    if (!term) {
       setFilteredRecipes(recipes)
       return
     }
-
-    const queryWords = search
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .split(/\s+/)
 
     const matches = recipes.filter((r) => {
       const ingArray = Array.isArray(r.ingredients)
         ? r.ingredients
         : String(r.ingredients || '').split(',')
 
-      const ingText = ingArray
-        .join(' ')
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
+      const text = normalize(ingArray.join(' '))
+      const found = text.includes(term)
 
-      const found = queryWords.every((w) => {
-        const pattern = new RegExp(w, 'i')
-        return pattern.test(ingText)
-      })
-
+      // Debug log
+      console.log('→', r.title, '| procura:', term, '| encontrado?', found)
       return found
     })
 
-    // se não encontrou, mostrar todas para não deixar vazio
+    // Se não encontrou nada, mostra tudo (fallback)
     if (matches.length === 0) {
       console.warn('Nenhuma receita bateu com a pesquisa, a mostrar todas.')
       setFilteredRecipes(recipes)
@@ -63,6 +61,7 @@ export default function App() {
     }
   }, [search, recipes])
 
+  // 👉 Ordenar por título (opcional)
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
   }, [filteredRecipes])
@@ -86,7 +85,9 @@ export default function App() {
         </div>
 
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
+          <p className="text-center text-stone">
+            Nenhuma receita encontrada.
+          </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
@@ -104,4 +105,3 @@ export default function App() {
     </div>
   )
 }
-
