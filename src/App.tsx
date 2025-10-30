@@ -6,27 +6,31 @@ import { supabase } from './lib/supabase'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import RecipeCard from './components/RecipeCard'
-// import AddRecipe from './components/AddRecipe' // 👈 Mantido para futura utilização
+// import AddRecipe from './components/AddRecipe' // 👈 Desativado temporariamente
 
 export default function App() {
   const [search, setSearch] = useState('')
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
+  // Busca receitas ao carregar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
+  // Atualiza filtragem sempre que a pesquisa muda
   useEffect(() => {
-    if (!search.trim()) setFilteredRecipes(recipes)
-    else {
+    if (!search.trim()) {
+      setFilteredRecipes(recipes)
+    } else {
       const lower = search.toLowerCase()
       setFilteredRecipes(
-        recipes.filter((r) =>
-          r.ingredients.some((i) =>
-            String(i).toLowerCase().includes(lower)
-          )
-        )
+        recipes.filter((r) => {
+          const ingredients = Array.isArray(r.ingredients)
+            ? r.ingredients.join(' ')
+            : String(r.ingredients)
+          return ingredients.toLowerCase().includes(lower)
+        })
       )
     }
   }, [search, recipes])
@@ -65,7 +69,7 @@ export default function App() {
         )}
       </main>
 
-      {/* <AddRecipe />  👈 Temporariamente desativado */}
+      {/* <AddRecipe /> */}
 
       <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
         © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
