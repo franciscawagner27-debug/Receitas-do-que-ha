@@ -4,7 +4,7 @@ import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
 import Header from './components/Header'
 import Hero from './components/Hero'
-// import RecipeCard from './components/RecipeCard'
+import RecipeCard from './components/RecipeCard'
 // import AddRecipe from './components/AddRecipe'
 
 export default function App() {
@@ -12,23 +12,13 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // Buscar receitas ao montar
+  // 👉 Buscar receitas ao montar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // Ver o que vem do Supabase
+  // 👉 Filtro de pesquisa robusto e tolerante
   useEffect(() => {
-    console.log('📦 receitas do Supabase:', recipes)
-    if (recipes.length > 0) {
-      console.log('📦 primeira receita:', recipes[0])
-    }
-  }, [recipes])
-
-  // Filtro de pesquisa robusto
-  useEffect(() => {
-    console.log('🟡 pesquisa mudou para:', search)
-
     const normalize = (text: string) =>
       text
         .toLowerCase()
@@ -40,7 +30,6 @@ export default function App() {
     const term = normalize(search)
 
     if (!term) {
-      console.log('🔵 sem termo → mostrar todas')
       setFilteredRecipes(recipes)
       return
     }
@@ -56,20 +45,17 @@ export default function App() {
             : []
 
         const text = normalize(ingArray.join(' '))
-        const found = text.includes(term)
-
-        console.log('→', r.title, '| texto:', text, '| procura:', term, '| encontrou?', found)
-        return found
+        return text.includes(term)
       })
 
       setFilteredRecipes(matches)
     } catch (err) {
-      console.error('❌ erro no filtro:', err)
+      console.error('Erro no filtro de pesquisa:', err)
       setFilteredRecipes(recipes)
     }
   }, [search, recipes])
 
-  // Ordenar
+  // 👉 Ordenar por título
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
   }, [filteredRecipes])
@@ -93,41 +79,19 @@ export default function App() {
         </div>
 
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
+          <p className="text-center text-stone">
+            Nenhuma receita encontrada.
+          </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
-              <div
-                key={r.id}
-                className="p-5 bg-white rounded-2xl shadow-sm border border-stone/20"
-              >
-                <h2 className="text-lg font-serif text-olive mb-2">{r.title}</h2>
-
-                {r.image && (
-                  <img
-                    src={r.image}
-                    alt={r.title}
-                    className="w-full h-40 object-cover rounded-lg mb-3"
-                  />
-                )}
-
-                <p className="text-sm text-stone mb-2">
-                  Ingredientes:{' '}
-                  {Array.isArray(r.ingredients)
-                    ? r.ingredients.join(', ')
-                    : r.ingredients}
-                </p>
-
-                {r.time_minutes && (
-                  <p className="text-xs text-stone/80">
-                    ⏱️ {r.time_minutes} minutos
-                  </p>
-                )}
-              </div>
+              <RecipeCard key={r.id} r={r} onOpen={() => {}} />
             ))}
           </div>
         )}
       </main>
+
+      {/* <AddRecipe /> */}
 
       <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
         © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
