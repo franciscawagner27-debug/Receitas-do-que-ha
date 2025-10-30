@@ -13,6 +13,11 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
+  // 👉 Teste: ver no console o que o Supabase está a devolver
+  useEffect(() => {
+    console.log('Receitas carregadas:', recipes)
+  }, [recipes])
+
   // Busca receitas ao carregar
   useEffect(() => {
     fetchRecipes()
