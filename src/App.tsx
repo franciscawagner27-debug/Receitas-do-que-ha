@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -12,6 +13,7 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
+  // 👉 ver o que vem do Supabase
   useEffect(() => {
     console.log('Receitas carregadas:', recipes)
     if (recipes.length > 0) {
@@ -19,39 +21,62 @@ export default function App() {
     }
   }, [recipes])
 
+  // 👉 buscar receitas ao montar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 🔎 Filtro inteligente por ingredientes
+  // 👉 filtro de pesquisa
   useEffect(() => {
+    // se não há pesquisa → mostra tudo
     if (!search.trim()) {
       setFilteredRecipes(recipes)
-    } else {
-      const query = search
+      return
+    }
+
+    // normalizar o que o utilizador escreveu
+    const queryWords = search
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .split(/\s+/) // separa por espaços
+
+    const matches = recipes.filter((r) => {
+      // garantir que temos um array de ingredientes
+      const ingArray = Array.isArray(r.ingredients)
+        ? r.ingredients
+        : String(r.ingredients || '').split(',')
+
+      // juntar tudo num texto
+      const ingText = ingArray
+        .join(' ')
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .split(/\s+/)
 
-      const matches = recipes.filter((r) => {
-        const ingredients = Array.isArray(r.ingredients)
-          ? r.ingredients
-          : String(r.ingredients || '').split(',')
+      // DEBUG 👇
+      console.log('---')
+      console.log('Receita:', r.title)
+      console.log('Ingredientes normalizados:', ingText)
+      console.log('Palavras pesquisadas:', queryWords)
 
-        const normalized = ingredients
-          .join(' ')
-          .toLowerCase()
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
+      // todas as palavras da pesquisa têm de existir no texto
+      const found = queryWords.every((w) => ingText.includes(w))
+      console.log('Encontrou?', found)
 
-        return query.every((word) => normalized.includes(word))
-      })
+      return found
+    })
 
+    // 👉 se não encontrou nada, não vamos deixar o site vazio
+    if (matches.length === 0) {
+      console.warn('Nenhuma receita bateu com a pesquisa, a mostrar todas.')
+      setFilteredRecipes(recipes)
+    } else {
       setFilteredRecipes(matches)
     }
   }, [search, recipes])
 
+  // ordenar por título
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) =>
       a.title.localeCompare(b.title)
@@ -71,6 +96,10 @@ export default function App() {
             placeholder="Procurar por ingredientes..."
             className="w-full p-3 border border-stone/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-terracotta"
           />
+          {/* pequenino debug visual (podes apagar depois) */}
+          <p className="text-xs text-stone mt-2">
+            A pesquisar por: <strong>{search || '— (tudo)'}</strong>
+          </p>
         </div>
 
         {sortedRecipes.length === 0 ? (
