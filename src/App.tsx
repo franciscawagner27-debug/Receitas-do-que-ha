@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -13,61 +11,50 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 👉 ver o que vem do Supabase
+  // log para debug
   useEffect(() => {
     console.log('Receitas carregadas:', recipes)
-    if (recipes.length > 0) {
-      console.log('Exemplo de receita:', recipes[0])
-    }
+    if (recipes.length > 0) console.log('Exemplo de receita:', recipes[0])
   }, [recipes])
 
-  // 👉 buscar receitas ao montar
+  // buscar receitas
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 👉 filtro de pesquisa
+  // 🔎 filtro de pesquisa — agora com correspondência parcial
   useEffect(() => {
-    // se não há pesquisa → mostra tudo
     if (!search.trim()) {
       setFilteredRecipes(recipes)
       return
     }
 
-    // normalizar o que o utilizador escreveu
     const queryWords = search
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .split(/\s+/) // separa por espaços
+      .split(/\s+/)
 
     const matches = recipes.filter((r) => {
-      // garantir que temos um array de ingredientes
       const ingArray = Array.isArray(r.ingredients)
         ? r.ingredients
         : String(r.ingredients || '').split(',')
 
-      // juntar tudo num texto
       const ingText = ingArray
         .join(' ')
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
 
-      // DEBUG 👇
-      console.log('---')
-      console.log('Receita:', r.title)
-      console.log('Ingredientes normalizados:', ingText)
-      console.log('Palavras pesquisadas:', queryWords)
-
-      // todas as palavras da pesquisa têm de existir no texto
-      const found = queryWords.every((w) => ingText.includes(w))
-      console.log('Encontrou?', found)
+      const found = queryWords.every((w) => {
+        const pattern = new RegExp(w, 'i')
+        return pattern.test(ingText)
+      })
 
       return found
     })
 
-    // 👉 se não encontrou nada, não vamos deixar o site vazio
+    // se não encontrou, mostrar todas para não deixar vazio
     if (matches.length === 0) {
       console.warn('Nenhuma receita bateu com a pesquisa, a mostrar todas.')
       setFilteredRecipes(recipes)
@@ -76,11 +63,8 @@ export default function App() {
     }
   }, [search, recipes])
 
-  // ordenar por título
   const sortedRecipes = useMemo(() => {
-    return [...filteredRecipes].sort((a, b) =>
-      a.title.localeCompare(b.title)
-    )
+    return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
   }, [filteredRecipes])
 
   return (
@@ -96,16 +80,13 @@ export default function App() {
             placeholder="Procurar por ingredientes..."
             className="w-full p-3 border border-stone/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-terracotta"
           />
-          {/* pequenino debug visual (podes apagar depois) */}
           <p className="text-xs text-stone mt-2">
             A pesquisar por: <strong>{search || '— (tudo)'}</strong>
           </p>
         </div>
 
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">
-            Nenhuma receita encontrada.
-          </p>
+          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
@@ -123,3 +104,4 @@ export default function App() {
     </div>
   )
 }
+
