@@ -13,34 +13,41 @@ export default function App() {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 👉 Teste: ver no console o que o Supabase está a devolver
+  // 👉 LOG para vermos o que está a vir do Supabase
   useEffect(() => {
-    console.log('Receitas carregadas:', recipes) if (recipes.length > 0) {
-    console.log('Exemplo de receita:', recipes[0])
-  }  }, [recipes])
+    console.log('Receitas carregadas:', recipes)
+    if (recipes.length > 0) {
+      console.log('Exemplo de receita:', recipes[0])
+    }
+  }, [recipes])
 
-  // Busca receitas ao carregar
+  // 👉 Buscar receitas ao montar
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // Atualiza filtragem sempre que a pesquisa muda
+  // 👉 Filtro por ingrediente
   useEffect(() => {
     if (!search.trim()) {
+      // sem pesquisa → mostra todas
       setFilteredRecipes(recipes)
     } else {
       const lower = search.toLowerCase()
+
       setFilteredRecipes(
         recipes.filter((r) => {
+          // ⚠️ aqui ainda estamos a assumir que o campo se chama "ingredients"
+          // já vamos ajustar quando soubermos o que vem no console
           const ingredients = Array.isArray(r.ingredients)
             ? r.ingredients.join(' ')
-            : String(r.ingredients)
+            : String(r.ingredients || '')
           return ingredients.toLowerCase().includes(lower)
         })
       )
     }
   }, [search, recipes])
 
+  // 👉 ordenar por título (opcional)
   const sortedRecipes = useMemo(() => {
     return [...filteredRecipes].sort((a, b) =>
       a.title.localeCompare(b.title)
