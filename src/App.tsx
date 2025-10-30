@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
-import { supabase } from './lib/supabase'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import RecipeCard from './components/RecipeCard'
@@ -24,29 +23,32 @@ export default function App() {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // 🔎 Filtro de pesquisa aprimorado
+  // 🔎 Filtro inteligente por ingredientes
   useEffect(() => {
     if (!search.trim()) {
       setFilteredRecipes(recipes)
     } else {
-      const lower = search
+      const query = search
         .toLowerCase()
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '') // remove acentos
+        .replace(/[\u0300-\u036f]/g, '')
+        .split(/\s+/)
 
-      setFilteredRecipes(
-        recipes.filter((r) => {
-          const ingredients = Array.isArray(r.ingredients)
-            ? r.ingredients.join(' ').toLowerCase()
-            : String(r.ingredients || '').toLowerCase()
+      const matches = recipes.filter((r) => {
+        const ingredients = Array.isArray(r.ingredients)
+          ? r.ingredients
+          : String(r.ingredients || '').split(',')
 
-          const normalizedIngredients = ingredients
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
+        const normalized = ingredients
+          .join(' ')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
 
-          return normalizedIngredients.includes(lower)
-        })
-      )
+        return query.every((word) => normalized.includes(word))
+      })
+
+      setFilteredRecipes(matches)
     }
   }, [search, recipes])
 
