@@ -1,93 +1,65 @@
 
-import React, { useEffect, useMemo, useState } from 'react'
-import type { Recipe } from './types'
-import { useRecipes } from './hooks/useRecipes'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import RecipeCard from './components/RecipeCard'
-// import AddRecipe from './components/AddRecipe'
+import React from "react"
+import type { Recipe } from "../types"
 
-export default function App() {
-  const [search, setSearch] = useState('')
-  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
-  const { recipes, fetchRecipes } = useRecipes()
+interface RecipeCardProps {
+  r: Recipe
+  onOpen?: (recipe: Recipe) => void
+}
 
-  // Buscar receitas ao montar
-  useEffect(() => {
-    fetchRecipes()
-  }, [fetchRecipes])
-
-  // Filtro de pesquisa
-  useEffect(() => {
-    const normalize = (text: string) =>
-      text
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[.,;:!?]/g, '')
-        .trim()
-
-    const term = normalize(search)
-
-    if (!term) {
-      setFilteredRecipes(recipes)
-      return
-    }
-
-    const matches = recipes.filter((r) => {
-      if (!r || !('ingredients' in r)) return false
-
-      const ingArray = Array.isArray(r.ingredients)
-        ? r.ingredients
-        : typeof r.ingredients === 'string'
-          ? r.ingredients.split(',')
-          : []
-
-      const text = normalize(ingArray.join(' '))
-      return text.includes(term)
-    })
-
-    setFilteredRecipes(matches)
-  }, [search, recipes])
-
-  const sortedRecipes = useMemo(() => {
-    return [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title))
-  }, [filteredRecipes])
-
+export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
   return (
-    <div className="min-h-screen bg-beige text-charcoal font-sans">
-      <Header />
-      <Hero />
-
-      <main className="max-w-5xl mx-auto p-6">
-        <div className="mb-8">
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Procurar por ingredientes..."
-            className="w-full p-3 border border-stone/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-terracotta"
+    <article
+      onClick={() => onOpen?.(r)}
+      className="group cursor-pointer bg-white text-charcoal rounded-2xl shadow-md border border-stone/30 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-beige/40 relative z-10 min-h-[280px]"
+    >
+      {/* imagem */}
+      <div className="relative h-40 w-full bg-stone/10">
+        {r.image ? (
+          <img
+            src={r.image}
+            alt={r.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <p className="text-xs text-stone mt-2">
-            A pesquisar por: <strong>{search || '— (tudo)'}</strong>
-          </p>
-        </div>
-
-        {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">
-            Nenhuma receita encontrada.
-          </p>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {sortedRecipes.map((r) => (
-              <RecipeCard key={r.id} r={r} onOpen={() => {}} />
+          <div className="flex items-center justify-center h-full text-stone/60 text-sm italic">
+            (sem imagem)
+          </div>
+        )}
+      </div>
+
+      {/* conteúdo */}
+      <div className="p-4">
+        <h2 className="text-lg font-serif text-olive mb-2 leading-snug line-clamp-2">
+          {r.title}
+        </h2>
+
+        {r.time_minutes && (
+          <p className="text-xs text-stone/80 mb-2">
+            ⏱️ {r.time_minutes} minutos
+          </p>
+        )}
+
+        {Array.isArray(r.ingredients) && r.ingredients.length > 0 && (
+          <p className="text-sm text-stone/90 line-clamp-2 mb-3">
+            {r.ingredients.slice(0, 5).join(", ")}
+            {r.ingredients.length > 5 ? "..." : ""}
+          </p>
+        )}
+
+        {Array.isArray(r.tags) && r.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {r.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="text-xs px-2 py-0.5 rounded-full bg-olive/10 text-olive"
+              >
+                #{tag}
+              </span>
             ))}
           </div>
         )}
-      </main>
-
-      <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
-        © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
-      </footer>
-    </div>
+      </div>
+    </article>
   )
 }
