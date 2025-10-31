@@ -5,9 +5,16 @@ import type { Recipe } from "../types"
 interface RecipeCardProps {
   r: Recipe
   onOpen?: (recipe: Recipe) => void
+  isFavorite?: boolean
+  onToggleFavorite?: () => void
 }
 
-export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
+export default function RecipeCard({
+  r,
+  onOpen,
+  isFavorite,
+  onToggleFavorite,
+}: RecipeCardProps) {
   return (
     <article
       onClick={() => onOpen?.(r)}
@@ -26,11 +33,23 @@ export default function RecipeCard({ r, onOpen }: RecipeCardProps) {
             (sem imagem)
           </div>
         )}
+
+        {/* ❤️ botão de favorito */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation() // evita abrir o modal ao clicar no coração
+            onToggleFavorite?.()
+          }}
+          className="absolute top-2 right-2 text-xl drop-shadow-md hover:scale-110 transition-transform"
+          aria-label="Adicionar aos favoritos"
+        >
+          {isFavorite ? "❤️" : "🤍"}
+        </button>
       </div>
 
       {/* conteúdo */}
       <div className="p-4">
-        {/* ✅ título — aparece só uma vez */}
+        {/* título */}
         <h2 className="text-lg font-serif text-olive mb-2 leading-snug line-clamp-2">
           {r.title}
         </h2>
