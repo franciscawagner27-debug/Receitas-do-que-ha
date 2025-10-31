@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -12,27 +13,26 @@ export default function App() {
   const [favorites, setFavorites] = useState<string[]>([]) // ❤️ favoritos
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 🔄 buscar receitas do Supabase
+  // 🔄 Buscar receitas do Supabase
   useEffect(() => {
     fetchRecipes()
   }, [fetchRecipes])
 
-  // ❤️ carregar favoritos guardados
+  // ❤️ Carregar favoritos guardados
   useEffect(() => {
     const saved = localStorage.getItem('favorites')
     if (saved) setFavorites(JSON.parse(saved))
   }, [])
 
-  // 💾 guardar favoritos
+  // 💾 Guardar favoritos sempre que mudarem
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
   }, [favorites])
 
-  // 🔍 pesquisa
+  // 🔍 Pesquisa
   useEffect(() => {
     const normalize = (t: string) =>
       t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-
     const term = normalize(search)
     if (!term) setFilteredRecipes(recipes)
     else {
@@ -51,12 +51,18 @@ export default function App() {
     [filteredRecipes]
   )
 
-  // ❤️ alternar favorito
+  // ❤️ Alternar favorito
   const toggleFavorite = (id: string) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
     )
   }
+
+  // 💖 Receitas favoritas (com base nos ids)
+  const favoriteRecipes = useMemo(
+    () => recipes.filter((r) => favorites.includes(r.id)),
+    [favorites, recipes]
+  )
 
   return (
     <div className="min-h-screen bg-beige text-charcoal font-sans relative">
@@ -64,7 +70,27 @@ export default function App() {
       <Hero />
 
       <main className="max-w-5xl mx-auto p-6">
-        {/* campo de pesquisa */}
+        {/* ❤️ secção favoritos */}
+        {favoriteRecipes.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-serif text-olive mb-4">
+              ❤️ As minhas receitas favoritas
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {favoriteRecipes.map((r) => (
+                <RecipeCard
+                  key={r.id}
+                  r={r}
+                  onOpen={setSelected}
+                  isFavorite={favorites.includes(r.id)}
+                  onToggleFavorite={() => toggleFavorite(r.id)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* 🔍 campo de pesquisa */}
         <div className="mb-8">
           <input
             value={search}
@@ -74,7 +100,7 @@ export default function App() {
           />
         </div>
 
-        {/* lista de receitas */}
+        {/* 📖 lista de receitas normais */}
         {sortedRecipes.length === 0 ? (
           <p className="text-center text-stone">
             Nenhuma receita encontrada.
@@ -94,7 +120,7 @@ export default function App() {
         )}
       </main>
 
-      {/* modal da receita */}
+      {/* 🪶 Modal de receita */}
       {selected && (
         <div
           className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
@@ -154,6 +180,7 @@ export default function App() {
         </div>
       )}
 
+      {/* ⚓ rodapé */}
       <footer className="text-center text-sm text-stone py-6 mt-10 border-t border-stone/20">
         © {new Date().getFullYear()} ReceitasDoQueHá — feito com ❤️ em Portugal
       </footer>
