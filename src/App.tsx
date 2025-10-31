@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -9,35 +10,48 @@ export default function App() {
   const [search, setSearch] = useState('')
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const [selected, setSelected] = useState<Recipe | null>(null)
+  const [favorites, setFavorites] = useState<string[]>([]) // ✅ ids favoritos
   const { recipes, fetchRecipes } = useRecipes()
 
+  // 🔄 Carrega favoritos guardados
   useEffect(() => {
-    fetchRecipes()
-  }, [fetchRecipes])
+    const saved = localStorage.getItem('favorites')
+    if (saved) setFavorites(JSON.parse(saved))
+  }, [])
 
+  // 💾 Guarda favoritos sempre que mudarem
   useEffect(() => {
-    const normalize = (text: string) =>
-      text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+  }, [favorites])
 
+  // 🧠 Pesquisa
+  useEffect(() => {
+    const normalize = (t: string) =>
+      t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     const term = normalize(search)
-    if (!term) {
-      setFilteredRecipes(recipes)
-      return
+    if (!term) setFilteredRecipes(recipes)
+    else {
+      const matches = recipes.filter((r) => {
+        const ing = Array.isArray(r.ingredients)
+          ? r.ingredients.join(' ')
+          : r.ingredients
+        return ing && normalize(ing).includes(term)
+      })
+      setFilteredRecipes(matches)
     }
-
-    const matches = recipes.filter((r) => {
-      const ing = Array.isArray(r.ingredients)
-        ? r.ingredients.join(' ')
-        : r.ingredients
-      return ing && normalize(ing).includes(term)
-    })
-    setFilteredRecipes(matches)
   }, [search, recipes])
 
   const sortedRecipes = useMemo(
     () => [...filteredRecipes].sort((a, b) => a.title.localeCompare(b.title)),
     [filteredRecipes]
   )
+
+  // ❤️ Alternar favorito
+  const toggleFavorite = (id: string) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
+    )
+  }
 
   return (
     <div className="min-h-screen bg-beige text-charcoal font-sans relative">
@@ -52,9 +66,6 @@ export default function App() {
             placeholder="Procurar por ingredientes..."
             className="w-full p-3 border border-stone/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-terracotta"
           />
-          <p className="text-xs text-stone mt-2">
-            A pesquisar por: <strong>{search || '— (tudo)'}</strong>
-          </p>
         </div>
 
         {sortedRecipes.length === 0 ? (
@@ -62,13 +73,19 @@ export default function App() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
-              <RecipeCard key={r.id} r={r} onOpen={setSelected} />
+              <RecipeCard
+                key={r.id}
+                r={r}
+                onOpen={setSelected}
+                isFavorite={favorites.includes(r.id)}
+                onToggleFavorite={() => toggleFavorite(r.id)}
+              />
             ))}
           </div>
         )}
       </main>
 
-      {/* Modal de receita */}
+      {/* Modal */}
       {selected && (
         <div
           className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
@@ -84,9 +101,21 @@ export default function App() {
               className="w-full h-64 object-cover rounded-t-2xl"
             />
             <div className="p-6">
-              <h2 className="text-2xl font-serif text-olive mb-2">
-                {selected.title}
-              </h2>
+              <div className="flex items-start justify-between">
+                <h2 className="text-2xl font-serif text-olive mb-2">
+                  {selected.title}
+                </h2>
+                <button
+                  onClick={() => toggleFavorite(selected.id)}
+                  className={`text-2xl ${
+                    favorites.includes(selected.id)
+                      ? 'text-terracotta'
+                      : 'text-stone/50'
+                  }`}
+                >
+                  {favorites.includes(selected.id) ? '❤️' : '🤍'}
+                </button>
+              </div>
               <p className="text-stone/80 text-sm mb-4">
                 ⏱️ {selected.time_minutes} minutos
               </p>
@@ -106,19 +135,6 @@ export default function App() {
                   </li>
                 ))}
               </ol>
-
-              {selected.tags?.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {selected.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="text-xs px-2 py-0.5 rounded-full bg-olive/10 text-olive"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </div>
