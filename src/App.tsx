@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from 'react'
 import type { Recipe } from './types'
 import { useRecipes } from './hooks/useRecipes'
@@ -10,24 +9,30 @@ export default function App() {
   const [search, setSearch] = useState('')
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([])
   const [selected, setSelected] = useState<Recipe | null>(null)
-  const [favorites, setFavorites] = useState<string[]>([]) // ✅ ids favoritos
+  const [favorites, setFavorites] = useState<string[]>([]) // ❤️ favoritos
   const { recipes, fetchRecipes } = useRecipes()
 
-  // 🔄 Carrega favoritos guardados
+  // 🔄 buscar receitas do Supabase
+  useEffect(() => {
+    fetchRecipes()
+  }, [fetchRecipes])
+
+  // ❤️ carregar favoritos guardados
   useEffect(() => {
     const saved = localStorage.getItem('favorites')
     if (saved) setFavorites(JSON.parse(saved))
   }, [])
 
-  // 💾 Guarda favoritos sempre que mudarem
+  // 💾 guardar favoritos
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
   }, [favorites])
 
-  // 🧠 Pesquisa
+  // 🔍 pesquisa
   useEffect(() => {
     const normalize = (t: string) =>
       t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+
     const term = normalize(search)
     if (!term) setFilteredRecipes(recipes)
     else {
@@ -46,7 +51,7 @@ export default function App() {
     [filteredRecipes]
   )
 
-  // ❤️ Alternar favorito
+  // ❤️ alternar favorito
   const toggleFavorite = (id: string) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
@@ -59,6 +64,7 @@ export default function App() {
       <Hero />
 
       <main className="max-w-5xl mx-auto p-6">
+        {/* campo de pesquisa */}
         <div className="mb-8">
           <input
             value={search}
@@ -68,8 +74,11 @@ export default function App() {
           />
         </div>
 
+        {/* lista de receitas */}
         {sortedRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
+          <p className="text-center text-stone">
+            Nenhuma receita encontrada.
+          </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sortedRecipes.map((r) => (
@@ -85,7 +94,7 @@ export default function App() {
         )}
       </main>
 
-      {/* Modal */}
+      {/* modal da receita */}
       {selected && (
         <div
           className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
@@ -95,11 +104,13 @@ export default function App() {
             className="bg-white rounded-2xl shadow-xl max-w-2xl w-full overflow-y-auto max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={selected.image}
-              alt={selected.title}
-              className="w-full h-64 object-cover rounded-t-2xl"
-            />
+            {selected.image && (
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="w-full h-64 object-cover rounded-t-2xl"
+              />
+            )}
             <div className="p-6">
               <div className="flex items-start justify-between">
                 <h2 className="text-2xl font-serif text-olive mb-2">
@@ -116,11 +127,14 @@ export default function App() {
                   {favorites.includes(selected.id) ? '❤️' : '🤍'}
                 </button>
               </div>
+
               <p className="text-stone/80 text-sm mb-4">
                 ⏱️ {selected.time_minutes} minutos
               </p>
 
-              <h3 className="text-lg font-serif text-olive mb-2">Ingredientes</h3>
+              <h3 className="text-lg font-serif text-olive mb-2">
+                Ingredientes
+              </h3>
               <ul className="list-disc ml-5 mb-4 text-sm">
                 {selected.ingredients?.map((i, idx) => (
                   <li key={idx}>{i}</li>
