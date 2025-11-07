@@ -26,17 +26,35 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  // 🔹 Filtrar receitas por categoria e pesquisa (versão inteligente)
+  // 🔹 Mapa de equivalências: categorias → tags do Supabase
+  const categoryMap: Record<string, string[]> = {
+    entradas: ["entrada", "aperitivo", "petisco"],
+    sopas: ["sopa", "caldo"],
+    carne: ["carne", "frango", "porco", "bife", "vaca"],
+    peixe: ["peixe", "bacalhau", "atum", "marisco"],
+    massas: ["massa", "pasta", "esparguete", "macarrão"],
+    vegetariano: ["vegetariano", "vegan", "salada", "legumes"],
+    sobremesas: ["doce", "sobremesa", "bolo", "tarte", "pudim"],
+  };
+
+  // 🔹 Filtrar receitas por categoria (usando tags equivalentes) e pesquisa
   const filteredRecipes = recipes.filter((r) => {
-    const recipeCategory = r.category?.toString().trim().toLowerCase() || "";
     const selected = selectedCategory.trim().toLowerCase();
 
-    // Suporte a múltiplas categorias separadas por vírgulas
-    const categoryList = recipeCategory.split(",").map((c) => c.trim());
+    // 🔸 Obter lista de tags associadas à categoria selecionada
+    const validTags = categoryMap[selected] || [];
 
+    // 🔸 matchesCategory: compara tags da receita com as do mapa
     const matchesCategory =
-      selected === "todas" || categoryList.includes(selected);
+      selected === "todas" ||
+      (r.tags &&
+        r.tags.some((tag) =>
+          validTags.some((catTag) =>
+            tag.toLowerCase().includes(catTag.toLowerCase())
+          )
+        ));
 
+    // 🔸 matchesSearch: pesquisa por ingrediente ou título
     const matchesSearch =
       searchTerm === "" ||
       r.ingredients.some((ing) =>
@@ -62,7 +80,7 @@ export default function App() {
       {/* Cabeçalho com categorias */}
       <Header onSelect={setSelectedCategory} />
 
-      {/* HERO restaurado com imagem e título original */}
+      {/* HERO com imagem e título */}
       <Hero />
 
       {/* BLOCO DE PESQUISA */}
