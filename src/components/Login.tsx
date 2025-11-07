@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("franciscawagner27@gmail.com");
+const [email, setEmail] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
