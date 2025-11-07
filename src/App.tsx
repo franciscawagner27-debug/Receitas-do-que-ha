@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
@@ -10,6 +11,7 @@ export default function App() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,10 +26,17 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  const filteredRecipes =
-    selectedCategory === "Todas"
-      ? recipes
-      : recipes.filter((r) => r.category === selectedCategory);
+  const filteredRecipes = recipes.filter((r) => {
+    const matchesCategory =
+      selectedCategory === "Todas" || r.category === selectedCategory;
+    const matchesSearch =
+      searchTerm === "" ||
+      r.ingredients.some((ing) =>
+        ing.toLowerCase().includes(searchTerm.toLowerCase())
+      ) ||
+      r.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   if (selectedRecipe) {
     return (
@@ -43,8 +52,31 @@ export default function App() {
       {/* Cabeçalho com categorias */}
       <Header onSelect={setSelectedCategory} />
 
-      {/* HERO restaurado com imagem e título original */}
+      {/* HERO com imagem de fundo */}
       <Hero />
+
+      {/* BLOCO DE PESQUISA */}
+      <section className="bg-beige text-center py-10 px-4">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
+          O que tem na sua cozinha?
+        </h2>
+        <p className="text-charcoal/80 mb-6">
+          Escreva um ou mais ingredientes para descobrir receitas
+        </p>
+
+        <div className="max-w-md mx-auto relative">
+          <input
+            type="text"
+            placeholder="Exemplo: frango, arroz, tomate..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-5 py-3 text-charcoal placeholder-stone shadow-sm focus:outline-none focus:ring-2 focus:ring-olive/40"
+          />
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-terracotta text-xl">
+            🔍
+          </span>
+        </div>
+      </section>
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
@@ -55,7 +87,7 @@ export default function App() {
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita nesta categoria.</p>
+          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredRecipes.map((r) => (
