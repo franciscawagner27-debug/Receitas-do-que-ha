@@ -91,15 +91,16 @@ export default function App() {
   };
 
   // 🔹 Mapa de equivalências: categorias → tags
-  const categoryMap: Record<string, string[]> = {
-    entradas: ["entrada", "aperitivo", "petisco"],
-    sopas: ["sopa", "caldo"],
-    carne: ["carne", "frango", "porco", "bife", "vaca"],
-    peixe: ["peixe", "bacalhau", "atum", "marisco"],
-    massas: ["massa", "pasta", "esparguete", "macarrão"],
-    vegetariano: ["vegetariano", "vegan", "salada", "legumes"],
-    sobremesas: ["doce", "sobremesa", "bolo", "tarte", "pudim", "mousse"],
-  };
+ const categoryMap: Record<string, string[]> = {
+  entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+  sopas: ["sopa", "sopas", "caldo", "caldos"],
+  carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+  peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+  massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+  vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+  sobremesas: ["doce", "doces", "sobremesa", "sobremesas", "bolo", "bolos", "tarte", "tartes", "pudim", "pudins", "mousse", "mousses"],
+};
+
 
   // 🔹 Filtrar receitas
   const filteredRecipes = recipes.filter((r) => {
