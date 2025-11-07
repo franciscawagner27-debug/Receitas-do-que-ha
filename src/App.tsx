@@ -1,66 +1,57 @@
-import React, { useEffect, useState } from "react"
-import { supabase } from "./lib/supabase"
-import { motion } from "framer-motion"
+import React, { useEffect, useState } from "react";
+import { supabase } from "./lib/supabase";
+import { motion } from "framer-motion";
+import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Header from "./components/Header"
-import RecipeDetail from "./components/RecipeDetail"
-import type { Recipe } from "./types"
+import RecipeDetail from "./components/RecipeDetail";
+import type { Recipe } from "./types";
 
 export default function App() {
-  const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState("Todas")
-  const [loading, setLoading] = useState(true)
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .order("id", { ascending: false })
-      if (!error && data) setRecipes(data)
-      setLoading(false)
+        .order("id", { ascending: false });
+      if (!error && data) setRecipes(data);
+      setLoading(false);
     }
-    fetchRecipes()
-  }, [])
+    fetchRecipes();
+  }, []);
 
   const filteredRecipes =
     selectedCategory === "Todas"
       ? recipes
-      : recipes.filter((r) => r.category === selectedCategory)
+      : recipes.filter((r) => r.category === selectedCategory);
 
   if (selectedRecipe) {
-    return <RecipeDetail recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} />
+    return (
+      <RecipeDetail
+        recipe={selectedRecipe}
+        onBack={() => setSelectedRecipe(null)}
+      />
+    );
   }
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans">
+      {/* Cabeçalho com categorias */}
       <Header onSelect={setSelectedCategory} />
 
-      {/* HERO com imagem original */}
-      <section
-        className="relative h-[60vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
-        style={{
-  backgroundImage: "url('https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg')"
-}}
-
-      >
-        <div className="absolute inset-0 bg-charcoal/40" />
-        <div className="relative z-10 px-4">
-          <h1 className="text-5xl md:text-6xl font-serif text-white mb-4 drop-shadow-lg">
-            Receitas do que há
-          </h1>
-          <p className="text-lg text-white/90">
-            Descubra o que pode cozinhar com o que tem em casa.
-          </p>
-        </div>
-      </section>
+      {/* HERO restaurado com imagem e título original */}
+      <Hero />
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         <h2 className="text-3xl font-serif text-olive mb-8 text-center">
           🍲 {selectedCategory === "Todas" ? "Todas as Receitas" : selectedCategory}
         </h2>
+
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
@@ -115,8 +106,9 @@ export default function App() {
       </main>
 
       <footer className="text-center py-8 text-sm text-stone">
-        Feito com ❤️ por <span className="text-terracotta font-semibold">Francisca</span>
+        Feito com ❤️ por{" "}
+        <span className="text-terracotta font-semibold">Francisca</span>
       </footer>
     </div>
-  )
+  );
 }
