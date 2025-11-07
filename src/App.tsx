@@ -126,13 +126,16 @@ export default function App() {
       >
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative z-10 px-4">
-          <h1 className="text-5xl md:text-6xl font-serif text-white mb-4 drop-shadow-lg leading-tight">
-            <span className="block">Receitas</span>
-            <span className="block">do que há</span>
-          </h1>
-          <p className="text-lg text-white/90">
-            Descubra o que pode cozinhar com o que tem em casa.
-          </p>
+         <h1 className="text-5xl md:text-6xl font-serif text-white mb-6 drop-shadow-lg leading-tight">
+  <span className="block tracking-wide">Receitas</span>
+  <span className="block mt-1 tracking-widest text-6xl md:text-7xl uppercase">
+    DO QUE HÁ
+  </span>
+</h1>
+<p className="text-lg text-white/90">
+  Descubra o que pode cozinhar com o que tem em casa.
+</p>
+
         </div>
       </section>
 
