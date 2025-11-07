@@ -28,7 +28,8 @@ export default function App() {
   }, []);
 
   // 🔹 Filtrar receitas por categoria e pesquisa
-  const filteredRecipes = recipes.filter((r) => {
+   console.log("Categoria selecionada:", selectedCategory);
+  console.log("Categorias nas receitas:", recipes.map(r => r.category));  const filteredRecipes = recipes.filter((r) => {
     const recipeCategory = r.category?.trim().toLowerCase();
     const selected = selectedCategory.trim().toLowerCase();
 
