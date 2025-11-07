@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
 import RecipeDetail from "./components/RecipeDetail";
 import Login from "./components/Login";
 import AdminPanel from "./components/AdminPanel";
@@ -30,7 +29,6 @@ export default function App() {
           let tags: string[] = [];
 
           if (Array.isArray(r.tags)) {
-            // Exemplo: ["doce", "sobremesa"]
             tags = r.tags
               .flatMap((t: any) =>
                 t
@@ -40,7 +38,6 @@ export default function App() {
               )
               .filter((t) => t.length > 0);
           } else if (typeof r.tags === "string") {
-            // Exemplo: #["doce" #"sobremesa"] ou "sobremesa, mousse, fácil"
             tags = r.tags
               .replace(/[#\[\]"]/g, " ")
               .split(/[\s,;]+/)
@@ -50,15 +47,6 @@ export default function App() {
 
           return { ...r, tags };
         });
-
-        // 🔍 LOG para ver as tags reais de cada receita
-        console.log(
-          "🔍 Receitas carregadas:",
-          cleaned.map((r: any) => ({
-            title: r.title,
-            tags: r.tags,
-          }))
-        );
 
         setRecipes(cleaned as Recipe[]);
       }
@@ -91,16 +79,15 @@ export default function App() {
   };
 
   // 🔹 Mapa de equivalências: categorias → tags
- const categoryMap: Record<string, string[]> = {
-  entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
-  sopas: ["sopa", "sopas", "caldo", "caldos"],
-  carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-  peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-  massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
-  vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
-  sobremesas: ["doce", "doces", "sobremesa", "sobremesas", "bolo", "bolos", "tarte", "tartes", "pudim", "pudins", "mousse", "mousses"],
-};
-
+  const categoryMap: Record<string, string[]> = {
+    entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+    sopas: ["sopa", "sopas", "caldo", "caldos"],
+    carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+    peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+    massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+    sobremesas: ["doce", "doces", "sobremesa", "sobremesas", "bolo", "bolos", "tarte", "tartes", "pudim", "pudins", "mousse", "mousses"],
+  };
 
   // 🔹 Filtrar receitas
   const filteredRecipes = recipes.filter((r) => {
@@ -129,7 +116,25 @@ export default function App() {
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
       <Header onSelect={setSelectedCategory} />
-      <Hero />
+
+      {/* HERO com altura ajustada */}
+      <section
+        className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-charcoal/40" />
+        <div className="relative z-10 px-4">
+          <h1 className="text-5xl md:text-6xl font-serif text-white mb-4 drop-shadow-lg leading-tight">
+            <span className="block">Receitas</span>
+            <span className="block">do que há</span>
+          </h1>
+          <p className="text-lg text-white/90">
+            Descubra o que pode cozinhar com o que tem em casa.
+          </p>
+        </div>
+      </section>
 
       {/* BLOCO DE PESQUISA */}
       <section className="bg-beige text-center py-10 px-4">
@@ -270,4 +275,4 @@ export default function App() {
       </footer>
     </div>
   );
-} 
+}
