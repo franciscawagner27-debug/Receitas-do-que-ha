@@ -200,10 +200,11 @@ export default function App() {
                     className="w-full h-48 object-cover"
                   />
                 )}
-                <div className="p-5">
-                  <h3 className="text-xl font-semibold text-terracotta mb-2">
-                    {r.title}
-                  </h3>
+               <div className="p-5">
+  <h3 className="text-xl font-semibold text-olive mb-2">
+    {r.title}
+  </h3>
+
                   {r.time_minutes && (
                     <p className="text-sm text-stone mb-2">
                       ⏱️ {r.time_minutes} min
