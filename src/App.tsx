@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import RecipeDetail from "./components/RecipeDetail";
+import Login from "./components/Login";
+import AdminPanel from "./components/AdminPanel";
 import type { Recipe } from "./types";
+import type { Session } from "@supabase/supabase-js";
 
 export default function App() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -13,8 +16,9 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState<Session | null>(null);
 
-  // 🔹 Buscar e normalizar receitas do Supabase
+  // 🔹 Buscar receitas + normalizar tags
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
@@ -23,27 +27,25 @@ export default function App() {
         .order("id", { ascending: false });
 
       if (!error && data) {
-        // 🔸 Converter tags mal formatadas (#["..."]) em arrays limpos
-        const cleaned = data.map((r) => {
+        const cleaned = data.map((r: any) => {
           let tags: string[] = [];
 
           if (Array.isArray(r.tags)) {
             tags = r.tags.map((t: string) =>
-              t.replace(/[#"]/g, "").trim().toLowerCase()
+              t.toString().replace(/[#"]/g, "").trim().toLowerCase()
             );
           } else if (typeof r.tags === "string") {
-            // tenta extrair palavras de uma string tipo #["tag" #"outra"]
             tags = r.tags
-              .replace(/[#\[\]"]/g, "")
-              .split(/\s+/)
-              .map((t) => t.trim().toLowerCase())
-              .filter((t) => t.length > 0);
+              .replace(/[#\[\]"]/g, " ")
+              .split(/[\s,]+/)
+              .map((t: string) => t.trim().toLowerCase())
+              .filter((t: string) => t.length > 0);
           }
 
           return { ...r, tags };
         });
 
-        setRecipes(cleaned);
+        setRecipes(cleaned as Recipe[]);
       }
       setLoading(false);
     }
@@ -51,7 +53,29 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  // 🔹 Mapa de equivalências: categorias → tags do Supabase
+  // 🔹 Gerir sessão Supabase (auth magic link)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+  };
+
+  // 🔹 Mapa de equivalências: categorias → tags
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "aperitivo", "petisco"],
     sopas: ["sopa", "caldo"],
@@ -62,19 +86,16 @@ export default function App() {
     sobremesas: ["doce", "sobremesa", "bolo", "tarte", "pudim", "mousse"],
   };
 
-  // 🔹 Filtrar receitas por categoria e pesquisa
+  // 🔹 Filtrar receitas
   const filteredRecipes = recipes.filter((r) => {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
 
-    // matchesCategory: comparação exata entre tags e mapa
     const matchesCategory =
       selected === "todas" ||
-      (r.tags &&
-        Array.isArray(r.tags) &&
+      (Array.isArray(r.tags) &&
         r.tags.some((tag) => validTags.includes(tag)));
 
-    // matchesSearch: só ativa quando há texto no campo
     const matchesSearch =
       searchTerm.trim() === ""
         ? true
@@ -86,7 +107,7 @@ export default function App() {
     return matchesCategory && matchesSearch;
   });
 
-  // 🔹 Mostrar detalhe da receita quando selecionada
+  // 🔹 Página de detalhe
   if (selectedRecipe) {
     return (
       <RecipeDetail
@@ -96,12 +117,12 @@ export default function App() {
     );
   }
 
+  const isFrancisca =
+    session?.user?.email === "franciscawagner27@gmail.com";
+
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans">
-      {/* Cabeçalho com categorias */}
       <Header onSelect={setSelectedCategory} />
-
-      {/* HERO com imagem e título */}
       <Hero />
 
       {/* BLOCO DE PESQUISA */}
@@ -132,7 +153,9 @@ export default function App() {
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
-          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
+          <p className="text-center text-stone">
+            Nenhuma receita encontrada.
+          </p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredRecipes.map((r) => (
@@ -163,9 +186,9 @@ export default function App() {
                   <p className="text-sm text-stone line-clamp-3 mb-3">
                     {r.ingredients.slice(0, 3).join(", ")}...
                   </p>
-                  {r.tags && (
+                  {r.tags && r.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1">
-                      {r.tags.map((tag, i) => (
+                      {r.tags.map((tag: string, i: number) => (
                         <span
                           key={i}
                           className="text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full"
@@ -181,6 +204,43 @@ export default function App() {
           </div>
         )}
       </main>
+
+      {/* ÁREA PRIVADA */}
+      <section className="bg-beige/90 border-t border-olive/20 py-10 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-sm font-serif text-olive mb-3">
+            Área privada (apenas Francisca)
+          </h3>
+
+          {!session && (
+            <Login />
+          )}
+
+          {session && !isFrancisca && (
+            <div className="bg-white/90 border border-red-200 rounded-2xl p-4 text-xs text-red-700">
+              Esta área é privada. A tua conta não tem acesso.
+              <div className="mt-2">
+                <button
+                  onClick={handleLogout}
+                  className="px-3 py-1 rounded-lg border border-red-400 hover:bg-red-400 hover:text-white transition"
+                >
+                  Sair
+                </button>
+              </div>
+            </div>
+          )}
+
+          {session && isFrancisca && (
+            <AdminPanel
+              email={session.user?.email || undefined}
+              onLogout={handleLogout}
+              onRecipeCreated={(recipe) =>
+                setRecipes((prev) => [recipe, ...prev])
+              }
+            />
+          )}
+        </div>
+      </section>
 
       <footer className="text-center py-8 text-sm text-stone">
         Feito com ❤️ por{" "}
