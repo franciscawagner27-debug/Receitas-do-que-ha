@@ -51,9 +51,10 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
         />
       )}
 
-      <h2 className="text-3xl font-serif text-terracotta mb-3">
-        {recipe.title}
-      </h2>
+    <h2 className="text-3xl font-semibold text-olive mb-4 font-serif text-center">
+  {recipe.title}
+</h2>
+
 
       {recipe.time_minutes && (
         <p className="text-stone mb-4">⏱️ {recipe.time_minutes} min</p>
