@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
@@ -13,16 +14,40 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Buscar receitas do Supabase
+  // 🔹 Buscar e normalizar receitas do Supabase
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
         .order("id", { ascending: false });
-      if (!error && data) setRecipes(data);
+
+      if (!error && data) {
+        // 🔸 Converter tags mal formatadas (#["..."]) em arrays limpos
+        const cleaned = data.map((r) => {
+          let tags: string[] = [];
+
+          if (Array.isArray(r.tags)) {
+            tags = r.tags.map((t: string) =>
+              t.replace(/[#"]/g, "").trim().toLowerCase()
+            );
+          } else if (typeof r.tags === "string") {
+            // tenta extrair palavras de uma string tipo #["tag" #"outra"]
+            tags = r.tags
+              .replace(/[#\[\]"]/g, "")
+              .split(/\s+/)
+              .map((t) => t.trim().toLowerCase())
+              .filter((t) => t.length > 0);
+          }
+
+          return { ...r, tags };
+        });
+
+        setRecipes(cleaned);
+      }
       setLoading(false);
     }
+
     fetchRecipes();
   }, []);
 
@@ -34,7 +59,7 @@ export default function App() {
     peixe: ["peixe", "bacalhau", "atum", "marisco"],
     massas: ["massa", "pasta", "esparguete", "macarrão"],
     vegetariano: ["vegetariano", "vegan", "salada", "legumes"],
-    sobremesas: ["doce", "sobremesa", "bolo", "tarte", "pudim"],
+    sobremesas: ["doce", "sobremesa", "bolo", "tarte", "pudim", "mousse"],
   };
 
   // 🔹 Filtrar receitas por categoria e pesquisa
@@ -42,15 +67,14 @@ export default function App() {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
 
-    // 🔸 matchesCategory: comparação exata entre tags e o mapa
+    // matchesCategory: comparação exata entre tags e mapa
     const matchesCategory =
       selected === "todas" ||
       (r.tags &&
-        r.tags.some((tag) =>
-          validTags.includes(tag.toLowerCase().trim())
-        ));
+        Array.isArray(r.tags) &&
+        r.tags.some((tag) => validTags.includes(tag)));
 
-    // 🔸 matchesSearch: só ativa quando há texto no campo
+    // matchesSearch: só ativa quando há texto no campo
     const matchesSearch =
       searchTerm.trim() === ""
         ? true
@@ -59,7 +83,6 @@ export default function App() {
           ) ||
           r.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-    // 🔹 Só mostra receitas que passem nos dois filtros
     return matchesCategory && matchesSearch;
   });
 
