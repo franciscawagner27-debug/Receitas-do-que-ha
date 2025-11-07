@@ -108,9 +108,7 @@ export default function App() {
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
-        <h2 className="text-3xl font-serif text-olive mb-8 text-center">
-          🍲 {selectedCategory === "Todas" ? "Todas as Receitas" : selectedCategory}
-        </h2>
+      
 
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
