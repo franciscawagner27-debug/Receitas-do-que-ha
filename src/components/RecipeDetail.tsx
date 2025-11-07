@@ -106,4 +106,4 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
   );
 };
 
-export default RecipeDetail;
+export default RecipeDetail; 
