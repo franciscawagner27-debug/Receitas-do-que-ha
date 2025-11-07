@@ -50,9 +50,10 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
           className="w-full h-64 object-cover rounded-xl mb-6"
         />
       )}
-<h2 className="text-xl font-semibold text-olive mb-4 text-center">
+<h2 className="text-2xl md:text-3xl font-semibold text-olive mb-6 text-center">
   {recipe.title}
 </h2>
+
 
 
 
