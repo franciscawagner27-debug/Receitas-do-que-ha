@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
@@ -27,13 +26,16 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  // 🔹 Filtrar receitas por categoria e pesquisa
-   console.log("Categoria selecionada:", selectedCategory);
-  console.log("Categorias nas receitas:", recipes.map(r => r.category));  const filteredRecipes = recipes.filter((r) => {
-    const recipeCategory = r.category?.trim().toLowerCase();
+  // 🔹 Filtrar receitas por categoria e pesquisa (versão inteligente)
+  const filteredRecipes = recipes.filter((r) => {
+    const recipeCategory = r.category?.toString().trim().toLowerCase() || "";
     const selected = selectedCategory.trim().toLowerCase();
 
-    const matchesCategory = selected === "todas" || recipeCategory === selected;
+    // Suporte a múltiplas categorias separadas por vírgulas
+    const categoryList = recipeCategory.split(",").map((c) => c.trim());
+
+    const matchesCategory =
+      selected === "todas" || categoryList.includes(selected);
 
     const matchesSearch =
       searchTerm === "" ||
@@ -45,7 +47,7 @@ export default function App() {
     return matchesCategory && matchesSearch;
   });
 
-  // 🔹 Se uma receita estiver selecionada, mostrar detalhe
+  // 🔹 Mostrar detalhe da receita quando selecionada
   if (selectedRecipe) {
     return (
       <RecipeDetail
