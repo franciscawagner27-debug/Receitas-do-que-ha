@@ -37,11 +37,9 @@ export default function App() {
     sobremesas: ["doce", "sobremesa", "bolo", "tarte", "pudim"],
   };
 
-  // 🔹 Filtrar receitas por categoria (usando tags equivalentes) e pesquisa
+  // 🔹 Filtrar receitas por categoria e pesquisa
   const filteredRecipes = recipes.filter((r) => {
     const selected = selectedCategory.trim().toLowerCase();
-
-    // 🔸 Obter lista de tags associadas à categoria selecionada
     const validTags = categoryMap[selected] || [];
 
     // 🔸 matchesCategory: compara tags da receita com as do mapa
@@ -54,14 +52,16 @@ export default function App() {
           )
         ));
 
-    // 🔸 matchesSearch: pesquisa por ingrediente ou título
+    // 🔸 matchesSearch: só ativa quando há texto no campo
     const matchesSearch =
-      searchTerm === "" ||
-      r.ingredients.some((ing) =>
-        ing.toLowerCase().includes(searchTerm.toLowerCase())
-      ) ||
-      r.title.toLowerCase().includes(searchTerm.toLowerCase());
+      searchTerm.trim() === ""
+        ? true
+        : r.ingredients.some((ing) =>
+            ing.toLowerCase().includes(searchTerm.toLowerCase())
+          ) ||
+          r.title.toLowerCase().includes(searchTerm.toLowerCase());
 
+    // 🔹 Só mostra receitas que passem nos dois filtros
     return matchesCategory && matchesSearch;
   });
 
@@ -108,8 +108,6 @@ export default function App() {
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
-      
-
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
