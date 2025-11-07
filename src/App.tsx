@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
@@ -26,35 +25,43 @@ export default function App() {
         .select("*")
         .order("id", { ascending: false });
 
-   if (!error && data) {
-  const cleaned = data.map((r: any) => {
-    let tags: string[] = [];
+      if (!error && data) {
+        const cleaned = data.map((r: any) => {
+          let tags: string[] = [];
 
-    if (Array.isArray(r.tags)) {
-      // Exemplo: ["doce", "sobremesa"]
-      tags = r.tags
-        .flatMap((t: any) =>
-          t
-            .toString()
-            .split(/[#\[\]",;]+/)
-            .map((s) => s.trim().toLowerCase())
-        )
-        .filter((t) => t.length > 0);
-    } else if (typeof r.tags === "string") {
-      // Exemplo: #["doce" #"sobremesa"] ou "sobremesa, mousse, fácil"
-      tags = r.tags
-        .replace(/[#\[\]"]/g, " ")
-        .split(/[\s,;]+/)
-        .map((t) => t.trim().toLowerCase())
-        .filter((t) => t.length > 0);
-    }
+          if (Array.isArray(r.tags)) {
+            // Exemplo: ["doce", "sobremesa"]
+            tags = r.tags
+              .flatMap((t: any) =>
+                t
+                  .toString()
+                  .split(/[#\[\]",;]+/)
+                  .map((s) => s.trim().toLowerCase())
+              )
+              .filter((t) => t.length > 0);
+          } else if (typeof r.tags === "string") {
+            // Exemplo: #["doce" #"sobremesa"] ou "sobremesa, mousse, fácil"
+            tags = r.tags
+              .replace(/[#\[\]"]/g, " ")
+              .split(/[\s,;]+/)
+              .map((t) => t.trim().toLowerCase())
+              .filter((t) => t.length > 0);
+          }
 
-    return { ...r, tags };
-  });
+          return { ...r, tags };
+        });
 
-  setRecipes(cleaned as Recipe[]);
-}
+        // 🔍 LOG para ver as tags reais de cada receita
+        console.log(
+          "🔍 Receitas carregadas:",
+          cleaned.map((r: any) => ({
+            title: r.title,
+            tags: r.tags,
+          }))
+        );
 
+        setRecipes(cleaned as Recipe[]);
+      }
       setLoading(false);
     }
 
@@ -83,7 +90,7 @@ export default function App() {
     setSession(null);
   };
 
-  // 🔹 Categorias → tags
+  // 🔹 Mapa de equivalências: categorias → tags
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "aperitivo", "petisco"],
     sopas: ["sopa", "caldo"],
