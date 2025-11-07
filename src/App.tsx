@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { supabase } from "./lib/supabase"
 import { motion } from "framer-motion"
+import Hero from "./components/Hero";
 import Header from "./components/Header"
 import RecipeDetail from "./components/RecipeDetail"
 import type { Recipe } from "./types"
