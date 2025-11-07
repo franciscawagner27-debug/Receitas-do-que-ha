@@ -1,24 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
     extend: {
       colors: {
-        beige: "#f5f0e6",
-        olive: "#708d81",
-        terracotta: "#d77a61",
-        charcoal: "#3a3a3a",
-        stone: "#a39f8b",
-      },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
+        beige: '#f5e9dd',
+        'beige-soft': '#f9f1e7',
+        olive: '#7A8C5D',
+        terracotta: '#C86C5D',
+        charcoal: '#3D3A37',
+        stone: '#8a817c',
       },
       boxShadow: {
-        soft: "0 2px 6px rgba(0,0,0,0.1)",
+        soft: '0 10px 30px rgba(0,0,0,0.12)',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Playfair Display"', 'serif'],
       },
     },
   },
