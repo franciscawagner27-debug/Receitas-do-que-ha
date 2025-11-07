@@ -42,14 +42,12 @@ export default function App() {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
 
-    // 🔸 matchesCategory: compara tags da receita com as do mapa
+    // 🔸 matchesCategory: comparação exata entre tags e o mapa
     const matchesCategory =
       selected === "todas" ||
       (r.tags &&
         r.tags.some((tag) =>
-          validTags.some((catTag) =>
-            tag.toLowerCase().includes(catTag.toLowerCase())
-          )
+          validTags.includes(tag.toLowerCase().trim())
         ));
 
     // 🔸 matchesSearch: só ativa quando há texto no campo
