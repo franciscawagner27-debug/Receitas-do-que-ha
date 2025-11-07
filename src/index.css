@@ -7,8 +7,11 @@ html, body, #root {
   height: 100%;
 }
 body {
-  @apply bg-beige text-charcoal font-sans;
+  background-color: #f5f0e6;
+  color: #3a3a3a;
+  font-family: "Inter", sans-serif;
 }
+
 
 /* Efeitos de hover nas receitas */
 .card-hover:hover {
