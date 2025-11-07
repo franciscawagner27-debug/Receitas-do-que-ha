@@ -50,12 +50,10 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
           className="w-full h-64 object-cover rounded-xl mb-6"
         />
       )}
-<h2
-  className="text-3xl md:text-4xl font-serif !font-serif text-olive mb-6 text-center leading-tight"
-  style={{ fontFamily: '"Playfair Display", serif' }}
->
+<h2 className="text-xl font-semibold text-olive mb-4 text-center">
   {recipe.title}
 </h2>
+
 
 
 
