@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface HeaderProps {
   onSelect: (category: string) => void;
@@ -16,6 +16,8 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
     "Sobremesas",
   ];
 
+  const [selected, setSelected] = useState("Todas");
+
   return (
     <header className="bg-beige border-b border-olive/20 py-4 px-4 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-3 sm:gap-5">
@@ -23,15 +25,15 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
           <button
             key={category}
             onClick={() => {
-              console.log("Categoria clicada:", category); // 👈 para ver na consola
+              setSelected(category);
               onSelect(category);
             }}
-            className="
-              text-charcoal hover:text-terracotta font-medium
-              transition-colors duration-200
-              px-3 py-1 rounded-lg
-              focus:outline-none
-            "
+            className={`px-3 py-1 rounded-full font-medium transition-all duration-200
+              ${
+                selected === category
+                  ? "bg-olive text-white shadow-sm"
+                  : "text-olive hover:text-terracotta"
+              }`}
           >
             {category}
           </button>
@@ -41,4 +43,4 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
   );
 };
 
-export default Header; 
+export default Header;
