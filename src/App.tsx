@@ -148,18 +148,30 @@ export default function App() {
           Escreva um ou mais ingredientes para descobrir receitas
         </p>
 
-        <div className="max-w-md mx-auto relative">
-          <input
-            type="text"
-            placeholder="Exemplo: frango, arroz, tomate..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-5 py-3 text-charcoal placeholder-stone shadow-sm focus:outline-none focus:ring-2 focus:ring-olive/40"
-          />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-terracotta text-xl">
-            🔍
-          </span>
-        </div>
+     <div className="max-w-md mx-auto relative">
+  <input
+    type="text"
+    placeholder="Exemplo: frango, arroz, tomate..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className="w-full rounded-xl border border-olive/30 px-5 py-3 text-charcoal placeholder-stone shadow-sm focus:outline-none focus:ring-2 focus:ring-olive/40"
+  />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="rgb(115, 129, 94)" // 💚 mesmo tom olive do site
+    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+    />
+  </svg>
+</div>
+
       </section>
 
       {/* LISTA DE RECEITAS */}
