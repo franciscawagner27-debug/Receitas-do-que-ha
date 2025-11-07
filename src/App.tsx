@@ -26,27 +26,35 @@ export default function App() {
         .select("*")
         .order("id", { ascending: false });
 
-      if (!error && data) {
-        const cleaned = data.map((r: any) => {
-          let tags: string[] = [];
+   if (!error && data) {
+  const cleaned = data.map((r: any) => {
+    let tags: string[] = [];
 
-          if (Array.isArray(r.tags)) {
-            tags = r.tags.map((t: string) =>
-              t.toString().replace(/[#"]/g, "").trim().toLowerCase()
-            );
-          } else if (typeof r.tags === "string") {
-            tags = r.tags
-              .replace(/[#\[\]"]/g, " ")
-              .split(/[\s,]+/)
-              .map((t: string) => t.trim().toLowerCase())
-              .filter((t: string) => t.length > 0);
-          }
+    if (Array.isArray(r.tags)) {
+      // Exemplo: ["doce", "sobremesa"]
+      tags = r.tags
+        .flatMap((t: any) =>
+          t
+            .toString()
+            .split(/[#\[\]",;]+/)
+            .map((s) => s.trim().toLowerCase())
+        )
+        .filter((t) => t.length > 0);
+    } else if (typeof r.tags === "string") {
+      // Exemplo: #["doce" #"sobremesa"] ou "sobremesa, mousse, fácil"
+      tags = r.tags
+        .replace(/[#\[\]"]/g, " ")
+        .split(/[\s,;]+/)
+        .map((t) => t.trim().toLowerCase())
+        .filter((t) => t.length > 0);
+    }
 
-          return { ...r, tags };
-        });
+    return { ...r, tags };
+  });
 
-        setRecipes(cleaned as Recipe[]);
-      }
+  setRecipes(cleaned as Recipe[]);
+}
+
       setLoading(false);
     }
 
