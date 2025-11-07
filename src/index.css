@@ -1,62 +1,50 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html,
-  body,
-  #root {
-    height: 100%;
-  }
-
-  body {
-    @apply bg-beige text-charcoal font-sans;
-  }
+/* Fundo e tipografia geral */
+html, body, #root {
+  height: 100%;
 }
 
-/* Cartões */
-.card {
-  @apply bg-white/90 rounded-2xl shadow-md border border-stone/20;
+body {
+  @apply bg-beige text-charcoal font-sans;
 }
 
-.card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
+/* Cartões e botões */
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Badge */
 .badge {
-  background-color: #f5e9dd;
-  color: #7a8c5d;
-  padding: 0.15rem 0.7rem;
+  background-color: #ede0d4;
+  color: #4a403a;
+  padding: 0.2rem 0.6rem;
   border-radius: 9999px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
-/* Botões */
 .btn {
-  padding: 0.5rem 1.1rem;
-  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-ghost {
   background-color: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #3d3a37;
+  border: 1px solid #d7ccc8;
+  color: #4a403a;
 }
 
 .btn-ghost:hover {
-  background-color: #7a8c5d;
-  color: #fff;
+  background-color: #d7ccc8;
+  color: white;
 }
 
-/* Animação Hero */
+/* Fade up suave, leve e elegante */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -68,6 +56,71 @@
   }
 }
 
+/* Utilitário para usar direto nas classes */
 .animate-fade-up {
   animation: fade-up 0.9s ease-out both;
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(61, 58, 55, 0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  color: white;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Cards de receita */
+.recipe-card {
+  @apply bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* Tags */
+.recipe-tag {
+  @apply text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full;
+}
+
+/* Footer */
+footer {
+  @apply text-center py-8 text-sm text-stone;
+}
+
+/* Responsividade extra */
+@media (min-width: 768px) {
+  .hero h1 {
+    font-size: 4rem;
+  }
 }
