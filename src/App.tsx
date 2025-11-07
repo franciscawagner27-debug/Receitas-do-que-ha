@@ -40,9 +40,9 @@ export default function App() {
       <section
         className="relative h-[60vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80')"
-        }}
+  backgroundImage: "url('https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg')"
+}}
+
       >
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative z-10 px-4">
