@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { supabase } from "./lib/supabase"
 import { motion } from "framer-motion"
+import Header from "./components/Header"
 import RecipeDetail from "./components/RecipeDetail"
 import type { Recipe } from "./types"
 
 export default function App() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState("Todas")
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -21,18 +23,25 @@ export default function App() {
     fetchRecipes()
   }, [])
 
+  const filteredRecipes =
+    selectedCategory === "Todas"
+      ? recipes
+      : recipes.filter((r) => r.category === selectedCategory)
+
   if (selectedRecipe) {
     return <RecipeDetail recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} />
   }
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans">
-      {/* HERO */}
+      <Header onSelect={setSelectedCategory} />
+
+      {/* HERO com imagem original */}
       <section
-        className="relative h-[70vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
+        className="relative h-[60vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1600&q=80')"
+            "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80')"
         }}
       >
         <div className="absolute inset-0 bg-charcoal/40" />
@@ -49,15 +58,15 @@ export default function App() {
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         <h2 className="text-3xl font-serif text-olive mb-8 text-center">
-          🍲 Últimas Receitas
+          🍲 {selectedCategory === "Todas" ? "Todas as Receitas" : selectedCategory}
         </h2>
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
-        ) : recipes.length === 0 ? (
-          <p className="text-center text-stone">Ainda não há receitas.</p>
+        ) : filteredRecipes.length === 0 ? (
+          <p className="text-center text-stone">Nenhuma receita nesta categoria.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recipes.map((r) => (
+            {filteredRecipes.map((r) => (
               <motion.div
                 key={r.id}
                 onClick={() => setSelectedRecipe(r)}
