@@ -14,6 +14,7 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // 🔹 Buscar receitas do Supabase
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
@@ -26,18 +27,24 @@ export default function App() {
     fetchRecipes();
   }, []);
 
+  // 🔹 Filtrar receitas por categoria e pesquisa
   const filteredRecipes = recipes.filter((r) => {
-    const matchesCategory =
-      selectedCategory === "Todas" || r.category === selectedCategory;
+    const recipeCategory = r.category?.trim().toLowerCase();
+    const selected = selectedCategory.trim().toLowerCase();
+
+    const matchesCategory = selected === "todas" || recipeCategory === selected;
+
     const matchesSearch =
       searchTerm === "" ||
       r.ingredients.some((ing) =>
         ing.toLowerCase().includes(searchTerm.toLowerCase())
       ) ||
       r.title.toLowerCase().includes(searchTerm.toLowerCase());
+
     return matchesCategory && matchesSearch;
   });
 
+  // 🔹 Se uma receita estiver selecionada, mostrar detalhe
   if (selectedRecipe) {
     return (
       <RecipeDetail
@@ -52,7 +59,7 @@ export default function App() {
       {/* Cabeçalho com categorias */}
       <Header onSelect={setSelectedCategory} />
 
-      {/* HERO com imagem de fundo */}
+      {/* HERO restaurado com imagem e título original */}
       <Hero />
 
       {/* BLOCO DE PESQUISA */}
