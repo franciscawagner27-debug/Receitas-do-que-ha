@@ -7,6 +7,27 @@ interface RecipeDetailProps {
 }
 
 const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
+  // 🔹 Normalizar ingredientes e passos (string → lista)
+  const ingredients =
+    Array.isArray(recipe.ingredients)
+      ? recipe.ingredients
+      : typeof recipe.ingredients === "string"
+      ? recipe.ingredients
+          .split(/[\n,;]+/)
+          .map((i) => i.trim())
+          .filter((i) => i.length > 0)
+      : [];
+
+  const steps =
+    Array.isArray(recipe.steps)
+      ? recipe.steps
+      : typeof recipe.steps === "string"
+      ? recipe.steps
+          .split(/[\n\d\.\-]+/)
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0)
+      : [];
+
   return (
     <div className="p-6 sm:p-8 text-charcoal">
       {recipe.image && (
@@ -25,20 +46,26 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
         <p className="text-stone mb-4">⏱️ {recipe.time_minutes} min</p>
       )}
 
+      {/* INGREDIENTES */}
       <h3 className="text-xl font-semibold text-olive mt-6 mb-2">
         Ingredientes
       </h3>
       <ul className="list-disc list-inside space-y-1 mb-6">
-        {recipe.ingredients?.map((ing, i) => (
-          <li key={i}>{ing}</li>
-        ))}
+        {ingredients.length > 0 ? (
+          ingredients.map((ing, i) => <li key={i}>{ing}</li>)
+        ) : (
+          <li>Sem ingredientes registados.</li>
+        )}
       </ul>
 
+      {/* PASSOS */}
       <h3 className="text-xl font-semibold text-olive mb-2">Passos</h3>
       <ol className="list-decimal list-inside space-y-2 mb-6">
-        {recipe.steps?.map((step, i) => (
-          <li key={i}>{step}</li>
-        ))}
+        {steps.length > 0 ? (
+          steps.map((step, i) => <li key={i}>{step}</li>)
+        ) : (
+          <li>Sem passos registados.</li>
+        )}
       </ol>
 
       {recipe.tags && recipe.tags.length > 0 && (
