@@ -8,44 +8,38 @@ interface RecipeDetailProps {
 }
 
 const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
-  // 🔹 Função para normalizar os ingredientes
-  const parseIngredients = (input: any): string[] => {
-    if (!input) return [];
+  // 🔹 Normalizar ingredientes
+  const ingredients = Array.isArray(recipe.ingredients)
+    ? recipe.ingredients
+        .flatMap((item) =>
+          item
+            .toString()
+            .split(/\n+/) // divide por quebras de linha dentro de cada item
+            .map((i) => i.trim())
+            .filter((i) => i.length > 0)
+        )
+    : typeof recipe.ingredients === "string"
+    ? recipe.ingredients
+        .split(/\n+/)
+        .map((i) => i.trim())
+        .filter((i) => i.length > 0)
+    : [];
 
-    // se for array, devolve tal e qual
-    if (Array.isArray(input)) return input.filter(Boolean);
-
-    // se for string, tenta dividir por vírgulas, linhas ou padrões de quantidade
-    let text = input.toString().trim();
-
-    // adiciona uma vírgula antes de números seguidos de g, ml, colheres, etc.
-    text = text.replace(
-      /(\d+\s?(g|ml|colher|colheres|chá|sopa|copo|kg|unid|unidade))/gi,
-      ", $1"
-    );
-
-    // divide por vírgulas, quebras de linha ou ponto e vírgula
-    const parts = text
-      .split(/[,;\n]+/)
-      .map((p) => p.trim())
-      .filter((p) => p.length > 0);
-
-    return parts;
-  };
-
-  const parseSteps = (input: any): string[] => {
-    if (!input) return [];
-    if (Array.isArray(input)) return input.filter(Boolean);
-
-    return input
-      .toString()
-      .split(/[\n\d\.\-]+/)
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
-  };
-
-  const ingredients = parseIngredients(recipe.ingredients);
-  const steps = parseSteps(recipe.steps);
+  // 🔹 Normalizar passos
+  const steps = Array.isArray(recipe.steps)
+    ? recipe.steps.flatMap((item) =>
+        item
+          .toString()
+          .split(/\n+/)
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0)
+      )
+    : typeof recipe.steps === "string"
+    ? recipe.steps
+        .split(/\n+/)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0)
+    : [];
 
   return (
     <div className="p-6 sm:p-8 text-charcoal">
