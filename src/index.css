@@ -2,52 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fundo e tipografia base */
-html, body, #root {
-  height: 100%;
-}
-body {
-  background-color: #f5f0e6;
-  color: #3a3a3a;
-  font-family: "Inter", sans-serif;
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-beige text-charcoal font-sans;
+  }
 }
 
+/* Cartões */
+.card {
+  @apply bg-white/90 rounded-2xl shadow-md border border-stone/20;
+}
 
-/* Efeitos de hover nas receitas */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* Etiquetas */
+/* Badge */
 .badge {
-  background-color: #ede0d4;
-  color: #4a403a;
-  padding: 0.2rem 0.6rem;
+  background-color: #f5e9dd;
+  color: #7a8c5d;
+  padding: 0.15rem 0.7rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 /* Botões */
 .btn {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 0.75rem;
   font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-ghost {
   background-color: transparent;
-  border: 1px solid #d7ccc8;
-  color: #4a403a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #3d3a37;
 }
 
 .btn-ghost:hover {
-  background-color: #d7ccc8;
-  color: white;
+  background-color: #7a8c5d;
+  color: #fff;
 }
 
-/* Fade up suave e elegante */
+/* Animação Hero */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -59,7 +68,6 @@ body {
   }
 }
 
-/* Utilitário para animação */
 .animate-fade-up {
   animation: fade-up 0.9s ease-out both;
 }
