@@ -18,7 +18,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
 
-  // 🔹 Buscar receitas + normalizar tags
+  // 🔹 Buscar receitas e normalizar tags
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
@@ -53,7 +53,7 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  // 🔹 Gerir sessão Supabase (auth magic link)
+  // 🔹 Sessão Supabase (magic link)
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session ?? null);
@@ -75,7 +75,7 @@ export default function App() {
     setSession(null);
   };
 
-  // 🔹 Mapa de equivalências: categorias → tags
+  // 🔹 Categorias → tags
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "aperitivo", "petisco"],
     sopas: ["sopa", "caldo"],
@@ -107,21 +107,11 @@ export default function App() {
     return matchesCategory && matchesSearch;
   });
 
-  // 🔹 Página de detalhe
-  if (selectedRecipe) {
-    return (
-      <RecipeDetail
-        recipe={selectedRecipe}
-        onBack={() => setSelectedRecipe(null)}
-      />
-    );
-  }
-
   const isFrancisca =
     session?.user?.email === "franciscawagner27@gmail.com";
 
   return (
-    <div className="bg-beige min-h-screen text-charcoal font-sans">
+    <div className="bg-beige min-h-screen text-charcoal font-sans relative">
       <Header onSelect={setSelectedCategory} />
       <Hero />
 
@@ -205,6 +195,24 @@ export default function App() {
         )}
       </main>
 
+      {/* MODAL DE RECEITA */}
+      {selectedRecipe && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button
+              onClick={() => setSelectedRecipe(null)}
+              className="absolute top-3 right-3 text-terracotta text-lg hover:scale-110 transition"
+            >
+              ✕
+            </button>
+            <RecipeDetail
+              recipe={selectedRecipe}
+              onBack={() => setSelectedRecipe(null)}
+            />
+          </div>
+        </div>
+      )}
+
       {/* ÁREA PRIVADA */}
       <section className="bg-beige/90 border-t border-olive/20 py-10 px-4">
         <div className="max-w-3xl mx-auto">
@@ -212,9 +220,7 @@ export default function App() {
             Área privada (apenas Francisca)
           </h3>
 
-          {!session && (
-            <Login />
-          )}
+          {!session && <Login />}
 
           {session && !isFrancisca && (
             <div className="bg-white/90 border border-red-200 rounded-2xl p-4 text-xs text-red-700">
