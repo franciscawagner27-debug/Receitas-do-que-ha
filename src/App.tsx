@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { supabase } from "./lib/supabase"
 import { motion } from "framer-motion"
-
-interface Recipe {
-  id: number
-  title: string
-  image?: string
-  ingredients: string[]
-  steps: string[]
-  time_minutes?: number
-  tags?: string[]
-}
+import RecipeDetail from "./components/RecipeDetail"
+import type { Recipe } from "./types"
 
 export default function App() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,14 +21,20 @@ export default function App() {
     fetchRecipes()
   }, [])
 
+  if (selectedRecipe) {
+    return <RecipeDetail recipe={selectedRecipe} onBack={() => setSelectedRecipe(null)} />
+  }
+
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans">
       {/* HERO */}
-      <section className="relative h-[70vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
+      <section
+        className="relative h-[70vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1600&q=80')"
-        }}>
+        }}
+      >
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative z-10 px-4">
           <h1 className="text-5xl md:text-6xl font-serif text-white mb-4 drop-shadow-lg">
@@ -49,7 +48,9 @@ export default function App() {
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
-        <h2 className="text-3xl font-serif text-olive mb-8 text-center">🍲 Últimas Receitas</h2>
+        <h2 className="text-3xl font-serif text-olive mb-8 text-center">
+          🍲 Últimas Receitas
+        </h2>
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : recipes.length === 0 ? (
@@ -59,10 +60,11 @@ export default function App() {
             {recipes.map((r) => (
               <motion.div
                 key={r.id}
+                onClick={() => setSelectedRecipe(r)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
                 {r.image && (
                   <img
@@ -72,9 +74,13 @@ export default function App() {
                   />
                 )}
                 <div className="p-5">
-                  <h3 className="text-xl font-semibold text-terracotta mb-2">{r.title}</h3>
+                  <h3 className="text-xl font-semibold text-terracotta mb-2">
+                    {r.title}
+                  </h3>
                   {r.time_minutes && (
-                    <p className="text-sm text-stone mb-2">⏱️ {r.time_minutes} min</p>
+                    <p className="text-sm text-stone mb-2">
+                      ⏱️ {r.time_minutes} min
+                    </p>
                   )}
                   <p className="text-sm text-stone line-clamp-3 mb-3">
                     {r.ingredients.slice(0, 3).join(", ")}...
