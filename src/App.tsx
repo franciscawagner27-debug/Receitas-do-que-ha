@@ -285,10 +285,10 @@ export default function App() {
         </div>
       </section>
 
-      <footer className="text-center py-8 text-sm text-stone">
-        Feito com ❤️ por{" "}
-        <span className="text-terracotta font-semibold">Francisca</span>
-      </footer>
+    <footer className="text-center py-8 text-sm text-stone">
+  Feito com <span className="text-terracotta">❤️</span> em Portugal
+</footer>
+
     </div>
   );
 }
