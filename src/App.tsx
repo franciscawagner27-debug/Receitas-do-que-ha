@@ -131,12 +131,21 @@ export default function App() {
       (Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag)));
 
     const matchesSearch =
-      searchTerm.trim() === ""
-        ? true
-        : r.ingredients.some((ing) =>
-            ing.toLowerCase().includes(searchTerm.toLowerCase())
-          ) ||
-          r.title.toLowerCase().includes(searchTerm.toLowerCase());
+  searchTerm.trim() === ""
+    ? true
+    : (() => {
+        const terms = searchTerm
+          .toLowerCase()
+          .split(/[\s,;]+/) // divide por espaço, vírgula ou ponto e vírgula
+          .filter((t) => t.length > 0);
+
+        // cada termo tem de aparecer em algum ingrediente OU no título
+        return terms.every((term) =>
+          r.ingredients.some((ing) => ing.toLowerCase().includes(term)) ||
+          r.title.toLowerCase().includes(term)
+        );
+      })();
+
 
     return matchesCategory && matchesSearch;
   });
