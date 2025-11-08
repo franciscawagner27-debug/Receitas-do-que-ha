@@ -78,15 +78,47 @@ export default function App() {
     setSession(null);
   };
 
+  // 🔹 Função de pesquisa (usada pela lupa e tecla Enter)
+  const handleSearch = () => {
+    setSearchTerm(searchTerm.trim());
+  };
+
   // 🔹 Mapa de equivalências: categorias → tags
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
     sopas: ["sopa", "sopas", "caldo", "caldos"],
     carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
     peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-    massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
-    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
-    sobremesas: ["doce", "doces", "sobremesa", "sobremesas", "bolo", "bolos", "tarte", "tartes", "pudim", "pudins", "mousse", "mousses"],
+    massas: [
+      "massa",
+      "massas",
+      "pasta",
+      "esparguete",
+      "macarrão",
+      "tagliatelle",
+    ],
+    vegetariano: [
+      "vegetariano",
+      "vegetariana",
+      "vegan",
+      "salada",
+      "legumes",
+      "legume",
+    ],
+    sobremesas: [
+      "doce",
+      "doces",
+      "sobremesa",
+      "sobremesas",
+      "bolo",
+      "bolos",
+      "tarte",
+      "tartes",
+      "pudim",
+      "pudins",
+      "mousse",
+      "mousses",
+    ],
   };
 
   // 🔹 Filtrar receitas
@@ -96,8 +128,7 @@ export default function App() {
 
     const matchesCategory =
       selected === "todas" ||
-      (Array.isArray(r.tags) &&
-        r.tags.some((tag) => validTags.includes(tag)));
+      (Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag)));
 
     const matchesSearch =
       searchTerm.trim() === ""
@@ -110,8 +141,7 @@ export default function App() {
     return matchesCategory && matchesSearch;
   });
 
-  const isFrancisca =
-    session?.user?.email === "franciscawagner27@gmail.com";
+  const isFrancisca = session?.user?.email === "franciscawagner27@gmail.com";
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
@@ -121,21 +151,21 @@ export default function App() {
       <section
         className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg')",
+          backgroundImage:
+            "url('https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative z-10 px-4">
-         <h1 className="text-5xl md:text-6xl font-serif text-white mb-6 drop-shadow-lg leading-tight">
-  <span className="block tracking-wide">Receitas</span>
-  <span className="block mt-1 tracking-widest text-6xl md:text-7xl uppercase">
-    DO QUE HÁ
-  </span>
-</h1>
-<p className="text-lg text-white/90">
-  Descubra o que pode cozinhar com o que tem em casa.
-</p>
-
+          <h1 className="text-5xl md:text-6xl font-serif text-white mb-6 drop-shadow-lg leading-tight">
+            <span className="block tracking-wide">Receitas</span>
+            <span className="block mt-1 tracking-widest text-6xl md:text-7xl uppercase">
+              DO QUE HÁ
+            </span>
+          </h1>
+          <p className="text-lg text-white/90">
+            Descubra o que pode cozinhar com o que tem em casa.
+          </p>
         </div>
       </section>
 
@@ -148,37 +178,41 @@ export default function App() {
           Escreva um ou mais ingredientes para descobrir receitas
         </p>
 
-     <div className="max-w-md mx-auto relative">
-<input
-  type="text"
-  placeholder="Procure por ingredientes..."
-  value={searchTerm}
-  onChange={(e) => setSearchTerm(e.target.value)}
-  onKeyDown={(e) => {
-    if (e.key === "Enter") {
-      e.preventDefault()
-      handleSearch() // 👈 esta função deve ser a mesma da lupa
-    }
-  }}
-  className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
-/>
+        <div className="max-w-md mx-auto relative">
+          <input
+            type="text"
+            placeholder="Procure por ingredientes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
+            className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
+          />
 
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="rgb(115, 129, 94)" // 💚 mesmo tom olive do site
-    className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-    />
-  </svg>
-</div>
-
+          <button
+            onClick={handleSearch}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+              />
+            </svg>
+          </button>
+        </div>
       </section>
 
       {/* LISTA DE RECEITAS */}
@@ -186,9 +220,7 @@ export default function App() {
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
-          <p className="text-center text-stone">
-            Nenhuma receita encontrada.
-          </p>
+          <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredRecipes.map((r) => (
@@ -207,10 +239,10 @@ export default function App() {
                     className="w-full h-48 object-cover"
                   />
                 )}
-               <div className="p-5">
-  <h3 className="text-xl font-semibold text-olive mb-2">
-    {r.title}
-  </h3>
+                <div className="p-5">
+                  <h3 className="text-xl font-semibold text-olive mb-2">
+                    {r.title}
+                  </h3>
 
                   {r.time_minutes && (
                     <p className="text-sm text-stone mb-2">
@@ -292,12 +324,16 @@ export default function App() {
         </div>
       </section>
 
-<footer className="text-center py-8 text-sm text-stone space-y-1">
-  <p>Feito com <span className="text-terracotta">❤️</span> em Portugal</p>
-  <p>© 2025 <span className="font-semibold text-olive">Receitas do Que Há</span> — Todos os direitos reservados</p>
-</footer>
-
-
+      {/* Rodapé */}
+      <footer className="text-center py-8 text-sm text-stone space-y-1">
+        <p>
+          Feito com <span className="text-terracotta">❤️</span> em Portugal
+        </p>
+        <p>
+          © 2025{" "}
+          <span className="font-semibold text-olive">Receitas do Que Há</span> — Todos os direitos reservados
+        </p>
+      </footer>
     </div>
   );
 }
