@@ -149,13 +149,20 @@ export default function App() {
         </p>
 
      <div className="max-w-md mx-auto relative">
-  <input
-    type="text"
-    placeholder="Exemplo: frango, arroz, tomate..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    className="w-full rounded-xl border border-olive/30 px-5 py-3 text-charcoal placeholder-stone shadow-sm focus:outline-none focus:ring-2 focus:ring-olive/40"
-  />
+<input
+  type="text"
+  placeholder="Procure por ingredientes..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      handleSearch() // 👈 esta função deve ser a mesma da lupa
+    }
+  }}
+  className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
+/>
+
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
