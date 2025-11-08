@@ -186,7 +186,14 @@ const matchesSearch =
    </section>
 
 {/* LINHA DIVISÓRIA SUAVE */}
-<div className="h-px bg-olive/30 w-3/4 mx-auto my-0"></div>
+<div
+  className="h-px w-3/4 mx-auto my-0"
+  style={{
+    background:
+      "linear-gradient(to right, transparent, rgba(115,129,94,0.5), transparent)",
+  }}
+></div>
+
 
 {/* BLOCO DE PESQUISA */}
 <section className="bg-beige text-center py-10 px-4">
