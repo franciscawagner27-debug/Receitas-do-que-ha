@@ -183,13 +183,14 @@ const matchesSearch =
             Descubra o que pode cozinhar com o que tem em casa.
           </p>
         </div>
-      </section>
+   </section>
 
-      {/* BLOCO DE PESQUISA */}
-      <section className="bg-beige text-center py-10 px-4">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
-          O que tem na sua cozinha?
-        </h2>
+{/* LINHA DIVISÓRIA SUAVE */}
+<div className="h-px bg-olive/30 w-3/4 mx-auto my-0"></div>
+
+{/* BLOCO DE PESQUISA */}
+<section className="bg-beige text-center py-10 px-4">
+
         <p className="text-charcoal/80 mb-6">
           Escreva um ou mais ingredientes para descobrir receitas
         </p>
