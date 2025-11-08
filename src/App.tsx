@@ -121,7 +121,7 @@ export default function App() {
     ],
   };
 
-  // 🔹 Filtrar receitas
+  // 🔹 Filtrar receitas (com suporte a múltiplas palavras e sem acentos)
   const filteredRecipes = recipes.filter((r) => {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
@@ -130,29 +130,26 @@ export default function App() {
       selected === "todas" ||
       (Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag)));
 
-const normalize = (str: string) =>
-  str
-    .toLowerCase()
-    .normalize("NFD") // separa acentos
-    .replace(/[\u0300-\u036f]/g, ""); // remove acentos
+    const normalize = (str: string) =>
+      str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
-const matchesSearch =
-  searchTerm.trim() === ""
-    ? true
-    : (() => {
-        const terms = normalize(searchTerm)
-          .split(/[\s,;]+/)
-          .filter((t) => t.length > 0);
+    const matchesSearch =
+      searchTerm.trim() === ""
+        ? true
+        : (() => {
+            const terms = normalize(searchTerm)
+              .split(/[\s,;]+/)
+              .filter((t) => t.length > 0);
 
-        return terms.every((term) =>
-          r.ingredients.some((ing) =>
-            normalize(ing).includes(term)
-          ) ||
-          normalize(r.title).includes(term)
-        );
-      })();
-
-
+            return terms.every(
+              (term) =>
+                r.ingredients.some((ing) => normalize(ing).includes(term)) ||
+                normalize(r.title).includes(term)
+            );
+          })();
 
     return matchesCategory && matchesSearch;
   });
@@ -183,19 +180,16 @@ const matchesSearch =
             Descubra o que pode cozinhar com o que tem em casa.
           </p>
         </div>
-   </section>
+      </section>
 
-{/* LINHA DIVISÓRIA SUAVE */}
-<div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
+      {/* LINHA DIVISÓRIA SUAVE */}
+      <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
- 
-  }}
-></div>
-
-
-{/* BLOCO DE PESQUISA */}
-<section className="bg-beige text-center py-10 px-4">
-
+      {/* BLOCO DE PESQUISA */}
+      <section className="bg-beige text-center py-10 px-4">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
+          O que tem na sua cozinha?
+        </h2>
         <p className="text-charcoal/80 mb-6">
           Escreva um ou mais ingredientes para descobrir receitas
         </p>
@@ -353,7 +347,8 @@ const matchesSearch =
         </p>
         <p>
           © 2025{" "}
-          <span className="font-semibold text-olive">Receitas do Que Há</span> — Todos os direitos reservados
+          <span className="font-semibold text-olive">Receitas do Que Há</span>{" "}
+          — Todos os direitos reservados
         </p>
       </footer>
     </div>
