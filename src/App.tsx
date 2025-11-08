@@ -130,21 +130,28 @@ export default function App() {
       selected === "todas" ||
       (Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag)));
 
-    const matchesSearch =
+const normalize = (str: string) =>
+  str
+    .toLowerCase()
+    .normalize("NFD") // separa acentos
+    .replace(/[\u0300-\u036f]/g, ""); // remove acentos
+
+const matchesSearch =
   searchTerm.trim() === ""
     ? true
     : (() => {
-        const terms = searchTerm
-          .toLowerCase()
-          .split(/[\s,;]+/) // divide por espaço, vírgula ou ponto e vírgula
+        const terms = normalize(searchTerm)
+          .split(/[\s,;]+/)
           .filter((t) => t.length > 0);
 
-        // cada termo tem de aparecer em algum ingrediente OU no título
         return terms.every((term) =>
-          r.ingredients.some((ing) => ing.toLowerCase().includes(term)) ||
-          r.title.toLowerCase().includes(term)
+          r.ingredients.some((ing) =>
+            normalize(ing).includes(term)
+          ) ||
+          normalize(r.title).includes(term)
         );
       })();
+
 
 
     return matchesCategory && matchesSearch;
