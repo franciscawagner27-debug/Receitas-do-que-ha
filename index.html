@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 🔹 Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -10,7 +12,7 @@
       rel="stylesheet"
     />
 
-    <title>Receitas do que há</title>
+    <title>Receitas do Que Há</title>
 
     <!-- 🔹 Ícone do site (favicon) -->
     <link rel="icon" href="/icons/icon-180.png" type="image/png" />
@@ -18,15 +20,31 @@
     <!-- 🔹 Manifesto da aplicação (necessário para PWA) -->
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- 🔹 Cores de tema (para mobile e browsers) -->
+    <!-- 🔹 Cores e propriedades para mobile -->
     <meta name="theme-color" content="#E9DFC7" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <link rel="apple-touch-icon" href="/icons/icon-180.png" /><!-- 🔹 Splash screen para iPhone -->
-<link rel="apple-touch-startup-image" href="/icons/icon-512.png" /><!-- Splash screen para iPhone -->
-<link rel="apple-touch-startup-image" href="/icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px)" />
-<link rel="apple-touch-startup-image" href="/icons/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px)" />
-<link rel="apple-touch-startup-image" href="/icons/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px)" />
+    <meta name="apple-mobile-web-app-title" content="Receitas do Que Há" />
+
+    <!-- 🔹 Ícone da app para iPhone -->
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+
+    <!-- 🔹 Splash screens (para vários tamanhos de iPhone) -->
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash.png"
+      media="(device-width: 375px) and (device-height: 812px)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash.png"
+      media="(device-width: 390px) and (device-height: 844px)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash.png"
+      media="(device-width: 430px) and (device-height: 932px)"
+    />
   </head>
 
   <body class="bg-beige text-charcoal font-sans">
