@@ -1,11 +1,11 @@
-// Nome da cache (se mudares ficheiros estáticos no futuro, só muda esta versão)
-const CACHE_NAME = 'receitas-do-que-ha-v1';
+// Nome da cache
+const CACHE_NAME = 'receitas-do-que-ha-v3';
 
-// Ficheiros estáticos principais a cachear
+// Ficheiros estáticos principais
 const ASSETS = [
   '/',
-  '/index.html',
   '/manifest.json',
+  '/offline.html',
   '/icons/icon-180.png',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
@@ -16,14 +16,11 @@ const ASSETS = [
   '/splash-828x1792.png'
 ];
 
-// Instalação: guarda em cache os ficheiros base
+// Instalação: guarda ficheiros base
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS).catch(() => {
-        // Se algum falhar (ex: em dev), não rebenta tudo
-        return;
-      });
+      return cache.addAll(ASSETS);
     })
   );
 });
@@ -33,37 +30,40 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       )
     )
   );
 });
 
-// Fetch:
-// - ficheiros do próprio site: tenta cache primeiro, se não houver vai à rede
-// - chamadas para Supabase e outros domínios: rede primeiro (não meter em cache agressivo)
+// Fetch handler
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Só GET requests
   if (request.method !== 'GET') return;
 
-  // Evita interferir com APIs externas (Supabase)
-  if (url.hostname.includes('supabase.co')) return;
+  // Ignora APIs externas (Supabase, Google Fonts, etc.)
+  if (!url.origin.includes(self.location.origin)) return;
 
-  // Estratégia: cache first, depois rede
   event.respondWith(
-    caches.match(request).then((cachedResponse) => {
-      if (cachedResponse) return cachedResponse;
-      return fetch(request).catch(() => {
-        // Se falhar e for uma navegação (HTML), mostra index.html
-        if (request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
-      });
-    })
+    fetch(request)
+      .then((response) => {
+        // Atualiza cache com nova versão
+        const cloned = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, cloned));
+        return response;
+      })
+      .catch(() => {
+        // Se falhar (offline)
+        return caches.match(request).then((cached) => {
+          // Se tiver na cache, mostra
+          if (cached) return cached;
+          // Caso contrário, mostra offline.html
+          if (request.mode === 'navigate') {
+            return caches.match('/offline.html');
+          }
+        });
+      })
   );
 });
