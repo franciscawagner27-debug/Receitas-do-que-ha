@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://receitasdoqueha.pt/sitemap.xml
