@@ -341,16 +341,19 @@ export default function App() {
       </section>
 
       {/* Rodapé */}
-      <footer className="text-center py-8 text-sm text-stone space-y-1">
-        <p>
-          Feito com <span className="text-terracotta">❤️</span> em Portugal
-        </p>
-        <p>
-          © 2025{" "}
-          <span className="font-semibold text-olive">Receitas do Que Há</span>{" "}
-          — Todos os direitos reservados
-        </p>
-      </footer>
+     <footer className="text-center py-8 text-sm text-olive">
+  <p>Feito com ❤️ em Portugal</p>
+  <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
+  <p>
+    <a
+      href="mailto:contacto@receitasdoqueha.pt"
+      className="underline hover:text-terra transition"
+    >
+      contacto@receitasdoqueha.pt
+    </a>
+  </p>
+</footer>
+
     </div>
   );
 }
