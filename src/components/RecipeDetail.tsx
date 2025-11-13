@@ -5,9 +5,13 @@ import type { Recipe } from "../types";
 interface RecipeDetailProps {
   recipe: Recipe;
   onBack: () => void;
+  favorites: number[];
+  toggleFavorite: (id: number) => void;
 }
 
-const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack }) => {
+
+const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, toggleFavorite }) => {
+
   // 🔹 Normalizar ingredientes
   const ingredients = Array.isArray(recipe.ingredients)
     ? recipe.ingredients
