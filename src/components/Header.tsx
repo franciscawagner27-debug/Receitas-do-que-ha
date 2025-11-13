@@ -6,15 +6,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onSelect }) => {
   const categories = [
-    "Todas",
-    "Entradas",
-    "Sopas",
-    "Carne",
-    "Peixe",
-    "Massas",
-    "Vegetariano",
-    "Sobremesas",
-  ];
+  "Todas",
+  "Favoritas",   // ⭐ ADICIONAR
+  "Entradas",
+  "Sopas",
+  "Carne",
+  "Peixe",
+  "Massas",
+  "Vegetariano",
+  "Sobremesas",
+];
+
 
   const [selected, setSelected] = useState("Todas");
 
