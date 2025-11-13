@@ -15,6 +15,11 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
+    // 🔹 Quando muda de categoria, limpar a pesquisa
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setSearchTerm(""); // limpa a pesquisa automaticamente
+  };
 
   // 🔹 Buscar receitas e normalizar tags
   useEffect(() => {
