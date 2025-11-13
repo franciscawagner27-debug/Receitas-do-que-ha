@@ -1,42 +1,51 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
 import RecipeDetail from "./components/RecipeDetail";
-import Login from "./components/Login";
-import AdminPanel from "./components/AdminPanel";
 import type { Recipe } from "./types";
 import type { Session } from "@supabase/supabase-js";
+import AdminPage from "./pages/Admin";
 
 export default function App() {
+  return (
+    <Routes>
+      {/* 🌿 Página pública */}
+      <Route path="/" element={<HomePage />} />
+
+      {/* 🔐 Página privada /admin */}
+      <Route path="/admin" element={<AdminPage />} />
+    </Routes>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            COMPONENTE HOMEPAGE                              */
+/* -------------------------------------------------------------------------- */
+
+function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const [session, setSession] = useState<Session | null>(null);
 
-  // 🔹 Quando muda de categoria, limpar a pesquisa
+  // Limpa a pesquisa ao mudar categoria
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
-    setSearchTerm(""); // limpa a pesquisa automaticamente
+    setSearchTerm("");
   };
 
-  // 🔹 Função de pesquisa (Enter + Lupa → scroll + fechar teclado)
+  // Enter + lupa → scroll para lista
   const handleSearch = () => {
     setSearchTerm(searchTerm.trim());
-
-    // Fechar teclado em mobile
     (document.activeElement as HTMLElement)?.blur();
-
-    // Scroll suave até à lista de receitas
     const list = document.getElementById("recipe-list");
-    if (list) {
-      list.scrollIntoView({ behavior: "smooth" });
-    }
+    if (list) list.scrollIntoView({ behavior: "smooth" });
   };
 
-  // 🔹 Buscar receitas e normalizar tags
+  // Buscar receitas
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
@@ -76,67 +85,22 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  // 🔹 Sessão Supabase (magic link)
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session ?? null);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setSession(null);
-  };
-
-  // 🔹 Mapa de equivalências: categorias → tags
+  // Mapa de equivalências categorias → tags
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
     sopas: ["sopa", "sopas", "caldo", "caldos"],
     carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
     peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-    massas: [
-      "massa",
-      "massas",
-      "pasta",
-      "esparguete",
-      "macarrão",
-      "tagliatelle",
-    ],
-    vegetariano: [
-      "vegetariano",
-      "vegetariana",
-      "vegan",
-      "salada",
-      "legumes",
-      "legume",
-    ],
+    massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
     sobremesas: [
-      "doce",
-      "doces",
-      "sobremesa",
-      "sobremesas",
-      "bolo",
-      "bolos",
-      "tarte",
-      "tartes",
-      "pudim",
-      "pudins",
-      "mousse",
-      "mousses",
+      "doce", "doces", "sobremesa", "sobremesas",
+      "bolo", "bolos", "tarte", "tartes",
+      "pudim", "pudins", "mousse", "mousses"
     ],
   };
 
-  // 🔹 Filtrar receitas (com suporte a múltiplas palavras e sem acentos)
+  // Filtro principal
   const filteredRecipes = recipes.filter((r) => {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
@@ -169,8 +133,6 @@ export default function App() {
     return matchesCategory && matchesSearch;
   });
 
-  const isFrancisca = session?.user?.email === "franciscawagner27@gmail.com";
-
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
       <Header onSelect={handleCategorySelect} />
@@ -197,9 +159,10 @@ export default function App() {
         </div>
       </section>
 
+      {/* DIVISÓRIA */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
-      {/* BLOCO DE PESQUISA */}
+      {/* PESQUISA */}
       <section className="bg-beige text-center py-10 px-4">
         <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
           O que tem na sua cozinha?
@@ -245,9 +208,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* LISTA DE RECEITAS */}
-      <div id="recipe-list"></div>   {/* ANCORAGEM DO SCROLL */}
+      {/* ÂNCORA DO SCROLL */}
+      <div id="recipe-list"></div>
 
+      {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -303,7 +267,7 @@ export default function App() {
         )}
       </main>
 
-      {/* MODAL DE RECEITA */}
+      {/* MODAL */}
       {selectedRecipe && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
@@ -321,42 +285,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ÁREA PRIVADA */}
-      <section className="bg-beige/90 border-t border-olive/20 py-10 px-4">
-        <div className="max-w-3xl mx-auto">
-          <h3 className="text-sm font-serif text-olive mb-3">
-            Área privada (apenas Francisca)
-          </h3>
-
-          {!session && <Login />}
-
-          {session && !isFrancisca && (
-            <div className="bg-white/90 border border-red-200 rounded-2xl p-4 text-xs text-red-700">
-              Esta área é privada. A tua conta não tem acesso.
-              <div className="mt-2">
-                <button
-                  onClick={handleLogout}
-                  className="px-3 py-1 rounded-lg border border-red-400 hover:bg-red-400 hover:text-white transition"
-                >
-                  Sair
-                </button>
-              </div>
-            </div>
-          )}
-
-          {session && isFrancisca && (
-            <AdminPanel
-              email={session.user?.email || undefined}
-              onLogout={handleLogout}
-              onRecipeCreated={(recipe) =>
-                setRecipes((prev) => [recipe, ...prev])
-              }
-            />
-          )}
-        </div>
-      </section>
-
-      {/* Rodapé */}
+      {/* RODAPÉ */}
       <footer className="text-center py-8 text-sm text-olive">
         <p>Feito com ❤️ em Portugal</p>
         <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
