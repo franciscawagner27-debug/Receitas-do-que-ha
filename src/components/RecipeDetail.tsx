@@ -101,7 +101,15 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, 
           ))}
         </div>
       )}
-
+      {/* ❤️ Guardar ou remover dos favoritos */}
+      <button
+        onClick={() => toggleFavorite(recipe.id)}
+        className="mb-6 px-4 py-2 bg-olive text-white rounded-lg hover:bg-terracotta transition flex items-center gap-2"
+      >
+        {favorites.includes(recipe.id)
+          ? "❤️ Remover dos favoritos"
+          : "❤️ Guardar esta receita"}
+      </button>
       <div className="text-right">
         <button
           onClick={onBack}
