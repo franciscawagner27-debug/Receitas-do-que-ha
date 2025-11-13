@@ -253,11 +253,13 @@ if (selected === "favoritas") {
               >
                 <div className="relative">
   {r.image && (
-    <img
-      src={r.image}
-      alt={r.title}
-      className="w-full h-48 object-cover"
-    />
+   <img
+  src={r.image}
+  alt={r.title}
+  loading="lazy"     // ⭐ carrega só quando visível
+  className="w-full h-48 object-cover"
+/>
+
   )}
 
   {/* ❤️ Favorito */}
