@@ -314,10 +314,13 @@ if (selected === "favoritas") {
             >
               ✕
             </button>
-            <RecipeDetail
-              recipe={selectedRecipe}
-              onBack={() => setSelectedRecipe(null)}
-            />
+           <RecipeDetail
+  recipe={selectedRecipe}
+  onBack={() => setSelectedRecipe(null)}
+  favorites={favorites}
+  toggleFavorite={toggleFavorite}
+/>
+
           </div>
         </div>
       )}
