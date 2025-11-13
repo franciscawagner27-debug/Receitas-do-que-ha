@@ -30,6 +30,22 @@ function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+    // ⭐ Favoritos guardados no localStorage
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem("favorites");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const toggleFavorite = (id: number) => {
+    setFavorites((prev) => {
+      const updated = prev.includes(id)
+        ? prev.filter((f) => f !== id)
+        : [...prev, id];
+
+      localStorage.setItem("favorites", JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   // Limpa a pesquisa ao mudar categoria
   const handleCategorySelect = (category: string) => {
