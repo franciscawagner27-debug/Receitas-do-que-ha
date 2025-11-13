@@ -48,11 +48,13 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, 
   return (
     <div className="p-6 sm:p-8 text-charcoal">
       {recipe.image && (
-        <img
-          src={recipe.image}
-          alt={recipe.title}
-          className="w-full h-64 object-cover rounded-xl mb-6"
-        />
+       <img
+  src={recipe.image}
+  alt={recipe.title}
+  loading="lazy"
+  className="w-full h-64 object-cover rounded-xl mb-6"
+/>
+
       )}
 <h2 className="text-2xl md:text-3xl font-semibold text-olive mb-6 text-center">
   {recipe.title}
