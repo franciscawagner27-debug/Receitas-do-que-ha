@@ -1,17 +1,18 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { inject } from '@vercel/analytics';
 
-// Renderiza a app React
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
-// Regista o service worker (PWA)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
@@ -25,5 +26,4 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Ativa o Analytics da Vercel
 inject();
