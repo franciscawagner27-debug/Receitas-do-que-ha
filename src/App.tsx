@@ -121,9 +121,16 @@ function HomePage() {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
 
-    const matchesCategory =
-      selected === "todas" ||
-      (Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag)));
+  // ⭐ Filtro de categoria
+let matchesCategory = true;
+
+if (selected === "favoritas") {
+  matchesCategory = favorites.includes(r.id);
+} else if (selected !== "todas") {
+  matchesCategory =
+    Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag));
+}
+
 
     const normalize = (str: string) =>
       str
