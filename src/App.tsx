@@ -251,13 +251,27 @@ if (selected === "favoritas") {
                 transition={{ duration: 0.4 }}
                 className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
-                {r.image && (
-                  <img
-                    src={r.image}
-                    alt={r.title}
-                    className="w-full h-48 object-cover"
-                  />
-                )}
+                <div className="relative">
+  {r.image && (
+    <img
+      src={r.image}
+      alt={r.title}
+      className="w-full h-48 object-cover"
+    />
+  )}
+
+  {/* ❤️ Favorito */}
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      toggleFavorite(r.id);
+    }}
+    className="absolute top-2 right-2 text-2xl drop-shadow-md"
+  >
+    {favorites.includes(r.id) ? "❤️" : "🤍"}
+  </button>
+</div>
+
                 <div className="p-5">
                   <h3 className="text-xl font-semibold text-olive mb-2">
                     {r.title}
