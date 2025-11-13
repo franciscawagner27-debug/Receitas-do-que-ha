@@ -163,7 +163,8 @@ export default function App() {
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
-      <Header onSelect={setSelectedCategory} />
+     <Header onSelect={handleCategorySelect} />
+
 
       {/* HERO com altura ajustada */}
       <section
