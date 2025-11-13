@@ -15,10 +15,25 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
-    // 🔹 Quando muda de categoria, limpar a pesquisa
+
+  // 🔹 Quando muda de categoria, limpar a pesquisa
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setSearchTerm(""); // limpa a pesquisa automaticamente
+  };
+
+  // 🔹 Função de pesquisa (Enter + Lupa → scroll + fechar teclado)
+  const handleSearch = () => {
+    setSearchTerm(searchTerm.trim());
+
+    // Fechar teclado em mobile
+    (document.activeElement as HTMLElement)?.blur();
+
+    // Scroll suave até à lista de receitas
+    const list = document.getElementById("recipe-list");
+    if (list) {
+      list.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // 🔹 Buscar receitas e normalizar tags
@@ -81,11 +96,6 @@ export default function App() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setSession(null);
-  };
-
-  // 🔹 Função de pesquisa (usada pela lupa e tecla Enter)
-  const handleSearch = () => {
-    setSearchTerm(searchTerm.trim());
   };
 
   // 🔹 Mapa de equivalências: categorias → tags
@@ -163,10 +173,9 @@ export default function App() {
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
-     <Header onSelect={handleCategorySelect} />
+      <Header onSelect={handleCategorySelect} />
 
-
-      {/* HERO com altura ajustada */}
+      {/* HERO */}
       <section
         className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
         style={{
@@ -188,7 +197,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* LINHA DIVISÓRIA SUAVE */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
       {/* BLOCO DE PESQUISA */}
@@ -238,6 +246,8 @@ export default function App() {
       </section>
 
       {/* LISTA DE RECEITAS */}
+      <div id="recipe-list"></div>   {/* ANCORAGEM DO SCROLL */}
+
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -347,19 +357,18 @@ export default function App() {
       </section>
 
       {/* Rodapé */}
-     <footer className="text-center py-8 text-sm text-olive">
-  <p>Feito com ❤️ em Portugal</p>
-  <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
-  <p>
-    <a
-      href="mailto:contacto@receitasdoqueha.pt"
-      className="underline hover:text-terra transition"
-    >
-      contacto@receitasdoqueha.pt
-    </a>
-  </p>
-</footer>
-
+      <footer className="text-center py-8 text-sm text-olive">
+        <p>Feito com ❤️ em Portugal</p>
+        <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
+        <p>
+          <a
+            href="mailto:contacto@receitasdoqueha.pt"
+            className="underline hover:text-terra transition"
+          >
+            contacto@receitasdoqueha.pt
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }
