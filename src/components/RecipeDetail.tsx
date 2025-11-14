@@ -112,17 +112,16 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, 
           ? "❤️ Remover dos favoritos"
           : "❤️ Guardar esta receita"}
       </button>
-      {/* 📤 Partilhar no WhatsApp */}
-<button
-  onClick={() => {
-    const message = `${recipe.title} – Receitas DO QUE HÁ – https://receitasdoqueha.pt`;
-    const url = "https://wa.me/?text=" + encodeURIComponent(message);
-    window.open(url, "_blank");
-  }}
-  className="mb-6 w-full bg-green-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition flex items-center justify-center gap-2"
+     <a
+  href={`https://wa.me/?text=${encodeURIComponent(`${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`)}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-3 px-4 py-2 mb-6 border border-[#6B705C] text-[#6B705C] rounded-2xl hover:bg-[#6B705C10] transition"
 >
-  📤 Partilhar no WhatsApp
-</button>
+  <span className="text-xl">↪</span>
+  <span className="text-base font-medium">Partilhar</span>
+</a>
+
       <div className="text-right">
         <button
           onClick={onBack}
