@@ -433,7 +433,7 @@ function HomePage() {
             const scrollTop =
               window.scrollY || document.documentElement.scrollTop;
             window.scrollTo({
-              top: scrollTop + rect.top - 120,
+              top: scrollTop + rect.top - 200,
               behavior: "smooth",
             });
           }
