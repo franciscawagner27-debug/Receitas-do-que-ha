@@ -16,8 +16,7 @@ export default function App() {
     <Routes>
       {/* Página pública */}
       <Route path="/" element={<HomePage />} />
-
-      {/* Página privada */}
+      {/* Página privada /admin */}
       <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
@@ -52,7 +51,52 @@ function HomePage() {
     });
   };
 
-  /* ------------------------------ FETCH DATA ------------------------------ */
+  /* --------------------------- SEO JSON-LD -------------------------------- */
+
+  useEffect(() => {
+    if (!recipes || recipes.length === 0) return;
+
+    // Remove scripts antigos para não duplicar
+    document
+      .querySelectorAll("script[data-recipe-json]")
+      .forEach((el) => el.remove());
+
+    recipes.forEach((recipe) => {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-recipe-json", "true");
+
+      const jsonLD = {
+        "@context": "https://schema.org",
+        "@type": "Recipe",
+        name: recipe.title,
+        image: (recipe as any).image || "",
+        description: `Receita de ${recipe.title} do site Receitas do Que Há.`,
+        author: {
+          "@type": "Person",
+          name: "Francisca Menezes",
+        },
+        recipeIngredient: (recipe as any).ingredients || [],
+        recipeInstructions: Array.isArray((recipe as any).steps)
+          ? (recipe as any).steps.map((s: string) => ({
+              "@type": "HowToStep",
+              text: s,
+            }))
+          : [],
+        totalTime: (recipe as any).time_minutes
+          ? `PT${(recipe as any).time_minutes}M`
+          : undefined,
+        keywords: (recipe as any).tags
+          ? (recipe as any).tags.join(", ")
+          : "",
+      };
+
+      script.textContent = JSON.stringify(jsonLD);
+      document.head.appendChild(script);
+    });
+  }, [recipes]);
+
+  /* ----------------------------- FETCH RECEITAS ---------------------------- */
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -62,35 +106,151 @@ function HomePage() {
         .order("id", { ascending: false });
 
       if (!error && data) {
-        setRecipes(data as Recipe[]);
+        const cleaned = data.map((r: any) => {
+          // Limpar tags para categorias
+          let tags: string[] = [];
+
+          if (Array.isArray(r.tags)) {
+            tags = r.tags
+              .flatMap((t: any) =>
+                t
+                  .toString()
+                  .split(/[#\[\]",;]+/)
+                  .map((s) => s.trim().toLowerCase())
+              )
+              .filter((t) => t.length > 0);
+          } else if (typeof r.tags === "string") {
+            tags = r.tags
+              .replace(/[#\[\]"]/g, " ")
+              .split(/[\s,;]+/)
+              .map((t) => t.trim().toLowerCase())
+              .filter((t) => t.length > 0);
+          }
+
+          return { ...r, tags };
+        });
+
+        setRecipes(cleaned as Recipe[]);
       }
       setLoading(false);
     }
+
     fetchRecipes();
   }, []);
 
-  /* ----------------------------- CATEGORIAS ----------------------------- */
+  /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setSearchTerm("");
   };
 
-  /* ----------------------------- PESQUISA ----------------------------- */
-
-  const handleSearch = () => {
-    const finalTerm = searchTerm.trim();
+  // handleSearch que aceita termo opcional (usado pelas sugestões)
+  const handleSearch = (term?: string) => {
+    const finalTerm = (term ?? searchTerm).trim();
     setSearchTerm(finalTerm);
 
+    (document.activeElement as HTMLElement | null)?.blur();
     const list = document.getElementById("recipe-list");
-    if (list) list.scrollIntoView({ behavior: "smooth" });
+    if (list) {
+      const rect = list.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      window.scrollTo({
+        top: scrollTop + rect.top - 40,
+        behavior: "smooth",
+      });
+    }
   };
 
-  /* ----------------------------- FILTROS ----------------------------- */
+  /* ------------------------------ MAPA DE TAGS ----------------------------- */
 
-  const filteredRecipes = recipes.filter((r) => {
+  const categoryMap: Record<string, string[]> = {
+    entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+    sopas: ["sopa", "sopas", "caldo", "caldos"],
+    carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+    peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+    massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+    sobremesas: [
+      "doce",
+      "doces",
+      "sobremesa",
+      "sobremesas",
+      "bolo",
+      "bolos",
+      "tarte",
+      "tartes",
+      "pudim",
+      "pudins",
+      "mousse",
+      "mousses",
+    ],
+  };
+
+  /* ---------------------- SUGESTÕES RÁPIDAS AUTOMÁTICAS -------------------- */
+
+  const [topIngredients, setTopIngredients] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!recipes || recipes.length === 0) {
+      setTopIngredients([]);
+      return;
+    }
+
+    const counts: Record<string, number> = {};
+
+    recipes.forEach((r: any) => {
+      const raw = r.ingredients;
+      let ingList: string[] = [];
+
+      if (Array.isArray(raw)) {
+        ingList = raw
+          .flatMap((item) =>
+            item
+              .toString()
+              .split(/[,;\n]+/)
+              .map((s) => s.trim().toLowerCase())
+          )
+          .filter((s) => s.length > 0);
+      } else if (typeof raw === "string") {
+        ingList = raw
+          .split(/[,;\n]+/)
+          .map((s) => s.trim().toLowerCase())
+          .filter((s) => s.length > 0);
+      }
+
+      ingList.forEach((ing) => {
+        counts[ing] = (counts[ing] || 0) + 1;
+      });
+    });
+
+    const sorted = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name]) => name);
+
+    setTopIngredients(sorted.slice(0, 5));
+  }, [recipes]);
+
+  /* ------------------------------- FILTRO GERAL ---------------------------- */
+
+  const filteredRecipes = recipes.filter((r: any) => {
+    const selected = selectedCategory.trim().toLowerCase();
+    const validTags = categoryMap[selected] || [];
+
+    let matchesCategory = true;
+
+    if (selected === "favoritas") {
+      matchesCategory = favorites.includes(r.id);
+    } else if (selected !== "todas") {
+      matchesCategory =
+        Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag));
+    }
+
     const normalize = (str: string) =>
-      str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
     const matchesSearch =
       searchTerm.trim() === ""
@@ -98,19 +258,22 @@ function HomePage() {
         : (() => {
             const terms = normalize(searchTerm)
               .split(/[\s,;]+/)
-              .filter((t) => t);
+              .filter((t) => t.length > 0);
 
             return terms.every(
               (term) =>
-                r.ingredients.some((ing) => normalize(ing).includes(term)) ||
+                Array.isArray(r.ingredients) &&
+                r.ingredients.some((ing: string) =>
+                  normalize(ing).includes(term)
+                ) ||
                 normalize(r.title).includes(term)
             );
           })();
 
-    return matchesSearch;
+    return matchesCategory && matchesSearch;
   });
 
-  /* ----------------------------- UI -------------------------------- */
+  /* ------------------------------- UI / RENDER ----------------------------- */
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
@@ -138,52 +301,87 @@ function HomePage() {
         </div>
       </section>
 
-      {/* PESQUISA */}
-      <section className="bg-beige text-center py-10 px-4">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
-          O que tem na sua cozinha?
-        </h2>
+      {/* LINHA */}
+      <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
-        <p className="text-charcoal/80 mb-6">
-          Escreva um ou mais ingredientes para descobrir receitas
-        </p>
+      {/* PESQUISA — VERSÃO MODERNA NATURAL / ORGÂNICA */}
+      <section className="bg-beige py-14 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-4xl font-serif font-bold text-olive mb-3">
+            O que tem na sua cozinha?
+          </h2>
 
-        <div className="max-w-md mx-auto relative">
-          <input
-            id="search-box"
-            type="text"
-            placeholder="Procure por ingredientes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
-          />
+          <p className="text-charcoal/80 text-lg mb-10">
+            Escreva um ou mais ingredientes e descubra receitas perfeitas para si.
+          </p>
 
-          <button
-            onClick={handleSearch}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5"
+          {/* Caixa de pesquisa */}
+          <div className="relative mb-6">
+            <input
+              id="search-box"
+              type="text"
+              placeholder="Ex: frango, massa, tomate..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSearch();
+                }
+              }}
+              className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
+                         focus:ring-2 focus:ring-olive/40 focus:border-olive
+                         transition-all duration-200 text-lg"
+            />
+
+            {/* Lupa na caixa */}
+            <button
+              onClick={() => handleSearch()}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* SUGESTÕES RÁPIDAS AUTOMÁTICAS */}
+          {topIngredients.length > 0 && (
+            <>
+              <p className="text-charcoal/70 mb-3 font-medium">
+                Sugestões rápidas:
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
+                {topIngredients.map((ing) => (
+                  <button
+                    key={ing}
+                    onClick={() => handleSearch(ing)}
+                    className="px-3 py-1 bg-beige text-olive border border-olive/30 rounded-full text-sm hover:bg-olive/10 transition"
+                  >
+                    {ing}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
+      {/* ÂNCORA */}
       <div id="recipe-list"></div>
 
-      {/* LISTA */}
+      {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -191,7 +389,7 @@ function HomePage() {
           <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredRecipes.map((r) => (
+            {filteredRecipes.map((r: any) => (
               <motion.div
                 key={r.id}
                 onClick={() => setSelectedRecipe(r)}
@@ -210,6 +408,7 @@ function HomePage() {
                     />
                   )}
 
+                  {/* ❤️ FAVORITO */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -233,8 +432,24 @@ function HomePage() {
                   )}
 
                   <p className="text-sm text-stone line-clamp-3 mb-3">
-                    {r.ingredients.slice(0, 3).join(", ")}...
+                    {Array.isArray(r.ingredients)
+                      ? r.ingredients.slice(0, 3).join(", ")
+                      : ""}
+                    ...
                   </p>
+
+                  {r.tags && r.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {r.tags.map((tag: string, i: number) => (
+                        <span
+                          key={i}
+                          className="text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -242,29 +457,37 @@ function HomePage() {
         )}
       </main>
 
-     {/* LUPA NO TELEMÓVEL */}
-<button
-  onClick={() => {
-    const el = document.getElementById("search-box");
-    if (el) {
-      const y =
-  el.getBoundingClientRect().top + window.scrollY - 150;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  }}
-  className="
-    md:hidden
-    fixed bottom-6 right-6
-    bg-white
-    text-olive
-    border border-olive
-    p-4 rounded-full shadow-lg
-    hover:bg-olive hover:text-white
-    transition
-  "
->
-  🔍
-</button>
+      {/* LUPA FLUTUANTE NO TELEMÓVEL */}
+      <button
+        onClick={() => {
+          const el = document.getElementById("search-box");
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            const scrollTop =
+              window.scrollY || document.documentElement.scrollTop;
+            window.scrollTo({
+              top: scrollTop + rect.top - 120, // se ficar baixo/demasiado alto, podes ajustar este valor
+              behavior: "smooth",
+            });
+          }
+        }}
+        className="md:hidden fixed bottom-6 right-6 bg-white text-olive border border-olive p-4 rounded-full shadow-lg hover:bg-olive hover:text-white transition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+          />
+        </svg>
+      </button>
 
       {/* MODAL */}
       {selectedRecipe && (
