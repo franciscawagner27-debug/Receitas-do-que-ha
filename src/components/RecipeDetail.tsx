@@ -88,6 +88,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         )}
       </ol>
 
+      {/* TAGS */}
       {recipe.tags && recipe.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
           {recipe.tags.map((tag, i) => (
@@ -101,40 +102,59 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         </div>
       )}
 
-      {/* BOTÕES: Guardar + Partilhar, pequenos e alinhados à esquerda */}
-      <div className="flex flex-col items-start gap-2 mb-6">
-        {/* ❤️ Guardar / Remover dos favoritos — ESTILO CLEAN */}
-        <button
-          onClick={() => toggleFavorite(recipe.id)}
-          className="px-4 py-2 border border-[#6B705C] text-[#6B705C]
-                     rounded-2xl hover:bg-[#6B705C10] transition inline-flex items-center gap-2"
-        >
-          {favorites.includes(recipe.id)
-            ? "❤️ Remover dos favoritos"
-            : "❤️ Guardar esta receita"}
-        </button>
+      {/* ❤️ Guardar / Remover — ESTILO CLEAN */}
+      <button
+        onClick={() => toggleFavorite(recipe.id)}
+        className="
+          w-full 
+          mb-4 
+          px-4 py-2 
+          border border-[#6B705C] 
+          text-[#6B705C]
+          rounded-2xl 
+          hover:bg-[#6B705C10] 
+          transition
+          flex items-center justify-center gap-2
+        "
+      >
+        {favorites.includes(recipe.id)
+          ? "❤️ Remover dos favoritos"
+          : "❤️ Guardar esta receita"}
+      </button>
 
-        {/* 📤 Botão Partilhar */}
-        <a
-          href={`https://wa.me/?text=${encodeURIComponent(
-            `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-4 py-2 border border-[#6B705C]
-                     text-[#6B705C] rounded-2xl hover:bg-[#6B705C10] transition"
-        >
-          <span className="text-xl">↪</span>
-          <span className="text-base font-medium">Partilhar</span>
-        </a>
-      </div>
+      {/* 📤 Partilhar — MATCH ESPECÍFICO AO QUE TINHAS */}
+      <a
+        href={`https://wa.me/?text=${encodeURIComponent(
+          `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          block w-full text-center
+          px-4 py-2 mb-6
+          border border-[#6B705C]
+          text-[#6B705C]
+          rounded-2xl
+          hover:bg-[#6B705C10]
+          transition
+        "
+      >
+        <span className="text-xl">↪</span> Partilhar
+      </a>
 
-      {/* Botão Fechar */}
+      {/* BOTÃO FECHAR */}
       <div className="text-right">
         <button
           onClick={onBack}
-          className="px-4 py-2 text-sm rounded-xl border border-terracotta text-terracotta 
-                     hover:bg-terracotta hover:text-white transition"
+          className="
+            px-4 py-2 
+            text-sm 
+            rounded-xl 
+            border border-terracotta 
+            text-terracotta 
+            hover:bg-terracotta hover:text-white 
+            transition
+          "
         >
           Fechar
         </button>
