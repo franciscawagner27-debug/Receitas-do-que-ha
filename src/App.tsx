@@ -51,7 +51,42 @@ function HomePage() {
       return updated;
     });
   };
+  // ⭐ SEO: adicionar JSON-LD para cada receita
+  useEffect(() => {
+    if (!recipes || recipes.length === 0) return;
 
+    // Remove scripts antigos para não duplicar
+    document.querySelectorAll("script[data-recipe-json]").forEach((el) => el.remove());
+
+    recipes.forEach((recipe) => {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-recipe-json", "true");
+
+      const jsonLD = {
+        "@context": "https://schema.org",
+        "@type": "Recipe",
+        "name": recipe.title,
+        "image": recipe.image || "",
+        "description": `Receita de ${recipe.title} do site Receitas do Que Há.`,
+        "author": {
+          "@type": "Person",
+          "name": "Francisca Menezes"
+        },
+        "recipeIngredient": recipe.ingredients || [],
+        "recipeInstructions": Array.isArray(recipe.steps)
+          ? recipe.steps.map((s) => ({ "@type": "HowToStep", text: s }))
+          : [],
+        "totalTime": recipe.time_minutes
+          ? `PT${recipe.time_minutes}M`
+          : undefined,
+        "keywords": recipe.tags ? recipe.tags.join(", ") : ""
+      };
+
+      script.textContent = JSON.stringify(jsonLD);
+      document.head.appendChild(script);
+    });
+  }, [recipes]);
   /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
 
   const handleCategorySelect = (category: string) => {
