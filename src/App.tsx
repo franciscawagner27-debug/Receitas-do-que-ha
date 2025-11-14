@@ -242,25 +242,29 @@ function HomePage() {
         )}
       </main>
 
-      {/* LUPA NO TELEMÓVEL */}
-      <button
-        onClick={() => {
-          const el = document.getElementById("search-box");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }}
-        className="
-          md:hidden
-          fixed bottom-6 right-6
-          bg-white
-          text-olive
-          border border-olive
-          p-4 rounded-full shadow-lg
-          hover:bg-olive hover:text-white
-          transition
-        "
-      >
-        🔍
-      </button>
+     {/* LUPA NO TELEMÓVEL */}
+<button
+  onClick={() => {
+    const el = document.getElementById("search-box");
+    if (el) {
+      const y =
+        el.getBoundingClientRect().top + window.scrollY - 80; // sobe mais 80px
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }}
+  className="
+    md:hidden
+    fixed bottom-6 right-6
+    bg-white
+    text-olive
+    border border-olive
+    p-4 rounded-full shadow-lg
+    hover:bg-olive hover:text-white
+    transition
+  "
+>
+  🔍
+</button>
 
       {/* MODAL */}
       {selectedRecipe && (
