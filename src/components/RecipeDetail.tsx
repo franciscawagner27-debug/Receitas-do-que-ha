@@ -14,7 +14,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
   favorites,
   toggleFavorite,
 }) => {
-  // 🔹 Normalizar ingredientes
+  // Normalizar ingredientes
   const ingredients = Array.isArray(recipe.ingredients)
     ? recipe.ingredients
         .flatMap((item) =>
@@ -31,7 +31,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         .filter((i) => i.length > 0)
     : [];
 
-  // 🔹 Normalizar passos
+  // Normalizar passos
   const steps = Array.isArray(recipe.steps)
     ? recipe.steps.flatMap((item) =>
         item
@@ -102,59 +102,38 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         </div>
       )}
 
-      {/* ❤️ Guardar / Remover — ESTILO CLEAN */}
-      <button
-        onClick={() => toggleFavorite(recipe.id)}
-        className="
-          w-full 
-          mb-4 
-          px-4 py-2 
-          border border-[#6B705C] 
-          text-[#6B705C]
-          rounded-2xl 
-          hover:bg-[#6B705C10] 
-          transition
-          flex items-center justify-center gap-2
-        "
-      >
-        {favorites.includes(recipe.id)
-          ? "❤️ Remover dos favoritos"
-          : "❤️ Guardar esta receita"}
-      </button>
+      {/* ❤️ BOTÃO GUARDAR — PEQUENO, ESTILO CLEAN */}
+      <div className="flex flex-col items-start gap-3 mb-6">
+        <button
+          onClick={() => toggleFavorite(recipe.id)}
+          className="px-4 py-2 border border-[#6B705C] text-[#6B705C] 
+                     rounded-2xl hover:bg-[#6B705C10] transition text-sm"
+        >
+          {favorites.includes(recipe.id)
+            ? "❤️ Remover dos favoritos"
+            : "❤️ Guardar esta receita"}
+        </button>
 
-      {/* 📤 Partilhar — MATCH ESPECÍFICO AO QUE TINHAS */}
-      <a
-        href={`https://wa.me/?text=${encodeURIComponent(
-          `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="
-          block w-full text-center
-          px-4 py-2 mb-6
-          border border-[#6B705C]
-          text-[#6B705C]
-          rounded-2xl
-          hover:bg-[#6B705C10]
-          transition
-        "
-      >
-        <span className="text-xl">↪</span> Partilhar
-      </a>
+        {/* 📤 PARTILHAR — PEQUENO */}
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(
+            `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 border border-[#6B705C] text-[#6B705C] 
+                     rounded-2xl hover:bg-[#6B705C10] transition text-sm inline-flex items-center gap-1"
+        >
+          <span className="text-lg">↪</span> Partilhar
+        </a>
+      </div>
 
-      {/* BOTÃO FECHAR */}
+      {/* FECHAR */}
       <div className="text-right">
         <button
           onClick={onBack}
-          className="
-            px-4 py-2 
-            text-sm 
-            rounded-xl 
-            border border-terracotta 
-            text-terracotta 
-            hover:bg-terracotta hover:text-white 
-            transition
-          "
+          className="px-4 py-2 text-sm rounded-xl border border-terracotta text-terracotta 
+                     hover:bg-terracotta hover:text-white transition"
         >
           Fechar
         </button>
