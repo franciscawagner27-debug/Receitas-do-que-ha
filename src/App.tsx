@@ -16,6 +16,7 @@ export default function App() {
     <Routes>
       {/* Página pública */}
       <Route path="/" element={<HomePage />} />
+
       {/* Página privada /admin */}
       <Route path="/admin" element={<AdminPage />} />
     </Routes>
@@ -56,7 +57,6 @@ function HomePage() {
   useEffect(() => {
     if (!recipes || recipes.length === 0) return;
 
-    // Remove scripts antigos para não duplicar
     document
       .querySelectorAll("script[data-recipe-json]")
       .forEach((el) => el.remove());
@@ -107,7 +107,6 @@ function HomePage() {
 
       if (!error && data) {
         const cleaned = data.map((r: any) => {
-          // Limpar tags para categorias
           let tags: string[] = [];
 
           if (Array.isArray(r.tags)) {
@@ -145,16 +144,15 @@ function HomePage() {
     setSearchTerm("");
   };
 
-  // handleSearch que aceita termo opcional (usado pelas sugestões)
   const handleSearch = (term?: string) => {
     const finalTerm = (term ?? searchTerm).trim();
     setSearchTerm(finalTerm);
 
-    (document.activeElement as HTMLElement | null)?.blur();
-    const list = document.getElementById("recipe-list");
-    if (list) {
-      const rect = list.getBoundingClientRect();
+    const el = document.getElementById("recipe-list");
+    if (el) {
+      const rect = el.getBoundingClientRect();
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
       window.scrollTo({
         top: scrollTop + rect.top - 40,
         behavior: "smooth",
@@ -162,81 +160,52 @@ function HomePage() {
     }
   };
 
-  /* ------------------------------ MAPA DE TAGS ----------------------------- */
+  /* --------------------------- SUGESTÕES FIXAS ---------------------------- */
 
-  const categoryMap: Record<string, string[]> = {
-    entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
-    sopas: ["sopa", "sopas", "caldo", "caldos"],
-    carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-    peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-    massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
-    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
-    sobremesas: [
-      "doce",
-      "doces",
-      "sobremesa",
-      "sobremesas",
-      "bolo",
-      "bolos",
-      "tarte",
-      "tartes",
-      "pudim",
-      "pudins",
-      "mousse",
-      "mousses",
-    ],
-  };
-
-  /* ---------------------- SUGESTÕES RÁPIDAS AUTOMÁTICAS -------------------- */
-
-  const [topIngredients, setTopIngredients] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (!recipes || recipes.length === 0) {
-      setTopIngredients([]);
-      return;
-    }
-
-    const counts: Record<string, number> = {};
-
-    recipes.forEach((r: any) => {
-      const raw = r.ingredients;
-      let ingList: string[] = [];
-
-      if (Array.isArray(raw)) {
-        ingList = raw
-          .flatMap((item) =>
-            item
-              .toString()
-              .split(/[,;\n]+/)
-              .map((s) => s.trim().toLowerCase())
-          )
-          .filter((s) => s.length > 0);
-      } else if (typeof raw === "string") {
-        ingList = raw
-          .split(/[,;\n]+/)
-          .map((s) => s.trim().toLowerCase())
-          .filter((s) => s.length > 0);
-      }
-
-      ingList.forEach((ing) => {
-        counts[ing] = (counts[ing] || 0) + 1;
-      });
-    });
-
-    const sorted = Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([name]) => name);
-
-    setTopIngredients(sorted.slice(0, 5));
-  }, [recipes]);
+  const quickSuggestions = ["frango", "ovos", "arroz", "courgete", "massa"];
 
   /* ------------------------------- FILTRO GERAL ---------------------------- */
 
   const filteredRecipes = recipes.filter((r: any) => {
     const selected = selectedCategory.trim().toLowerCase();
-    const validTags = categoryMap[selected] || [];
+    const categoryMap: Record<string, string[]> = {
+      entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+      sopas: ["sopa", "sopas", "caldo", "caldos"],
+      carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+      peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+      massas: [
+        "massa",
+        "massas",
+        "pasta",
+        "esparguete",
+        "macarrão",
+        "tagliatelle",
+      ],
+      vegetariano: [
+        "vegetariano",
+        "vegetariana",
+        "vegan",
+        "salada",
+        "legumes",
+        "legume",
+      ],
+      sobremesas: [
+        "doce",
+        "doces",
+        "sobremesa",
+        "sobremesas",
+        "bolo",
+        "bolos",
+        "tarte",
+        "tartes",
+        "pudim",
+        "pudins",
+        "mousse",
+        "mousses",
+      ],
+    };
 
+    const validTags = categoryMap[selected] || [];
     let matchesCategory = true;
 
     if (selected === "favoritas") {
@@ -262,10 +231,10 @@ function HomePage() {
 
             return terms.every(
               (term) =>
-                Array.isArray(r.ingredients) &&
-                r.ingredients.some((ing: string) =>
-                  normalize(ing).includes(term)
-                ) ||
+                (Array.isArray(r.ingredients) &&
+                  r.ingredients.some((ing: string) =>
+                    normalize(ing).includes(term)
+                  )) ||
                 normalize(r.title).includes(term)
             );
           })();
@@ -304,7 +273,7 @@ function HomePage() {
       {/* LINHA */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
-      {/* PESQUISA — VERSÃO MODERNA NATURAL / ORGÂNICA */}
+      {/* PESQUISA */}
       <section className="bg-beige py-14 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-serif font-bold text-olive mb-3">
@@ -334,7 +303,7 @@ function HomePage() {
                          transition-all duration-200 text-lg"
             />
 
-            {/* Lupa na caixa */}
+            {/* Lupa dentro da caixa */}
             <button
               onClick={() => handleSearch()}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
@@ -356,25 +325,23 @@ function HomePage() {
             </button>
           </div>
 
-          {/* SUGESTÕES RÁPIDAS AUTOMÁTICAS */}
-          {topIngredients.length > 0 && (
-            <>
-              <p className="text-charcoal/70 mb-3 font-medium">
-                Sugestões rápidas:
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 mt-2">
-                {topIngredients.map((ing) => (
-                  <button
-                    key={ing}
-                    onClick={() => handleSearch(ing)}
-                    className="px-3 py-1 bg-beige text-olive border border-olive/30 rounded-full text-sm hover:bg-olive/10 transition"
-                  >
-                    {ing}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
+          {/* SUGESTÕES RÁPIDAS FIXAS */}
+          <>
+            <p className="text-charcoal/70 mb-3 font-medium">
+              Sugestões rápidas:
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 mt-2">
+              {quickSuggestions.map((ing) => (
+                <button
+                  key={ing}
+                  onClick={() => handleSearch(ing)}
+                  className="px-3 py-1 bg-beige text-olive border border-olive/30 rounded-full text-sm hover:bg-olive/10 transition"
+                >
+                  {ing}
+                </button>
+              ))}
+            </div>
+          </>
         </div>
       </section>
 
@@ -466,7 +433,7 @@ function HomePage() {
             const scrollTop =
               window.scrollY || document.documentElement.scrollTop;
             window.scrollTo({
-              top: scrollTop + rect.top - 120, // se ficar baixo/demasiado alto, podes ajustar este valor
+              top: scrollTop + rect.top - 120,
               behavior: "smooth",
             });
           }
