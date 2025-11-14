@@ -248,7 +248,7 @@ function HomePage() {
     const el = document.getElementById("search-box");
     if (el) {
       const y =
-        el.getBoundingClientRect().top + window.scrollY - 80; // sobe mais 80px
+  el.getBoundingClientRect().top + window.scrollY - 150;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   }}
