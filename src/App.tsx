@@ -337,6 +337,14 @@ function HomePage() {
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
+        {/* ⭐ Introdução especial da categoria Dias sem Tempo */}
+{selectedCategory.toLowerCase() === "dias sem tempo" && (
+  <p className="text-charcoal/80 text-center mb-6 text-sm sm:text-base">
+    Soluções rápidas do Receitas do Que Há com alimentos pré-preparados que já
+    experimentámos e recomendamos — perfeitas para aqueles dias em que o tempo
+    não chega para cozinhar.
+  </p>
+)}
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
