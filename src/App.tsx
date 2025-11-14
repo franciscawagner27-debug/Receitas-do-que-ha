@@ -5,23 +5,26 @@ import { motion } from "framer-motion";
 import Header from "./components/Header";
 import RecipeDetail from "./components/RecipeDetail";
 import type { Recipe } from "./types";
-import type { Session } from "@supabase/supabase-js";
 import AdminPage from "./pages/Admin";
+
+/* -------------------------------------------------------------------------- */
+/*                                 APP ROOT                                   */
+/* -------------------------------------------------------------------------- */
 
 export default function App() {
   return (
     <Routes>
-      {/* 🌿 Página pública */}
+      {/* Página pública */}
       <Route path="/" element={<HomePage />} />
 
-      {/* 🔐 Página privada /admin */}
+      {/* Página privada /admin */}
       <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/*                            COMPONENTE HOMEPAGE                              */
+/*                              HOMEPAGE COMPLETA                              */
 /* -------------------------------------------------------------------------- */
 
 function HomePage() {
@@ -30,7 +33,9 @@ function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-    // ⭐ Favoritos guardados no localStorage
+
+  /* ------------------------------- FAVORITOS ------------------------------- */
+
   const [favorites, setFavorites] = useState<number[]>(() => {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];
@@ -47,13 +52,13 @@ function HomePage() {
     });
   };
 
-  // Limpa a pesquisa ao mudar categoria
+  /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
+
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setSearchTerm("");
   };
 
-  // Enter + lupa → scroll para lista
   const handleSearch = () => {
     setSearchTerm(searchTerm.trim());
     (document.activeElement as HTMLElement)?.blur();
@@ -61,7 +66,8 @@ function HomePage() {
     if (list) list.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Buscar receitas
+  /* ----------------------------- FETCH RECEITAS ---------------------------- */
+
   useEffect(() => {
     async function fetchRecipes() {
       const { data, error } = await supabase
@@ -101,7 +107,8 @@ function HomePage() {
     fetchRecipes();
   }, []);
 
-  // Mapa de equivalências categorias → tags
+  /* ------------------------------ MAPA DE TAGS ----------------------------- */
+
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
     sopas: ["sopa", "sopas", "caldo", "caldos"],
@@ -112,32 +119,34 @@ function HomePage() {
     sobremesas: [
       "doce", "doces", "sobremesa", "sobremesas",
       "bolo", "bolos", "tarte", "tartes",
-      "pudim", "pudins", "mousse", "mousses"
+      "pudim", "pudins", "mousse", "mousses",
     ],
   };
 
-  // Filtro principal
+  /* ------------------------------- FILTRO GERAL ---------------------------- */
+
   const filteredRecipes = recipes.filter((r) => {
     const selected = selectedCategory.trim().toLowerCase();
     const validTags = categoryMap[selected] || [];
 
-  // ⭐ Filtro de categoria
-let matchesCategory = true;
+    let matchesCategory = true;
 
-if (selected === "favoritas") {
-  matchesCategory = favorites.includes(r.id);
-} else if (selected !== "todas") {
-  matchesCategory =
-    Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag));
-}
+    // Categoria Favoritas
+    if (selected === "favoritas") {
+      matchesCategory = favorites.includes(r.id);
+    } else if (selected !== "todas") {
+      matchesCategory =
+        Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag));
+    }
 
-
+    // Função helper para remover acentos
     const normalize = (str: string) =>
       str
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 
+    // Pesquisa por título + ingredientes
     const matchesSearch =
       searchTerm.trim() === ""
         ? true
@@ -155,6 +164,8 @@ if (selected === "favoritas") {
 
     return matchesCategory && matchesSearch;
   });
+
+  /* ------------------------------- RENDER UI ------------------------------- */
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
@@ -182,7 +193,7 @@ if (selected === "favoritas") {
         </div>
       </section>
 
-      {/* DIVISÓRIA */}
+      {/* LINHA */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
       {/* PESQUISA */}
@@ -231,10 +242,10 @@ if (selected === "favoritas") {
         </div>
       </section>
 
-      {/* ÂNCORA DO SCROLL */}
+      {/* ÂNCORA */}
       <div id="recipe-list"></div>
 
-      {/* LISTA DE RECEITAS */}
+      {/* LISTA */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -252,27 +263,26 @@ if (selected === "favoritas") {
                 className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
                 <div className="relative">
-  {r.image && (
-   <img
-  src={r.image}
-  alt={r.title}
-  loading="lazy"     // ⭐ carrega só quando visível
-  className="w-full h-48 object-cover"
-/>
+                  {r.image && (
+                    <img
+                      src={r.image}
+                      alt={r.title}
+                      loading="lazy"
+                      className="w-full h-48 object-cover"
+                    />
+                  )}
 
-  )}
-
-  {/* ❤️ Favorito */}
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
-      toggleFavorite(r.id);
-    }}
-    className="absolute top-2 right-2 text-2xl drop-shadow-md"
-  >
-    {favorites.includes(r.id) ? "❤️" : "🤍"}
-  </button>
-</div>
+                  {/* ❤️ FAVORITO */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(r.id);
+                    }}
+                    className="absolute top-2 right-2 text-2xl drop-shadow-md"
+                  >
+                    {favorites.includes(r.id) ? "❤️" : "🤍"}
+                  </button>
+                </div>
 
                 <div className="p-5">
                   <h3 className="text-xl font-semibold text-olive mb-2">
@@ -284,9 +294,11 @@ if (selected === "favoritas") {
                       ⏱️ {r.time_minutes} min
                     </p>
                   )}
+
                   <p className="text-sm text-stone line-clamp-3 mb-3">
                     {r.ingredients.slice(0, 3).join(", ")}...
                   </p>
+
                   {r.tags && r.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1">
                       {r.tags.map((tag: string, i: number) => (
@@ -316,18 +328,18 @@ if (selected === "favoritas") {
             >
               ✕
             </button>
-           <RecipeDetail
-  recipe={selectedRecipe}
-  onBack={() => setSelectedRecipe(null)}
-  favorites={favorites}
-  toggleFavorite={toggleFavorite}
-/>
 
+            <RecipeDetail
+              recipe={selectedRecipe}
+              onBack={() => setSelectedRecipe(null)}
+              favorites={favorites}
+              toggleFavorite={toggleFavorite}
+            />
           </div>
         </div>
       )}
 
-      {/* RODAPÉ */}
+      {/* FOOTER */}
       <footer className="text-center py-8 text-sm text-olive">
         <p>Feito com ❤️ em Portugal</p>
         <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
