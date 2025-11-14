@@ -14,10 +14,7 @@ import AdminPage from "./pages/Admin";
 export default function App() {
   return (
     <Routes>
-      {/* Página pública */}
       <Route path="/" element={<HomePage />} />
-
-      {/* Página privada /admin */}
       <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
@@ -34,7 +31,7 @@ function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  /* ------------------------------- FAVORITOS ------------------------------- */
+  /* FAVORITOS -------------------------------------------------------------- */
 
   const [favorites, setFavorites] = useState<number[]>(() => {
     const saved = localStorage.getItem("favorites");
@@ -52,7 +49,7 @@ function HomePage() {
     });
   };
 
-  /* --------------------------- SEO JSON-LD --------------------------- */
+  /* SEO -------------------------------------------------------------------- */
 
   useEffect(() => {
     if (!recipes || recipes.length === 0) return;
@@ -70,10 +67,7 @@ function HomePage() {
         "name": recipe.title,
         "image": recipe.image || "",
         "description": `Receita de ${recipe.title} do site Receitas do Que Há.`,
-        "author": {
-          "@type": "Person",
-          "name": "Francisca Menezes"
-        },
+        "author": { "@type": "Person", "name": "Francisca Menezes" },
         "recipeIngredient": recipe.ingredients || [],
         "recipeInstructions": Array.isArray(recipe.steps)
           ? recipe.steps.map((s) => ({ "@type": "HowToStep", text: s }))
@@ -89,21 +83,24 @@ function HomePage() {
     });
   }, [recipes]);
 
-  /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
+  /* PESQUISA + CATEGORIAS -------------------------------------------------- */
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setSearchTerm("");
   };
 
-  const handleSearch = () => {
-    setSearchTerm(searchTerm.trim());
+  /** ⭐ NOVA VERSÃO DO handleSearch (aceita termo direto) */
+  const handleSearch = (term?: string) => {
+    const finalTerm = (term ?? searchTerm).trim();
+    setSearchTerm(finalTerm);
+
     (document.activeElement as HTMLElement)?.blur();
     const list = document.getElementById("recipe-list");
     if (list) list.scrollIntoView({ behavior: "smooth" });
   };
 
-  /* ----------------------------- FETCH RECEITAS ---------------------------- */
+  /* FETCH RECEITAS --------------------------------------------------------- */
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -119,8 +116,7 @@ function HomePage() {
           if (Array.isArray(r.tags)) {
             tags = r.tags
               .flatMap((t: any) =>
-                t
-                  .toString()
+                t.toString()
                   .split(/[#\[\]",;]+/)
                   .map((s) => s.trim().toLowerCase())
               )
@@ -144,7 +140,7 @@ function HomePage() {
     fetchRecipes();
   }, []);
 
-  /* ------------------------------ MAPA DE TAGS ----------------------------- */
+  /* TAGS ------------------------------------------------------------------- */
 
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
@@ -154,13 +150,13 @@ function HomePage() {
     massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
     vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
     sobremesas: [
-      "doce", "doces", "sobremesa", "sobremesas",
-      "bolo", "bolos", "tarte", "tartes",
-      "pudim", "pudins", "mousse", "mousses",
+      "doce","doces","sobremesa","sobremesas",
+      "bolo","bolos","tarte","tartes",
+      "pudim","pudins","mousse","mousses"
     ],
   };
 
-  /* ------------------------------- FILTRO GERAL ---------------------------- */
+  /* FILTRO --------------------------------------------------------------- */
 
   const filteredRecipes = recipes.filter((r) => {
     const selected = selectedCategory.trim().toLowerCase();
@@ -176,10 +172,7 @@ function HomePage() {
     }
 
     const normalize = (str: string) =>
-      str
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+      str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     const matchesSearch =
       searchTerm.trim() === ""
@@ -199,15 +192,13 @@ function HomePage() {
     return matchesCategory && matchesSearch;
   });
 
-  /* ----------------------------------------------------------------------- */
-  /* -------------------------- RENDER UI COMPLETO ------------------------- */
-  /* ----------------------------------------------------------------------- */
+  /* RENDER ---------------------------------------------------------------- */
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
       <Header onSelect={handleCategorySelect} />
 
-      {/* HERO */}
+      {/* HERO -------------------------------------------------------------- */}
       <section
         className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
         style={{
@@ -229,12 +220,12 @@ function HomePage() {
         </div>
       </section>
 
-      {/* LINHA */}
+      {/* LINHA -------------------------------------------------------------- */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
-      {/* -------------------------------------------------------------------- */}
-      {/* ------------------------- VERSÃO ANTIGA (SEGURA) ------------------- */}
-      {/* -------------------------------------------------------------------- */}
+      {/* ==================================================================== */}
+      {/* VERSÃO ANTIGA DA PESQUISA (SEGURA, GUARDADA)                        */}
+      {/* ==================================================================== */}
 
       {/*
       <section className="bg-beige text-center py-10 px-4">
@@ -244,7 +235,6 @@ function HomePage() {
         <p className="text-charcoal/80 mb-6">
           Escreva um ou mais ingredientes para descobrir receitas
         </p>
-
         <div className="max-w-md mx-auto relative">
           <input
             type="text"
@@ -259,11 +249,9 @@ function HomePage() {
             }}
             className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
           />
-
           <button
             onClick={handleSearch}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta"
-          >
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta">
             <svg xmlns="http://www.w3.org/2000/svg"
               fill="none" viewBox="0 0 24 24"
               strokeWidth={2} stroke="currentColor"
@@ -276,9 +264,9 @@ function HomePage() {
       </section>
       */}
 
-      {/* -------------------------------------------------------------------- */}
-      {/* ------------------------- NOVA SECÇÃO MODERNA ---------------------- */}
-      {/* -------------------------------------------------------------------- */}
+      {/* ==================================================================== */}
+      {/* NOVA SECÇÃO DE PESQUISA — MODERNA / ORGÂNICA                        */}
+      {/* ==================================================================== */}
 
       <section className="bg-beige py-14 px-4">
         <div className="max-w-2xl mx-auto text-center">
@@ -291,6 +279,7 @@ function HomePage() {
             Escreva um ou mais ingredientes e descubra receitas perfeitas para si.
           </p>
 
+          {/* CAIXA DE PESQUISA */}
           <div className="relative mb-6">
             <input
               type="text"
@@ -303,13 +292,13 @@ function HomePage() {
                   handleSearch();
                 }
               }}
-              className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
-                         focus:ring-2 focus:ring-olive/40 focus:border-olive
+              className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white 
+                         focus:ring-2 focus:ring-olive/40 focus:border-olive 
                          transition-all duration-200 text-lg"
             />
 
             <button
-              onClick={handleSearch}
+              onClick={() => handleSearch()}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
             >
               <svg xmlns="http://www.w3.org/2000/svg"
@@ -329,11 +318,8 @@ function HomePage() {
             {["frango", "massa", "atum", "arroz", "ovo"].map((ing) => (
               <button
                 key={ing}
-                onClick={() => {
-                  setSearchTerm(ing);
-                  setTimeout(() => handleSearch(), 50);
-                }}
-                className="px-4 py-2 bg-olive/10 text-olive rounded-full text-sm
+                onClick={() => handleSearch(ing)}
+                className="px-4 py-2 bg-olive/10 text-olive rounded-full text-sm 
                            hover:bg-olive/20 transition shadow-sm"
               >
                 {ing}
@@ -344,12 +330,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* -------------------------------------------------------------------- */}
-      {/* ------------------------- ÂNCORA + LISTA --------------------------- */}
-      {/* -------------------------------------------------------------------- */}
-
+      {/* ÂNCORA -------------------------------------------------------------- */}
       <div id="recipe-list"></div>
 
+      {/* LISTA --------------------------------------------------------------- */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -376,7 +360,6 @@ function HomePage() {
                     />
                   )}
 
-                  {/* ❤️ FAVORITO */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -422,10 +405,7 @@ function HomePage() {
         )}
       </main>
 
-      {/* -------------------------------------------------------------------- */}
-      {/* ------------------------------- MODAL ------------------------------- */}
-      {/* -------------------------------------------------------------------- */}
-
+      {/* MODAL --------------------------------------------------------------- */}
       {selectedRecipe && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
@@ -446,10 +426,7 @@ function HomePage() {
         </div>
       )}
 
-      {/* -------------------------------------------------------------------- */}
-      {/* ------------------------------- FOOTER ------------------------------ */}
-      {/* -------------------------------------------------------------------- */}
-
+      {/* FOOTER -------------------------------------------------------------- */}
       <footer className="text-center py-8 text-sm text-olive">
         <p>Feito com ❤️ em Portugal</p>
         <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
