@@ -6,17 +6,18 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onSelect }) => {
   const categories = [
-  "Todas",
-  "Favoritas",   // ⭐ ADICIONAR
-  "Entradas",
-  "Sopas",
-  "Carne",
-  "Peixe",
-  "Massas",
-  "Vegetariano",
-  "Sobremesas",
-];
-
+    "Todas",
+    "Favoritas",
+    "Entradas",
+    "Sopas",
+    "Carne",
+    "Peixe",
+    "Massas",
+    "Vegetariano",
+    "Sobremesas",
+    "AirFryer",        // ⭐ NOVA CATEGORIA
+    "Dias sem Tempo",  // ⭐ NOVA CATEGORIA
+  ];
 
   const [selected, setSelected] = useState("Todas");
 
@@ -28,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
             key={category}
             onClick={() => {
               setSelected(category);
-              onSelect(category);
+              onSelect(category.toLowerCase()); // 🔥 mantém a lógica original
             }}
             className={`px-3 py-1 rounded-full font-medium transition-all duration-200
               ${
