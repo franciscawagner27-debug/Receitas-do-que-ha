@@ -168,42 +168,29 @@ function HomePage() {
 
   const filteredRecipes = recipes.filter((r: any) => {
     const selected = selectedCategory.trim().toLowerCase();
-    const categoryMap: Record<string, string[]> = {
-      entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
-      sopas: ["sopa", "sopas", "caldo", "caldos"],
-      carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-      peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-      massas: [
-        "massa",
-        "massas",
-        "pasta",
-        "esparguete",
-        "macarrão",
-        "tagliatelle",
-      ],
-      vegetariano: [
-        "vegetariano",
-        "vegetariana",
-        "vegan",
-        "salada",
-        "legumes",
-        "legume",
-      ],
-      sobremesas: [
-        "doce",
-        "doces",
-        "sobremesa",
-        "sobremesas",
-        "bolo",
-        "bolos",
-        "tarte",
-        "tartes",
-        "pudim",
-        "pudins",
-        "mousse",
-        "mousses",
-      ],
-    };
+   const categoryMap: Record<string, string[]> = {
+  entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+  sopas: ["sopa", "sopas", "caldo", "caldos"],
+  carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+  peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+  massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+  vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+  sobremesas: [
+    "doce", "doces", "sobremesa", "sobremesas",
+    "bolo", "bolos", "tarte", "tartes",
+    "pudim", "pudins", "mousse", "mousses",
+  ],
+
+  // ⭐ NOVAS CATEGORIAS
+  airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
+
+  "dias sem tempo": [
+    "diassemtempo",
+    "supermercado",
+    "semipronto",
+    "congelado",
+  ],
+};
 
     const validTags = categoryMap[selected] || [];
     let matchesCategory = true;
