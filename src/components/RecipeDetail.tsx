@@ -102,28 +102,29 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
       )}
 
       {/* ❤️ Guardar / Remover dos favoritos — NOVO ESTILO CLEAN */}
-      <button
-        onClick={() => toggleFavorite(recipe.id)}
-        className="mb-6 px-4 py-2 border border-[#6B705C] text-[#6B705C] rounded-2xl 
-                   hover:bg-[#6B705C10] transition inline-flex items-center gap-2"
-      >
-        {favorites.includes(recipe.id)
-          ? "❤️ Remover dos favoritos"
-          : "❤️ Guardar esta receita"}
-      </button>
+<button
+  onClick={() => toggleFavorite(recipe.id)}
+  className="mb-4 px-4 py-2 w-full border border-[#6B705C] text-[#6B705C] 
+             rounded-2xl hover:bg-[#6B705C10] transition flex items-center gap-2 justify-center"
+>
+  {favorites.includes(recipe.id)
+    ? "❤️ Remover dos favoritos"
+    : "❤️ Guardar esta receita"}
+</button>
 
-      {/* 📤 Botão Partilhar */}
-      <a
-        href={`https://wa.me/?text=${encodeURIComponent(
-          `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-3 px-4 py-2 mb-6 border border-[#6B705C] 
-                   text-[#6B705C] rounded-2xl hover:bg-[#6B705C10] transition"
-      >
-        <span className="text-xl">↪</span>
-        <span className="text-base font-medium">Partilhar</span>
+{/* 📤 Botão Partilhar */}
+<a
+  href={`https://wa.me/?text=${encodeURIComponent(
+    `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
+  )}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block w-full text-center px-4 py-2 mb-6 border border-[#6B705C] 
+             text-[#6B705C] rounded-2xl hover:bg-[#6B705C10] transition"
+>
+  <span className="text-xl">↪</span> Partilhar
+</a>
+Name="text-base font-medium">Partilhar</span>
       </a>
 
       {/* Botão Fechar */}
