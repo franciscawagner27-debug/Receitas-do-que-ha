@@ -1,4 +1,3 @@
-
 import React from "react";
 import type { Recipe } from "../types";
 
@@ -9,16 +8,19 @@ interface RecipeDetailProps {
   toggleFavorite: (id: number) => void;
 }
 
-
-const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, toggleFavorite }) => {
-
+const RecipeDetail: React.FC<RecipeDetailProps> = ({
+  recipe,
+  onBack,
+  favorites,
+  toggleFavorite,
+}) => {
   // 🔹 Normalizar ingredientes
   const ingredients = Array.isArray(recipe.ingredients)
     ? recipe.ingredients
         .flatMap((item) =>
           item
             .toString()
-            .split(/\n+/) // divide por quebras de linha dentro de cada item
+            .split(/\n+/)
             .map((i) => i.trim())
             .filter((i) => i.length > 0)
         )
@@ -48,22 +50,17 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, 
   return (
     <div className="p-6 sm:p-8 text-charcoal">
       {recipe.image && (
-       <img
-  src={recipe.image}
-  alt={recipe.title}
-  loading="lazy"
-  className="w-full h-64 object-cover rounded-xl mb-6"
-/>
-
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          loading="lazy"
+          className="w-full h-64 object-cover rounded-xl mb-6"
+        />
       )}
-<h2 className="text-2xl md:text-3xl font-semibold text-olive mb-6 text-center">
-  {recipe.title}
-</h2>
 
-
-
-
-
+      <h2 className="text-2xl md:text-3xl font-semibold text-olive mb-6 text-center">
+        {recipe.title}
+      </h2>
 
       {recipe.time_minutes && (
         <p className="text-stone mb-4">⏱️ {recipe.time_minutes} min</p>
@@ -103,29 +100,38 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, 
           ))}
         </div>
       )}
-      {/* ❤️ Guardar ou remover dos favoritos */}
+
+      {/* ❤️ Guardar / Remover dos favoritos — NOVO ESTILO CLEAN */}
       <button
         onClick={() => toggleFavorite(recipe.id)}
-        className="mb-6 px-4 py-2 bg-olive text-white rounded-lg hover:bg-terracotta transition flex items-center gap-2"
+        className="mb-6 px-4 py-2 border border-[#6B705C] text-[#6B705C] rounded-2xl 
+                   hover:bg-[#6B705C10] transition inline-flex items-center gap-2"
       >
         {favorites.includes(recipe.id)
           ? "❤️ Remover dos favoritos"
           : "❤️ Guardar esta receita"}
       </button>
-     <a
-  href={`https://wa.me/?text=${encodeURIComponent(`${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`)}`}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-3 px-4 py-2 mb-6 border border-[#6B705C] text-[#6B705C] rounded-2xl hover:bg-[#6B705C10] transition"
->
-  <span className="text-xl">↪</span>
-  <span className="text-base font-medium">Partilhar</span>
-</a>
 
+      {/* 📤 Botão Partilhar */}
+      <a
+        href={`https://wa.me/?text=${encodeURIComponent(
+          `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-3 px-4 py-2 mb-6 border border-[#6B705C] 
+                   text-[#6B705C] rounded-2xl hover:bg-[#6B705C10] transition"
+      >
+        <span className="text-xl">↪</span>
+        <span className="text-base font-medium">Partilhar</span>
+      </a>
+
+      {/* Botão Fechar */}
       <div className="text-right">
         <button
           onClick={onBack}
-          className="px-4 py-2 text-sm rounded-xl border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition"
+          className="px-4 py-2 text-sm rounded-xl border border-terracotta text-terracotta 
+                     hover:bg-terracotta hover:text-white transition"
         >
           Fechar
         </button>
@@ -134,4 +140,4 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ recipe, onBack, favorites, 
   );
 };
 
-export default RecipeDetail; 
+export default RecipeDetail;
