@@ -231,51 +231,73 @@ function HomePage() {
       {/* LINHA */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
-      {/* PESQUISA */}
-      <section className="bg-beige text-center py-10 px-4">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
-          O que tem na sua cozinha?
-        </h2>
-        <p className="text-charcoal/80 mb-6">
-          Escreva um ou mais ingredientes para descobrir receitas
-        </p>
+    {/* PESQUISA — VERSÃO MODERNA NATURAL / ORGÂNICA */}
+<section className="bg-beige py-14 px-4">
+  <div className="max-w-2xl mx-auto text-center">
 
-        <div className="max-w-md mx-auto relative">
-          <input
-            type="text"
-            placeholder="Procure por ingredientes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleSearch();
-              }
-            }}
-            className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
-          />
+    {/* Título */}
+    <h2 className="text-4xl font-serif font-bold text-olive mb-3">
+      O que tem na sua cozinha?
+    </h2>
 
-          <button
-            onClick={handleSearch}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-              />
-            </svg>
-          </button>
-        </div>
-      </section>
+    {/* Subtítulo */}
+    <p className="text-charcoal/80 text-lg mb-10">
+      Escreva um ou mais ingredientes e descubra receitas perfeitas para si.
+    </p>
+
+    {/* Caixa de pesquisa */}
+    <div className="relative mb-6">
+      <input
+        type="text"
+        placeholder="Ex: frango, massa, tomate..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+          }
+        }}
+        className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
+                   focus:ring-2 focus:ring-olive/40 focus:border-olive
+                   transition-all duration-200 text-lg"
+      />
+
+      {/* Lupa */}
+      <button
+        onClick={handleSearch}
+        className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 24 24"
+          strokeWidth={2} stroke="currentColor"
+          className="w-7 h-7">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
+        </svg>
+      </button>
+    </div>
+
+    {/* INGREDIENTES SUGERIDOS */}
+    <div className="flex flex-wrap justify-center gap-3 mt-4">
+      {["frango", "massa", "atum", "arroz", "ovo"].map((ing) => (
+        <button
+          key={ing}
+          onClick={() => {
+            setSearchTerm(ing);
+            handleSearch();
+          }}
+          className="px-4 py-2 bg-olive/10 text-olive rounded-full text-sm
+                     hover:bg-olive/20 transition shadow-sm"
+        >
+          {ing}
+        </button>
+      ))}
+    </div>
+
+  </div>
+</section>
+
 
       {/* ÂNCORA */}
       <div id="recipe-list"></div>
