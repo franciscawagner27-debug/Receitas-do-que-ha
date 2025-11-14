@@ -51,11 +51,12 @@ function HomePage() {
       return updated;
     });
   };
-  // ⭐ SEO: adicionar JSON-LD para cada receita
+
+  /* --------------------------- SEO JSON-LD --------------------------- */
+
   useEffect(() => {
     if (!recipes || recipes.length === 0) return;
 
-    // Remove scripts antigos para não duplicar
     document.querySelectorAll("script[data-recipe-json]").forEach((el) => el.remove());
 
     recipes.forEach((recipe) => {
@@ -87,6 +88,7 @@ function HomePage() {
       document.head.appendChild(script);
     });
   }, [recipes]);
+
   /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
 
   const handleCategorySelect = (category: string) => {
@@ -166,7 +168,6 @@ function HomePage() {
 
     let matchesCategory = true;
 
-    // Categoria Favoritas
     if (selected === "favoritas") {
       matchesCategory = favorites.includes(r.id);
     } else if (selected !== "todas") {
@@ -174,14 +175,12 @@ function HomePage() {
         Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag));
     }
 
-    // Função helper para remover acentos
     const normalize = (str: string) =>
       str
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 
-    // Pesquisa por título + ingredientes
     const matchesSearch =
       searchTerm.trim() === ""
         ? true
@@ -200,7 +199,9 @@ function HomePage() {
     return matchesCategory && matchesSearch;
   });
 
-  /* ------------------------------- RENDER UI ------------------------------- */
+  /* ----------------------------------------------------------------------- */
+  /* -------------------------- RENDER UI COMPLETO ------------------------- */
+  /* ----------------------------------------------------------------------- */
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans relative">
@@ -231,78 +232,124 @@ function HomePage() {
       {/* LINHA */}
       <div className="h-px bg-olive/50 w-3/4 mx-auto my-0"></div>
 
-    {/* PESQUISA — VERSÃO MODERNA NATURAL / ORGÂNICA */}
-<section className="bg-beige py-14 px-4">
-  <div className="max-w-2xl mx-auto text-center">
+      {/* -------------------------------------------------------------------- */}
+      {/* ------------------------- VERSÃO ANTIGA (SEGURA) ------------------- */}
+      {/* -------------------------------------------------------------------- */}
 
-    {/* Título */}
-    <h2 className="text-4xl font-serif font-bold text-olive mb-3">
-      O que tem na sua cozinha?
-    </h2>
+      {/*
+      <section className="bg-beige text-center py-10 px-4">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-olive mb-3">
+          O que tem na sua cozinha?
+        </h2>
+        <p className="text-charcoal/80 mb-6">
+          Escreva um ou mais ingredientes para descobrir receitas
+        </p>
 
-    {/* Subtítulo */}
-    <p className="text-charcoal/80 text-lg mb-10">
-      Escreva um ou mais ingredientes e descubra receitas perfeitas para si.
-    </p>
+        <div className="max-w-md mx-auto relative">
+          <input
+            type="text"
+            placeholder="Procure por ingredientes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
+            className="w-full max-w-md p-3 rounded-lg border border-olive/30 focus:outline-none focus:ring-2 focus:ring-olive/50"
+          />
 
-    {/* Caixa de pesquisa */}
-    <div className="relative mb-6">
-      <input
-        type="text"
-        placeholder="Ex: frango, massa, tomate..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            handleSearch();
-          }
-        }}
-        className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
-                   focus:ring-2 focus:ring-olive/40 focus:border-olive
-                   transition-all duration-200 text-lg"
-      />
+          <button
+            onClick={handleSearch}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg"
+              fill="none" viewBox="0 0 24 24"
+              strokeWidth={2} stroke="currentColor"
+              className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round"
+                d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
+            </svg>
+          </button>
+        </div>
+      </section>
+      */}
 
-      {/* Lupa */}
-      <button
-        onClick={handleSearch}
-        className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg"
-          fill="none" viewBox="0 0 24 24"
-          strokeWidth={2} stroke="currentColor"
-          className="w-7 h-7">
-          <path strokeLinecap="round" strokeLinejoin="round"
-            d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
-        </svg>
-      </button>
-    </div>
+      {/* -------------------------------------------------------------------- */}
+      {/* ------------------------- NOVA SECÇÃO MODERNA ---------------------- */}
+      {/* -------------------------------------------------------------------- */}
 
-    {/* INGREDIENTES SUGERIDOS */}
-    <div className="flex flex-wrap justify-center gap-3 mt-4">
-      {["frango", "massa", "atum", "arroz", "ovo"].map((ing) => (
-        <button
-          key={ing}
-          onClick={() => {
-            setSearchTerm(ing);
-            handleSearch();
-          }}
-          className="px-4 py-2 bg-olive/10 text-olive rounded-full text-sm
-                     hover:bg-olive/20 transition shadow-sm"
-        >
-          {ing}
-        </button>
-      ))}
-    </div>
+      <section className="bg-beige py-14 px-4">
+        <div className="max-w-2xl mx-auto text-center">
 
-  </div>
-</section>
+          <h2 className="text-4xl font-serif font-bold text-olive mb-3">
+            O que tem na sua cozinha?
+          </h2>
 
+          <p className="text-charcoal/80 text-lg mb-10">
+            Escreva um ou mais ingredientes e descubra receitas perfeitas para si.
+          </p>
 
-      {/* ÂNCORA */}
+          <div className="relative mb-6">
+            <input
+              type="text"
+              placeholder="Ex: frango, massa, tomate..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSearch();
+                }
+              }}
+              className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
+                         focus:ring-2 focus:ring-olive/40 focus:border-olive
+                         transition-all duration-200 text-lg"
+            />
+
+            <button
+              onClick={handleSearch}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24"
+                strokeWidth={2} stroke="currentColor"
+                className="w-7 h-7">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
+              </svg>
+            </button>
+          </div>
+
+          {/* SUGESTÕES RÁPIDAS */}
+          <p className="text-charcoal/70 mb-3 font-medium">Sugestões rápidas:</p>
+
+          <div className="flex flex-wrap justify-center gap-3 mt-4">
+            {["frango", "massa", "atum", "arroz", "ovo"].map((ing) => (
+              <button
+                key={ing}
+                onClick={() => {
+                  setSearchTerm(ing);
+                  setTimeout(() => handleSearch(), 50);
+                }}
+                className="px-4 py-2 bg-olive/10 text-olive rounded-full text-sm
+                           hover:bg-olive/20 transition shadow-sm"
+              >
+                {ing}
+              </button>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------------------- */}
+      {/* ------------------------- ÂNCORA + LISTA --------------------------- */}
+      {/* -------------------------------------------------------------------- */}
+
       <div id="recipe-list"></div>
 
-      {/* LISTA */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -375,7 +422,10 @@ function HomePage() {
         )}
       </main>
 
-      {/* MODAL */}
+      {/* -------------------------------------------------------------------- */}
+      {/* ------------------------------- MODAL ------------------------------- */}
+      {/* -------------------------------------------------------------------- */}
+
       {selectedRecipe && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
@@ -396,7 +446,10 @@ function HomePage() {
         </div>
       )}
 
-      {/* FOOTER */}
+      {/* -------------------------------------------------------------------- */}
+      {/* ------------------------------- FOOTER ------------------------------ */}
+      {/* -------------------------------------------------------------------- */}
+
       <footer className="text-center py-8 text-sm text-olive">
         <p>Feito com ❤️ em Portugal</p>
         <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
