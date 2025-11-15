@@ -108,7 +108,9 @@ function HomePage() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .order("id", { ascending: false });
+        .order("priority", { ascending: false })
+.order("id", { ascending: false });
+
 
       if (!error && data) {
         const cleaned = data.map((r: any) => {
