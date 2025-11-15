@@ -16,13 +16,16 @@ export default function EditRecipe() {
   const [timeMinutes, setTimeMinutes] = useState<number | "">("");
   const [image, setImage] = useState("");
 
-  // ---------------------- CARREGAR RECEITA EXISTENTE ----------------------
+  /* -------------------------------------------------------------------------- */
+  /*                     CARREGAR RECEITA EXISTENTE                             */
+  /* -------------------------------------------------------------------------- */
+
   useEffect(() => {
     async function fetchRecipe() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .eq("id", id)
+        .eq("id", Number(id))
         .single();
 
       if (error || !data) {
@@ -32,17 +35,38 @@ export default function EditRecipe() {
       }
 
       setTitle(data.title);
+
+      // ingredientes
       setIngredientsText(
         Array.isArray(data.ingredients)
           ? data.ingredients.join(", ")
-          : data.ingredients || ""
+          : (data.ingredients || "").toString()
       );
+
+      // passos
       setStepsText(
-        Array.isArray(data.steps) ? data.steps.join("\n") : data.steps || ""
+        Array.isArray(data.steps)
+          ? data.steps.join("\n")
+          : (data.steps || "").toString()
       );
-      setTagsText(
-        Array.isArray(data.tags) ? data.tags.join(", ") : data.tags || ""
-      );
+
+      // tags (corrigir formatos antigos)
+      const rawTags = data.tags;
+
+      if (Array.isArray(rawTags)) {
+        setTagsText(rawTags.join(", "));
+      } else if (typeof rawTags === "string") {
+        setTagsText(
+          rawTags
+            .replace(/[\[\]\(\)"{}]/g, " ")
+            .split(/[,; ]+/)
+            .filter(Boolean)
+            .join(", ")
+        );
+      } else {
+        setTagsText("");
+      }
+
       setTimeMinutes(data.time_minutes || "");
       setImage(data.image || "");
 
@@ -52,49 +76,67 @@ export default function EditRecipe() {
     fetchRecipe();
   }, [id, navigate]);
 
-  // --------------------------- GUARDAR ALTERAÇÕES --------------------------
+  /* -------------------------------------------------------------------------- */
+  /*                            GUARDAR ALTERAÇÕES                               */
+  /* -------------------------------------------------------------------------- */
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
 
-    const ingredients = ingredientsText
-      .split(",")
-      .map((i) => i.trim())
-      .filter(Boolean);
+    try {
+      // ingredientes
+      const ingredients = ingredientsText
+        .replace(/[\[\]\(\)"]/g, "")
+        .split(",")
+        .map((i) => i.trim())
+        .filter(Boolean);
 
-    const steps = stepsText
-      .split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean);
+      // passos
+      const steps = stepsText
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean);
 
-    const tags = tagsText
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
+      // tags — limpar formatos antigos
+      const tags = tagsText
+        .replace(/[\[\]\(\)"{}]/g, "")
+        .split(/[,;]+/)
+        .map((t) => t.trim().toLowerCase())
+        .filter(Boolean);
 
-    const { error } = await supabase
-      .from("recipes")
-      .update({
-        title,
-        ingredients,
-        steps,
-        tags,
-        time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
-        image: image || null,
-      })
-      .eq("id", Number(id));
+      const { error } = await supabase
+        .from("recipes")
+        .update({
+          title,
+          ingredients,
+          steps,
+          tags,
+          time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
+          image: image || null,
+        })
+        .eq("id", Number(id)); // <- OBRIGATÓRIO! (sem isto, nada guarda)
 
+      if (error) {
+        console.error(error);
+        alert("Erro ao guardar alterações.");
+        setSaving(false);
+        return;
+      }
 
-    setSaving(false);
-
-    if (error) {
-      alert("Erro ao guardar alterações.");
-      return;
+      alert("Receita atualizada com sucesso!");
+      navigate("/admin");
+    } catch (err) {
+      console.error(err);
+      alert("Erro inesperado ao guardar.");
     }
 
-    alert("Receita atualizada com sucesso!");
-    navigate("/admin");
+    setSaving(false);
   };
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   UI                                       */
+  /* -------------------------------------------------------------------------- */
 
   if (loading) {
     return (
