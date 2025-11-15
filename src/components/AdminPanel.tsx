@@ -91,7 +91,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           tags,
           time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
           image: image || null,
-          priority: 999999, // novas receitas vão para o fim
+         value={r.priority}
+, // novas receitas vão para o fim
         },
       ])
       .select()
