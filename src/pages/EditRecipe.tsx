@@ -82,7 +82,8 @@ export default function EditRecipe() {
         time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
         image: image || null,
       })
-      .eq("id", id);
+      .eq("id", Number(id));
+
 
     setSaving(false);
 
