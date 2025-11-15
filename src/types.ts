@@ -1,13 +1,10 @@
 export interface Recipe {
-  id: string;                     // ← OBRIGATÓRIO E STRING (UUID)
+  id: string;
   title: string;
-  image: string | null;
-
+  image?: string;
   ingredients: string[];
   steps: string[];
   tags: string[];
-
-  time_minutes: number | null;    // ← só existe um campo, o correto
-
-  priority: number | null;        // ← importante para o painel admin
+  time_minutes?: number | null;
+  priority?: number | null;
 }
