@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
+import { Link } from "react-router-dom";
 
 interface AdminPanelProps {
   onRecipeCreated?: (recipe: Recipe) => void;
@@ -13,20 +14,51 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout,
   email,
 }) => {
+  /* -------------------------------------------------------------------------- */
+  /*                               FORM STATES                                  */
+  /* -------------------------------------------------------------------------- */
+
   const [title, setTitle] = useState("");
   const [ingredientsText, setIngredientsText] = useState("");
   const [stepsText, setStepsText] = useState("");
   const [tagsText, setTagsText] = useState("");
   const [timeMinutes, setTimeMinutes] = useState<number | "">("");
-
   const [image, setImage] = useState("");
-  const [priority, setPriority] = useState<number | "">(""); // ⭐ NOVO
 
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  /* ------------------------------ GUARDAR RECEITA ------------------------------ */
+  /* -------------------------------------------------------------------------- */
+  /*                           RECEITAS EXISTENTES                               */
+  /* -------------------------------------------------------------------------- */
+
+  const [recipeList, setRecipeList] = useState<Recipe[]>([]);
+  const [loadingList, setLoadingList] = useState(true);
+
+  async function loadRecipes() {
+    setLoadingList(true);
+
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .order("priority", { ascending: true })
+      .order("id", { ascending: false });
+
+    if (!error && data) {
+      setRecipeList(data as Recipe[]);
+    }
+
+    setLoadingList(false);
+  }
+
+  useEffect(() => {
+    loadRecipes();
+  }, []);
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  GUARDAR                                    */
+  /* -------------------------------------------------------------------------- */
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +78,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
     const tags = tagsText
       .split(",")
-      .map((t) => t.trim().toLowerCase())
+      .map((t) => t.trim())
       .filter(Boolean);
 
     const { data, error } = await supabase
@@ -59,7 +91,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           tags,
           time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
           image: image || null,
-          priority: priority === "" ? null : Number(priority), // ⭐ ADICIONADO
+          priority: 999999, // novas receitas vão para o fim
         },
       ])
       .select()
@@ -68,31 +100,63 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     setSaving(false);
 
     if (error || !data) {
-      console.error(error);
-      setError("Erro ao guardar a receita. Verifica os campos.");
+      setError("Erro ao guardar a receita.");
       return;
     }
 
     setMessage("Receita guardada com sucesso ✨");
-
-    // Limpar formulário
     setTitle("");
     setIngredientsText("");
     setStepsText("");
     setTagsText("");
     setTimeMinutes("");
     setImage("");
-    setPriority(""); // ⭐ LIMPAR
 
-    if (onRecipeCreated) {
-      onRecipeCreated(data as Recipe);
-    }
+    loadRecipes();
+
+    if (onRecipeCreated) onRecipeCreated(data as Recipe);
   };
 
-  /* ----------------------------------- UI ----------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /*                              APAGAR RECEITA                                 */
+  /* -------------------------------------------------------------------------- */
+
+  async function deleteRecipe(id: number) {
+    if (!confirm("Tem a certeza que quer apagar esta receita?")) return;
+
+    const { error } = await supabase.from("recipes").delete().eq("id", id);
+
+    if (error) {
+      alert("Erro ao apagar.");
+      return;
+    }
+
+    loadRecipes();
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                          ATUALIZAR PRIORIDADE                               */
+  /* -------------------------------------------------------------------------- */
+
+  async function updatePriority(id: number, newValue: number) {
+    await supabase
+      .from("recipes")
+      .update({ priority: newValue })
+      .eq("id", id);
+
+    loadRecipes();
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    UI                                       */
+  /* -------------------------------------------------------------------------- */
 
   return (
-    <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-4">
+    <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-10">
+
+      {/* ---------------------------------------------------------------------- */}
+      {/*                                HEADER                                  */}
+      {/* ---------------------------------------------------------------------- */}
       <div className="flex items-center justify-between gap-3">
         <div>
           <h3 className="text-xl font-serif text-olive">
@@ -104,6 +168,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
             </p>
           )}
         </div>
+
         <button
           onClick={onLogout}
           className="text-xs px-3 py-1 rounded-lg border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition"
@@ -112,14 +177,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         </button>
       </div>
 
-      {/* ---------------------------- FORMULÁRIO ---------------------------- */}
+      {/* ---------------------------------------------------------------------- */}
+      {/*                           FORMULÁRIO NOVA RECEITA                      */}
+      {/* ---------------------------------------------------------------------- */}
 
       <form onSubmit={handleSave} className="space-y-4 text-sm">
-        {/* TÍTULO */}
         <div>
-          <label className="block mb-1 font-medium text-charcoal/80">
-            Título
-          </label>
+          <label className="block mb-1 font-medium text-charcoal/80">Título</label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -128,7 +192,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           />
         </div>
 
-        {/* INGREDIENTES */}
         <div>
           <label className="block mb-1 font-medium text-charcoal/80">
             Ingredientes (separados por vírgulas)
@@ -142,7 +205,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           />
         </div>
 
-        {/* PASSOS */}
         <div>
           <label className="block mb-1 font-medium text-charcoal/80">
             Passos (cada linha = 1 passo)
@@ -156,7 +218,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           />
         </div>
 
-        {/* TAGS */}
         <div>
           <label className="block mb-1 font-medium text-charcoal/80">
             Tags (separadas por vírgulas)
@@ -169,20 +230,17 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           />
         </div>
 
-        {/* TEMPO + IMAGEM */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block mb-1 font-medium text-charcoal/80">
               Tempo (minutos)
             </label>
             <input
               type="number"
-              min={0}
               value={timeMinutes}
+              min={0}
               onChange={(e) =>
-                setTimeMinutes(
-                  e.target.value === "" ? "" : Number(e.target.value)
-                )
+                setTimeMinutes(e.target.value === "" ? "" : Number(e.target.value))
               }
               className="w-full rounded-xl border border-olive/30 px-3 py-2"
             />
@@ -190,7 +248,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
           <div>
             <label className="block mb-1 font-medium text-charcoal/80">
-              URL da imagem (opcional)
+              URL da imagem
             </label>
             <input
               value={image}
@@ -201,38 +259,85 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
         </div>
 
-        {/* ⭐ PRIORIDADE */}
-        <div>
-          <label className="block mb-1 font-medium text-charcoal/80">
-            Prioridade (número — opcional)
-          </label>
-          <input
-            type="number"
-            min={1}
-            value={priority}
-            onChange={(e) =>
-              setPriority(
-                e.target.value === "" ? "" : Number(e.target.value)
-              )
-            }
-            className="w-full rounded-xl border border-olive/30 px-3 py-2"
-            placeholder="Ex: 1"
-          />
-        </div>
-
-        {/* MENSAGENS */}
         {message && <p className="text-xs text-olive">{message}</p>}
         {error && <p className="text-xs text-red-600">{error}</p>}
 
-        {/* BOTÃO SUBMETER */}
         <button
           type="submit"
           disabled={saving}
-          className="mt-2 bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-terracotta/90 transition disabled:opacity-60"
+          className="bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold shadow hover:bg-terracotta/90 transition disabled:opacity-60"
         >
           {saving ? "A guardar..." : "Guardar receita"}
         </button>
       </form>
+
+      {/* ---------------------------------------------------------------------- */}
+      {/*                           LISTA DE RECEITAS                              */}
+      {/* ---------------------------------------------------------------------- */}
+
+      <div className="mt-10">
+        <h2 className="text-lg font-semibold text-olive mb-4">
+          Receitas existentes ({recipeList.length})
+        </h2>
+
+        {loadingList ? (
+          <p>A carregar receitas...</p>
+        ) : (
+          <div className="space-y-3">
+            {recipeList.map((r) => (
+              <div
+                key={r.id}
+                className="flex items-center justify-between bg-white border border-olive/20 p-3 rounded-xl shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  {/* Imagem 50px */}
+                  {r.image ? (
+                    <img
+                      src={r.image}
+                      className="w-12 h-12 rounded-md object-cover border"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-beige rounded-md border flex items-center justify-center text-xs text-charcoal/50">
+                      sem foto
+                    </div>
+                  )}
+
+                  <div>
+                    <p className="font-medium">{r.title}</p>
+                    <p className="text-xs text-charcoal/60">ID: {r.id}</p>
+                  </div>
+                </div>
+
+                {/* PRIORIDADE + EDITAR + APAGAR */}
+                <div className="flex items-center gap-3">
+                  <input
+                    type="number"
+                    className="w-16 border rounded p-1 text-sm"
+                    value={r.priority ?? 999999}
+                    onChange={(e) =>
+                      updatePriority(r.id, Number(e.target.value))
+                    }
+                  />
+
+                  <Link
+                    to={`/edit/${r.id}`}
+                    className="text-xs px-2 py-1 rounded bg-olive text-white hover:bg-olive/80"
+                  >
+                    Editar
+                  </Link>
+
+                  <button
+                    onClick={() => deleteRecipe(r.id)}
+                    className="text-xs px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600"
+                  >
+                    Apagar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
