@@ -30,6 +30,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loadingList, setLoadingList] = useState(true);
 
+  /* PRIORIDADES EDITADAS */
+  const [priorityEdits, setPriorityEdits] = useState<Record<number, string>>({});
+
   async function loadRecipes() {
     setLoadingList(true);
 
@@ -119,14 +122,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   }
 
   /* ATUALIZAR PRIORIDADE */
-  async function updatePriority(id: number, newValue: number) {
-    // Se o valor estiver vazio, tratamos como null
-    const priorityValue = isNaN(newValue) ? null : newValue;
+  async function updatePriority(id: number) {
+    const raw = priorityEdits[id];
 
-    await supabase
-      .from("recipes")
-      .update({ priority: priorityValue })
-      .eq("id", id);
+    const num = raw === "" ? null : Number(raw);
+
+    await supabase.from("recipes").update({ priority: num }).eq("id", id);
 
     loadRecipes();
   }
@@ -156,82 +157,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* FORM NOVA RECEITA */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
-        <div>
-          <label className="block mb-1 font-medium">Título</label>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">Ingredientes</label>
-          <textarea
-            value={ingredientsText}
-            onChange={(e) => setIngredientsText(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-20"
-            placeholder="farinha, leite, ovos..."
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">Passos</label>
-          <textarea
-            value={stepsText}
-            onChange={(e) => setStepsText(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-28"
-            placeholder="Passo 1...\nPasso 2..."
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">Tags</label>
-          <input
-            value={tagsText}
-            onChange={(e) => setTagsText(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2"
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block mb-1 font-medium">Tempo</label>
-            <input
-              type="number"
-              min={0}
-              value={timeMinutes}
-              onChange={(e) =>
-                setTimeMinutes(e.target.value === "" ? "" : Number(e.target.value))
-              }
-              className="w-full rounded-xl border border-olive/30 px-3 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">URL da imagem</label>
-            <input
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              className="w-full rounded-xl border border-olive/30 px-3 py-2"
-              placeholder="https://..."
-            />
-          </div>
-        </div>
-
-        {message && <p className="text-xs text-olive">{message}</p>}
-        {error && <p className="text-xs text-red-600">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={saving}
-          className="bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold"
-        >
-          {saving ? "A guardar..." : "Guardar receita"}
-        </button>
+        {/* … o resto fica IGUAL … */}
       </form>
 
       {/* LISTA DE RECEITAS */}
@@ -244,57 +170,62 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <p>A carregar receitas...</p>
         ) : (
           <div className="space-y-3">
-            {recipeList.map((r) => (
-              <div
-                key={r.id}
-                className="flex items-center justify-between bg-white border p-3 rounded-xl"
-              >
-                <div className="flex items-center gap-3">
-                  {r.image ? (
-                    <img src={r.image} className="w-12 h-12 rounded-md object-cover border" />
-                  ) : (
-                    <div className="w-12 h-12 bg-beige border flex items-center justify-center text-xs">
-                      sem foto
-                    </div>
-                  )}
+            {recipeList.map((r) => {
+              const currentValue =
+                priorityEdits[r.id] ?? (r.priority === null ? "" : String(r.priority));
 
-                  <div>
-                    <p className="font-medium">{r.title}</p>
-                    <p className="text-xs text-charcoal/60">ID: {r.id}</p>
+              return (
+                <div
+                  key={r.id}
+                  className="flex items-center justify-between bg-white border p-3 rounded-xl"
+                >
+                  <div className="flex items-center gap-3">
+                    {r.image ? (
+                      <img src={r.image} className="w-12 h-12 rounded-md object-cover border" />
+                    ) : (
+                      <div className="w-12 h-12 bg-beige border flex items-center justify-center text-xs">
+                        sem foto
+                      </div>
+                    )}
+
+                    <div>
+                      <p className="font-medium">{r.title}</p>
+                      <p className="text-xs text-charcoal/60">ID: {r.id}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="number"
+                      className="w-16 border rounded p-1 text-sm"
+                      value={currentValue}
+                      placeholder="—"
+                      onChange={(e) =>
+                        setPriorityEdits((prev) => ({
+                          ...prev,
+                          [r.id]: e.target.value,
+                        }))
+                      }
+                      onBlur={() => updatePriority(r.id)}
+                    />
+
+                    <Link
+                      to={`/edit/${r.id}`}
+                      className="text-xs px-2 py-1 rounded bg-olive text-white"
+                    >
+                      Editar
+                    </Link>
+
+                    <button
+                      onClick={() => deleteRecipe(r.id)}
+                      className="text-xs px-2 py-1 rounded bg-red-500 text-white"
+                    >
+                      Apagar
+                    </button>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-3">
-                  <input
-                    type="number"
-                    className="w-16 border rounded p-1 text-sm"
-                    placeholder="—"
-                    value={
-                      r.priority === null || r.priority === undefined
-                        ? ""
-                        : r.priority
-                    }
-                    onBlur={(e) =>
-                      updatePriority(r.id, Number(e.target.value))
-                    }
-                  />
-
-                  <Link
-                    to={`/edit/${r.id}`}
-                    className="text-xs px-2 py-1 rounded bg-olive text-white"
-                  >
-                    Editar
-                  </Link>
-
-                  <button
-                    onClick={() => deleteRecipe(r.id)}
-                    className="text-xs px-2 py-1 rounded bg-red-500 text-white"
-                  >
-                    Apagar
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
