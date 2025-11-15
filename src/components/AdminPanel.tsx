@@ -30,8 +30,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loadingList, setLoadingList] = useState(true);
 
-  /* PRIORIDADES EDITADAS */
-  const [priorityEdits, setPriorityEdits] = useState<Record<number, string>>({});
+  /* PRIORIDADES EDITADAS — agora a key é string (UUID), não number */
+  const [priorityEdits, setPriorityEdits] = useState<Record<string, string>>({});
 
   async function loadRecipes() {
     setLoadingList(true);
@@ -112,8 +112,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     if (onRecipeCreated) onRecipeCreated(data as Recipe);
   };
 
-  /* APAGAR RECEITA */
-  async function deleteRecipe(id: number) {
+  /* APAGAR RECEITA — agora id é string */
+  async function deleteRecipe(id: string) {
     if (!confirm("Tem a certeza que quer apagar esta receita?")) return;
 
     const { error } = await supabase.from("recipes").delete().eq("id", id);
@@ -121,10 +121,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     if (!error) loadRecipes();
   }
 
-  /* ATUALIZAR PRIORIDADE */
-  async function updatePriority(id: number) {
+  /* ATUALIZAR PRIORIDADE — agora id é string */
+  async function updatePriority(id: string) {
     const raw = priorityEdits[id];
-
     const num = raw === "" ? null : Number(raw);
 
     await supabase.from("recipes").update({ priority: num }).eq("id", id);
@@ -157,7 +156,82 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* FORM NOVA RECEITA */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
-        {/* … o resto fica IGUAL … */}
+        <div>
+          <label className="block mb-1 font-medium">Título</label>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Ingredientes</label>
+          <textarea
+            value={ingredientsText}
+            onChange={(e) => setIngredientsText(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-20"
+            placeholder="farinha, leite, ovos..."
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Passos</label>
+          <textarea
+            value={stepsText}
+            onChange={(e) => setStepsText(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-28"
+            placeholder="Passo 1...\nPasso 2..."
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Tags</label>
+          <input
+            value={tagsText}
+            onChange={(e) => setTagsText(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block mb-1 font-medium">Tempo</label>
+            <input
+              type="number"
+              min={0}
+              value={timeMinutes}
+              onChange={(e) =>
+                setTimeMinutes(e.target.value === "" ? "" : Number(e.target.value))
+              }
+              className="w-full rounded-xl border border-olive/30 px-3 py-2"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">URL da imagem</label>
+            <input
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              className="w-full rounded-xl border border-olive/30 px-3 py-2"
+              placeholder="https://..."
+            />
+          </div>
+        </div>
+
+        {message && <p className="text-xs text-olive">{message}</p>}
+        {error && <p className="text-xs text-red-600">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={saving}
+          className="bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold"
+        >
+          {saving ? "A guardar..." : "Guardar receita"}
+        </button>
       </form>
 
       {/* LISTA DE RECEITAS */}
@@ -210,13 +284,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     />
 
                     <Link
-  to={`/admin/edit/${r.id}`}
-  className="text-xs px-2 py-1 rounded bg-olive text-white"
->
-  Editar
-</Link>
-
-
+                      to={`/admin/edit/${r.id}`}
+                      className="text-xs px-2 py-1 rounded bg-olive text-white"
+                    >
+                      Editar
+                    </Link>
 
                     <button
                       onClick={() => deleteRecipe(r.id)}
@@ -235,4 +307,4 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   );
 };
 
-export default AdminPanel; 
+export default AdminPanel;
