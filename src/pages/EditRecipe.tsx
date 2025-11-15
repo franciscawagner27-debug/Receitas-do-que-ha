@@ -23,11 +23,10 @@ export default function EditRecipe() {
   useEffect(() => {
     async function fetchRecipe() {
       const { data, error } = await supabase
-  .from("recipes")
-  .select("*")
-  .eq("id", id)
-  .single();
-;
+        .from("recipes")
+        .select("*")
+        .eq("id", id)    // ← CORRETO PARA UUID
+        .single();
 
       if (error || !data) {
         alert("Erro ao carregar receita.");
@@ -51,7 +50,7 @@ export default function EditRecipe() {
           : (data.steps || "").toString()
       );
 
-      // tags (corrigir formatos antigos)
+      // tags — corrigir formatos antigos
       const rawTags = data.tags;
 
       if (Array.isArray(rawTags)) {
@@ -107,25 +106,23 @@ export default function EditRecipe() {
         .filter(Boolean);
 
       const { error } = await supabase
-  .from("recipes")
-  .update({
-    title,
-    ingredients,
-    steps,
-    tags,
-    time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
-    image: image || null,
-  })
-  .eq("id", id);
- // <- OBRIGATÓRIO! (sem isto, nada guarda)
+        .from("recipes")
+        .update({
+          title,
+          ingredients,
+          steps,
+          tags,
+          time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
+          image: image || null,
+        })
+        .eq("id", id);   // ← CORRETO PARA UUID
 
-    if (error) {
-  console.error("Erro Supabase:", error);
-  alert("Erro ao guardar: " + error.message);
-  setSaving(false);
-  return;
-}
-
+      if (error) {
+        console.error(error);
+        alert("Erro ao guardar alterações.");
+        setSaving(false);
+        return;
+      }
 
       alert("Receita atualizada com sucesso!");
       navigate("/admin");
