@@ -108,8 +108,8 @@ function HomePage() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .order("priority", { ascending: true })   // ⭐ ALTERAÇÃO AQUI
-        .order("id", { ascending: false });
+        .order("priority", { ascending: true })   // <- Mantemos isto
+        .order("id", { ascending: false });       // <- Mantemos isto
 
       if (!error && data) {
         const cleaned = data.map((r: any) => {
@@ -143,6 +143,19 @@ function HomePage() {
     fetchRecipes();
   }, []);
 
+  /* ----------------------- ⭐ ORDENAR RECEITAS (DESTAQUES) ----------------------- */
+
+  const sortedRecipes = [...recipes].sort((a, b) => {
+    const aFeatured = a.tags?.includes("destaque");
+    const bFeatured = b.tags?.includes("destaque");
+
+    if (aFeatured && !bFeatured) return -1;
+    if (!aFeatured && bFeatured) return 1;
+
+    // Se ambos ou nenhum tiver destaque, mantém ordem natural (por id)
+    return b.id - a.id;
+  });
+
   /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
 
   const handleCategorySelect = (category: string) => {
@@ -166,36 +179,30 @@ function HomePage() {
     }
   };
 
-  /* --------------------------- SUGESTÕES FIXAS ---------------------------- */
-
-  const quickSuggestions = ["frango", "ovos", "arroz", "courgete", "massa"];
-
   /* ------------------------------- FILTRO GERAL ---------------------------- */
 
-  const filteredRecipes = recipes.filter((r: any) => {
+  const filteredRecipes = sortedRecipes.filter((r: any) => {
     const selected = selectedCategory.trim().toLowerCase();
-   const categoryMap: Record<string, string[]> = {
-  entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
-  sopas: ["sopa", "sopas", "caldo", "caldos"],
-  carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-  peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-  massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
-  vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
-  sobremesas: [
-    "doce", "doces", "sobremesa", "sobremesas",
-    "bolo", "bolos", "tarte", "tartes",
-    "pudim", "pudins", "mousse", "mousses",
-  ],
-
-  airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
-
-  "dias sem tempo": [
-    "diassemtempo",
-    "supermercado",
-    "semipronto",
-    "congelado",
-  ],
-};
+    const categoryMap: Record<string, string[]> = {
+      entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+      sopas: ["sopa", "sopas", "caldo", "caldos"],
+      carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+      peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+      massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+      vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+      sobremesas: [
+        "doce", "doces", "sobremesa", "sobremesas",
+        "bolo", "bolos", "tarte", "tartes",
+        "pudim", "pudins", "mousse", "mousses",
+      ],
+      airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
+      "dias sem tempo": [
+        "diassemtempo",
+        "supermercado",
+        "semipronto",
+        "congelado",
+      ],
+    };
 
     const validTags = categoryMap[selected] || [];
     let matchesCategory = true;
@@ -295,7 +302,7 @@ function HomePage() {
                          transition-all duration-200 text-lg"
             />
 
-            {/* Lupa dentro da caixa */}
+            {/* Lupa */}
             <button
               onClick={() => handleSearch()}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
@@ -316,24 +323,6 @@ function HomePage() {
               </svg>
             </button>
           </div>
-
-          {/* SUGESTÕES RÁPIDAS FIXAS */}
-          <>
-            <p className="text-charcoal/70 mb-3 font-medium">
-              Sugestões rápidas:
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 mt-2">
-              {quickSuggestions.map((ing) => (
-                <button
-                  key={ing}
-                  onClick={() => handleSearch(ing)}
-                  className="px-3 py-1 bg-beige text-olive border border-olive/30 rounded-full text-sm hover:bg-olive/10 transition"
-                >
-                  {ing}
-                </button>
-              ))}
-            </div>
-          </>
         </div>
       </section>
 
@@ -342,14 +331,6 @@ function HomePage() {
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
-        
-{selectedCategory.toLowerCase() === "dias sem tempo" && (
-  <p className="text-charcoal/80 text-center mb-6 text-sm sm:text-base">
-    Soluções rápidas do Receitas do Que Há com alimentos pré-preparados que já
-    experimentámos e recomendamos — perfeitas para aqueles dias em que o tempo
-    não chega para cozinhar.
-  </p>
-)}
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
         ) : filteredRecipes.length === 0 ? (
@@ -423,38 +404,6 @@ function HomePage() {
           </div>
         )}
       </main>
-
-      {/* LUPA FLUTUANTE NO TELEMÓVEL */}
-      <button
-        onClick={() => {
-          const el = document.getElementById("search-box");
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            const scrollTop =
-              window.scrollY || document.documentElement.scrollTop;
-            window.scrollTo({
-              top: scrollTop + rect.top - 200,
-              behavior: "smooth",
-            });
-          }
-        }}
-        className="md:hidden fixed bottom-6 right-6 bg-white text-olive border border-olive p-4 rounded-full shadow-lg hover:bg-olive hover:text-white transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 21l-4.35-4.35m2.1-5.4a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
-          />
-        </svg>
-      </button>
 
       {/* MODAL */}
       {selectedRecipe && (
