@@ -13,11 +13,11 @@ export default function EditRecipe() {
   const [ingredientsText, setIngredientsText] = useState("");
   const [stepsText, setStepsText] = useState("");
   const [tagsText, setTagsText] = useState("");
-  const [time_minutes, setTime_minutes] = useState<number | "">("");
+  const [timeMinutes, setTimeMinutes] = useState<number | "">("");
   const [image, setImage] = useState("");
 
   /* -------------------------------------------------------------------------- */
-  /*                            FETCH RECEITA EXISTENTE                           */
+  /*                          CARREGAR RECEITA EXISTENTE                         */
   /* -------------------------------------------------------------------------- */
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function EditRecipe() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .eq("id", id) // UUID correto
+        .eq("id", id)
         .single();
 
       if (error || !data) {
@@ -36,32 +36,57 @@ export default function EditRecipe() {
 
       setTitle(data.title);
 
-      // INGREDIENTES — sempre array de strings
-      setIngredientsText(
-        Array.isArray(data.ingredients)
-          ? data.ingredients.join(", ")
-          : ""
-      );
+      // INGREDIENTES
+      if (Array.isArray(data.ingredients)) {
+        setIngredientsText(data.ingredients.join(", "));
+      } else if (typeof data.ingredients === "string") {
+        // limpar lixo antigo
+        setIngredientsText(
+          data.ingredients
+            .replace(/[\[\]\(\)"{}]/g, "")
+            .split(/[,;]+/)
+            .map((t) => t.trim())
+            .filter(Boolean)
+            .join(", ")
+        );
+      } else {
+        setIngredientsText("");
+      }
 
       // PASSOS
-      setStepsText(
-        Array.isArray(data.steps)
-          ? data.steps.join("\n")
-          : ""
-      );
+      if (Array.isArray(data.steps)) {
+        setStepsText(data.steps.join("\n"));
+      } else if (typeof data.steps === "string") {
+        setStepsText(
+          data.steps
+            .replace(/[\[\]\(\)"{}]/g, "")
+            .split(/[\n,;]+/)
+            .map((s) => s.trim())
+            .filter(Boolean)
+            .join("\n")
+        );
+      } else {
+        setStepsText("");
+      }
 
-      // TAGS — array → texto simples
+      // TAGS
       if (Array.isArray(data.tags)) {
         setTagsText(data.tags.join(", "));
+      } else if (typeof data.tags === "string") {
+        setTagsText(
+          data.tags
+            .replace(/[\[\]\(\)"{}]/g, "")
+            .split(/[,;]+/)
+            .map((t) => t.trim())
+            .filter(Boolean)
+            .join(", ")
+        );
       } else {
         setTagsText("");
       }
 
-      // TEMPO
-      setTime_minutes(data.time_minutes ?? "");
-
-      // IMAGEM
-      setImage(data.image ?? "");
+      setTimeMinutes(data.time_minutes || "");
+      setImage(data.image || "");
 
       setLoading(false);
     }
@@ -70,7 +95,7 @@ export default function EditRecipe() {
   }, [id, navigate]);
 
   /* -------------------------------------------------------------------------- */
-  /*                               GUARDAR ALTERAÇÕES                            */
+  /*                              GUARDAR ALTERAÇÕES                             */
   /* -------------------------------------------------------------------------- */
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -78,35 +103,42 @@ export default function EditRecipe() {
     setSaving(true);
 
     try {
+      /* INGREDIENTES → ARRAY LIMPO */
       const ingredients = ingredientsText
         .split(",")
         .map((i) => i.trim())
         .filter(Boolean);
 
+      /* PASSOS → ARRAY LIMPO */
       const steps = stepsText
         .split("\n")
         .map((s) => s.trim())
         .filter(Boolean);
 
+      /* TAGS → ARRAY LIMPO */
       const tags = tagsText
         .split(",")
         .map((t) => t.trim().toLowerCase())
         .filter(Boolean);
 
+      const updateObj: any = {
+        title,
+        ingredients,
+        steps,
+        tags,
+        time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
+        image: image || null,
+      };
+
+      console.log("🔍 UPDATE OBJ:", updateObj);
+
       const { error } = await supabase
         .from("recipes")
-        .update({
-          title,
-          ingredients,
-          steps,
-          tags,
-          time_minutes: time_minutes === "" ? null : Number(time_minutes),
-          image: image || null,
-        })
+        .update(updateObj)
         .eq("id", id);
 
       if (error) {
-        console.error(error);
+        console.error("❌ ERRO SUPABASE:", error);
         alert("Erro ao guardar alterações.");
         setSaving(false);
         return;
@@ -114,9 +146,8 @@ export default function EditRecipe() {
 
       alert("Receita atualizada com sucesso!");
       navigate("/admin");
-
     } catch (err) {
-      console.error(err);
+      console.error("❌ ERRO INESPERADO:", err);
       alert("Erro inesperado ao guardar.");
     }
 
@@ -124,7 +155,7 @@ export default function EditRecipe() {
   };
 
   /* -------------------------------------------------------------------------- */
-  /*                                   UI LOADING                                */
+  /*                                   UI                                       */
   /* -------------------------------------------------------------------------- */
 
   if (loading) {
@@ -135,16 +166,11 @@ export default function EditRecipe() {
     );
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                    UI FORM                                 */
-  /* -------------------------------------------------------------------------- */
-
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
       <h1 className="text-3xl font-serif text-olive mb-6">Editar Receita</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        
         {/* Título */}
         <div>
           <label className="block font-medium mb-1">Título</label>
@@ -197,14 +223,16 @@ export default function EditRecipe() {
         {/* Tempo + Imagem */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block font-medium mb-1">Tempo (minutos)</label>
+            <label className="block font-medium mb-1">
+              Tempo (minutos)
+            </label>
             <input
               type="number"
               min={0}
               className="w-full border border-olive/30 rounded-xl p-3"
-              value={time_minutes}
+              value={timeMinutes}
               onChange={(e) =>
-                setTime_minutes(
+                setTimeMinutes(
                   e.target.value === "" ? "" : Number(e.target.value)
                 )
               }
