@@ -268,9 +268,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* ------------------------------------------------------------- */}
 
       <div>
-        <h3 className="text-xl font-serif text-olive mb-4">
-          Receitas existentes
-        </h3>
+       <h3 className="text-xl font-serif text-olive mb-4">
+  Receitas existentes ({recipes.length})
+</h3>
+>
 
         {loadingRecipes ? (
           <p className="text-charcoal/60">A carregar receitas...</p>
