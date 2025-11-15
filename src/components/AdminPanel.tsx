@@ -209,9 +209,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                       onBlur={() => updatePriority(r.id)}
                     />
 
-                    <Link to={`/admin/edit/${r.id}`} className="text-xs px-2 py-1 rounded bg-olive text-white">
+                    <Link
+  to={`/admin/edit/${r.id}`}
+  className="text-xs px-2 py-1 rounded bg-olive text-white"
+>
   Editar
 </Link>
+
 
 
                     <button
