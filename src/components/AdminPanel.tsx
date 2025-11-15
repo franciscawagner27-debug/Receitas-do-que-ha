@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
+import { Link } from "react-router-dom";
 
 interface AdminPanelProps {
   onRecipeCreated?: (recipe: Recipe) => void;
@@ -13,6 +14,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout,
   email,
 }) => {
+  // ---------------- FORM STATES ----------------
   const [title, setTitle] = useState("");
   const [ingredientsText, setIngredientsText] = useState("");
   const [stepsText, setStepsText] = useState("");
@@ -23,6 +25,39 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // ---------------- RECEITAS EXISTENTES ----------------
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loadingRecipes, setLoadingRecipes] = useState(true);
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      const { data, error } = await supabase
+        .from("recipes")
+        .select("*")
+        .order("id", { ascending: false });
+
+      if (!error && data) {
+        setRecipes(data as Recipe[]);
+      }
+      setLoadingRecipes(false);
+    }
+
+    fetchRecipes();
+  }, []);
+
+  // ---------------- APAGAR RECEITA ----------------
+  const deleteRecipe = async (id: number) => {
+    const ok = window.confirm("Tem a certeza que quer apagar esta receita?");
+    if (!ok) return;
+
+    const { error } = await supabase.from("recipes").delete().eq("id", id);
+
+    if (!error) {
+      setRecipes((prev) => prev.filter((r) => r.id !== id));
+    }
+  };
+
+  // ---------------- GUARDAR NOVA RECEITA ----------------
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -75,13 +110,17 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     setTimeMinutes("");
     setImage("");
 
+    // Atualizar lista sem reload
+    setRecipes((prev) => [data as Recipe, ...prev]);
+
     if (onRecipeCreated) {
       onRecipeCreated(data as Recipe);
     }
   };
 
   return (
-    <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-4">
+    <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-10">
+      {/* -------------------------------- HEADER -------------------------------- */}
       <div className="flex items-center justify-between gap-3">
         <div>
           <h3 className="text-xl font-serif text-olive">
@@ -101,6 +140,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         </button>
       </div>
 
+      {/* --------------------------- FORMULÁRIO CRIAR -------------------------- */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
         <div>
           <label className="block mb-1 font-medium text-charcoal/80">
@@ -185,9 +225,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         {message && (
           <p className="text-xs text-olive">{message}</p>
         )}
-        {error && (
-          <p className="text-xs text-red-600">{error}</p>
-        )}
+        {error && <p className="text-xs text-red-600">{error}</p>}
 
         <button
           type="submit"
@@ -197,8 +235,63 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           {saving ? "A guardar..." : "Guardar receita"}
         </button>
       </form>
+
+      {/* ------------------------------ LISTA DE RECEITAS ------------------------------ */}
+      <div className="mt-10">
+        <h3 className="text-lg font-serif text-olive mb-4">
+          Receitas existentes
+        </h3>
+
+        {loadingRecipes ? (
+          <p>A carregar receitas...</p>
+        ) : recipes.length === 0 ? (
+          <p className="text-charcoal/60 text-sm">Ainda não há receitas.</p>
+        ) : (
+          <div className="space-y-4">
+            {recipes.map((recipe) => (
+              <div
+                key={recipe.id}
+                className="flex items-center justify-between bg-beige/40 p-3 rounded-xl border border-olive/20"
+              >
+                <div className="flex items-center gap-3">
+                  {/* Mini imagem 50px */}
+                  {recipe.image ? (
+                    <img
+                      src={recipe.image}
+                      alt={recipe.title}
+                      className="w-12 h-12 object-cover rounded-lg"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-olive/20 rounded-lg" />
+                  )}
+
+                  <span className="font-medium text-charcoal">
+                    {recipe.title}
+                  </span>
+                </div>
+
+                <div className="flex gap-2">
+                  <Link
+                    to={`/admin/edit/${recipe.id}`}
+                    className="px-3 py-1 text-xs rounded-lg border border-olive text-olive hover:bg-olive hover:text-white transition"
+                  >
+                    Editar
+                  </Link>
+
+                  <button
+                    onClick={() => deleteRecipe(recipe.id)}
+                    className="px-3 py-1 text-xs rounded-lg border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition"
+                  >
+                    Apagar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default AdminPanel; 
+export default AdminPanel;
