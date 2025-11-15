@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { supabase } from "./lib/supabase";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
@@ -13,15 +13,17 @@ import EditRecipe from "./pages/EditRecipe";
 /* -------------------------------------------------------------------------- */
 
 export default function App() {
+  const location = useLocation();
+
   return (
     <Routes>
-      {/* Página pública */}
-      <Route path="/" element={<HomePage />} />
+      {/* Página pública — agora recarrega quando voltas do admin */}
+      <Route path="/" element={<HomePage key={location.pathname} />} />
 
       {/* Página privada /admin */}
       <Route path="/admin" element={<AdminPage />} />
 
-      {/* ⭐ NOVA ROTA — Editar receita */}
+      {/* Página de edição */}
       <Route path="/admin/edit/:id" element={<EditRecipe />} />
     </Routes>
   );
@@ -108,8 +110,8 @@ function HomePage() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .order("priority", { ascending: true })   // <- Mantemos isto
-        .order("id", { ascending: false });       // <- Mantemos isto
+        .order("priority", { ascending: true })
+        .order("id", { ascending: false });
 
       if (!error && data) {
         const cleaned = data.map((r: any) => {
@@ -152,7 +154,6 @@ function HomePage() {
     if (aFeatured && !bFeatured) return -1;
     if (!aFeatured && bFeatured) return 1;
 
-    // Se ambos ou nenhum tiver destaque, mantém ordem natural (por id)
     return b.id - a.id;
   });
 
@@ -179,21 +180,38 @@ function HomePage() {
     }
   };
 
-  /* ------------------------------- FILTRO GERAL ---------------------------- */
+  /* --------------------------- FILTRO GERAL ---------------------------- */
 
   const filteredRecipes = sortedRecipes.filter((r: any) => {
     const selected = selectedCategory.trim().toLowerCase();
+
     const categoryMap: Record<string, string[]> = {
       entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
       sopas: ["sopa", "sopas", "caldo", "caldos"],
       carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
       peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
       massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
-      vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+      vegetariano: [
+        "vegetariano",
+        "vegetariana",
+        "vegan",
+        "salada",
+        "legumes",
+        "legume",
+      ],
       sobremesas: [
-        "doce", "doces", "sobremesa", "sobremesas",
-        "bolo", "bolos", "tarte", "tartes",
-        "pudim", "pudins", "mousse", "mousses",
+        "doce",
+        "doces",
+        "sobremesa",
+        "sobremesas",
+        "bolo",
+        "bolos",
+        "tarte",
+        "tartes",
+        "pudim",
+        "pudins",
+        "mousse",
+        "mousses",
       ],
       airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
       "dias sem tempo": [
@@ -211,7 +229,8 @@ function HomePage() {
       matchesCategory = favorites.includes(r.id);
     } else if (selected !== "todas") {
       matchesCategory =
-        Array.isArray(r.tags) && r.tags.some((tag) => validTags.includes(tag));
+        Array.isArray(r.tags) &&
+        r.tags.some((tag) => validTags.includes(tag));
     }
 
     const normalize = (str: string) =>
@@ -221,7 +240,7 @@ function HomePage() {
         .replace(/[\u0300-\u036f]/g, "");
 
     const matchesSearch =
-      searchTerm.trim() === ""
+      searchTerm === ""
         ? true
         : (() => {
             const terms = normalize(searchTerm)
@@ -229,12 +248,12 @@ function HomePage() {
               .filter((t) => t.length > 0);
 
             return terms.every(
-              (term) =>
+              (t) =>
                 (Array.isArray(r.ingredients) &&
                   r.ingredients.some((ing: string) =>
-                    normalize(ing).includes(term)
+                    normalize(ing).includes(t)
                   )) ||
-                normalize(r.title).includes(term)
+                normalize(r.title).includes(t)
             );
           })();
 
@@ -298,11 +317,9 @@ function HomePage() {
                 }
               }}
               className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
-                         focus:ring-2 focus:ring-olive/40 focus:border-olive
-                         transition-all duration-200 text-lg"
+                focus:ring-2 focus:ring-olive/40 focus:border-olive transition-all duration-200 text-lg"
             />
 
-            {/* Lupa */}
             <button
               onClick={() => handleSearch()}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
@@ -326,10 +343,9 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ÂNCORA */}
+      {/* LISTA */}
       <div id="recipe-list"></div>
 
-      {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -356,7 +372,6 @@ function HomePage() {
                     />
                   )}
 
-                  {/* ❤️ FAVORITO */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -405,7 +420,7 @@ function HomePage() {
         )}
       </main>
 
-      {/* MODAL */}
+      {/* MODAL RECIPE DETAIL */}
       {selectedRecipe && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
