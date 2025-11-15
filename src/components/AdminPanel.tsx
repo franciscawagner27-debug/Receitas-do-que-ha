@@ -120,7 +120,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
   /* ATUALIZAR PRIORIDADE */
   async function updatePriority(id: number, newValue: number) {
-    await supabase.from("recipes").update({ priority: newValue }).eq("id", id);
+    // Se o valor estiver vazio, tratamos como null
+    const priorityValue = isNaN(newValue) ? null : newValue;
+
+    await supabase
+      .from("recipes")
+      .update({ priority: priorityValue })
+      .eq("id", id);
+
     loadRecipes();
   }
 
@@ -261,8 +268,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                   <input
                     type="number"
                     className="w-16 border rounded p-1 text-sm"
-                    value={r.priority ?? ""}
                     placeholder="—"
+                    value={
+                      r.priority === null || r.priority === undefined
+                        ? ""
+                        : r.priority
+                    }
                     onBlur={(e) =>
                       updatePriority(r.id, Number(e.target.value))
                     }
