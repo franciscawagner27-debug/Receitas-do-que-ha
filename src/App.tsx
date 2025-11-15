@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import RecipeDetail from "./components/RecipeDetail";
 import type { Recipe } from "./types";
 import AdminPage from "./pages/Admin";
+import EditRecipe from "./pages/EditRecipe";
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROOT                                     */
@@ -19,9 +20,13 @@ export default function App() {
 
       {/* Página privada /admin */}
       <Route path="/admin" element={<AdminPage />} />
+
+      {/* ⭐ NOVA ROTA — Editar receita */}
+      <Route path="/admin/edit/:id" element={<EditRecipe />} />
     </Routes>
   );
 }
+
 
 /* -------------------------------------------------------------------------- */
 /*                                HOME PAGE                                   */
