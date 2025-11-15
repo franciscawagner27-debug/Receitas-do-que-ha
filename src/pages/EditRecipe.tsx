@@ -119,12 +119,13 @@ export default function EditRecipe() {
   .eq("id", id);
  // <- OBRIGATÓRIO! (sem isto, nada guarda)
 
-      if (error) {
-        console.error(error);
-        alert("Erro ao guardar alterações.");
-        setSaving(false);
-        return;
-      }
+    if (error) {
+  console.error("Erro Supabase:", error);
+  alert("Erro ao guardar: " + error.message);
+  setSaving(false);
+  return;
+}
+
 
       alert("Receita atualizada com sucesso!");
       navigate("/admin");
