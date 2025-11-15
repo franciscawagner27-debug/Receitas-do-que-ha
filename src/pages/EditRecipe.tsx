@@ -22,19 +22,26 @@ export default function EditRecipe() {
 
   useEffect(() => {
     async function fetchRecipe() {
+      if (!id) {
+        alert("ID da receita em falta.");
+        navigate("/admin");
+        return;
+      }
+
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .eq("id", id)    // ← CORRETO PARA UUID
+        .eq("id", id) // UUID direto, sem Number()
         .single();
 
       if (error || !data) {
+        console.error("Erro ao carregar receita:", error);
         alert("Erro ao carregar receita.");
         navigate("/admin");
         return;
       }
 
-      setTitle(data.title);
+      setTitle(data.title || "");
 
       // ingredientes
       setIngredientsText(
@@ -67,7 +74,7 @@ export default function EditRecipe() {
         setTagsText("");
       }
 
-      setTimeMinutes(data.time_minutes || "");
+      setTimeMinutes(data.time_minutes ?? "");
       setImage(data.image || "");
 
       setLoading(false);
@@ -77,11 +84,17 @@ export default function EditRecipe() {
   }, [id, navigate]);
 
   /* -------------------------------------------------------------------------- */
-  /*                            GUARDAR ALTERAÇÕES                               */
+  /*                            GUARDAR ALTERAÇÕES                              */
   /* -------------------------------------------------------------------------- */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!id) {
+      alert("ID da receita em falta (não foi possível guardar).");
+      return;
+    }
+
     setSaving(true);
 
     try {
@@ -105,7 +118,7 @@ export default function EditRecipe() {
         .map((t) => t.trim().toLowerCase())
         .filter(Boolean);
 
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("recipes")
         .update({
           title,
@@ -115,23 +128,32 @@ export default function EditRecipe() {
           time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
           image: image || null,
         })
-        .eq("id", id);   // ← CORRETO PARA UUID
+        .eq("id", id)
+        .select()
+        .single(); // <- traz de volta a linha atualizada
 
       if (error) {
-        console.error(error);
-        alert("Erro ao guardar alterações.");
+        console.error("Erro ao guardar alterações:", error);
+        alert("Erro ao guardar: " + error.message);
         setSaving(false);
         return;
       }
 
-      alert("Receita atualizada com sucesso!");
-      navigate("/admin");
-    } catch (err) {
-      console.error(err);
-      alert("Erro inesperado ao guardar.");
-    }
+      if (!data) {
+        alert("Nenhuma receita foi atualizada. ID: " + id);
+        setSaving(false);
+        return;
+      }
 
-    setSaving(false);
+      alert("Receita atualizada com sucesso! Título atual: " + data.title);
+
+      navigate("/admin");
+    } catch (err: any) {
+      console.error("Erro inesperado:", err);
+      alert("Erro inesperado ao guardar.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   /* -------------------------------------------------------------------------- */
@@ -149,6 +171,11 @@ export default function EditRecipe() {
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
       <h1 className="text-3xl font-serif text-olive mb-6">Editar Receita</h1>
+
+      {/* Pequeno debug visível para garantirmos o ID */}
+      <p className="text-xs text-charcoal/60 mb-4">
+        ID da receita: <span className="font-mono">{id}</span>
+      </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Título */}
@@ -203,9 +230,7 @@ export default function EditRecipe() {
         {/* Tempo + Imagem */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block font-medium mb-1">
-              Tempo (minutos)
-            </label>
+            <label className="block font-medium mb-1">Tempo (minutos)</label>
             <input
               type="number"
               min={0}
