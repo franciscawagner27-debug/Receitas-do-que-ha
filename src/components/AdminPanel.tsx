@@ -91,9 +91,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           tags,
           time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
           image: image || null,
-         value={r.priority}
-, // novas receitas vão para o fim
-        },
+          priority: 9999 // novas receitas ficam no fim        },
       ])
       .select()
       .single();
@@ -314,7 +312,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                   <input
                     type="number"
                     className="w-16 border rounded p-1 text-sm"
-                    value={r.priority ?? 999999}
+                   value={r.priority ?? 0}
+
                     onChange={(e) =>
                       updatePriority(r.id, Number(e.target.value))
                     }
