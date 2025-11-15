@@ -235,4 +235,4 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   );
 };
 
-export default AdminPanel;
+export default AdminPanel; 
