@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
 import { Link } from "react-router-dom";
@@ -14,50 +14,52 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout,
   email,
 }) => {
-  // ---------------- FORM STATES ----------------
+  /* -------------------------------------------------------------------------- */
+  /*                               ESTADO LOCAL                                 */
+  /* -------------------------------------------------------------------------- */
+
   const [title, setTitle] = useState("");
   const [ingredientsText, setIngredientsText] = useState("");
   const [stepsText, setStepsText] = useState("");
   const [tagsText, setTagsText] = useState("");
   const [timeMinutes, setTimeMinutes] = useState<number | "">("");
   const [image, setImage] = useState("");
+
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // ---------------- RECEITAS EXISTENTES ----------------
+  // Lista de receitas
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loadingRecipes, setLoadingRecipes] = useState(true);
 
-  useEffect(() => {
-    async function fetchRecipes() {
-      const { data, error } = await supabase
-        .from("recipes")
-        .select("*")
-        .order("id", { ascending: false });
+  /* -------------------------------------------------------------------------- */
+  /*                          FETCH LISTA DE RECEITAS                           */
+  /* -------------------------------------------------------------------------- */
 
-      if (!error && data) {
-        setRecipes(data as Recipe[]);
-      }
-      setLoadingRecipes(false);
+  async function loadRecipes() {
+    setLoadingRecipes(true);
+
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (!error && data) {
+      setRecipes(data as Recipe[]);
     }
 
-    fetchRecipes();
+    setLoadingRecipes(false);
+  }
+
+  useEffect(() => {
+    loadRecipes();
   }, []);
 
-  // ---------------- APAGAR RECEITA ----------------
-  const deleteRecipe = async (id: number) => {
-    const ok = window.confirm("Tem a certeza que quer apagar esta receita?");
-    if (!ok) return;
+  /* -------------------------------------------------------------------------- */
+  /*                            GUARDAR NOVA RECEITA                            */
+  /* -------------------------------------------------------------------------- */
 
-    const { error } = await supabase.from("recipes").delete().eq("id", id);
-
-    if (!error) {
-      setRecipes((prev) => prev.filter((r) => r.id !== id));
-    }
-  };
-
-  // ---------------- GUARDAR NOVA RECEITA ----------------
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -103,6 +105,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     }
 
     setMessage("Receita guardada com sucesso ✨");
+
     setTitle("");
     setIngredientsText("");
     setStepsText("");
@@ -110,17 +113,40 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     setTimeMinutes("");
     setImage("");
 
-    // Atualizar lista sem reload
-    setRecipes((prev) => [data as Recipe, ...prev]);
+    if (onRecipeCreated) onRecipeCreated(data as Recipe);
 
-    if (onRecipeCreated) {
-      onRecipeCreated(data as Recipe);
-    }
+    loadRecipes(); // atualizar lista
   };
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 ELIMINAR                                   */
+  /* -------------------------------------------------------------------------- */
+
+  async function deleteRecipe(id: number) {
+    const confirmDelete = confirm("Tem a certeza que quer apagar esta receita?");
+    if (!confirmDelete) return;
+
+    const { error } = await supabase.from("recipes").delete().eq("id", id);
+
+    if (error) {
+      alert("Erro ao apagar receita.");
+      return;
+    }
+
+    loadRecipes();
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   RENDER                                   */
+  /* -------------------------------------------------------------------------- */
 
   return (
     <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-10">
-      {/* -------------------------------- HEADER -------------------------------- */}
+
+      {/* ------------------------------------------------------------- */}
+      {/*  CABEÇALHO DO PAINEL                                          */}
+      {/* ------------------------------------------------------------- */}
+
       <div className="flex items-center justify-between gap-3">
         <div>
           <h3 className="text-xl font-serif text-olive">
@@ -132,6 +158,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
             </p>
           )}
         </div>
+
         <button
           onClick={onLogout}
           className="text-xs px-3 py-1 rounded-lg border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition"
@@ -140,7 +167,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         </button>
       </div>
 
-      {/* --------------------------- FORMULÁRIO CRIAR -------------------------- */}
+      {/* ------------------------------------------------------------- */}
+      {/*  FORMULÁRIO DE NOVA RECEITA                                   */}
+      {/* ------------------------------------------------------------- */}
+
       <form onSubmit={handleSave} className="space-y-4 text-sm">
         <div>
           <label className="block mb-1 font-medium text-charcoal/80">
@@ -149,7 +179,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-olive/40"
+            className="w-full rounded-xl border border-olive/30 px-3 py-2"
             required
           />
         </div>
@@ -161,7 +191,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <textarea
             value={ingredientsText}
             onChange={(e) => setIngredientsText(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-20 focus:outline-none focus:ring-2 focus:ring-olive/40"
+            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-20"
             placeholder="ex: farinha, leite, ovos..."
             required
           />
@@ -174,7 +204,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <textarea
             value={stepsText}
             onChange={(e) => setStepsText(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-28 focus:outline-none focus:ring-2 focus:ring-olive/40"
+            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-28"
             placeholder={"Passo 1...\nPasso 2...\nPasso 3..."}
             required
           />
@@ -187,7 +217,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <input
             value={tagsText}
             onChange={(e) => setTagsText(e.target.value)}
-            className="w-full rounded-xl border border-olive/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-olive/40"
+            className="w-full rounded-xl border border-olive/30 px-3 py-2"
             placeholder="ex: sobremesa, mousse, fácil"
           />
         </div>
@@ -202,13 +232,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
               min={0}
               value={timeMinutes}
               onChange={(e) =>
-                setTimeMinutes(
-                  e.target.value === "" ? "" : Number(e.target.value)
-                )
+                setTimeMinutes(e.target.value === "" ? "" : Number(e.target.value))
               }
-              className="w-full rounded-xl border border-olive/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-olive/40"
+              className="w-full rounded-xl border border-olive/30 px-3 py-2"
             />
           </div>
+
           <div>
             <label className="block mb-1 font-medium text-charcoal/80">
               URL da imagem (opcional)
@@ -216,15 +245,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
             <input
               value={image}
               onChange={(e) => setImage(e.target.value)}
-              className="w-full rounded-xl border border-olive/30 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-olive/40"
+              className="w-full rounded-xl border border-olive/30 px-3 py-2"
               placeholder="https://..."
             />
           </div>
         </div>
 
-        {message && (
-          <p className="text-xs text-olive">{message}</p>
-        )}
+        {message && <p className="text-xs text-olive">{message}</p>}
         {error && <p className="text-xs text-red-600">{error}</p>}
 
         <button
@@ -236,53 +263,47 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         </button>
       </form>
 
-      {/* ------------------------------ LISTA DE RECEITAS ------------------------------ */}
-      <div className="mt-10">
-        <h3 className="text-lg font-serif text-olive mb-4">
+      {/* ------------------------------------------------------------- */}
+      {/*  LISTA DE RECEITAS + EDITAR + ELIMINAR                        */}
+      {/* ------------------------------------------------------------- */}
+
+      <div>
+        <h3 className="text-xl font-serif text-olive mb-4">
           Receitas existentes
         </h3>
 
         {loadingRecipes ? (
-          <p>A carregar receitas...</p>
+          <p className="text-charcoal/60">A carregar receitas...</p>
         ) : recipes.length === 0 ? (
-          <p className="text-charcoal/60 text-sm">Ainda não há receitas.</p>
+          <p className="text-charcoal/60">Ainda não existe nenhuma receita.</p>
         ) : (
           <div className="space-y-4">
-            {recipes.map((recipe) => (
+            {recipes.map((r) => (
               <div
-                key={recipe.id}
-                className="flex items-center justify-between bg-beige/40 p-3 rounded-xl border border-olive/20"
+                key={r.id}
+                className="flex items-center justify-between p-3 border rounded-xl bg-white shadow-sm"
               >
                 <div className="flex items-center gap-3">
-                  {/* Mini imagem 50px */}
-                  {recipe.image ? (
-                    <img
-                      src={recipe.image}
-                      alt={recipe.title}
-                      className="w-12 h-12 object-cover rounded-lg"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 bg-olive/20 rounded-lg" />
-                  )}
-
-                  <span className="font-medium text-charcoal">
-                    {recipe.title}
-                  </span>
+                  <img
+                    src={r.image || "https://via.placeholder.com/50"}
+                    className="w-[50px] h-[50px] object-cover rounded"
+                  />
+                  <span className="text-charcoal font-medium">{r.title}</span>
                 </div>
 
                 <div className="flex gap-2">
                   <Link
-                    to={`/admin/edit/${recipe.id}`}
+                    to={`/admin/edit/${r.id}`}
                     className="px-3 py-1 text-xs rounded-lg border border-olive text-olive hover:bg-olive hover:text-white transition"
                   >
                     Editar
                   </Link>
 
                   <button
-                    onClick={() => deleteRecipe(recipe.id)}
-                    className="px-3 py-1 text-xs rounded-lg border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition"
+                    onClick={() => deleteRecipe(r.id)}
+                    className="px-3 py-1 text-xs rounded-lg border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition"
                   >
-                    Apagar
+                    Eliminar
                   </button>
                 </div>
               </div>
