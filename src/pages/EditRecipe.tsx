@@ -23,10 +23,11 @@ export default function EditRecipe() {
   useEffect(() => {
     async function fetchRecipe() {
       const { data, error } = await supabase
-        .from("recipes")
-        .select("*")
-        .eq("id", Number(id))
-        .single();
+  .from("recipes")
+  .select("*")
+  .eq("id", id)
+  .single();
+;
 
       if (error || !data) {
         alert("Erro ao carregar receita.");
@@ -106,16 +107,17 @@ export default function EditRecipe() {
         .filter(Boolean);
 
       const { error } = await supabase
-        .from("recipes")
-        .update({
-          title,
-          ingredients,
-          steps,
-          tags,
-          time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
-          image: image || null,
-        })
-        .eq("id", Number(id)); // <- OBRIGATÓRIO! (sem isto, nada guarda)
+  .from("recipes")
+  .update({
+    title,
+    ingredients,
+    steps,
+    tags,
+    time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
+    image: image || null,
+  })
+  .eq("id", id);
+ // <- OBRIGATÓRIO! (sem isto, nada guarda)
 
       if (error) {
         console.error(error);
