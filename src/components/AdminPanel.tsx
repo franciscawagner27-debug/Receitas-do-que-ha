@@ -14,10 +14,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout,
   email,
 }) => {
-  /* -------------------------------------------------------------------------- */
-  /*                               FORM STATES                                  */
-  /* -------------------------------------------------------------------------- */
-
+  /* FORM STATES */
   const [title, setTitle] = useState("");
   const [ingredientsText, setIngredientsText] = useState("");
   const [stepsText, setStepsText] = useState("");
@@ -29,10 +26,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  /* -------------------------------------------------------------------------- */
-  /*                           RECEITAS EXISTENTES                               */
-  /* -------------------------------------------------------------------------- */
-
+  /* RECEITAS EXISTENTES */
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loadingList, setLoadingList] = useState(true);
 
@@ -56,10 +50,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     loadRecipes();
   }, []);
 
-  /* -------------------------------------------------------------------------- */
-  /*                                  GUARDAR                                    */
-  /* -------------------------------------------------------------------------- */
-
+  /* GUARDAR NOVA RECEITA */
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -91,7 +82,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           tags,
           time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
           image: image || null,
-          priority: 9999 // novas receitas ficam no fim        },
+          priority: 9999, // 👍 NOVO CAMPO CORRETO
+        },
       ])
       .select()
       .single();
@@ -104,6 +96,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     }
 
     setMessage("Receita guardada com sucesso ✨");
+
     setTitle("");
     setIngredientsText("");
     setStepsText("");
@@ -116,51 +109,30 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     if (onRecipeCreated) onRecipeCreated(data as Recipe);
   };
 
-  /* -------------------------------------------------------------------------- */
-  /*                              APAGAR RECEITA                                 */
-  /* -------------------------------------------------------------------------- */
-
+  /* APAGAR RECEITA */
   async function deleteRecipe(id: number) {
     if (!confirm("Tem a certeza que quer apagar esta receita?")) return;
 
     const { error } = await supabase.from("recipes").delete().eq("id", id);
 
-    if (error) {
-      alert("Erro ao apagar.");
-      return;
-    }
-
-    loadRecipes();
+    if (!error) loadRecipes();
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                          ATUALIZAR PRIORIDADE                               */
-  /* -------------------------------------------------------------------------- */
-
+  /* ATUALIZAR PRIORIDADE */
   async function updatePriority(id: number, newValue: number) {
-    await supabase
-      .from("recipes")
-      .update({ priority: newValue })
-      .eq("id", id);
+    await supabase.from("recipes").update({ priority: newValue }).eq("id", id);
 
     loadRecipes();
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                    UI                                       */
-  /* -------------------------------------------------------------------------- */
-
+  /* UI */
   return (
     <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-10">
 
-      {/* ---------------------------------------------------------------------- */}
-      {/*                                HEADER                                  */}
-      {/* ---------------------------------------------------------------------- */}
-      <div className="flex items-center justify-between gap-3">
+      {/* HEADER */}
+      <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xl font-serif text-olive">
-            Área privada — Nova receita
-          </h3>
+          <h3 className="text-xl font-serif text-olive">Área privada — Nova receita</h3>
           {email && (
             <p className="text-xs text-charcoal/70">
               Autenticada como <span className="font-medium">{email}</span>
@@ -170,19 +142,16 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
         <button
           onClick={onLogout}
-          className="text-xs px-3 py-1 rounded-lg border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition"
+          className="text-xs px-3 py-1 rounded-lg border border-terracotta text-terracotta hover:bg-terracotta hover:text-white"
         >
           Sair
         </button>
       </div>
 
-      {/* ---------------------------------------------------------------------- */}
-      {/*                           FORMULÁRIO NOVA RECEITA                      */}
-      {/* ---------------------------------------------------------------------- */}
-
+      {/* FORM NOVA RECEITA */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
         <div>
-          <label className="block mb-1 font-medium text-charcoal/80">Título</label>
+          <label className="block mb-1 font-medium">Título</label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -192,52 +161,43 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         </div>
 
         <div>
-          <label className="block mb-1 font-medium text-charcoal/80">
-            Ingredientes (separados por vírgulas)
-          </label>
+          <label className="block mb-1 font-medium">Ingredientes</label>
           <textarea
             value={ingredientsText}
             onChange={(e) => setIngredientsText(e.target.value)}
             className="w-full rounded-xl border border-olive/30 px-3 py-2 h-20"
-            placeholder="ex: farinha, leite, ovos..."
+            placeholder="farinha, leite, ovos..."
             required
           />
         </div>
 
         <div>
-          <label className="block mb-1 font-medium text-charcoal/80">
-            Passos (cada linha = 1 passo)
-          </label>
+          <label className="block mb-1 font-medium">Passos</label>
           <textarea
             value={stepsText}
             onChange={(e) => setStepsText(e.target.value)}
             className="w-full rounded-xl border border-olive/30 px-3 py-2 h-28"
-            placeholder={"Passo 1...\nPasso 2...\nPasso 3..."}
+            placeholder="Passo 1...\nPasso 2..."
             required
           />
         </div>
 
         <div>
-          <label className="block mb-1 font-medium text-charcoal/80">
-            Tags (separadas por vírgulas)
-          </label>
+          <label className="block mb-1 font-medium">Tags</label>
           <input
             value={tagsText}
             onChange={(e) => setTagsText(e.target.value)}
             className="w-full rounded-xl border border-olive/30 px-3 py-2"
-            placeholder="ex: sobremesa, mousse, fácil"
           />
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block mb-1 font-medium text-charcoal/80">
-              Tempo (minutos)
-            </label>
+            <label className="block mb-1 font-medium">Tempo</label>
             <input
               type="number"
-              value={timeMinutes}
               min={0}
+              value={timeMinutes}
               onChange={(e) =>
                 setTimeMinutes(e.target.value === "" ? "" : Number(e.target.value))
               }
@@ -246,9 +206,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-charcoal/80">
-              URL da imagem
-            </label>
+            <label className="block mb-1 font-medium">URL da imagem</label>
             <input
               value={image}
               onChange={(e) => setImage(e.target.value)}
@@ -264,17 +222,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         <button
           type="submit"
           disabled={saving}
-          className="bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold shadow hover:bg-terracotta/90 transition disabled:opacity-60"
+          className="bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold"
         >
           {saving ? "A guardar..." : "Guardar receita"}
         </button>
       </form>
 
-      {/* ---------------------------------------------------------------------- */}
-      {/*                           LISTA DE RECEITAS                              */}
-      {/* ---------------------------------------------------------------------- */}
-
-      <div className="mt-10">
+      {/* LISTA DE RECEITAS */}
+      <div>
         <h2 className="text-lg font-semibold text-olive mb-4">
           Receitas existentes ({recipeList.length})
         </h2>
@@ -286,17 +241,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
             {recipeList.map((r) => (
               <div
                 key={r.id}
-                className="flex items-center justify-between bg-white border border-olive/20 p-3 rounded-xl shadow-sm"
+                className="flex items-center justify-between bg-white border p-3 rounded-xl"
               >
                 <div className="flex items-center gap-3">
-                  {/* Imagem 50px */}
                   {r.image ? (
-                    <img
-                      src={r.image}
-                      className="w-12 h-12 rounded-md object-cover border"
-                    />
+                    <img src={r.image} className="w-12 h-12 rounded-md object-cover border" />
                   ) : (
-                    <div className="w-12 h-12 bg-beige rounded-md border flex items-center justify-center text-xs text-charcoal/50">
+                    <div className="w-12 h-12 bg-beige border flex items-center justify-center text-xs">
                       sem foto
                     </div>
                   )}
@@ -307,13 +258,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                   </div>
                 </div>
 
-                {/* PRIORIDADE + EDITAR + APAGAR */}
                 <div className="flex items-center gap-3">
                   <input
                     type="number"
                     className="w-16 border rounded p-1 text-sm"
-                   value={r.priority ?? 0}
-
+                    value={r.priority ?? 0}
                     onChange={(e) =>
                       updatePriority(r.id, Number(e.target.value))
                     }
@@ -321,14 +270,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
                   <Link
                     to={`/edit/${r.id}`}
-                    className="text-xs px-2 py-1 rounded bg-olive text-white hover:bg-olive/80"
+                    className="text-xs px-2 py-1 rounded bg-olive text-white"
                   >
                     Editar
                   </Link>
 
                   <button
                     onClick={() => deleteRecipe(r.id)}
-                    className="text-xs px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600"
+                    className="text-xs px-2 py-1 rounded bg-red-500 text-white"
                   >
                     Apagar
                   </button>
