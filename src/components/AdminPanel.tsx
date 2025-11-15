@@ -82,7 +82,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           tags,
           time_minutes: timeMinutes === "" ? null : Number(timeMinutes),
           image: image || null,
-          priority: 9999, // 👍 NOVO CAMPO CORRETO
+          priority: 9999,
         },
       ])
       .select()
@@ -121,7 +121,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   /* ATUALIZAR PRIORIDADE */
   async function updatePriority(id: number, newValue: number) {
     await supabase.from("recipes").update({ priority: newValue }).eq("id", id);
-
     loadRecipes();
   }
 
@@ -262,8 +261,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                   <input
                     type="number"
                     className="w-16 border rounded p-1 text-sm"
-                    value={r.priority ?? 0}
-                    onChange={(e) =>
+                    value={r.priority ?? ""}
+                    placeholder="—"
+                    onBlur={(e) =>
                       updatePriority(r.id, Number(e.target.value))
                     }
                   />
