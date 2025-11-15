@@ -108,9 +108,8 @@ function HomePage() {
       const { data, error } = await supabase
         .from("recipes")
         .select("*")
-        .order("priority", { ascending: false })
-.order("id", { ascending: false });
-
+        .order("priority", { ascending: true })   // ⭐ ALTERAÇÃO AQUI
+        .order("id", { ascending: false });
 
       if (!error && data) {
         const cleaned = data.map((r: any) => {
@@ -188,7 +187,6 @@ function HomePage() {
     "pudim", "pudins", "mousse", "mousses",
   ],
 
-  // ⭐ NOVAS CATEGORIAS
   airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
 
   "dias sem tempo": [
@@ -344,7 +342,7 @@ function HomePage() {
 
       {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 py-12">
-        {/* ⭐ Introdução especial da categoria Dias sem Tempo */}
+        
 {selectedCategory.toLowerCase() === "dias sem tempo" && (
   <p className="text-charcoal/80 text-center mb-6 text-sm sm:text-base">
     Soluções rápidas do Receitas do Que Há com alimentos pré-preparados que já
