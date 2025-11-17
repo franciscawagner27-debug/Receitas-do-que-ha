@@ -82,7 +82,7 @@ export default function DiasSemTempoPage() {
         }}
       />
 
-    {/* HERO */}
+   {/* HERO */}
 <section
   className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
   style={{
@@ -93,15 +93,12 @@ export default function DiasSemTempoPage() {
   <div className="absolute inset-0 bg-black/40" />
   <div className="relative z-10 px-4">
 
-    {/* ✔ Ajustado: menor e mais equilibrado */}
-    <h2 className="text-2xl md:text-3xl font-serif text-white mb-2 drop-shadow-lg leading-tight">
-      <span className="block tracking-wide">Receitas</span>
-      <span className="block mt-1 tracking-widest text-3xl md:text-4xl uppercase">
-        DO QUE HÁ
-      </span>
+    {/* ⭐ Receitas DO QUE HÁ — numa só linha, estilo homepage */}
+    <h2 className="text-2xl md:text-3xl font-serif text-white mb-2 drop-shadow-lg tracking-wide">
+      Receitas <span className="uppercase tracking-widest">DO QUE HÁ</span>
     </h2>
 
-    {/* ⭐ Mantido como está — título principal */}
+    {/* ⭐ Título principal mantém-se igual */}
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
     </h1>
@@ -114,6 +111,7 @@ export default function DiasSemTempoPage() {
     </p>
   </div>
 </section>
+
 
 
 
