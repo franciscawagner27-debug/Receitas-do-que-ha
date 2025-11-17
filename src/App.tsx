@@ -8,6 +8,7 @@ import type { Recipe } from "./types";
 import AdminPage from "./pages/Admin";
 import EditRecipe from "./pages/EditRecipe";
 import { smartSearch } from "./utils/smartSearch";
+import RecipePage from "./pages/RecipePage";
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROOT                                     */
