@@ -115,10 +115,10 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         </button>
 
         {/* 📤 PARTILHAR — PEQUENO */}
-        <a
-          href={`https://wa.me/?text=${encodeURIComponent(
-            `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt`
-          )}`}
+       <a
+  href={`https://wa.me/?text=${encodeURIComponent(
+    `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt/receita/${recipe.id}`
+  )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="px-4 py-2 border border-[#6B705C] text-[#6B705C] 
