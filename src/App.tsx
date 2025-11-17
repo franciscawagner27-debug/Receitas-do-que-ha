@@ -26,6 +26,7 @@ export default function App() {
 
       {/* Página de edição */}
       <Route path="/admin/edit/:id" element={<EditRecipe />} />
+      <Route path="/receita/:id" element={<RecipePage />} />
     </Routes>
   );
 }
