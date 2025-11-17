@@ -82,7 +82,7 @@ export default function DiasSemTempoPage() {
         }}
       />
 
-     {/* HERO */}
+    {/* HERO */}
 <section
   className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
   style={{
@@ -93,20 +93,19 @@ export default function DiasSemTempoPage() {
   <div className="absolute inset-0 bg-black/40" />
   <div className="relative z-10 px-4">
 
-    {/* ⭐ NOVO BLOCO — igual ao estilo da HomePage, mas tamanho ligeiramente menor */}
-    <h2 className="text-3xl md:text-4xl font-serif text-white mb-2 drop-shadow-lg leading-tight">
+    {/* ✔ Ajustado: menor e mais equilibrado */}
+    <h2 className="text-2xl md:text-3xl font-serif text-white mb-2 drop-shadow-lg leading-tight">
       <span className="block tracking-wide">Receitas</span>
-      <span className="block mt-1 tracking-widest text-4xl md:text-5xl uppercase">
+      <span className="block mt-1 tracking-widest text-3xl md:text-4xl uppercase">
         DO QUE HÁ
       </span>
     </h2>
 
-    {/* TÍTULO “Dias Sem Tempo” — mantido exatamente igual */}
+    {/* ⭐ Mantido como está — título principal */}
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
     </h1>
 
-    {/* TEXTO DESCRITIVO — mantido igual */}
     <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
       Porque nem todos os dias há tempo para cozinhar, reunimos aqui
       soluções rápidas e produtos que já experimentámos e recomendamos.
@@ -115,6 +114,7 @@ export default function DiasSemTempoPage() {
     </p>
   </div>
 </section>
+
 
 
       {/* LINHA */}
