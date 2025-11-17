@@ -114,7 +114,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
             : "❤️ Guardar esta receita"}
         </button>
 
-        {/* 📤 PARTILHAR — PEQUENO */}
+        {/* 📤 PARTILHAR — PEQUENO */} 
        <a
   href={`https://wa.me/?text=${encodeURIComponent(
     `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt/receita/${recipe.id}`
