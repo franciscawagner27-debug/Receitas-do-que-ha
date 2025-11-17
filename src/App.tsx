@@ -7,6 +7,7 @@ import RecipeDetail from "./components/RecipeDetail";
 import type { Recipe } from "./types";
 import AdminPage from "./pages/Admin";
 import EditRecipe from "./pages/EditRecipe";
+import { smartSearch } from "./utils/smartSearch";
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROOT                                     */
@@ -180,9 +181,9 @@ function HomePage() {
     }
   };
 
-  /* --------------------------- FILTRO GERAL ---------------------------- */
+   /* --------------------------- FILTRO GERAL ---------------------------- */
 
-  const filteredRecipes = sortedRecipes.filter((r: any) => {
+  let filteredRecipes = sortedRecipes.filter((r: any) => {
     const selected = selectedCategory.trim().toLowerCase();
 
     const categoryMap: Record<string, string[]> = {
@@ -190,7 +191,14 @@ function HomePage() {
       sopas: ["sopa", "sopas", "caldo", "caldos"],
       carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
       peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-      massas: ["massa", "massas", "pasta", "esparguete", "macarrão", "tagliatelle"],
+      massas: [
+        "massa",
+        "massas",
+        "pasta",
+        "esparguete",
+        "macarrão",
+        "tagliatelle",
+      ],
       vegetariano: [
         "vegetariano",
         "vegetariana",
@@ -230,35 +238,37 @@ function HomePage() {
     } else if (selected !== "todas") {
       matchesCategory =
         Array.isArray(r.tags) &&
-        r.tags.some((tag) => validTags.includes(tag));
+        r.tags.some((tag: string) => validTags.includes(tag));
     }
 
-    const normalize = (str: string) =>
-      str
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+    // 🔍 usar motor de pesquisa inteligente
+    const { matches, score } = smartSearch(r, searchTerm);
+    (r as any)._searchScore = score; // guardar score para ordenar depois
 
-    const matchesSearch =
-      searchTerm === ""
-        ? true
-        : (() => {
-            const terms = normalize(searchTerm)
-              .split(/[\s,;]+/)
-              .filter((t) => t.length > 0);
-
-            return terms.every(
-              (t) =>
-                (Array.isArray(r.ingredients) &&
-                  r.ingredients.some((ing: string) =>
-                    normalize(ing).includes(t)
-                  )) ||
-                normalize(r.title).includes(t)
-            );
-          })();
+    const matchesSearch = searchTerm.trim() === "" ? true : matches;
 
     return matchesCategory && matchesSearch;
   });
+
+  // 📊 ordenar por relevância (score), depois destaque, depois id
+  filteredRecipes = filteredRecipes.sort((a: any, b: any) => {
+    const scoreA = (a as any)._searchScore ?? 0;
+    const scoreB = (b as any)._searchScore ?? 0;
+
+    // mais termos combinados primeiro
+    if (scoreB !== scoreA) return scoreB - scoreA;
+
+    // depois, receitas com tag "destaque" vêm primeiro
+    const aFeatured = a.tags?.includes("destaque");
+    const bFeatured = b.tags?.includes("destaque");
+
+    if (aFeatured && !bFeatured) return -1;
+    if (!aFeatured && bFeatured) return 1;
+
+    // por fim, manter ordem por id (como tinhas antes)
+    return b.id - a.id;
+  });
+
 
   /* ------------------------------- UI / RENDER ----------------------------- */
 
