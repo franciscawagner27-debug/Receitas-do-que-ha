@@ -52,8 +52,9 @@ export default function RecipePage() {
 
   return (
     <div className="min-h-screen bg-beige text-charcoal font-sans">
-      <Header onSelect={() => {}} />
-
+     <Header onSelect={(category) => {
+  window.location.href = `/${category.toLowerCase().replace(/\s+/g, '-')}`;
+}} />
       <main className="max-w-3xl mx-auto bg-white rounded-2xl shadow-soft p-6 mt-10 mb-16">
         <RecipeDetail
           recipe={recipe}
