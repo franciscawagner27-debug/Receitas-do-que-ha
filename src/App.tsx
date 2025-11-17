@@ -41,6 +41,14 @@ function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
+  // Ler categoria via URL (?cat=carne)
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get("cat");
+  if (cat) {
+    setSelectedCategory(cat.replace(/-/g, " "));
+  }
+}, []);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
