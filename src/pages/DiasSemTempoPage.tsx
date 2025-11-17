@@ -82,31 +82,40 @@ export default function DiasSemTempoPage() {
         }}
       />
 
-      {/* HERO */}
-      <section
-        className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 px-4">
-          <p className="text-sm uppercase tracking-[0.3em] text-white/80 mb-2">
-            RECEITAS DO QUE HÁ
-          </p>
-          <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
-            Dias Sem Tempo
-          </h1>
+     {/* HERO */}
+<section
+  className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
+  style={{
+    backgroundImage:
+      "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
+  }}
+>
+  <div className="absolute inset-0 bg-black/40" />
+  <div className="relative z-10 px-4">
 
-          <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
-            Porque nem todos os dias há tempo para cozinhar, reunimos aqui
-            soluções rápidas e produtos que já experimentámos e recomendamos.
-            São opções práticas para dias apressados — pensadas para ajudar,
-            não para substituir as refeições caseiras do dia a dia.
-          </p>
-        </div>
-      </section>
+    {/* ⭐ NOVO BLOCO — igual ao estilo da HomePage, mas tamanho ligeiramente menor */}
+    <h2 className="text-3xl md:text-4xl font-serif text-white mb-2 drop-shadow-lg leading-tight">
+      <span className="block tracking-wide">Receitas</span>
+      <span className="block mt-1 tracking-widest text-4xl md:text-5xl uppercase">
+        DO QUE HÁ
+      </span>
+    </h2>
+
+    {/* TÍTULO “Dias Sem Tempo” — mantido exatamente igual */}
+    <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
+      Dias Sem Tempo
+    </h1>
+
+    {/* TEXTO DESCRITIVO — mantido igual */}
+    <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
+      Porque nem todos os dias há tempo para cozinhar, reunimos aqui
+      soluções rápidas e produtos que já experimentámos e recomendamos.
+      São opções práticas para dias apressados — pensadas para ajudar,
+      não para substituir as refeições caseiras do dia a dia.
+    </p>
+  </div>
+</section>
+
 
       {/* LINHA */}
       <div className="h-px bg-olive/40 w-3/4 mx-auto my-0"></div>
