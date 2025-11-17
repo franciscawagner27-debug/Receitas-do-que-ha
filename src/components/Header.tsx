@@ -15,11 +15,26 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
     "Massas",
     "Vegetariano",
     "Sobremesas",
-    "AirFryer",        // ⭐ NOVA CATEGORIA
-    "Dias sem Tempo",  // ⭐ NOVA CATEGORIA
+    "AirFryer",
+    "Dias sem Tempo",
   ];
 
   const [selected, setSelected] = useState("Todas");
+
+  const handleClick = (category: string) => {
+    setSelected(category);
+
+    const normalized = category.toLowerCase();
+
+    // 🔥 Lógica especial para a nova página "Dias sem Tempo"
+    if (normalized === "dias sem tempo") {
+      window.location.href = "/dias-sem-tempo";
+      return;
+    }
+
+    // 🔥 Todas as outras categorias continuam na homepage
+    onSelect(normalized);
+  };
 
   return (
     <header className="bg-beige border-b border-olive/20 py-4 px-4 sticky top-0 z-50">
@@ -27,10 +42,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
         {categories.map((category) => (
           <button
             key={category}
-            onClick={() => {
-              setSelected(category);
-              onSelect(category.toLowerCase()); // 🔥 mantém a lógica original
-            }}
+            onClick={() => handleClick(category)}
             className={`px-3 py-1 rounded-full font-medium transition-all duration-200
               ${
                 selected === category
