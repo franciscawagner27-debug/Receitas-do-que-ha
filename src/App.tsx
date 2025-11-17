@@ -360,9 +360,10 @@ function HomePage() {
 {selectedCategory.toLowerCase() === "dias sem tempo" && (
   <div className="max-w-3xl mx-auto px-6 py-8 text-center">
     <p className="text-charcoal/80 text-lg leading-relaxed">
-      Porque nem todos os dias há tempo para cozinhar, aqui encontra ideias rápidas
-      e produtos que já experimentámos e recomendamos, para que possa preparar uma
-      refeição saborosa — mesmo nos dias mais apressados.
+      Porque nem todos os dias há tempo para cozinhar, reunimos aqui soluções rápidas
+e produtos que já experimentámos e recomendamos. São opções práticas para dias
+apressados — pensadas para ajudar, não para substituir as refeições caseiras do
+dia a dia.
     </p>
   </div>
 )}
