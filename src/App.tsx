@@ -193,93 +193,90 @@ useEffect(() => {
     }
   };
 
-   /* --------------------------- FILTRO GERAL ---------------------------- */
+/* --------------------------- FILTRO GERAL ---------------------------- */
 
-  let filteredRecipes = sortedRecipes.filter((r: any) => {
-    const selected = selectedCategory.trim().toLowerCase();
+// ❌ EXCLUIR SEMPRE as receitas dos Dias Sem Tempo da Homepage
+const recipesWithoutDST = sortedRecipes.filter(
+  (r) => !(r.tags && r.tags.includes("diassemtempo"))
+);
 
-    const categoryMap: Record<string, string[]> = {
-      entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
-      sopas: ["sopa", "sopas", "caldo", "caldos"],
-      carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-      peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-      massas: [
-        "massa",
-        "massas",
-        "pasta",
-        "esparguete",
-        "macarrão",
-        "tagliatelle",
-      ],
-      vegetariano: [
-        "vegetariano",
-        "vegetariana",
-        "vegan",
-        "salada",
-        "legumes",
-        "legume",
-      ],
-      sobremesas: [
-        "doce",
-        "doces",
-        "sobremesa",
-        "sobremesas",
-        "bolo",
-        "bolos",
-        "tarte",
-        "tartes",
-        "pudim",
-        "pudins",
-        "mousse",
-        "mousses",
-      ],
-      airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
-      "dias sem tempo": [
-        "diassemtempo",
-        "supermercado",
-        "semipronto",
-        "congelado",
-      ],
-    };
+let filteredRecipes = recipesWithoutDST.filter((r: any) => {
+  const selected = selectedCategory.trim().toLowerCase();
 
+  const categoryMap: Record<string, string[]> = {
+    entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+    sopas: ["sopa", "sopas", "caldo", "caldos"],
+    carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+    peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+    massas: [
+      "massa",
+      "massas",
+      "pasta",
+      "esparguete",
+      "macarrão",
+      "tagliatelle",
+    ],
+    vegetariano: [
+      "vegetariano",
+      "vegetariana",
+      "vegan",
+      "salada",
+      "legumes",
+      "legume",
+    ],
+    sobremesas: [
+      "doce",
+      "doces",
+      "sobremesa",
+      "sobremesas",
+      "bolo",
+      "bolos",
+      "tarte",
+      "tartes",
+      "pudim",
+      "pudins",
+      "mousse",
+      "mousses",
+    ],
+    airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
+  };
+
+  let matchesCategory = true;
+
+  if (selected === "favoritas") {
+    matchesCategory = favorites.includes(r.id);
+  } else if (selected !== "todas") {
     const validTags = categoryMap[selected] || [];
-    let matchesCategory = true;
+    matchesCategory =
+      Array.isArray(r.tags) &&
+      r.tags.some((tag: string) => validTags.includes(tag));
+  }
 
-    if (selected === "favoritas") {
-      matchesCategory = favorites.includes(r.id);
-    } else if (selected !== "todas") {
-      matchesCategory =
-        Array.isArray(r.tags) &&
-        r.tags.some((tag: string) => validTags.includes(tag));
-    }
+  // 🔍 Pesquisa inteligente
+  const { matches, score } = smartSearch(r, searchTerm);
+  (r as any)._searchScore = score;
 
-    // 🔍 usar motor de pesquisa inteligente
-    const { matches, score } = smartSearch(r, searchTerm);
-    (r as any)._searchScore = score; // guardar score para ordenar depois
+  const matchesSearch = searchTerm.trim() === "" ? true : matches;
 
-    const matchesSearch = searchTerm.trim() === "" ? true : matches;
+  return matchesCategory && matchesSearch;
+});
 
-    return matchesCategory && matchesSearch;
-  });
+// 📊 Ordenar por relevância (score), destaque e id
+filteredRecipes = filteredRecipes.sort((a: any, b: any) => {
+  const scoreA = (a as any)._searchScore ?? 0;
+  const scoreB = (b as any)._searchScore ?? 0;
 
-  // 📊 ordenar por relevância (score), depois destaque, depois id
-  filteredRecipes = filteredRecipes.sort((a: any, b: any) => {
-    const scoreA = (a as any)._searchScore ?? 0;
-    const scoreB = (b as any)._searchScore ?? 0;
+  if (scoreB !== scoreA) return scoreB - scoreA;
 
-    // mais termos combinados primeiro
-    if (scoreB !== scoreA) return scoreB - scoreA;
+  const aFeatured = a.tags?.includes("destaque");
+  const bFeatured = b.tags?.includes("destaque");
 
-    // depois, receitas com tag "destaque" vêm primeiro
-    const aFeatured = a.tags?.includes("destaque");
-    const bFeatured = b.tags?.includes("destaque");
+  if (aFeatured && !bFeatured) return -1;
+  if (!aFeatured && bFeatured) return 1;
 
-    if (aFeatured && !bFeatured) return -1;
-    if (!aFeatured && bFeatured) return 1;
+  return b.id - a.id;
+});
 
-    // por fim, manter ordem por id (como tinhas antes)
-    return b.id - a.id;
-  });
 
 
   /* ------------------------------- UI / RENDER ----------------------------- */
