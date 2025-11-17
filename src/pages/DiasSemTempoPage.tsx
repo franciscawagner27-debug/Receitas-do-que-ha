@@ -10,7 +10,7 @@ export default function DiasSemTempoPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Favoritos (mantém a lógica igual ao site principal)
+  // Favoritos (igual ao resto do site)
   const [favorites, setFavorites] = useState<number[]>(() => {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];
@@ -27,7 +27,7 @@ export default function DiasSemTempoPage() {
     });
   };
 
-  // Carregar apenas receitas que têm tag "diassemtempo"
+  // Buscar apenas receitas Dias Sem Tempo (tag "diassemtempo")
   useEffect(() => {
     async function fetchDiasSemTempo() {
       const { data, error } = await supabase
@@ -35,9 +35,13 @@ export default function DiasSemTempoPage() {
         .select("*");
 
       if (!error && data) {
-        const filtered = data.filter((recipe: any) =>
-          recipe.tags?.includes("diassemtempo")
-        );
+        const filtered = (data as any[]).filter((recipe) => {
+          const tags = Array.isArray(recipe.tags) ? recipe.tags : [];
+          return tags.some((t: string) =>
+            t.toString().toLowerCase().includes("diassemtempo")
+          );
+        });
+
         setRecipes(filtered as Recipe[]);
       }
       setLoading(false);
@@ -46,25 +50,37 @@ export default function DiasSemTempoPage() {
     fetchDiasSemTempo();
   }, []);
 
-  // Filtro de pesquisa (apenas dentro das receitas Dias Sem Tempo)
-  const filteredRecipes = recipes.filter((r) =>
-    r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (Array.isArray(r.ingredients) &&
-      r.ingredients.some((ing) =>
-        ing.toLowerCase().includes(searchTerm.toLowerCase())
-      ))
-  );
+  // Filtro de pesquisa simples (título + ingredientes)
+  const filteredRecipes = recipes.filter((r: any) => {
+    if (!searchTerm.trim()) return true;
+
+    const term = searchTerm.toLowerCase();
+
+    const inTitle = r.title?.toLowerCase().includes(term);
+
+    const inIngredients =
+      Array.isArray(r.ingredients) &&
+      r.ingredients.some((ing: string) =>
+        ing.toLowerCase().includes(term)
+      );
+
+    return inTitle || inIngredients;
+  });
 
   return (
     <div className="bg-beige min-h-screen text-charcoal font-sans">
-      <Header onSelect={(category) => {
-        // botão Dias Sem Tempo redireciona aqui
-        if (category.toLowerCase() === "dias sem tempo") {
-          window.location.href = "/dias-sem-tempo";
-        } else {
+      {/* HEADER — usa a lógica normal, mas o Header trata do "Dias sem Tempo" */}
+      <Header
+        onSelect={(category) => {
+          // aqui delegamos a navegação ao Header no resto do site
+          // nesta página, se clicarem noutra categoria, mandamos para a homepage
+          if (category.toLowerCase() === "dias sem tempo") {
+            // já estamos aqui, não fazemos nada
+            return;
+          }
           window.location.href = "/";
-        }
-      }}/>
+        }}
+      />
 
       {/* HERO */}
       <section
@@ -76,40 +92,45 @@ export default function DiasSemTempoPage() {
       >
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 px-4">
-          
+          <p className="text-sm uppercase tracking-[0.3em] text-white/80 mb-2">
+            RECEITAS DO QUE HÁ
+          </p>
           <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
             Dias Sem Tempo
           </h1>
 
-          <p className="text-white/90 max-w-lg mx-auto text-lg drop-shadow">
-            Receitas DO QUE HÁ — soluções práticas para dias apressados.
+          <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
+            Porque nem todos os dias há tempo para cozinhar, reunimos aqui
+            soluções rápidas e produtos que já experimentámos e recomendamos.
+            São opções práticas para dias apressados — pensadas para ajudar,
+            não para substituir as refeições caseiras do dia a dia.
           </p>
         </div>
       </section>
 
-      {/* Linha */}
+      {/* LINHA */}
       <div className="h-px bg-olive/40 w-3/4 mx-auto my-0"></div>
 
-      {/* Pesquisa */}
+      {/* PESQUISA */}
       <section className="bg-beige py-10 px-6">
         <div className="max-w-xl mx-auto text-center">
-
           <p className="text-charcoal/80 text-lg mb-6">
-            Encontre rapidamente opções práticas e saborosas para aqueles dias em que o tempo não chega para tudo.
+            Encontre rapidamente opções práticas e saborosas para aqueles dias
+            em que o tempo não chega para tudo.
           </p>
 
           <input
             type="text"
-            placeholder="Pesquisar nas receitas rápidas..."
+            placeholder="Ex: croquetes, batatas assadas, folhado..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-4 rounded-xl border border-olive/40 shadow bg-white 
-            focus:ring-2 focus:ring-olive/40 focus:border-olive transition text-lg"
+              focus:ring-2 focus:ring-olive/40 focus:border-olive transition text-lg"
           />
         </div>
       </section>
 
-      {/* Lista de receitas */}
+      {/* LISTA DE RECEITAS */}
       <main className="max-w-5xl mx-auto px-6 pb-20">
         {loading ? (
           <p className="text-center text-stone">A carregar receitas...</p>
@@ -117,7 +138,7 @@ export default function DiasSemTempoPage() {
           <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredRecipes.map((r) => (
+            {filteredRecipes.map((r: any) => (
               <div
                 key={r.id}
                 onClick={() => setSelectedRecipe(r)}
@@ -136,6 +157,12 @@ export default function DiasSemTempoPage() {
                     {r.title}
                   </h3>
 
+                  {r.time_minutes && (
+                    <p className="text-sm text-stone mb-2">
+                      ⏱️ {r.time_minutes} min
+                    </p>
+                  )}
+
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -152,9 +179,9 @@ export default function DiasSemTempoPage() {
         )}
       </main>
 
-      {/* Modal */}
+      {/* MODAL DETALHE */}
       {selectedRecipe && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
             <button
               onClick={() => setSelectedRecipe(null)}
@@ -173,6 +200,7 @@ export default function DiasSemTempoPage() {
         </div>
       )}
 
+      {/* FOOTER */}
       <footer className="text-center py-8 text-sm text-olive">
         <p>Feito com ❤️ em Portugal</p>
         <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
