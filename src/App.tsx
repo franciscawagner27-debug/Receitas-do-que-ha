@@ -9,6 +9,7 @@ import AdminPage from "./pages/Admin";
 import EditRecipe from "./pages/EditRecipe";
 import { smartSearch } from "./utils/smartSearch";
 import RecipePage from "./pages/RecipePage";
+import DiasSemTempoPage from "./pages/DiasSemTempoPage";
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROOT                                     */
