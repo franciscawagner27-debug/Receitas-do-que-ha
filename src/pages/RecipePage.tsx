@@ -27,22 +27,25 @@ export default function RecipePage() {
     });
   };
 
-  useEffect(() => {
-    async function fetchRecipe() {
-      const { data, error } = await supabase
-        .from("recipes")
-        .select("*")
-        .eq("id", id)
-        .single();
+ useEffect(() => {
+  if (!id) return; // ← impede erro se o id ainda não estiver carregado
 
-      if (!error && data) {
-        setRecipe(data as Recipe);
-      }
-      setLoading(false);
+  async function fetchRecipe() {
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .eq("id", String(id)) // ← CORREÇÃO CRUCIAL
+      .single();
+
+    if (!error && data) {
+      setRecipe(data as Recipe);
     }
+    setLoading(false);
+  }
 
-    fetchRecipe();
-  }, [id]);
+  fetchRecipe();
+}, [id]);
+
 
   if (loading) return <p className="p-6">A carregar receita...</p>;
   if (!recipe) return <p className="p-6">Receita não encontrada.</p>;
