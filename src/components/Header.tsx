@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
 
   return (
  <header className="bg-beige border-b border-olive/20 py-3 px-0 sticky top-0 z-50">
-  <div className="max-w-6xl mx-auto flex items-center gap-5 -ml-4 sm:-ml-12">
+  <div className="max-w-6xl mx-auto flex items-center gap-5 pl-2 sm:pl-6">
 
     {/* LOGO À ESQUERDA, PUXADO COM MARGEM NEGATIVA */}
     <button
