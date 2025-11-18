@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
 import RecipeDetail from "../components/RecipeDetail";
 import type { Recipe } from "../types";
+import logo512 from "/Icons/icon-512.png";
 
 export default function DiasSemTempoPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -82,7 +83,7 @@ export default function DiasSemTempoPage() {
         }}
       />
 
-  {/* HERO */}
+ {/* HERO */}
 <section
   className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
   style={{
@@ -90,24 +91,24 @@ export default function DiasSemTempoPage() {
       "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
   }}
 >
-  {/* Overlay escuro */}
+  {/* overlay */}
   <div className="absolute inset-0 bg-black/40" />
 
-  <div className="relative z-10 px-4 flex flex-col items-center">
-
-    {/* LOGO — icon 512 */}
+  {/* LOGO — canto superior esquerdo */}
+  <div className="absolute top-4 left-4 z-20">
     <img
-      src="/Icons/icon-512.png"
+      src={logo512}
       alt="Receitas do Que Há"
-      className="w-20 h-20 md:w-24 md:h-24 mb-4 drop-shadow-lg"
+      className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-lg object-contain"
     />
+  </div>
 
-    {/* TÍTULO PRINCIPAL */}
+  {/* TEXTO CENTRADO */}
+  <div className="relative z-10 px-4 max-w-2xl mx-auto text-center">
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
     </h1>
 
-    {/* SUBTÍTULO / DESCRIÇÃO */}
     <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
       Porque nem todos os dias há tempo para cozinhar, reunimos aqui soluções rápidas
       e produtos que já experimentámos e recomendamos. São opções práticas para dias
