@@ -35,52 +35,45 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
   };
 
   return (
-  <header className="bg-beige border-b border-olive/20 py-3 px-4 sticky top-0 z-50">
-  <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <header className="bg-beige border-b border-olive/20 py-4 px-4 sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto flex items-center gap-6">
 
-    {/* LOGO + TEXTO (AGORA APARECE EM MOBILE E DESKTOP) */}
-    <button
-      onClick={() => (window.location.href = "/")}
-      className="flex items-center gap-2 cursor-pointer"
-    >
-      <img
-        src="/icons/icon-512.png"
-        alt="Receitas do Que Há"
-        className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
-      />
-
-      {/* TEXTO: agora aparece SEM esconder no mobile */}
-      <div className="leading-tight text-olive block">
-        <p className="font-serif text-sm sm:text-base">Receitas</p>
-        <p className="font-serif text-sm sm:text-base tracking-wide">DO QUE HÁ</p>
-      </div>
-    </button>
-
-    {/* CATEGORIAS — MAIS PEQUENAS NO MOBILE, IGUAIS NO DESKTOP */}
-    <div className="flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
-      {categories.map((category) => (
+        {/* LOGO NO CANTO ESQUERDO */}
         <button
-          key={category}
-          onClick={() => handleClick(category)}
-          className={`
-            px-3 py-1 rounded-full font-medium transition-all duration-200
-            text-[13px] sm:text-base
-            ${
-              selected === category
-                ? "bg-olive text-white shadow-sm"
-                : "text-olive hover:text-terracotta"
-            }
-          `}
+          onClick={() => (window.location.href = "/")}
+          className="flex items-center gap-2 cursor-pointer flex-shrink-0"
         >
-          {category}
+          <img
+            src="/icons/icon-512.png"
+            alt="Receitas do Que Há"
+            className="w-10 h-10 object-contain"
+          />
+          <div className="leading-tight text-olive hidden sm:block">
+            <p className="font-serif text-sm">Receitas</p>
+            <p className="font-serif text-sm tracking-wide">DO QUE HÁ</p>
+          </div>
         </button>
-      ))}
-    </div>
 
-  </div>
-</header>
+        {/* CATEGORIAS */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-5 flex-1">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleClick(category)}
+              className={`px-3 py-1 rounded-full font-medium transition-all duration-200
+                ${
+                  selected === category
+                    ? "bg-olive text-white shadow-sm"
+                    : "text-olive hover:text-terracotta"
+                }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
 
-
+      </div>
+    </header>
   );
 };
 
