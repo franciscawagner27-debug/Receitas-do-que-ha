@@ -82,7 +82,7 @@ export default function DiasSemTempoPage() {
         }}
       />
 
-   {/* HERO */}
+  {/* HERO */}
 <section
   className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
   style={{
@@ -90,27 +90,33 @@ export default function DiasSemTempoPage() {
       "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
   }}
 >
+  {/* Overlay escuro */}
   <div className="absolute inset-0 bg-black/40" />
-  <div className="relative z-10 px-4">
 
-    {/* ⭐ Receitas DO QUE HÁ — numa só linha, estilo homepage */}
-    <h2 className="text-2xl md:text-3xl font-serif text-white mb-2 drop-shadow-lg tracking-wide">
-      Receitas <span className="uppercase tracking-widest">DO QUE HÁ</span>
-    </h2>
+  <div className="relative z-10 px-4 flex flex-col items-center">
 
-    {/* ⭐ Título principal mantém-se igual */}
+    {/* LOGO — icon 512 */}
+    <img
+      src="/Icons/icon-512.png"
+      alt="Receitas do Que Há"
+      className="w-20 h-20 md:w-24 md:h-24 mb-4 drop-shadow-lg"
+    />
+
+    {/* TÍTULO PRINCIPAL */}
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
     </h1>
 
+    {/* SUBTÍTULO / DESCRIÇÃO */}
     <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
-      Porque nem todos os dias há tempo para cozinhar, reunimos aqui
-      soluções rápidas e produtos que já experimentámos e recomendamos.
-      São opções práticas para dias apressados — pensadas para ajudar,
-      não para substituir as refeições caseiras do dia a dia.
+      Porque nem todos os dias há tempo para cozinhar, reunimos aqui soluções rápidas
+      e produtos que já experimentámos e recomendamos. São opções práticas para dias
+      apressados — pensadas para ajudar, não para substituir as refeições caseiras do
+      dia a dia.
     </p>
   </div>
 </section>
+
 
 
 
