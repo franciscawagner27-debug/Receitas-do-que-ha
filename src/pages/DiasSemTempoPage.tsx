@@ -95,13 +95,22 @@ export default function DiasSemTempoPage() {
   {/* overlay */}
   <div className="absolute inset-0 bg-black/40" />
 
-  {/* LOGO — canto superior esquerdo */}
-  <div className="absolute top-4 left-4 z-20">
-   <img
-  src={logo512}
-  alt="Receitas do Que Há"
-  className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-lg object-contain"
-/>
+{/* LOGO + MINI TEXTO (CENTRADO) */}
+<div className="absolute top-4 left-4 z-20 flex flex-col items-center">
+  <img
+    src="/icons/icon-180.png"
+    alt="Receitas do Que Há"
+    className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+  />
+
+  <div className="mt-1 leading-tight text-white drop-shadow text-center">
+    <p className="font-serif text-[12px] sm:text-[13px]">Receitas</p>
+    <p className="font-serif text-[12px] sm:text-[13px] tracking-wide">
+      DO QUE HÁ
+    </p>
+  </div>
+</div>
+
 
   </div>
 
