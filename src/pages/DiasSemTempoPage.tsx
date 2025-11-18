@@ -98,7 +98,7 @@ export default function DiasSemTempoPage() {
   {/* LOGO + MINI TEXTO (CENTRADO) */}
   <div className="absolute top-4 left-4 z-20 flex flex-col items-center">
     <img
-      src="/icons/icon-180.png"
+     src="/icons/icon-512.png"
       alt="Receitas do Que Há"
       className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
     />
