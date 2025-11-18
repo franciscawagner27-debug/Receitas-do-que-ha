@@ -86,7 +86,7 @@ export default function DiasSemTempoPage() {
 
 {/* HERO */}
 <section
-  className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
+  className="relative h-[40vh] flex flex-col sm:justify-center items-center text-center bg-cover bg-center"
   style={{
     backgroundImage:
       "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
@@ -95,15 +95,15 @@ export default function DiasSemTempoPage() {
   {/* overlay */}
   <div className="absolute inset-0 bg-black/40" />
 
-  {/* LOGO + MINI TEXTO (CENTRADO) */}
+  {/* LOGO + MINI TEXTO */}
   <div className="absolute top-6 sm:top-8 left-4 sm:left-6 z-20 flex flex-col items-center">
     <img
-     src="/icons/icon-512.png"
+      src="/icons/icon-512.png"
       alt="Receitas do Que Há"
       className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
     />
 
-   <div className="mt-0 leading-tight text-white drop-shadow text-center">
+    <div className="mt-0 leading-tight text-white drop-shadow text-center">
       <p className="font-serif text-[12px] sm:text-[13px]">Receitas</p>
       <p className="font-serif text-[12px] sm:text-[13px] tracking-wide">
         DO QUE HÁ
