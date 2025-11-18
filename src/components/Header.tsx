@@ -35,37 +35,35 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
   };
 
   return (
-   <header className="bg-beige border-b border-olive/20 py-2 px-4 sticky top-0 z-50">
-  <div className="max-w-6xl mx-auto flex flex-col gap-2">
+  <header className="bg-beige border-b border-olive/20 py-3 px-4 sticky top-0 z-50">
+  <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-    {/* LOGO — agora fica no topo no telemóvel */}
-    <div className="flex items-center justify-start">
-      <button
-        onClick={() => (window.location.href = "/")}
-        className="flex items-center gap-2 cursor-pointer"
-      >
-        <img
-          src="/icons/icon-512.png"
-          alt="Receitas do Que Há"
-          className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
-        />
+    {/* LOGO + TEXTO (AGORA APARECE EM MOBILE E DESKTOP) */}
+    <button
+      onClick={() => (window.location.href = "/")}
+      className="flex items-center gap-2 cursor-pointer"
+    >
+      <img
+        src="/icons/icon-512.png"
+        alt="Receitas do Que Há"
+        className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
+      />
 
-        {/* texto só no desktop */}
-        <div className="leading-tight text-olive hidden md:block">
-          <p className="font-serif text-base">Receitas</p>
-          <p className="font-serif text-base tracking-wide">DO QUE HÁ</p>
-        </div>
-      </button>
-    </div>
+      {/* TEXTO: agora aparece SEM esconder no mobile */}
+      <div className="leading-tight text-olive block">
+        <p className="font-serif text-sm sm:text-base">Receitas</p>
+        <p className="font-serif text-sm sm:text-base tracking-wide">DO QUE HÁ</p>
+      </div>
+    </button>
 
-    {/* CATEGORIAS — Mobile muito mais compacto e organizado */}
-    <div className="flex flex-wrap justify-center gap-1 sm:gap-3">
+    {/* CATEGORIAS — MAIS PEQUENAS NO MOBILE, IGUAIS NO DESKTOP */}
+    <div className="flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
       {categories.map((category) => (
         <button
           key={category}
           onClick={() => handleClick(category)}
           className={`
-            px-2 py-1 rounded-full font-medium transition-all duration-200
+            px-3 py-1 rounded-full font-medium transition-all duration-200
             text-[13px] sm:text-base
             ${
               selected === category
@@ -81,6 +79,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
 
   </div>
 </header>
+
 
   );
 };
