@@ -111,8 +111,7 @@ export default function DiasSemTempoPage() {
     </div>
   </div>
 
-
-    {/* TEXTO CENTRADO */}
+  {/* TEXTO CENTRADO */}
   <div className="relative z-10 px-4 max-w-2xl mx-auto text-center pt-24 sm:pt-0">
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
@@ -125,9 +124,9 @@ export default function DiasSemTempoPage() {
       dia a dia.
     </p>
   </div>
+</section>
 
-
-
+ 
 
 
 
