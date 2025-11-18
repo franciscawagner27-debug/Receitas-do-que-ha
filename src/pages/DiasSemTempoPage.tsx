@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
 import RecipeDetail from "../components/RecipeDetail";
 import type { Recipe } from "../types";
-import logo512 from "/Icons/icon-512.png";
+
 
 export default function DiasSemTempoPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -83,7 +83,7 @@ export default function DiasSemTempoPage() {
         }}
       />
 
- {/* HERO */}
+{/* HERO */}
 <section
   className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
   style={{
@@ -97,7 +97,7 @@ export default function DiasSemTempoPage() {
   {/* LOGO — canto superior esquerdo */}
   <div className="absolute top-4 left-4 z-20">
     <img
-      src={logo512}
+      src="/Icons/icon-512.png"
       alt="Receitas do Que Há"
       className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-lg object-contain"
     />
@@ -117,7 +117,6 @@ export default function DiasSemTempoPage() {
     </p>
   </div>
 </section>
-
 
 
 
