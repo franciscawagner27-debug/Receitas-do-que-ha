@@ -38,13 +38,15 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
 
   return (
  <header className="bg-beige border-b border-olive/20 py-3 px-0 sticky top-0 z-50">
-  <div className="max-w-6xl mx-auto flex items-center gap-5 pl-2 sm:pl-6">
+<div className="max-w-6xl mx-auto flex items-center gap-3">
+
 
     {/* LOGO À ESQUERDA, PUXADO COM MARGEM NEGATIVA */}
-    <button
-      onClick={() => (window.location.href = "/")}
-      className="flex items-center gap-3 cursor-pointer flex-shrink-0 -ml-4 sm:-ml-8"
-    >
+   <button
+  onClick={() => (window.location.href = "/")}
+  className="flex items-center gap-3 cursor-pointer flex-shrink-0 mr-auto"
+>
+
       <img
         src="/icons/icon-512.png"
         alt="Receitas do Que Há"
