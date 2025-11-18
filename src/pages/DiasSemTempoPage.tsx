@@ -96,7 +96,7 @@ export default function DiasSemTempoPage() {
   <div className="absolute inset-0 bg-black/40" />
 
   {/* LOGO + MINI TEXTO (CENTRADO) */}
-  <div className="absolute top-4 left-4 z-20 flex flex-col items-center">
+  <div className="absolute top-6 sm:top-8 left-4 sm:left-6 z-20 flex flex-col items-center">
     <img
      src="/icons/icon-512.png"
       alt="Receitas do Que Há"
@@ -111,8 +111,9 @@ export default function DiasSemTempoPage() {
     </div>
   </div>
 
-  {/* TEXTO CENTRADO */}
-  <div className="relative z-10 px-4 max-w-2xl mx-auto text-center">
+
+    {/* TEXTO CENTRADO */}
+  <div className="relative z-10 px-4 max-w-2xl mx-auto text-center pt-24 sm:pt-0">
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
     </h1>
@@ -124,7 +125,7 @@ export default function DiasSemTempoPage() {
       dia a dia.
     </p>
   </div>
-</section>
+
 
 
 
