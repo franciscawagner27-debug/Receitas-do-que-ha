@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
 import RecipeDetail from "../components/RecipeDetail";
 import type { Recipe } from "../types";
+import logo512 from "/icons/icon-512.png";
 
 
 export default function DiasSemTempoPage() {
@@ -96,11 +97,12 @@ export default function DiasSemTempoPage() {
 
   {/* LOGO — canto superior esquerdo */}
   <div className="absolute top-4 left-4 z-20">
-    <img
-      src="/Icons/icon-512.png"
-      alt="Receitas do Que Há"
-      className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-lg object-contain"
-    />
+   <img
+  src={logo512}
+  alt="Receitas do Que Há"
+  className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-lg object-contain"
+/>
+
   </div>
 
   {/* TEXTO CENTRADO */}
