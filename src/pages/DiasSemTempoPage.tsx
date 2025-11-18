@@ -103,7 +103,7 @@ export default function DiasSemTempoPage() {
       className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
     />
 
-   <div className="mt-0.5 leading-tight text-white drop-shadow text-center">
+   <div className="mt-0 leading-tight text-white drop-shadow text-center">
       <p className="font-serif text-[12px] sm:text-[13px]">Receitas</p>
       <p className="font-serif text-[12px] sm:text-[13px] tracking-wide">
         DO QUE HÁ
