@@ -291,8 +291,12 @@ let finalRecipes: any[] = [];
 
 if (hasSearch) {
   filteredRecipes.forEach((r: any) => {
-    if (r._isExactMatch) exactMatches.push(r);
-    else extendedMatches.push(r);
+    if (r._isExactMatch) {
+  exactMatches.push(r);
+} else if (r._matchedIngredientCount >= 2) {
+  extendedMatches.push(r);
+}
+
   });
 
   exactMatches = exactMatches.sort(sortByRelevance);
