@@ -293,13 +293,23 @@ let extendedMatches: any[] = [];
 let finalRecipes: any[] = [];
 
 if (hasSearch) {
+  // contar quantos termos "a sério" a pessoa escreveu (massa, tomate, carne, etc.)
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+  const termCount = normalizedSearch
+    .split(/[\s,;]+/)
+    .map((t) => t.trim())
+    .filter((t) => t.length > 1).length;
+
+  // se só escreveu 1 ingrediente → basta 1 match
+  // se escreveu 2 ou mais → pedimos pelo menos 2 matches
+  const minMatchCount = termCount <= 1 ? 1 : 2;
+
   filteredRecipes.forEach((r: any) => {
     if (r._isExactMatch) {
-  exactMatches.push(r);
-} else if (r._matchedIngredientCount >= 2) {
-  extendedMatches.push(r);
-}
-
+      exactMatches.push(r);
+    } else if (r._matchedIngredientCount >= minMatchCount) {
+      extendedMatches.push(r);
+    }
   });
 
   exactMatches = exactMatches.sort(sortByRelevance);
@@ -309,6 +319,7 @@ if (hasSearch) {
   // sem pesquisa: comportamento antigo
   finalRecipes = [...filteredRecipes].sort(sortByRelevance);
 }
+
 
 
 
