@@ -255,13 +255,16 @@ let filteredRecipes = recipesWithoutDST.filter((r: any) => {
       r.tags.some((tag: string) => validTags.includes(tag));
   }
 
-  // NOVA PESQUISA INTELIGENTE
-  const { matches, score, isExactMatch, extraCount } = smartSearch(r, searchTerm);
+ // NOVA PESQUISA INTELIGENTE
+const { matches, score, isExactMatch, extraCount, matchedIngredientCount } =
+  smartSearch(r, searchTerm);
 
-  // guardar no objeto (para ordenação)
-  (r as any)._searchScore = score;
-  (r as any)._isExactMatch = isExactMatch;
-  (r as any)._extraCount = extraCount;
+// guardar no objeto (para ordenação)
+(r as any)._searchScore = score;
+(r as any)._isExactMatch = isExactMatch;
+(r as any)._extraCount = extraCount;
+(r as any)._matchedIngredientCount = matchedIngredientCount;
+
 
   const matchesSearch = !hasSearch ? true : matches;
 
