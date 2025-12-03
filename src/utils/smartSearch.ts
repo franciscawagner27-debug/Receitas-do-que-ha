@@ -216,7 +216,6 @@ export function smartSearch(
   matchedIngredientCount: number;
 } {
   const trimmed = (rawSearch || "").trim();
-
   if (!trimmed) {
     return {
       matches: true,
@@ -227,13 +226,14 @@ export function smartSearch(
     };
   }
 
+  // 1) Separar a pesquisa em termos (ingredientes)
   const normalizedSearch = normalize(trimmed);
-  const searchTerms = normalizedSearch
+  const searchTokens = normalizedSearch
     .split(/[\s,;]+/)
     .map((t) => t.trim())
-    .filter((t) => t.length > 1);
+    .filter((t) => t.length > 1); // ignora "e", "de", etc.
 
-  if (searchTerms.length === 0) {
+  if (searchTokens.length === 0) {
     return {
       matches: true,
       score: 0,
@@ -243,64 +243,33 @@ export function smartSearch(
     };
   }
 
-  // Ingredientes da receita normalizados
-  const recipeIngredientsNormalized = Array.isArray(recipe.ingredients)
-    ? recipe.ingredients.map((ing: string) => normalize(String(ing)))
+  // 2) Ingredientes da receita normalizados (array jsonb de strings)
+  const ingredientsNormalized = Array.isArray((recipe as any).ingredients)
+    ? (recipe as any).ingredients.map((ing: string) => normalize(String(ing)))
     : [];
 
-  // Ingredientes relevantes (sem temperos)
-  const recipeRelevantIngredients = getRelevantRecipeIngredients(recipe);
+  // 3) Para cada termo da pesquisa, ver se aparece em ALGUM ingrediente (com sinónimos)
+  let matchedIngredientCount = 0;
 
-  // Expande os termos da pesquisa (sinónimos, plural, singular)
-  const expandedSearchTerms = searchTerms.flatMap((term) =>
-    expandTerm(term)
-  );
-
-  // -----------------------------
-// NOVO: cada termo da pesquisa tem de aparecer em pelo menos 1 ingrediente relevante
-let matchedTerms = 0;
-
-for (const term of expandedSearchTerms) {
-  const found = recipeRelevantIngredients.some((ing) =>
-    ing === term || ing.includes(" " + term) || ing.startsWith(term + " ")
-  );
-  if (found) matchedTerms++;
-}
-
-// matchedIngredientCount = quantos termos da pesquisa apareceram em ingredientes reais
-const matchedIngredientCount = matchedTerms;
-
-
- const matches = matchedIngredientCount === searchTerms.length;
-
-
-  // -----------------------------
-  // EXACT MATCH (sem extras)
-  // -----------------------------
-  const searchIngsExact = extractSearchIngredientsForExact(rawSearch);
-  let extraCount = 0;
-  let isExactMatch = false;
-
-  if (searchIngsExact.length > 0) {
-    const matchedSearchSet = new Set<string>();
-
-    for (const rIng of recipeRelevantIngredients) {
-      const matchedThisLine = searchIngsExact.some((s) => {
-        if (!s) return false;
-        const ok = rIng.includes(s);
-        if (ok) matchedSearchSet.add(s);
-        return ok;
-      });
-
-      if (!matchedThisLine) extraCount++;
-    }
-
-    const allSearchMatched = searchIngsExact.every((s) =>
-      matchedSearchSet.has(s)
+  for (const token of searchTokens) {
+    const expansions = expandTerm(token); // token + sinónimos
+    const tokenMatches = ingredientsNormalized.some((ing) =>
+      expansions.some((word) => word && ing.includes(word))
     );
-
-    isExactMatch = allSearchMatched && extraCount === 0;
+    if (tokenMatches) {
+      matchedIngredientCount++;
+    }
   }
+
+  // Se pelo menos um termo bateu, consideramos que "matches"
+  const matches = matchedIngredientCount > 0;
+
+  // Exact match = todos os termos da pesquisa aparecem em ingredientes
+  const isExactMatch =
+    matchedIngredientCount === searchTokens.length && searchTokens.length > 0;
+
+  // extraCount aqui não está a ser usado de forma rigorosa, por isso fica a 0 por agora
+  const extraCount = 0;
 
   return {
     matches,
