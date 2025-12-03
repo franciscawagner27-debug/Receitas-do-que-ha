@@ -257,18 +257,19 @@ export function smartSearch(
   );
 
   // -----------------------------
-  // CONTAGEM DE INGREDIENTES BATIDOS
-  // -----------------------------
-  let matchedIngredientCount = 0;
+// NOVO: cada termo da pesquisa tem de aparecer em pelo menos 1 ingrediente relevante
+let matchedTerms = 0;
 
-  for (const recipeIng of recipeRelevantIngredients) {
-    const matchesThisIngredient = expandedSearchTerms.some((expanded) =>
-      recipeIng.includes(expanded)
-    );
-    if (matchesThisIngredient) {
-      matchedIngredientCount++;
-    }
-  }
+for (const term of expandedSearchTerms) {
+  const found = recipeRelevantIngredients.some((ing) =>
+    ing === term || ing.includes(" " + term) || ing.startsWith(term + " ")
+  );
+  if (found) matchedTerms++;
+}
+
+// matchedIngredientCount = quantos termos da pesquisa apareceram em ingredientes reais
+const matchedIngredientCount = matchedTerms;
+
 
   const matches = matchedIngredientCount > 0;
 
