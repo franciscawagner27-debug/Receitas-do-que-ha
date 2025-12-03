@@ -208,98 +208,99 @@ function getRelevantRecipeIngredients(recipe: Recipe): string[] {
 export function smartSearch(
   recipe: Recipe,
   rawSearch: string
-): { matches: boolean; score: number; isExactMatch: boolean; extraCount: number } {
+): {
+  matches: boolean;
+  score: number;
+  isExactMatch: boolean;
+  extraCount: number;
+  matchedIngredientCount: number;
+} {
   const trimmed = (rawSearch || "").trim();
 
-  // Sem pesquisa: tudo faz match, sem score e sem exact match
   if (!trimmed) {
-    return { matches: true, score: 0, isExactMatch: false, extraCount: 0 };
+    return {
+      matches: true,
+      score: 0,
+      isExactMatch: false,
+      extraCount: 0,
+      matchedIngredientCount: 0,
+    };
   }
 
   const normalizedSearch = normalize(trimmed);
-  const terms = normalizedSearch
+  const searchTerms = normalizedSearch
     .split(/[\s,;]+/)
     .map((t) => t.trim())
-    .filter((t) => t.length > 1); // ignora "e", "de", etc.
+    .filter((t) => t.length > 1);
 
-  if (terms.length === 0) {
-    return { matches: true, score: 0, isExactMatch: false, extraCount: 0 };
+  if (searchTerms.length === 0) {
+    return {
+      matches: true,
+      score: 0,
+      isExactMatch: false,
+      extraCount: 0,
+      matchedIngredientCount: 0,
+    };
   }
 
-  // Ingredientes normalizados (linha inteira)
-  const ingredients = Array.isArray((recipe as any).ingredients)
-    ? (recipe as any).ingredients.map((ing: string) => normalize(String(ing)))
+  // Ingredientes da receita normalizados (linha toda)
+  const recipeIngredientsNormalized = Array.isArray(recipe.ingredients)
+    ? recipe.ingredients.map((ing: string) => normalize(String(ing)))
     : [];
 
-  const title = normalize((recipe as any).title || "");
+    // Ingredientes relevantes (sem temperos)
+  const recipeRelevantIngredients = getRelevantRecipeIngredients(recipe);
 
-  const tags = Array.isArray((recipe as any).tags)
-    ? (recipe as any).tags.map((tag: string) => normalize(String(tag)))
-    : [];
+  // Expansão dos termos para singular, plural, sinónimos
+  const expandedSearchTerms = searchTerms.flatMap((term) =>
+    expandTerm(term)
+  );
 
-  let matchedCount = 0;
+  // Contar quantos ingredientes realmente BATEM
+  let matchedIngredientCount = 0;
 
-  for (const term of terms) {
-    const expanded = expandTerm(term);
-
-    const termMatched = expanded.some((word) => {
-      if (!word) return false;
-
-      const inTitle = title.includes(word);
-      const inIngredients = ingredients.some((ing) => ing.includes(word));
-      const inTags = tags.some((tag) => tag.includes(word));
-
-      return inTitle || inIngredients || inTags;
-    });
-
-    if (termMatched) {
-      matchedCount++;
+  for (const recipeIng of recipeRelevantIngredients) {
+    const matchesThisIngredient = expandedSearchTerms.some((expanded) =>
+      recipeIng.includes(expanded)
+    );
+    if (matchesThisIngredient) {
+      matchedIngredientCount++;
     }
   }
 
-  const matches = matchedCount > 0;
+  const matches = matchedIngredientCount > 0;
 
-  // Se nem sequer bate em nada, nem vale a pena calcular exact match
-  if (!matches) {
-    return { matches: false, score: 0, isExactMatch: false, extraCount: 0 };
-  }
-
-  // 🔍 Cálculo de "match perfeito" com base só em ingredientes (ignorando temperos)
-  const searchIngs = extractSearchIngredientsForExact(rawSearch);
-  const recipeRelevantIngs = getRelevantRecipeIngredients(recipe);
-
-  let isExactMatch = false;
+  // ---- EXACT MATCH ----
+  const searchIngsExact = extractSearchIngredientsForExact(rawSearch);
   let extraCount = 0;
+  let isExactMatch = false;
 
-  if (searchIngs.length > 0 && recipeRelevantIngs.length > 0) {
+  if (searchIngsExact.length > 0) {
     const matchedSearchSet = new Set<string>();
 
-    for (const rIng of recipeRelevantIngs) {
-      // vê se este ingrediente da receita contém algum dos ingredientes de pesquisa
-      const matchedThisLine = searchIngs.some((s) => {
+    for (const rIng of recipeRelevantIngredients) {
+      const matchedThisLine = searchIngsExact.some((s) => {
         if (!s) return false;
         const ok = rIng.includes(s);
-        if (ok) {
-          matchedSearchSet.add(s);
-        }
+        if (ok) matchedSearchSet.add(s);
         return ok;
       });
 
-      // se este ingrediente não corresponde a nenhum dos que a pessoa escreveu -> é "extra"
-      if (!matchedThisLine) {
-        extraCount++;
-      }
+      if (!matchedThisLine) extraCount++;
     }
 
-    const allSearchMatched = searchIngs.every((s) => matchedSearchSet.has(s));
+    const allSearchMatched = searchIngsExact.every((s) =>
+      matchedSearchSet.has(s)
+    );
 
     isExactMatch = allSearchMatched && extraCount === 0;
   }
 
   return {
     matches,
-    score: matchedCount,
+    score: matchedIngredientCount,
     isExactMatch,
     extraCount,
+    matchedIngredientCount,
   };
 }
