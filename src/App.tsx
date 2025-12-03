@@ -501,7 +501,7 @@ dia a dia.
       {exactMatches.length > 0 && (
         <section>
           <h3 className="text-2xl font-serif text-olive mb-6 text-center">
-            Receitas com os ingredientes que tem.
+            Receitas com os ingredientes que tem:
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {exactMatches.map((r: any) => (
@@ -574,7 +574,7 @@ dia a dia.
       {extendedMatches.length > 0 && (
         <section>
           <h3 className="text-2xl font-serif text-olive mb-6 text-center">
-            Receitas que também incluem os ingredientes que tem.
+            Receitas que também incluem os ingredientes que tem:
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {extendedMatches.map((r: any) => (
