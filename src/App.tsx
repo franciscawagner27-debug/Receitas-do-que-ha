@@ -200,6 +200,9 @@ const recipesWithoutDST = sortedRecipes.filter(
   (r) => !(r.tags && r.tags.includes("diassemtempo"))
 );
 
+const hasSearch = searchTerm.trim() !== "";
+
+// 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
 let filteredRecipes = recipesWithoutDST.filter((r: any) => {
   const selected = selectedCategory.trim().toLowerCase();
 
@@ -252,19 +255,23 @@ let filteredRecipes = recipesWithoutDST.filter((r: any) => {
       r.tags.some((tag: string) => validTags.includes(tag));
   }
 
-  // 🔍 Pesquisa inteligente
-  const { matches, score } = smartSearch(r, searchTerm);
-  (r as any)._searchScore = score;
+  // NOVA PESQUISA INTELIGENTE
+  const { matches, score, isExactMatch, extraCount } = smartSearch(r, searchTerm);
 
-  const matchesSearch = searchTerm.trim() === "" ? true : matches;
+  // guardar no objeto (para ordenação)
+  (r as any)._searchScore = score;
+  (r as any)._isExactMatch = isExactMatch;
+  (r as any)._extraCount = extraCount;
+
+  const matchesSearch = !hasSearch ? true : matches;
 
   return matchesCategory && matchesSearch;
 });
 
-// 📊 Ordenar por relevância (score), destaque e id
-filteredRecipes = filteredRecipes.sort((a: any, b: any) => {
-  const scoreA = (a as any)._searchScore ?? 0;
-  const scoreB = (b as any)._searchScore ?? 0;
+// Função de ordenação comum
+function sortByRelevance(a: any, b: any) {
+  const scoreA = a._searchScore ?? 0;
+  const scoreB = b._searchScore ?? 0;
 
   if (scoreB !== scoreA) return scoreB - scoreA;
 
@@ -275,7 +282,26 @@ filteredRecipes = filteredRecipes.sort((a: any, b: any) => {
   if (!aFeatured && bFeatured) return 1;
 
   return b.id - a.id;
-});
+}
+
+// 2) Criar as duas listas quando há pesquisa
+let exactMatches: any[] = [];
+let extendedMatches: any[] = [];
+let finalRecipes: any[] = [];
+
+if (hasSearch) {
+  filteredRecipes.forEach((r: any) => {
+    if (r._isExactMatch) exactMatches.push(r);
+    else extendedMatches.push(r);
+  });
+
+  exactMatches = exactMatches.sort(sortByRelevance);
+  extendedMatches = extendedMatches.sort(sortByRelevance);
+
+} else {
+  // sem pesquisa: comportamento antigo
+  finalRecipes = [...filteredRecipes].sort(sortByRelevance);
+}
 
 
 
