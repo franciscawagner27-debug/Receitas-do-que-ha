@@ -243,20 +243,22 @@ export function smartSearch(
     };
   }
 
-  // Ingredientes da receita normalizados (linha toda)
+  // Ingredientes da receita normalizados
   const recipeIngredientsNormalized = Array.isArray(recipe.ingredients)
     ? recipe.ingredients.map((ing: string) => normalize(String(ing)))
     : [];
 
-    // Ingredientes relevantes (sem temperos)
+  // Ingredientes relevantes (sem temperos)
   const recipeRelevantIngredients = getRelevantRecipeIngredients(recipe);
 
-  // Expansão dos termos para singular, plural, sinónimos
+  // Expande os termos da pesquisa (sinónimos, plural, singular)
   const expandedSearchTerms = searchTerms.flatMap((term) =>
     expandTerm(term)
   );
 
-  // Contar quantos ingredientes realmente BATEM
+  // -----------------------------
+  // CONTAGEM DE INGREDIENTES BATIDOS
+  // -----------------------------
   let matchedIngredientCount = 0;
 
   for (const recipeIng of recipeRelevantIngredients) {
@@ -270,7 +272,9 @@ export function smartSearch(
 
   const matches = matchedIngredientCount > 0;
 
-  // ---- EXACT MATCH ----
+  // -----------------------------
+  // EXACT MATCH (sem extras)
+  // -----------------------------
   const searchIngsExact = extractSearchIngredientsForExact(rawSearch);
   let extraCount = 0;
   let isExactMatch = false;
