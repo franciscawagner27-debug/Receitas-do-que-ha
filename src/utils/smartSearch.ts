@@ -271,7 +271,8 @@ for (const term of expandedSearchTerms) {
 const matchedIngredientCount = matchedTerms;
 
 
-  const matches = matchedIngredientCount > 0;
+ const matches = matchedIngredientCount === searchTerms.length;
+
 
   // -----------------------------
   // EXACT MATCH (sem extras)
