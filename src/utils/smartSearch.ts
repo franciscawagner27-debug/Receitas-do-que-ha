@@ -58,7 +58,7 @@ const synonymMap: Record<string, string[]> = {
 
   // carne
   carne: ["frango", "porco", "vaca", "bife", "peru", "vitela"],
-  frango: ["carne"],
+  
   porco: ["carne"],
   vaca: ["carne", "bovino"],
   bife: ["carne"],
