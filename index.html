@@ -1,85 +1,103 @@
 <!doctype html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
+ <head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
 
-    <!-- 🔹 Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- 🔹 Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
 
-    <title>Receitas do Que Há</title>
+  <!-- ⭐ TÍTULO MUITO IMPORTANTE PARA SEO -->
+  <title>Receitas do Que Há – Site Oficial | Descubra receitas com os ingredientes que tem em casa</title>
 
-    <!-- 🔹 Meta descrição e SEO -->
-    <meta
-      name="description"
-      content="Receitas simples e saborosas com o que há em casa. Cozinha portuguesa prática, feita com ingredientes do dia a dia e muito amor."
-    />
-    <meta
-      name="keywords"
-      content="receitas, cozinha portuguesa, receitas simples, receitas fáceis, receitas do que há, receitas caseiras"
-    />
-    <meta name="language" content="pt-PT" />
+  <!-- ⭐ META DESCRIPTION MELHORADA -->
+  <meta
+    name="description"
+    content="O Receitas do Que Há é o site oficial onde pode descobrir receitas simples e rápidas feitas com os ingredientes que já tem em casa. Pesquise por ingredientes ou explore sugestões práticas e portuguesas."
+  />
 
-    <!-- 🔹 Ícone do site (favicon) -->
-    <link rel="icon" href="/icons/icon-180.png" type="image/png" />
+  <!-- 🔹 Keywords opcionais (mantidas) -->
+  <meta
+    name="keywords"
+    content="receitas, cozinha portuguesa, receitas simples, receitas fáceis, receitas do que há, receitas caseiras"
+  />
+  <meta name="language" content="pt-PT" />
 
-    <!-- 🔹 Manifesto da aplicação (necessário para PWA) -->
-    <link rel="manifest" href="/manifest.json" />
+  <!-- 🔹 Ícone do site (mantido) -->
+  <link rel="icon" href="/icons/icon-180.png" type="image/png" />
 
-    <!-- 🔹 Cores e propriedades para mobile -->
-    <meta name="theme-color" content="#E9DFC7" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Receitas do Que Há" />
+  <!-- 🔹 Manifesto da aplicação (necessário para PWA) -->
+  <link rel="manifest" href="/manifest.json" />
 
-    <!-- 🔹 Ícone da app para iPhone -->
-    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+  <!-- 🔹 Cores e propriedades para mobile -->
+  <meta name="theme-color" content="#E9DFC7" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Receitas do Que Há" />
 
-    <!-- 🔹 Splash screens iOS -->
-    <link
-      rel="apple-touch-startup-image"
-      href="/splash-1125x2436.png"
-      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="/splash-1242x2688.png"
-      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="/splash-828x1792.png"
-      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="/splash-1170x2532.png"
-      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      href="/splash-1284x2778.png"
-      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)"
-    />
+  <!-- 🔹 Ícone da app para iPhone -->
+  <link rel="apple-touch-icon" href="/icons/icon-180.png" />
 
-    <!-- 🔹 iOS fallback background para versões antigas -->
-    <style>
-      @media (display-mode: standalone) {
-        body {
-          background-color: #E9DFC7;
-        }
+  <!-- 🔹 Splash screens iOS (mantidas) -->
+  <link
+    rel="apple-touch-startup-image"
+    href="/splash-1125x2436.png"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="/splash-1242x2688.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="/splash-828x1792.png"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="/splash-1170x2532.png"
+    media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
+  />
+  <link
+    rel="apple-touch-startup-image"
+    href="/splash-1284x2778.png"
+    media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)"
+  />
+
+  <!-- 🔹 iOS fallback background para versões antigas -->
+  <style>
+    @media (display-mode: standalone) {
+      body {
+        background-color: #E9DFC7;
       }
-    </style>
-  </head>
+    }
+  </style>
+
+  <!-- ⭐ SCHEMA.ORG — ajuda o Google a reconhecer o teu site como MARCA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Receitas do Que Há",
+    "url": "https://receitasdoqueha.pt",
+    "logo": "https://receitasdoqueha.pt/icons/icon-180.png",
+    "description": "Site oficial com receitas simples criadas a partir dos ingredientes que já tem em casa.",
+    "founder": "Francisca Wagner",
+    "foundingDate": "2024"
+  }
+  </script>
+</head>
+
 
   <body class="bg-beige text-charcoal font-sans">
     <div id="root"></div>
