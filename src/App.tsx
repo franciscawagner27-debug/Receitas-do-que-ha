@@ -205,53 +205,68 @@ function HomePage() {
     }
   };
 
-  /* --------------------- GERAR RECEITA COM IA (BOTÃO) --------------------- */
+ /* --------------------- GERAR RECEITA COM IA (BOTÃO) --------------------- */
 
-  async function handleGenerateAiRecipe() {
-    const term = searchTerm.trim();
+async function handleGenerateAiRecipe() {
+  console.log("🍳 [IA] Botão clicado");
 
-    if (!term) {
+  const term = searchTerm.trim();
+  console.log("📝 [IA] Ingredientes introduzidos:", term);
+
+  if (!term) {
+    setAiError(
+      "Escreva pelo menos um ingrediente para gerar a receita com IA."
+    );
+    return;
+  }
+
+  setAiLoading(true);
+  setAiError(null);
+
+  try {
+    console.log("📡 [IA] A enviar pedido para:", AI_FUNCTION_URL);
+
+    const res = await fetch(AI_FUNCTION_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ingredients: term }),
+    });
+
+    console.log("📦 [IA] Resposta recebida. Status:", res.status);
+
+    const data = await res.json().catch((err) => {
+      console.error("❌ [IA] Erro ao fazer res.json():", err);
+      return null;
+    });
+
+    console.log("🔍 [IA] Data recebida:", data);
+
+    if (!res.ok || !data || !data.recipe) {
+      console.warn("⚠️ [IA] Erro devolvido pela função:", data?.error);
+
       setAiError(
-        "Escreva pelo menos um ingrediente para gerar a receita com IA."
+        data?.error ||
+          "Não foi possível gerar a receita. Tente novamente dentro de alguns segundos."
       );
+      setAiRecipe(null);
       return;
     }
 
-    setAiLoading(true);
-    setAiError(null);
+    console.log("✅ [IA] Receita gerada com sucesso!");
+    setAiRecipe(data.recipe);
 
-    try {
-      const res = await fetch(AI_FUNCTION_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ingredients: term }),
-      });
+  } catch (err) {
+    console.error("🔥 [IA] Erro no fetch:", err);
 
-          const data = await res.json();
-
-      console.log("Resposta da função IA:", res.status, data);
-
-      if (!res.ok || !data.recipe) {
-        // Mostrar o erro real que veio da função
-        setAiError(
-          data?.error ||
-            "Não foi possível gerar a receita. Tente novamente dentro de alguns segundos."
-        );
-        setAiRecipe(null);
-        return;
-      }
-
-      setAiRecipe(data.recipe);
-    } catch (err) {
-      console.error("Erro ao gerar receita com IA (fetch falhou):", err);
-      setAiError(
-        "Não foi possível contactar o servidor de receitas. Verifique a ligação e tente novamente."
-      );
-
-    } finally {
-      setAiLoading(false);
-    }
+    setAiError(
+      "Não foi possível contactar o servidor de receitas. Verifique a ligação e tente novamente."
+    );
+  } finally {
+    console.log("⏹️ [IA] Processo terminado");
+    setAiLoading(false);
   }
+}
+
 
   /* --------------------------- FILTRO GERAL ---------------------------- */
 
