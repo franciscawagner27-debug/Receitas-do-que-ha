@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
-
 const CozinharPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -10,14 +9,22 @@ const CozinharPage: React.FC = () => {
   const [recipe, setRecipe] = useState<any>(null);
   const [currentStep, setCurrentStep] = useState(0);
 
+  // 🔊 FUNÇÃO PARA FALAR (PT-PT)
+  function speak(text: string) {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "pt-PT";
+    utter.rate = 1;
+    window.speechSynthesis.speak(utter);
+  }
+
   async function loadRecipe() {
     if (!id) return;
 
     const { data, error } = await supabase
       .from("recipes")
       .select("*")
-     .eq("id", id)
-
+      .eq("id", id)
       .single();
 
     if (!error && data) {
@@ -25,9 +32,17 @@ const CozinharPage: React.FC = () => {
     }
   }
 
+  // Carregar receita
   useEffect(() => {
     loadRecipe();
   }, [id]);
+
+  // Parar voz quando sair da página
+  useEffect(() => {
+    return () => {
+      window.speechSynthesis.cancel();
+    };
+  }, []);
 
   if (!recipe) {
     return (
@@ -55,21 +70,28 @@ const CozinharPage: React.FC = () => {
         .filter((s: string) => s.length > 0)
     : [];
 
-  function goNext() {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep((prev) => prev + 1);
+  // ⬅️ VOLTAR UM PASSO (COM VOZ)
+  function goBack() {
+    if (currentStep > 0) {
+      const prev = currentStep - 1;
+      setCurrentStep(prev);
+      speak(steps[prev]);
     }
   }
 
-  function goBack() {
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+  // ➡️ AVANÇAR UM PASSO (COM VOZ)
+  function goNext() {
+    if (currentStep < steps.length - 1) {
+      const next = currentStep + 1;
+      setCurrentStep(next);
+      speak(steps[next]);
     }
   }
 
   return (
     <div className="min-h-screen bg-beige px-4 py-6">
       <div className="max-w-2xl mx-auto">
+
         {/* VOLTAR */}
         <button
           onClick={() => navigate(-1)}
@@ -96,6 +118,15 @@ const CozinharPage: React.FC = () => {
           <p className="text-lg leading-relaxed text-charcoal">
             {steps[currentStep]}
           </p>
+
+          {/* 🔊 BOTÃO OUVIR PASSO */}
+          <button
+            onClick={() => speak(steps[currentStep])}
+            className="mt-4 px-4 py-2 bg-olive text-white rounded-xl 
+                       hover:bg-olive/90 transition text-sm"
+          >
+            🔊 Ouvir passo
+          </button>
         </div>
 
         {/* BOTÕES */}
@@ -124,6 +155,7 @@ const CozinharPage: React.FC = () => {
             Próximo →
           </button>
         </div>
+
       </div>
     </div>
   );
