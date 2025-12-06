@@ -85,7 +85,6 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
   </p>
 )}
 
-/* 👉 AQUI — BOTÃO PASSO-A-PASSO ENTRE QUANTIDADE E INGREDIENTES */
 
 <div className="mb-6">
   <a
