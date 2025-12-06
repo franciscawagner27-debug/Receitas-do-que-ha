@@ -227,18 +227,27 @@ function HomePage() {
         body: JSON.stringify({ ingredients: term }),
       });
 
-      const data = await res.json();
+          const data = await res.json();
+
+      console.log("Resposta da função IA:", res.status, data);
 
       if (!res.ok || !data.recipe) {
-        throw new Error(data.error || "Erro ao gerar receita.");
+        // Mostrar o erro real que veio da função
+        setAiError(
+          data?.error ||
+            "Não foi possível gerar a receita. Tente novamente dentro de alguns segundos."
+        );
+        setAiRecipe(null);
+        return;
       }
 
       setAiRecipe(data.recipe);
     } catch (err) {
-      console.error("Erro ao gerar receita com IA:", err);
+      console.error("Erro ao gerar receita com IA (fetch falhou):", err);
       setAiError(
-        "Não foi possível gerar a receita. Tente novamente dentro de alguns segundos."
+        "Não foi possível contactar o servidor de receitas. Verifique a ligação e tente novamente."
       );
+
     } finally {
       setAiLoading(false);
     }
