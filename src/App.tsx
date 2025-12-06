@@ -10,6 +10,7 @@ import EditRecipe from "./pages/EditRecipe";
 import { smartSearch } from "./utils/smartSearch";
 import RecipePage from "./pages/RecipePage";
 import DiasSemTempoPage from "./pages/DiasSemTempoPage";
+import CozinharPage from "./pages/cozinhar";
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROOT                                     */
@@ -30,6 +31,7 @@ export default function App() {
       <Route path="/admin/edit/:id" element={<EditRecipe />} />
       <Route path="/receita/:id" element={<RecipePage />} />
       <Route path="/dias-sem-tempo" element={<DiasSemTempoPage />} />
+      <Route path="/cozinhar/:id" element={<CozinharPage />} />
     </Routes>
   );
 }
