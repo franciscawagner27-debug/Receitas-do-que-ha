@@ -66,6 +66,25 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         <p className="text-stone mb-4">⏱️ {recipe.time_minutes} min</p>
       )}
 
+      {/* QUANTIDADE — só aparece se NÃO for sobremesa */}
+{!(
+  recipe.tags &&
+  recipe.tags.some((tag) =>
+    [
+      "doce", "doces",
+      "sobremesa", "sobremesas",
+      "bolo", "bolos",
+      "tarte", "tartes",
+      "pudim", "pudins",
+      "mousse", "mousses"
+    ].includes(tag.toLowerCase())
+  )
+) && (
+  <p className="text-stone mb-6">
+    Quantidade: 4 pessoas
+  </p>
+)}
+
       {/* INGREDIENTES */}
       <h3 className="text-xl font-semibold text-olive mt-6 mb-2">
         Ingredientes
