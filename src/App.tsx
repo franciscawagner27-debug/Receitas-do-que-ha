@@ -14,7 +14,7 @@ import CozinharPage from "./pages/cozinhar";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
-  "https://ejnzzxrfqkfxglnmkkyl.functions.supabase.co/ai2";
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/functions/v1/ai2";
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROOT                                     */
