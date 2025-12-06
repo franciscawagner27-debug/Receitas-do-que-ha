@@ -66,7 +66,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         <p className="text-stone mb-4">⏱️ {recipe.time_minutes} min</p>
       )}
 
-      {/* QUANTIDADE — só aparece se NÃO for sobremesa */}
+{/* QUANTIDADE — só aparece se NÃO for sobremesa */}
 {!(
   recipe.tags &&
   recipe.tags.some((tag) =>
@@ -85,10 +85,23 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
   </p>
 )}
 
-      {/* INGREDIENTES */}
-      <h3 className="text-xl font-semibold text-olive mt-6 mb-2">
-        Ingredientes
-      </h3>
+/* 👉 AQUI — BOTÃO PASSO-A-PASSO ENTRE QUANTIDADE E INGREDIENTES */
+
+<div className="mb-6">
+  <a
+    href={`/cozinhar/${recipe.id}`}
+    className="inline-block px-4 py-2 bg-olive text-white rounded-2xl 
+               hover:bg-olive/90 transition text-sm"
+  >
+    👨‍🍳 Receita Passo-a-Passo
+  </a>
+</div>
+
+{/* INGREDIENTES */}
+<h3 className="text-xl font-semibold text-olive mt-6 mb-2">
+  Ingredientes
+</h3>
+
       <ul className="list-disc list-inside space-y-1 mb-6">
         {ingredients.length > 0 ? (
           ingredients.map((ing, i) => <li key={i}>{ing}</li>)
