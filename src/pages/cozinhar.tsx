@@ -16,7 +16,8 @@ const CozinharPage: React.FC = () => {
     const { data, error } = await supabase
       .from("recipes")
       .select("*")
-      .eq("id", Number(id))
+     .eq("id", id)
+
       .single();
 
     if (!error && data) {
