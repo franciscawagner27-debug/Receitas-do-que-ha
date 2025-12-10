@@ -14,7 +14,7 @@ const CozinharPage: React.FC = () => {
   const [lastHeard, setLastHeard] = useState("");
   const [supportsVoice, setSupportsVoice] = useState(false);
   const recognitionRef = useRef<any | null>(null);
-
+ const voiceModeRef = useRef(false);  
   // ============================================================================
   // 🔊 FALAR TEXTO (garantir que o microfone NÃO ouve a voz do computador)
   // ============================================================================
@@ -35,8 +35,9 @@ const CozinharPage: React.FC = () => {
     utter.onend = () => {
       console.log("🔊 Fim da fala");
 
-      if (voiceMode && recognitionRef.current) {
-        try {
+    
+        if (voiceModeRef.current && recognitionRef.current) {    
+          try {
           recognitionRef.current.start();
         } catch (e) {
           console.log("Erro ao reiniciar microfone:", e);
@@ -72,8 +73,13 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   // 🎤 CONFIGURAR WEBSPEECH + PATCH ANTI-CRASH PT-PT
   // ============================================================================
+      useEffect(() => {
+    voiceModeRef.current = voiceMode;
+  }, [voiceMode]);
+    
   useEffect(() => {
     if (typeof window === "undefined") return;
+ 
 
     const SpeechRecognition =
       (window as any).SpeechRecognition ||
@@ -120,7 +126,7 @@ const CozinharPage: React.FC = () => {
       console.log("🔇 Fim da fala");
 
       // repetir escuta se ainda estamos em modo voz
-      if (voiceMode) {
+     if (voiceModeRef.current) {
         try {
           recognition.start();
         } catch {}
@@ -136,7 +142,7 @@ const CozinharPage: React.FC = () => {
       } catch {}
       recognitionRef.current = null;
     };
-  }, [voiceMode]);
+}, []);
 
   // ============================================================================
   // 🧹 PARAR AO SAIR
@@ -249,7 +255,7 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   function startVoiceMode() {
     if (!supportsVoice || !recognitionRef.current) return;
-
+  voiceModeRef.current = true;  
     setVoiceMode(true);
     setLastHeard("");
 
@@ -261,6 +267,7 @@ const CozinharPage: React.FC = () => {
   }
 
   function stopVoiceMode() {
+      voiceModeRef.current = false;   
     setVoiceMode(false);
     setLastHeard("");
 
