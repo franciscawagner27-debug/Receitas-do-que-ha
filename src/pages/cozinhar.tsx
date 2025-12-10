@@ -1,4 +1,3 @@
-// src/pages/cozinhar.tsx (ou onde estiver este ficheiro)
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -16,27 +15,14 @@ const CozinharPage: React.FC = () => {
   const [supportsVoice, setSupportsVoice] = useState(false);
   const recognitionRef = useRef<any | null>(null);
 
-  // 🔊 FALAR PASSO + (SE MODO VOZ ATIVO) VOLTAR A OUVIR
-  function speakAndListen(text: string) {
+  // 🔊 FALAR (sem tentar ligar microfone aqui)
+  function speak(text: string) {
     if (typeof window === "undefined") return;
 
     window.speechSynthesis.cancel();
-
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "pt-PT";
     utter.rate = 1;
-
-    utter.onend = () => {
-      // Se o modo voz estiver ativo, volta a abrir o microfone
-      if (voiceMode && recognitionRef.current) {
-        try {
-          recognitionRef.current.start();
-        } catch (e) {
-          console.log("Erro a reiniciar microfone após TTS:", e);
-        }
-      }
-    };
-
     window.speechSynthesis.speak(utter);
   }
 
@@ -79,7 +65,7 @@ const CozinharPage: React.FC = () => {
     recognition.interimResults = false;
 
     recognition.onstart = () => {
-      console.log("🎤 A ouvir...");
+      console.log("🎤 A ouvir…");
     };
 
     recognition.onresult = (event: any) => {
@@ -98,7 +84,14 @@ const CozinharPage: React.FC = () => {
 
     recognition.onend = () => {
       console.log("🔇 Fim da fala");
-      // NÃO desligamos o voiceMode aqui, só quando o utilizador disser parar ou carregar no botão
+      // Se o modo voz ainda estiver ativo, tenta voltar a ouvir
+      if (voiceMode) {
+        try {
+          recognition.start();
+        } catch (e) {
+          console.log("Erro a reiniciar reconhecimento:", e);
+        }
+      }
     };
 
     recognitionRef.current = recognition;
@@ -112,6 +105,9 @@ const CozinharPage: React.FC = () => {
       }
       recognitionRef.current = null;
     };
+    // ⚠️ NÃO meter voiceMode nas deps deste effect,
+    // senão recriava o recognition sempre que o estado muda.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Parar voz ao sair da página
@@ -161,7 +157,7 @@ const CozinharPage: React.FC = () => {
     setCurrentStep((prev) => {
       const next = Math.max(prev - 1, 0);
       if (viaVoice && next !== prev) {
-        speakAndListen(steps[next]);
+        speak(steps[next]);
       }
       return next;
     });
@@ -174,7 +170,7 @@ const CozinharPage: React.FC = () => {
     setCurrentStep((prev) => {
       const next = Math.min(prev + 1, steps.length - 1);
       if (viaVoice && next !== prev) {
-        speakAndListen(steps[next]);
+        speak(steps[next]);
       }
       return next;
     });
@@ -183,7 +179,7 @@ const CozinharPage: React.FC = () => {
   // 🔁 REPETIR PASSO
   function repeatStep() {
     if (!steps.length) return;
-    speakAndListen(steps[currentStep]);
+    speak(steps[currentStep]);
   }
 
   // IR PARA UM PASSO ESPECÍFICO (ex: "passo 3")
@@ -196,7 +192,7 @@ const CozinharPage: React.FC = () => {
     );
 
     setCurrentStep(safeIndex);
-    speakAndListen(steps[safeIndex]);
+    speak(steps[safeIndex]);
   }
 
   // 🧠 INTERPRETAR COMANDOS DE VOZ
@@ -254,10 +250,6 @@ const CozinharPage: React.FC = () => {
       stopVoiceMode();
       return;
     }
-
-    // Se não reconheceu, podemos simplesmente não fazer nada.
-    // Se quiseres no futuro, podemos pôr aqui uma resposta tipo:
-    // speakAndListen("Não percebi, tenta outra vez.");
   }
 
   // ▶️ ATIVAR MODO VOZ
@@ -269,9 +261,15 @@ const CozinharPage: React.FC = () => {
     setVoiceMode(true);
     setLastHeard("");
 
-    // Fala o passo atual e, quando acabar de falar,
-    // o speakAndListen volta a abrir o microfone
-    speakAndListen(steps[currentStep]);
+    try {
+      // 👉 Ligar o microfone logo na ação do clique (requisito do browser)
+      recognitionRef.current.start();
+    } catch (e) {
+      console.log("Erro ao iniciar reconhecimento:", e);
+    }
+
+    // E também falar o passo atual
+    speak(steps[currentStep]);
   }
 
   // ⏹ DESATIVAR MODO VOZ
@@ -325,9 +323,9 @@ const CozinharPage: React.FC = () => {
             {steps[currentStep]}
           </p>
 
-          {/* 🔊 BOTÃO OUVIR PASSO (funciona com ou sem modo voz) */}
+          {/* 🔊 BOTÃO OUVIR PASSO */}
           <button
-            onClick={() => speakAndListen(steps[currentStep])}
+            onClick={() => speak(steps[currentStep])}
             className="mt-4 px-4 py-2 bg-olive text-white rounded-xl 
                        hover:bg-olive/90 transition text-sm"
           >
@@ -362,7 +360,7 @@ const CozinharPage: React.FC = () => {
           </button>
         </div>
 
-        {/* 🟫 MODO VOZ - CAIXA IGUAL À APP */}
+        {/* 🟫 MODO VOZ */}
         {supportsVoice ? (
           <div className="mt-8 mb-16 p-4 bg-[#F1E4D4] border border-stone/30 rounded-2xl">
             <h2 className="text-lg font-semibold text-olive mb-1">
