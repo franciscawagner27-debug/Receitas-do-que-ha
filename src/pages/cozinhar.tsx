@@ -9,23 +9,48 @@ const CozinharPage: React.FC = () => {
   const [recipe, setRecipe] = useState<any>(null);
   const [currentStep, setCurrentStep] = useState(0);
 
-  // --- MODO VOZ (WEB) ---
+  // --- MODO VOZ ---
   const [voiceMode, setVoiceMode] = useState(false);
   const [lastHeard, setLastHeard] = useState("");
   const [supportsVoice, setSupportsVoice] = useState(false);
   const recognitionRef = useRef<any | null>(null);
 
-  // 🔊 FALAR (sem tentar ligar microfone aqui)
+  // -------------------------------------------------------------
+  // 🔊 FALAR TEXTO (E GERIR MICROFONE CORRETAMENTE)
+  // -------------------------------------------------------------
   function speak(text: string) {
     if (typeof window === "undefined") return;
 
+    // parar microfone enquanto fala, para não ouvir a própria voz
+    try {
+      recognitionRef.current?.stop();
+    } catch {}
+
     window.speechSynthesis.cancel();
+
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "pt-PT";
     utter.rate = 1;
+
+    utter.onend = () => {
+      console.log("🔊 Fim da fala");
+
+      // voltar a ouvir apenas se o modo voz estiver ativo
+      if (voiceMode && recognitionRef.current) {
+        try {
+          recognitionRef.current.start();
+        } catch (e) {
+          console.log("Erro a reiniciar microfone:", e);
+        }
+      }
+    };
+
     window.speechSynthesis.speak(utter);
   }
 
+  // -------------------------------------------------------------
+  // 🔊 CARREGAR RECEITA
+  // -------------------------------------------------------------
   async function loadRecipe() {
     if (!id) return;
 
@@ -37,16 +62,17 @@ const CozinharPage: React.FC = () => {
 
     if (!error && data) {
       setRecipe(data);
-      setCurrentStep(0);
+      setCurrentStep(0); // não fala nada aqui
     }
   }
 
-  // Carregar receita
   useEffect(() => {
     loadRecipe();
   }, [id]);
 
-  // Configurar reconhecimento de voz (Web Speech API)
+  // -------------------------------------------------------------
+  // 🎤 CONFIGURAR WEB SPEECH API
+  // -------------------------------------------------------------
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -64,13 +90,10 @@ const CozinharPage: React.FC = () => {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    recognition.onstart = () => {
-      console.log("🎤 A ouvir…");
-    };
+    recognition.onstart = () => console.log("🎤 A ouvir…");
 
     recognition.onresult = (event: any) => {
-      const text =
-        event.results?.[0]?.[0]?.transcript?.toString() ?? "";
+      const text = event.results?.[0]?.[0]?.transcript ?? "";
       if (!text) return;
 
       const lower = text.toLowerCase();
@@ -78,19 +101,17 @@ const CozinharPage: React.FC = () => {
       handleVoiceCommand(lower);
     };
 
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: any) =>
       console.log("Erro voz:", event);
-    };
 
     recognition.onend = () => {
       console.log("🔇 Fim da fala");
-      // Se o modo voz ainda estiver ativo, tenta voltar a ouvir
+
+      // se o modo voz estiver ativo, recomeçar a ouvir automaticamente
       if (voiceMode) {
         try {
           recognition.start();
-        } catch (e) {
-          console.log("Erro a reiniciar reconhecimento:", e);
-        }
+        } catch {}
       }
     };
 
@@ -100,30 +121,26 @@ const CozinharPage: React.FC = () => {
     return () => {
       try {
         recognition.stop();
-      } catch (e) {
-        // ignore
-      }
+      } catch {}
       recognitionRef.current = null;
     };
-    // ⚠️ NÃO meter voiceMode nas deps deste effect,
-    // senão recriava o recognition sempre que o estado muda.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Parar voz ao sair da página
+  // -------------------------------------------------------------
+  // 🧹 PARAR TUDO AO SAIR
+  // -------------------------------------------------------------
   useEffect(() => {
     return () => {
-      if (typeof window !== "undefined") {
-        window.speechSynthesis.cancel();
-      }
+      window.speechSynthesis?.cancel();
       try {
         recognitionRef.current?.stop();
-      } catch {
-        // ignore
-      }
+      } catch {}
     };
   }, []);
 
+  // -------------------------------------------------------------
+  // NORMALIZAR PASSOS
+  // -------------------------------------------------------------
   if (!recipe) {
     return (
       <div className="min-h-screen bg-beige flex items-center justify-center">
@@ -135,14 +152,13 @@ const CozinharPage: React.FC = () => {
   const rawSteps = recipe.steps;
 
   const steps: string[] = Array.isArray(rawSteps)
-    ? rawSteps
-        .flatMap((item: any) =>
-          item
-            ?.toString()
-            ?.split(/\n+/)
-            .map((s: string) => s.trim())
-            .filter((s: string) => s.length > 0)
-        )
+    ? rawSteps.flatMap((item: any) =>
+        item
+          ?.toString()
+          ?.split(/\n+/)
+          .map((s: string) => s.trim())
+          .filter((s: string) => s.length > 0)
+      )
     : typeof rawSteps === "string"
     ? rawSteps
         .split(/\n+/)
@@ -150,149 +166,106 @@ const CozinharPage: React.FC = () => {
         .filter((s: string) => s.length > 0)
     : [];
 
-  // ⬅️ VOLTAR UM PASSO (com opção de falar se vier do modo voz)
-  function goBack(viaVoice: boolean = false) {
-    if (currentStep <= 0 || !steps.length) return;
+  // -------------------------------------------------------------
+  // FUNÇÕES DE PASSOS (COM VOZ OU SEM VOZ)
+  // -------------------------------------------------------------
+  function goBack(viaVoice = false) {
+    if (currentStep <= 0) return;
 
-    setCurrentStep((prev) => {
-      const next = Math.max(prev - 1, 0);
-      if (viaVoice && next !== prev) {
-        speak(steps[next]);
-      }
+    setCurrentStep(prev => {
+      const next = prev - 1;
+      if (viaVoice) speak(steps[next]);
       return next;
     });
   }
 
-  // ➡️ AVANÇAR UM PASSO
-  function goNext(viaVoice: boolean = false) {
-    if (currentStep >= steps.length - 1 || !steps.length) return;
+  function goNext(viaVoice = false) {
+    if (currentStep >= steps.length - 1) return;
 
-    setCurrentStep((prev) => {
-      const next = Math.min(prev + 1, steps.length - 1);
-      if (viaVoice && next !== prev) {
-        speak(steps[next]);
-      }
+    setCurrentStep(prev => {
+      const next = prev + 1;
+      if (viaVoice) speak(steps[next]);
       return next;
     });
   }
 
-  // 🔁 REPETIR PASSO
   function repeatStep() {
-    if (!steps.length) return;
     speak(steps[currentStep]);
   }
 
-  // IR PARA UM PASSO ESPECÍFICO (ex: "passo 3")
   function goToStep(index: number) {
-    if (!steps.length) return;
-
-    const safeIndex = Math.min(
-      Math.max(index, 0),
-      steps.length - 1
-    );
-
-    setCurrentStep(safeIndex);
-    speak(steps[safeIndex]);
+    const safe = Math.max(0, Math.min(index, steps.length - 1));
+    setCurrentStep(safe);
+    speak(steps[safe]);
   }
 
-  // 🧠 INTERPRETAR COMANDOS DE VOZ
+  // -------------------------------------------------------------
+  // COMANDOS DE VOZ
+  // -------------------------------------------------------------
   function handleVoiceCommand(text: string) {
-    const comando = text.toLowerCase();
+    const c = text.toLowerCase();
 
-    if (
-      comando.includes("próximo") ||
-      comando.includes("seguinte") ||
-      comando.includes("avançar")
-    ) {
-      goNext(true);
-      return;
+    if (c.includes("próximo") || c.includes("seguinte") || c.includes("avançar"))
+      return goNext(true);
+
+    if (c.includes("anterior") || c.includes("voltar") || c.includes("para trás"))
+      return goBack(true);
+
+    if (c.includes("repete") || c.includes("repetir") || c.includes("outra vez"))
+      return repeatStep();
+
+    if (c.includes("passo")) {
+      const num = c.match(/\d+/);
+      if (num) return goToStep(parseInt(num[0]) - 1);
     }
 
     if (
-      comando.includes("anterior") ||
-      comando.includes("para trás") ||
-      comando.includes("voltar")
+      c.includes("começar receita") ||
+      c.includes("iniciar receita") ||
+      c.includes("começar do início")
     ) {
-      goBack(true);
-      return;
+      return goToStep(0);
     }
 
-    if (
-      comando.includes("repete") ||
-      comando.includes("repetir") ||
-      comando.includes("outra vez")
-    ) {
-      repeatStep();
-      return;
-    }
-
-    if (comando.includes("passo")) {
-      const numeroEncontrado = comando.match(/\d+/);
-      if (numeroEncontrado) {
-        const passoNumero = parseInt(numeroEncontrado[0], 10);
-        if (!isNaN(passoNumero)) {
-          goToStep(passoNumero - 1);
-          return;
-        }
-      }
-    }
-
-    if (
-      comando.includes("começar receita") ||
-      comando.includes("iniciar receita") ||
-      comando.includes("começar do início")
-    ) {
-      goToStep(0);
-      return;
-    }
-
-    if (comando.includes("parar") || comando.includes("stop")) {
-      stopVoiceMode();
-      return;
+    if (c.includes("parar") || c.includes("stop")) {
+      return stopVoiceMode();
     }
   }
 
-  // ▶️ ATIVAR MODO VOZ
+  // -------------------------------------------------------------
+  // ATIVAR / DESATIVAR MODO VOZ
+  // -------------------------------------------------------------
   function startVoiceMode() {
-    if (!supportsVoice || !recognitionRef.current || !steps.length) {
-      return;
-    }
+    if (!supportsVoice || !recognitionRef.current) return;
 
     setVoiceMode(true);
     setLastHeard("");
 
+    // 👉 Apenas ligar o microfone. NÃO fala nada.
     try {
-      // 👉 Ligar o microfone logo na ação do clique (requisito do browser)
       recognitionRef.current.start();
     } catch (e) {
-      console.log("Erro ao iniciar reconhecimento:", e);
+      console.log("Erro a iniciar microfone:", e);
     }
-
-    // E também falar o passo atual
-    speak(steps[currentStep]);
   }
 
-  // ⏹ DESATIVAR MODO VOZ
   function stopVoiceMode() {
     setVoiceMode(false);
     setLastHeard("");
 
-    if (typeof window !== "undefined") {
-      window.speechSynthesis.cancel();
-    }
-
-    if (recognitionRef.current) {
-      try {
-        recognitionRef.current.stop();
-      } catch (e) {
-        console.log("Erro ao parar reconhecimento:", e);
-      }
-    }
+    window.speechSynthesis.cancel();
+    try {
+      recognitionRef.current?.stop();
+    } catch {}
   }
 
+  // -------------------------------------------------------------
+  // RENDER
+  // -------------------------------------------------------------
   return (
     <div className="min-h-screen bg-beige px-4 py-6">
       <div className="max-w-2xl mx-auto">
+
         {/* VOLTAR */}
         <button
           onClick={() => {
@@ -313,7 +286,7 @@ const CozinharPage: React.FC = () => {
           {recipe.title}
         </p>
 
-        {/* CAIXA DO PASSO */}
+        {/* PASSO */}
         <div className="bg-white border border-stone/30 rounded-2xl p-6 mb-8 shadow-sm">
           <p className="text-sm font-medium text-olive mb-2">
             Passo {currentStep + 1} de {steps.length}
@@ -323,17 +296,15 @@ const CozinharPage: React.FC = () => {
             {steps[currentStep]}
           </p>
 
-          {/* 🔊 BOTÃO OUVIR PASSO */}
           <button
             onClick={() => speak(steps[currentStep])}
-            className="mt-4 px-4 py-2 bg-olive text-white rounded-xl 
-                       hover:bg-olive/90 transition text-sm"
+            className="mt-4 px-4 py-2 bg-olive text-white rounded-xl hover:bg-olive/90 transition text-sm"
           >
             🔊 Ouvir passo
           </button>
         </div>
 
-        {/* BOTÕES ANTERIOR / PRÓXIMO */}
+        {/* BOTÕES */}
         <div className="flex justify-between gap-4">
           <button
             onClick={() => goBack(false)}
@@ -360,33 +331,24 @@ const CozinharPage: React.FC = () => {
           </button>
         </div>
 
-        {/* 🟫 MODO VOZ */}
+        {/* MODO VOZ */}
         {supportsVoice ? (
           <div className="mt-8 mb-16 p-4 bg-[#F1E4D4] border border-stone/30 rounded-2xl">
             <h2 className="text-lg font-semibold text-olive mb-1">
               Modo Voz
             </h2>
             <p className="text-sm text-charcoal/80 mb-3">
-              Controla a receita por voz:{" "}
-              <strong>"próximo passo"</strong>,{" "}
-              <strong>"anterior"</strong>,{" "}
-              <strong>"repete"</strong>,{" "}
-              <strong>"passo 3"</strong> ou{" "}
-              <strong>"começar receita"</strong>. Para sair,
-              diz <strong>"parar"</strong>.
+              Diz: <strong>"próximo passo"</strong>, <strong>"anterior"</strong>, <strong>"repete"</strong>, <strong>"passo 3"</strong>, ou <strong>"começar receita"</strong>.
+              Para sair, diz <strong>"parar"</strong>.
             </p>
 
             <button
               onClick={voiceMode ? stopVoiceMode : startVoiceMode}
               className={`w-full py-2.5 rounded-xl text-sm font-medium text-white transition ${
-                voiceMode
-                  ? "bg-olive/90"
-                  : "bg-olive hover:bg-olive/90"
+                voiceMode ? "bg-olive/90" : "bg-olive hover:bg-olive/90"
               }`}
             >
-              {voiceMode
-                ? "🎤 A ouvir… tocar para parar"
-                : "🎤 Ativar Modo Voz"}
+              {voiceMode ? "🎤 A ouvir… tocar para parar" : "🎤 Ativar Modo Voz"}
             </button>
 
             {lastHeard && (
@@ -397,8 +359,7 @@ const CozinharPage: React.FC = () => {
           </div>
         ) : (
           <p className="mt-6 text-xs text-charcoal/60">
-            O modo voz não é suportado neste navegador. Tenta usar o
-            Google Chrome no computador ou telemóvel.
+            O modo voz não é suportado neste navegador. Usa Google Chrome.
           </p>
         )}
       </div>
