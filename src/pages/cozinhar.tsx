@@ -14,7 +14,7 @@ const CozinharPage: React.FC = () => {
   const [lastHeard, setLastHeard] = useState("");
   const [supportsVoice, setSupportsVoice] = useState(false);
   const recognitionRef = useRef<any | null>(null);
- const voiceModeRef = useRef(false);  
+  const voiceModeRef = useRef(false);  
   // ============================================================================
   // 🔊 FALAR TEXTO (garantir que o microfone NÃO ouve a voz do computador)
   // ============================================================================
@@ -101,19 +101,20 @@ const CozinharPage: React.FC = () => {
 
     recognition.onresult = (event: any) => {
       try {
-        let text = event.results?.[0]?.[0]?.transcript ?? "";
+        const raw = event.results?.[0]?.[0]?.transcript ?? "";
+        const sanitized = raw
+          .replace(/[^a-zA-Z0-9À-ÖØ-öø-ÿ\s]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+          .toLowerCase();
 
-        // PATCH ANTI-CRASH:
-        // limpar caracteres invisíveis / tokens quebrados
-        text = text
-          .replace(/[^\p{L}\p{N}\s]/gu, "") // remove símbolos estranhos
-          .normalize("NFC")
-          .trim();
-
-        if (!text || text.length < 1) return;
-
-        setLastHeard(text.toLowerCase());
-        handleVoiceCommand(text.toLowerCase());
+         if (!sanitized) return;
+          setLastHeard(sanitized);
+        try {
+          handleVoiceCommand(sanitized);
+        } catch (err) {
+          console.log("Erro ao interpretar comando de voz:", err);
+        }        
       } catch (err) {
         console.log("Erro no resultado de voz (ignorado):", err);
       }
