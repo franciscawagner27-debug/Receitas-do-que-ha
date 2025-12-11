@@ -14,7 +14,8 @@ const CozinharPage: React.FC = () => {
   const [lastHeard, setLastHeard] = useState("");
   const [supportsVoice, setSupportsVoice] = useState(false);
   const recognitionRef = useRef<any | null>(null);
-  const voiceModeRef = useRef(false);  
+  const voiceModeRef = useRef(false);
+  const handleVoiceCommandRef = useRef<(text: string) => void>(); 
   // ============================================================================
   // 🔊 FALAR TEXTO (garantir que o microfone NÃO ouve a voz do computador)
   // ============================================================================
@@ -73,11 +74,15 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   // 🎤 CONFIGURAR WEBSPEECH + PATCH ANTI-CRASH PT-PT
   // ============================================================================
-      useEffect(() => {
-    voiceModeRef.current = voiceMode;
+    useEffect(() => {
+     voiceModeRef.current = voiceMode;
   }, [voiceMode]);
-    
-  useEffect(() => {
+  
+     useEffect(() => {
+    handleVoiceCommandRef.current = handleVoiceCommand;
+  });
+  
+   useEffect(() => {
     if (typeof window === "undefined") return;
  
 
@@ -108,10 +113,10 @@ const CozinharPage: React.FC = () => {
           .trim()
           .toLowerCase();
 
-         if (!sanitized) return;
-          setLastHeard(sanitized);
+        if (!sanitized) return;
+        setLastHeard(sanitized);
         try {
-          handleVoiceCommand(sanitized);
+          handleVoiceCommandRef.current?.(sanitized);
         } catch (err) {
           console.log("Erro ao interpretar comando de voz:", err);
         }        
@@ -223,11 +228,17 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   function handleVoiceCommand(text: string) {
     const c = text.toLowerCase();
-
-    if (c.includes("próximo") || c.includes("seguinte") || c.includes("avançar"))
+    if (
+      c.includes("próximo") ||
+      c.includes("seguinte") ||
+      c.includes("avançar")
+    )  
       return goNext(true);
-
-    if (c.includes("anterior") || c.includes("voltar") || c.includes("para trás"))
+   if (
+      c.includes("anterior") ||
+      c.includes("voltar") ||
+      c.includes("para trás")
+    )    
       return goBack(true);
 
     if (c.includes("repete") || c.includes("repetir") || c.includes("outra vez"))
@@ -256,7 +267,8 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   function startVoiceMode() {
     if (!supportsVoice || !recognitionRef.current) return;
-  voiceModeRef.current = true;  
+    
+    voiceModeRef.current = true;   
     setVoiceMode(true);
     setLastHeard("");
 
@@ -268,7 +280,7 @@ const CozinharPage: React.FC = () => {
   }
 
   function stopVoiceMode() {
-      voiceModeRef.current = false;   
+    voiceModeRef.current = false;   
     setVoiceMode(false);
     setLastHeard("");
 
