@@ -397,7 +397,7 @@ const CozinharPage: React.FC = () => {
 
         {/* INGREDIENTES — DESIGN IGUAL À PÁGINA PRINCIPAL */}
         <h3 className="text-xl font-semibold text-olive mt-6 mb-2">
-          Ingredientes
+          Ingredientes:
         </h3>
 
         <ul className="list-disc list-inside space-y-1 mb-6 text-charcoal">
@@ -415,7 +415,7 @@ const CozinharPage: React.FC = () => {
 
         {/* RECEITA COMPLETA */}
         <h3 className="text-xl font-semibold text-olive mb-2">
-          Receita completa
+          Receita:
         </h3>
 
         <p className="whitespace-pre-line leading-relaxed text-charcoal mb-12">
