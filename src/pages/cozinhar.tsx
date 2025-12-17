@@ -15,14 +15,14 @@ const CozinharPage: React.FC = () => {
   const [supportsVoice, setSupportsVoice] = useState(false);
   const recognitionRef = useRef<any | null>(null);
   const voiceModeRef = useRef(false);
-  const handleVoiceCommandRef = useRef<(text: string) => void>(); 
+  const handleVoiceCommandRef = useRef<(text: string) => void>();
+
   // ============================================================================
-  // 🔊 FALAR TEXTO (garantir que o microfone NÃO ouve a voz do computador)
+  // 🔊 FALAR TEXTO
   // ============================================================================
   function speak(text: string) {
     if (typeof window === "undefined") return;
 
-    // parar microfone enquanto fala
     try {
       recognitionRef.current?.stop();
     } catch {}
@@ -36,9 +36,8 @@ const CozinharPage: React.FC = () => {
     utter.onend = () => {
       console.log("🔊 Fim da fala");
 
-    
-        if (voiceModeRef.current && recognitionRef.current) {    
-          try {
+      if (voiceModeRef.current && recognitionRef.current) {
+        try {
           recognitionRef.current.start();
         } catch (e) {
           console.log("Erro ao reiniciar microfone:", e);
@@ -63,7 +62,7 @@ const CozinharPage: React.FC = () => {
 
     if (!error && data) {
       setRecipe(data);
-      setCurrentStep(0); // Não falar nada automaticamente
+      setCurrentStep(0);
     }
   }
 
@@ -72,19 +71,18 @@ const CozinharPage: React.FC = () => {
   }, [id]);
 
   // ============================================================================
-  // 🎤 CONFIGURAR WEBSPEECH + PATCH ANTI-CRASH PT-PT
+  // 🎤 CONFIGURAR WEBSPEECH
   // ============================================================================
-    useEffect(() => {
-     voiceModeRef.current = voiceMode;
+  useEffect(() => {
+    voiceModeRef.current = voiceMode;
   }, [voiceMode]);
-  
-     useEffect(() => {
+
+  useEffect(() => {
     handleVoiceCommandRef.current = handleVoiceCommand;
   });
-  
-   useEffect(() => {
+
+  useEffect(() => {
     if (typeof window === "undefined") return;
- 
 
     const SpeechRecognition =
       (window as any).SpeechRecognition ||
@@ -96,8 +94,6 @@ const CozinharPage: React.FC = () => {
     }
 
     const recognition = new SpeechRecognition();
-
-    // ✔ Idioma correto mas sem minificação problemática
     recognition.lang = "pt-PT";
     recognition.continuous = false;
     recognition.interimResults = false;
@@ -115,13 +111,14 @@ const CozinharPage: React.FC = () => {
 
         if (!sanitized) return;
         setLastHeard(sanitized);
+
         try {
           handleVoiceCommandRef.current?.(sanitized);
         } catch (err) {
-          console.log("Erro ao interpretar comando de voz:", err);
-        }        
+          console.log("Erro ao interpretar comando:", err);
+        }
       } catch (err) {
-        console.log("Erro no resultado de voz (ignorado):", err);
+        console.log("Erro no resultado de voz:", err);
       }
     };
 
@@ -131,8 +128,7 @@ const CozinharPage: React.FC = () => {
     recognition.onend = () => {
       console.log("🔇 Fim da fala");
 
-      // repetir escuta se ainda estamos em modo voz
-     if (voiceModeRef.current) {
+      if (voiceModeRef.current) {
         try {
           recognition.start();
         } catch {}
@@ -148,7 +144,7 @@ const CozinharPage: React.FC = () => {
       } catch {}
       recognitionRef.current = null;
     };
-}, []);
+  }, []);
 
   // ============================================================================
   // 🧹 PARAR AO SAIR
@@ -196,7 +192,7 @@ const CozinharPage: React.FC = () => {
   function goBack(viaVoice = false) {
     if (currentStep <= 0) return;
 
-    setCurrentStep(prev => {
+    setCurrentStep((prev) => {
       const next = prev - 1;
       if (viaVoice) speak(steps[next]);
       return next;
@@ -206,7 +202,7 @@ const CozinharPage: React.FC = () => {
   function goNext(viaVoice = false) {
     if (currentStep >= steps.length - 1) return;
 
-    setCurrentStep(prev => {
+    setCurrentStep((prev) => {
       const next = prev + 1;
       if (viaVoice) speak(steps[next]);
       return next;
@@ -228,17 +224,19 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   function handleVoiceCommand(text: string) {
     const c = text.toLowerCase();
+
     if (
       c.includes("próximo") ||
       c.includes("seguinte") ||
       c.includes("avançar")
-    )  
+    )
       return goNext(true);
-   if (
+
+    if (
       c.includes("anterior") ||
       c.includes("voltar") ||
       c.includes("para trás")
-    )    
+    )
       return goBack(true);
 
     if (c.includes("repete") || c.includes("repetir") || c.includes("outra vez"))
@@ -253,13 +251,10 @@ const CozinharPage: React.FC = () => {
       c.includes("começar receita") ||
       c.includes("iniciar receita") ||
       c.includes("começar do início")
-    ) {
+    )
       return goToStep(0);
-    }
 
-    if (c.includes("parar") || c.includes("stop")) {
-      return stopVoiceMode();
-    }
+    if (c.includes("parar") || c.includes("stop")) return stopVoiceMode();
   }
 
   // ============================================================================
@@ -267,8 +262,8 @@ const CozinharPage: React.FC = () => {
   // ============================================================================
   function startVoiceMode() {
     if (!supportsVoice || !recognitionRef.current) return;
-    
-    voiceModeRef.current = true;   
+
+    voiceModeRef.current = true;
     setVoiceMode(true);
     setLastHeard("");
 
@@ -280,7 +275,7 @@ const CozinharPage: React.FC = () => {
   }
 
   function stopVoiceMode() {
-    voiceModeRef.current = false;   
+    voiceModeRef.current = false;
     setVoiceMode(false);
     setLastHeard("");
 
@@ -340,10 +335,11 @@ const CozinharPage: React.FC = () => {
           <button
             onClick={() => goBack(false)}
             disabled={currentStep === 0}
-            className={`flex-1 py-3 rounded-xl text-white transition ${currentStep === 0
-              ? "bg-olive/40 cursor-not-allowed"
-              : "bg-olive hover:bg-olive/90"
-              }`}
+            className={`flex-1 py-3 rounded-xl text-white transition ${
+              currentStep === 0
+                ? "bg-olive/40 cursor-not-allowed"
+                : "bg-olive hover:bg-olive/90"
+            }`}
           >
             ← Anterior
           </button>
@@ -351,10 +347,11 @@ const CozinharPage: React.FC = () => {
           <button
             onClick={() => goNext(false)}
             disabled={currentStep === steps.length - 1}
-            className={`flex-1 py-3 rounded-xl text-white transition ${currentStep === steps.length - 1
-              ? "bg-olive/40 cursor-not-allowed"
-              : "bg-olive hover:bg-olive/90"
-              }`}
+            className={`flex-1 py-3 rounded-xl text-white transition ${
+              currentStep === steps.length - 1
+                ? "bg-olive/40 cursor-not-allowed"
+                : "bg-olive hover:bg-olive/90"
+            }`}
           >
             Próximo →
           </button>
@@ -370,6 +367,11 @@ const CozinharPage: React.FC = () => {
               Diz: <strong>"próximo passo"</strong>, <strong>"anterior"</strong>,
               <strong>"repete"</strong>, <strong>"passo 3"</strong>,
               <strong>"começar receita"</strong>. Para sair, diz <strong>"parar"</strong>.
+            </p>
+
+            {/* FRASE QUE EXPLICA MODO VOZ */}
+            <p className="text-sm text-charcoal/80 mb-3 italic">
+              Mãos sujas? Ative o modo voz e diga os comandos para avançar sem tocar no ecrã.
             </p>
 
             <button
@@ -392,6 +394,44 @@ const CozinharPage: React.FC = () => {
             O modo voz não é suportado neste navegador. Usa Google Chrome.
           </p>
         )}
+
+        {/* INGREDIENTES — DESIGN IGUAL À PÁGINA PRINCIPAL */}
+        <h3 className="text-xl font-semibold text-olive mt-6 mb-2">
+          Ingredientes
+        </h3>
+
+        <ul className="list-disc list-inside space-y-1 mb-6 text-charcoal">
+          {recipe.ingredients ? (
+            recipe.ingredients
+              .toString()
+              .split(/\n+/)
+              .map((ing: string, idx: number) => (
+                <li key={idx}>{ing.trim()}</li>
+              ))
+          ) : (
+            <li>Sem ingredientes registados.</li>
+          )}
+        </ul>
+
+        {/* RECEITA COMPLETA */}
+        <h3 className="text-xl font-semibold text-olive mb-2">
+          Receita completa
+        </h3>
+
+        <p className="whitespace-pre-line leading-relaxed text-charcoal mb-12">
+          {Array.isArray(recipe.steps)
+            ? recipe.steps
+                .flatMap((s: any) =>
+                  s
+                    .toString()
+                    .split(/\n+/)
+                    .map((p: string) => p.trim())
+                    .filter((p: string) => p.length > 0)
+                )
+                .join("\n\n")
+            : recipe.steps}
+        </p>
+
       </div>
     </div>
   );
