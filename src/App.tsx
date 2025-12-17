@@ -205,68 +205,66 @@ function HomePage() {
     }
   };
 
- /* --------------------- GERAR RECEITA COM IA (BOTÃO) --------------------- */
+  /* --------------------- GERAR RECEITA COM IA (BOTÃO) --------------------- */
 
-async function handleGenerateAiRecipe() {
-  console.log("🍳 [IA] Botão clicado");
+  async function handleGenerateAiRecipe() {
+    console.log("🍳 [IA] Botão clicado");
 
-  const term = searchTerm.trim();
-  console.log("📝 [IA] Ingredientes introduzidos:", term);
+    const term = searchTerm.trim();
+    console.log("📝 [IA] Ingredientes introduzidos:", term);
 
-  if (!term) {
-    setAiError(
-      "Escreva pelo menos um ingrediente para gerar a receita com IA."
-    );
-    return;
-  }
-
-  setAiLoading(true);
-  setAiError(null);
-
-  try {
-    console.log("📡 [IA] A enviar pedido para:", AI_FUNCTION_URL);
-
-    const res = await fetch(AI_FUNCTION_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ingredients: term }),
-    });
-
-    console.log("📦 [IA] Resposta recebida. Status:", res.status);
-
-    const data = await res.json().catch((err) => {
-      console.error("❌ [IA] Erro ao fazer res.json():", err);
-      return null;
-    });
-
-    console.log("🔍 [IA] Data recebida:", data);
-
-    if (!res.ok || !data || !data.recipe) {
-      console.warn("⚠️ [IA] Erro devolvido pela função:", data?.error);
-
+    if (!term) {
       setAiError(
-        data?.error ||
-          "Não foi possível gerar a receita. Tente novamente dentro de alguns segundos."
+        "Escreva pelo menos um ingrediente para gerar a receita com IA."
       );
-      setAiRecipe(null);
       return;
     }
 
-    console.log("✅ [IA] Receita gerada com sucesso!");
-    setAiRecipe(data.recipe);
+    setAiLoading(true);
+    setAiError(null);
 
-  } catch (err) {
-    console.error("🔥 [IA] Erro no fetch:", err);
+    try {
+      console.log("📡 [IA] A enviar pedido para:", AI_FUNCTION_URL);
 
-    setAiError(
-      "Não foi possível contactar o servidor de receitas. Verifique a ligação e tente novamente."
-    );
-  } finally {
-    console.log("⏹️ [IA] Processo terminado");
-    setAiLoading(false);
+      const res = await fetch(AI_FUNCTION_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ingredients: term }),
+      });
+
+      console.log("📦 [IA] Resposta recebida. Status:", res.status);
+
+      const data = await res.json().catch((err) => {
+        console.error("❌ [IA] Erro ao fazer res.json():", err);
+        return null;
+      });
+
+      console.log("🔍 [IA] Data recebida:", data);
+
+      if (!res.ok || !data || !data.recipe) {
+        console.warn("⚠️ [IA] Erro devolvido pela função:", data?.error);
+
+        setAiError(
+          data?.error ||
+            "Não foi possível gerar a receita. Tente novamente dentro de alguns segundos."
+        );
+        setAiRecipe(null);
+        return;
+      }
+
+      console.log("✅ [IA] Receita gerada com sucesso!");
+      setAiRecipe(data.recipe);
+    } catch (err) {
+      console.error("🔥 [IA] Erro no fetch:", err);
+
+      setAiError(
+        "Não foi possível contactar o servidor de receitas. Verifique a ligação e tente novamente."
+      );
+    } finally {
+      console.log("⏹️ [IA] Processo terminado");
+      setAiLoading(false);
+    }
   }
-}
-
 
   /* --------------------------- FILTRO GERAL ---------------------------- */
 
@@ -437,12 +435,14 @@ async function handleGenerateAiRecipe() {
           </h2>
 
           <p className="text-charcoal/80 text-lg mb-10">
-            Escreva um ou mais ingredientes e descubra receitas perfeitas para
-            si.
+            Encontre receitas com os ingredientes que já tem em casa.
+            <br className="hidden md:block" />
+            Ou gere novas receitas com a ajuda da nossa inteligência
+            artificial.
           </p>
 
-          {/* Caixa de pesquisa */}
-          <div className="relative mb-6">
+          {/* Caixa de pesquisa + botão IA sobreposto à direita */}
+          <div className="relative mb-4">
             <input
               id="search-box"
               type="text"
@@ -455,13 +455,15 @@ async function handleGenerateAiRecipe() {
                   handleSearch();
                 }
               }}
-              className="w-full p-4 rounded-xl border border-olive/40 shadow-md bg-white
+              className="w-full p-4 pr-44 pl-12 rounded-xl border border-olive/40 shadow-md bg-white
                 focus:ring-2 focus:ring-olive/40 focus:border-olive transition-all duration-200 text-lg"
             />
 
+            {/* Lupa à esquerda */}
             <button
+              type="button"
               onClick={() => handleSearch()}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-olive hover:text-terracotta transition"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -469,7 +471,7 @@ async function handleGenerateAiRecipe() {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-7 h-7"
+                className="w-6 h-6"
               >
                 <path
                   strokeLinecap="round"
@@ -478,31 +480,33 @@ async function handleGenerateAiRecipe() {
                 />
               </svg>
             </button>
-          </div>
 
-          {/* BOTÃO GERAR RECEITA COM IA */}
-          <div className="flex flex-col items-center gap-2">
+            {/* Botão amarelo – Gerar receita com IA (sobreposto à direita) */}
             <button
+              type="button"
               onClick={handleGenerateAiRecipe}
               disabled={aiLoading}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-2xl border border-olive
-                         text-olive hover:bg-olive/5 disabled:opacity-60 disabled:cursor-not-allowed
+              className="absolute right-2 top-1/2 -translate-y-1/2
+                         inline-flex items-center gap-2 px-5 py-2 rounded-2xl 
+                         bg-[#F7D983] text-charcoal shadow-md
+                         hover:bg-[#f4d16a] disabled:opacity-60 disabled:cursor-not-allowed
                          transition"
             >
               <span className="text-lg">💡</span>
-              <span>Gerar receita com IA</span>
+              <span className="text-sm md:text-base">
+                Gerar receita com IA
+              </span>
             </button>
-
-            {aiLoading && (
-              <p className="text-sm text-stone">
-                A gerar a sua receita...
-              </p>
-            )}
-
-            {aiError && (
-              <p className="text-sm text-terracotta">{aiError}</p>
-            )}
           </div>
+
+          {/* Mensagens IA */}
+          {aiLoading && (
+            <p className="text-sm text-stone mt-1">A gerar a sua receita...</p>
+          )}
+
+          {aiError && (
+            <p className="text-sm text-terracotta mt-1">{aiError}</p>
+          )}
         </div>
       </section>
 
