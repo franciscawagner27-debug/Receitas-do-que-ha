@@ -1,5 +1,6 @@
 import React from "react";
 import type { Recipe } from "../types";
+import { Volume2 } from "react-feather";
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -66,40 +67,46 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         <p className="text-stone mb-4">⏱️ {recipe.time_minutes} min</p>
       )}
 
-{/* QUANTIDADE — só aparece se NÃO for sobremesa */}
-{!(
-  recipe.tags &&
-  recipe.tags.some((tag) =>
-    [
-      "doce", "doces",
-      "sobremesa", "sobremesas",
-      "bolo", "bolos",
-      "tarte", "tartes",
-      "pudim", "pudins",
-      "mousse", "mousses"
-    ].includes(tag.toLowerCase())
-  )
-) && (
-  <p className="text-stone mb-6">
-    Quantidade: 4 pessoas
-  </p>
-)}
+      {/* QUANTIDADE — só aparece se NÃO for sobremesa */}
+      {!(
+        recipe.tags &&
+        recipe.tags.some((tag) =>
+          [
+            "doce", "doces",
+            "sobremesa", "sobremesas",
+            "bolo", "bolos",
+            "tarte", "tartes",
+            "pudim", "pudins",
+            "mousse", "mousses"
+          ].includes(tag.toLowerCase())
+        )
+      ) && (
+        <p className="text-stone mb-6">
+          Quantidade: 4 pessoas
+        </p>
+      )}
 
+      {/* BOTÃO — NOVO BOTÃO COM ÍCONE + COPY */}
+      <div className="mb-6">
+        <a
+          href={`/cozinhar/${recipe.id}`}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-olive text-white rounded-2xl 
+                     hover:bg-olive/90 transition text-sm"
+        >
+          <Volume2 size={18} strokeWidth={2} />
+          Ouvir a receita passo-a-passo
+        </a>
 
-<div className="mb-6">
-  <a
-    href={`/cozinhar/${recipe.id}`}
-    className="inline-block px-4 py-2 bg-olive text-white rounded-2xl 
-               hover:bg-olive/90 transition text-sm"
-  >
-    👨‍🍳 Receita Passo-a-Passo
-  </a>
-</div>
+        {/* Linha de apoio */}
+        <p className="text-xs text-charcoal/70 mt-1 ml-1">
+          Siga a receita com instruções faladas enquanto cozinha.
+        </p>
+      </div>
 
-{/* INGREDIENTES */}
-<h3 className="text-xl font-semibold text-olive mt-6 mb-2">
-  Ingredientes
-</h3>
+      {/* INGREDIENTES */}
+      <h3 className="text-xl font-semibold text-olive mt-6 mb-2">
+        Ingredientes
+      </h3>
 
       <ul className="list-disc list-inside space-y-1 mb-6">
         {ingredients.length > 0 ? (
@@ -133,7 +140,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         </div>
       )}
 
-      {/* ❤️ BOTÃO GUARDAR — PEQUENO, ESTILO CLEAN */}
+      {/* ❤️ FAVORITOS */}
       <div className="flex flex-col items-start gap-3 mb-6">
         <button
           onClick={() => toggleFavorite(recipe.id)}
@@ -145,11 +152,11 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
             : "❤️ Guardar esta receita"}
         </button>
 
-        {/* 📤 PARTILHAR — PEQUENO */} 
-       <a
-  href={`https://wa.me/?text=${encodeURIComponent(
-    `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt/receita/${recipe.id}`
-  )}`}
+        {/* WHATSAPP SHARE */}
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(
+            `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt/receita/${recipe.id}`
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="px-4 py-2 border border-[#6B705C] text-[#6B705C] 
