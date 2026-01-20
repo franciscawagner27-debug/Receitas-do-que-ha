@@ -437,8 +437,7 @@ function HomePage() {
           <p className="text-charcoal/80 text-lg mb-10">
             Encontre receitas com os ingredientes que já tem em casa.
             <br className="hidden md:block" />
-            Ou gere novas receitas com a ajuda da nossa inteligência
-            artificial.
+            Ou crie uma nova receita.
           </p>
 
           {/* Caixa de pesquisa + botão IA sobreposto à direita */}
@@ -481,7 +480,7 @@ function HomePage() {
               </svg>
             </button>
 
-            {/* Botão amarelo – Gerar receita (sobreposto à direita) */}
+            {/* Botão amarelo – Criar receita (sobreposto à direita) */}
             <button
               type="button"
               onClick={handleGenerateAiRecipe}
@@ -494,7 +493,7 @@ function HomePage() {
             >
               <span className="text-lg">💡</span>
               <span className="text-sm md:text-base">
-                Gerar receita
+                Criar receita
               </span>
             </button>
           </div>
