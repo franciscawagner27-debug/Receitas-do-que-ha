@@ -481,7 +481,7 @@ function HomePage() {
               </svg>
             </button>
 
-            {/* Botão amarelo – Gerar receita com IA (sobreposto à direita) */}
+            {/* Botão amarelo – Gerar receita (sobreposto à direita) */}
             <button
               type="button"
               onClick={handleGenerateAiRecipe}
@@ -494,7 +494,7 @@ function HomePage() {
             >
               <span className="text-lg">💡</span>
               <span className="text-sm md:text-base">
-                Gerar receita com IA
+                Gerar receita
               </span>
             </button>
           </div>
