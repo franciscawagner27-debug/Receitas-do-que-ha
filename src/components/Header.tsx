@@ -55,10 +55,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
         alt="Receitas do Que Há"
         className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
       />
-      <div className="leading-tight text-olive hidden md:block">
-        <p className="font-serif text-base">Receitas</p>
-        <p className="font-serif text-base tracking-wide">DO QUE HÁ</p>
-      </div>
+    
     </button>
 
     {/* CATEGORIAS – exactamente como já tens */}
