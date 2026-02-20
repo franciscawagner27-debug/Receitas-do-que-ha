@@ -36,18 +36,18 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
 
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
-      <div className="mx-auto max-w-6xl px-4 py-3">
+      <div className="mx-auto max-w-6xl px-2 sm:px-4 py-3">
         <div className="flex items-center gap-3">
           {/* LOGO */}
           <button
             onClick={() => (window.location.href = "/")}
-            className="flex items-center flex-shrink-0"
+           className="flex items-center flex-shrink-0 mr-4 sm:mr-6"
             aria-label="Ir para a página inicial"
           >
             <img
               src="/icons/icon-512.png"
               alt="Receitas do Que Há"
-              className="h-11 w-11 sm:h-14 sm:w-14 object-contain rounded-full bg-white/50 p-1"
+              className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain"
             />
           </button>
 
