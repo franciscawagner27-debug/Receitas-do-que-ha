@@ -26,58 +26,53 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
 
     const normalized = category.toLowerCase();
 
-    // Página especial "Dias sem Tempo"
     if (normalized === "dias sem tempo") {
       window.location.href = "/dias-sem-tempo";
       return;
     }
 
-    // restantes categorias na homepage
     onSelect(normalized);
   };
 
   return (
- <header className="bg-beige border-b border-olive/20 py-3 px-0 sticky top-0 z-50">
-<div className="flex items-center gap-3 pl-6">
+    <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
+      <div className="mx-auto max-w-6xl px-4 py-3">
+        <div className="flex items-center gap-3">
+          {/* LOGO */}
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="flex items-center flex-shrink-0"
+            aria-label="Ir para a página inicial"
+          >
+            <img
+              src="/icons/icon-512.png"
+              alt="Receitas do Que Há"
+              className="h-11 w-11 sm:h-14 sm:w-14 object-contain rounded-full bg-white/50 p-1"
+            />
+          </button>
 
-
-
-
-
-    {/* LOGO À ESQUERDA, PUXADO COM MARGEM NEGATIVA */}
-   <button
-  onClick={() => (window.location.href = "/")}
-  className="flex items-center gap-3 cursor-pointer flex-shrink-0 mr-auto"
->
-
-      <img
-        src="/icons/icon-512.png"
-        alt="Receitas do Que Há"
-        className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
-      />
-    
-    </button>
-
-    {/* CATEGORIAS – exactamente como já tens */}
-    <div className="flex flex-wrap justify-center gap-2 sm:gap-4 flex-1">
-      {categories.map((category) => (
-        <button
-          key={category}
-          onClick={() => handleClick(category)}
-          className={`px-3 py-1 rounded-full font-medium transition-all duration-200 text-sm sm:text-base
-            ${
-              selected === category
-                ? "bg-olive text-white shadow-sm"
-                : "text-olive hover:text-terracotta"
-            }`}
-        >
-          {category}
-        </button>
-      ))}
-    </div>
-  </div>
-</header>
-
+          {/* CATEGORIAS */}
+          <nav className="flex-1 overflow-x-auto no-scrollbar">
+            <div className="flex gap-2 py-1">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleClick(category)}
+                  className={[
+                    "shrink-0 rounded-full px-4 py-2 text-sm sm:text-base font-medium whitespace-nowrap transition-all duration-200",
+                    selected === category
+                      ? "bg-olive text-white shadow-sm"
+                      : "bg-white/50 text-olive hover:bg-white/70 hover:text-terracotta",
+                  ].join(" ")}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
   );
 };
 
