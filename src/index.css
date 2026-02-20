@@ -123,4 +123,8 @@ footer {
   .hero h1 {
     font-size: 4rem;
   }
-} 
+}
+
+/* Esconder scrollbar no scroll horizontal (categorias no header) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
