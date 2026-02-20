@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
             <img
               src="/icons/icon-512.png"
               alt="Receitas do Que Há"
-              className="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 object-contain"
+             className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain"
             />
           </button>
 
