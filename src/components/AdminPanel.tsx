@@ -30,7 +30,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loadingList, setLoadingList] = useState(true);
 
-  /* 🔎 PESQUISA */
+  /* 🔎 NOVO — PESQUISA */
   const [search, setSearch] = useState("");
 
   /* PRIORIDADES EDITADAS */
@@ -143,7 +143,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xl font-serif text-olive">Área privada — Nova receita</h3>
+          <h3 className="text-xl font-serif text-olive">
+            Área privada — Nova receita
+          </h3>
           {email && (
             <p className="text-xs text-charcoal/70">
               Autenticada como <span className="font-medium">{email}</span>
@@ -159,11 +161,84 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         </button>
       </div>
 
-      {/* FORM NOVA RECEITA */}
+      {/* FORM NOVA RECEITA — INTACTO */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
-        {/* ——— O TEU FORM FICA EXACTAMENTE IGUAL ——— */}
-        {/* NÃO MEXI EM NADA AQUI */}
-        ...
+        <div>
+          <label className="block mb-1 font-medium">Título</label>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Ingredientes</label>
+          <textarea
+            value={ingredientsText}
+            onChange={(e) => setIngredientsText(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-20"
+            placeholder="farinha, leite, ovos..."
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Passos</label>
+          <textarea
+            value={stepsText}
+            onChange={(e) => setStepsText(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2 h-28"
+            placeholder="Passo 1...\nPasso 2..."
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Tags</label>
+          <input
+            value={tagsText}
+            onChange={(e) => setTagsText(e.target.value)}
+            className="w-full rounded-xl border border-olive/30 px-3 py-2"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block mb-1 font-medium">Tempo</label>
+            <input
+              type="number"
+              min={0}
+              value={timeMinutes}
+              onChange={(e) =>
+                setTimeMinutes(e.target.value === "" ? "" : Number(e.target.value))
+              }
+              className="w-full rounded-xl border border-olive/30 px-3 py-2"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">URL da imagem</label>
+            <input
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              className="w-full rounded-xl border border-olive/30 px-3 py-2"
+              placeholder="https://..."
+            />
+          </div>
+        </div>
+
+        {message && <p className="text-xs text-olive">{message}</p>}
+        {error && <p className="text-xs text-red-600">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={saving}
+          className="bg-terracotta text-white px-4 py-2 rounded-xl text-sm font-semibold"
+        >
+          {saving ? "A guardar..." : "Guardar receita"}
+        </button>
       </form>
 
       {/* LISTA DE RECEITAS */}
@@ -172,7 +247,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           Receitas existentes ({filteredRecipes.length})
         </h2>
 
-        {/* 🔎 CAMPO DE PESQUISA */}
         <input
           type="text"
           placeholder="Pesquisar por título..."
@@ -187,7 +261,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <div className="space-y-3">
             {filteredRecipes.map((r) => {
               const currentValue =
-                priorityEdits[r.id] ?? (r.priority === null ? "" : String(r.priority));
+                priorityEdits[r.id] ??
+                (r.priority === null ? "" : String(r.priority));
 
               return (
                 <div
@@ -196,7 +271,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                 >
                   <div className="flex items-center gap-3">
                     {r.image ? (
-                      <img src={r.image} className="w-12 h-12 rounded-md object-cover border" />
+                      <img
+                        src={r.image}
+                        className="w-12 h-12 rounded-md object-cover border"
+                      />
                     ) : (
                       <div className="w-12 h-12 bg-beige border flex items-center justify-center text-xs">
                         sem foto
