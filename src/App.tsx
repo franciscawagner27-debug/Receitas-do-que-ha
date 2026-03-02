@@ -11,6 +11,7 @@ import { smartSearch } from "./utils/smartSearch";
 import RecipePage from "./pages/RecipePage";
 import DiasSemTempoPage from "./pages/DiasSemTempoPage";
 import CozinharPage from "./pages/cozinhar";
+import Sobre from "./pages/Sobre";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
