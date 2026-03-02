@@ -84,9 +84,14 @@ export default function Sobre() {
       aria-label="Facebook Receitas do Que Há"
       className="text-olive hover:text-terra transition"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M22 12a10 10 0 10-11.56 9.87v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.88 3.78-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.88h-2.34v6.99A10 10 0022 12z"/>
-      </svg>
+     <svg
+  xmlns="http://www.w3.org/2000/svg"
+  className="w-8 h-8"
+  fill="currentColor"
+  viewBox="0 0 24 24"
+>
+  <path d="M9 8H7v4h2v12h5V12h3.642L18 8h-4V6.667C14 5.597 14.597 5 15.667 5H18V0h-3c-3.314 0-6 2.686-6 6v2z"/>
+</svg>
     </a>
   </div>
 </div>          </div>
