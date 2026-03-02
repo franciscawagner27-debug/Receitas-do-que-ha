@@ -841,20 +841,25 @@ function HomePage() {
           </div>
         </div>
       )}
+{/* FOOTER */}
+<footer className="text-center py-8 text-sm text-olive">
+  <p>Feito com ❤️ em Portugal</p>
+  <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
+  <p>
+    <a
+      href="mailto:contacto@receitasdoqueha.pt"
+      className="underline hover:text-terra transition"
+    >
+      contacto@receitasdoqueha.pt
+    </a>
+  </p>
 
-      {/* FOOTER */}
-      <footer className="text-center py-8 text-sm text-olive">
-        <p>Feito com ❤️ em Portugal</p>
-        <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
-        <p>
-          <a
-            href="mailto:contacto@receitasdoqueha.pt"
-            className="underline hover:text-terra transition"
-          >
-            contacto@receitasdoqueha.pt
-          </a>
-        </p>
-      </footer>
-    </div>
-  );
-}
+  <p>
+    <a
+      href="/sobre"
+      className="underline hover:text-terra transition"
+    >
+      Sobre o Receitas do Que Há
+    </a>
+  </p>
+</footer>
