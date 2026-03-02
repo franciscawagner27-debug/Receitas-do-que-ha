@@ -30,7 +30,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loadingList, setLoadingList] = useState(true);
 
-  /* 🔎 NOVO — PESQUISA */
+  /* 🔎 PESQUISA */
   const [search, setSearch] = useState("");
 
   /* PRIORIDADES EDITADAS */
@@ -161,7 +161,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* FORM NOVA RECEITA */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
-        {/* ——— FORM IGUAL AO TEU ——— */}
+        {/* ——— O TEU FORM FICA EXACTAMENTE IGUAL ——— */}
+        {/* NÃO MEXI EM NADA AQUI */}
         ...
       </form>
 
@@ -171,7 +172,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           Receitas existentes ({filteredRecipes.length})
         </h2>
 
-        {/* 🔎 INPUT PESQUISA */}
+        {/* 🔎 CAMPO DE PESQUISA */}
         <input
           type="text"
           placeholder="Pesquisar por título..."
