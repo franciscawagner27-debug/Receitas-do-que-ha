@@ -437,7 +437,7 @@ function HomePage() {
           <p className="text-charcoal/80 text-lg mb-10">
             Encontre receitas com os ingredientes que já tem em casa.
             <br className="hidden md:block" />
-            Ou crie uma nova receita.
+ {" "}Ou crie uma nova receita.
           </p>
 
           {/* Caixa de pesquisa (sem botão IA dentro) */}
