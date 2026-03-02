@@ -15,7 +15,7 @@ export default function Sobre() {
             <img
               src="/icons/icon-180.png"
               alt="Receitas do Que Há"
-              className="w-14 h-14 rounded-full"
+              className="w-20 h-20 rounded-full"
             />
           </Link>
 
