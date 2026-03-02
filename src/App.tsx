@@ -863,3 +863,6 @@ function HomePage() {
     </a>
   </p>
 </footer>
+      </div> 
+  );
+}      
