@@ -57,7 +57,39 @@ export default function Sobre() {
               </a>
               .
             </p>
-          </div>
+            <div className="mt-10 text-center">
+  <p className="text-olive mb-4">
+    Siga o Receitas do Que Há nas redes sociais
+  </p>
+
+  <div className="flex justify-center gap-6">
+    {/* Instagram */}
+    <a
+      href="https://www.instagram.com/receitasdoqueha/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Instagram Receitas do Que Há"
+      className="text-olive hover:text-terra transition"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0120 7.75v8.5A3.75 3.75 0 0116.25 20h-8.5A3.75 3.75 0 014 16.25v-8.5A3.75 3.75 0 017.75 4zm8.75 1.5a.75.75 0 100 1.5.75.75 0 000-1.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+      </svg>
+    </a>
+
+    {/* Facebook */}
+    <a
+      href="https://www.facebook.com/receitasdoqueha/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook Receitas do Que Há"
+      className="text-olive hover:text-terra transition"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22 12a10 10 0 10-11.56 9.87v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.88 3.78-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.88h-2.34v6.99A10 10 0022 12z"/>
+      </svg>
+    </a>
+  </div>
+</div>          </div>
 
           {/* Ações */}
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
