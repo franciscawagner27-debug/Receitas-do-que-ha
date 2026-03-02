@@ -30,7 +30,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loadingList, setLoadingList] = useState(true);
 
-  /* 🔎 NOVO — estado de pesquisa */
+  /* 🔎 NOVO — PESQUISA */
   const [search, setSearch] = useState("");
 
   /* PRIORIDADES EDITADAS */
@@ -56,7 +56,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     loadRecipes();
   }, []);
 
-  /* 🔎 NOVO — filtro por título */
+  /* 🔎 FILTRO */
   const filteredRecipes = recipeList.filter((r) =>
     r.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -140,11 +140,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   return (
     <div className="bg-white/95 border border-olive/20 rounded-2xl p-6 shadow-soft mt-6 space-y-10">
 
+      {/* HEADER */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xl font-serif text-olive">
-            Área privada — Nova receita
-          </h3>
+          <h3 className="text-xl font-serif text-olive">Área privada — Nova receita</h3>
           {email && (
             <p className="text-xs text-charcoal/70">
               Autenticada como <span className="font-medium">{email}</span>
@@ -162,7 +161,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* FORM NOVA RECEITA */}
       <form onSubmit={handleSave} className="space-y-4 text-sm">
-        {/* FORM IGUAL — NÃO ALTERADO */}
+        {/* ——— FORM IGUAL AO TEU ——— */}
         ...
       </form>
 
@@ -187,8 +186,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <div className="space-y-3">
             {filteredRecipes.map((r) => {
               const currentValue =
-                priorityEdits[r.id] ??
-                (r.priority === null ? "" : String(r.priority));
+                priorityEdits[r.id] ?? (r.priority === null ? "" : String(r.priority));
 
               return (
                 <div
@@ -197,10 +195,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                 >
                   <div className="flex items-center gap-3">
                     {r.image ? (
-                      <img
-                        src={r.image}
-                        className="w-12 h-12 rounded-md object-cover border"
-                      />
+                      <img src={r.image} className="w-12 h-12 rounded-md object-cover border" />
                     ) : (
                       <div className="w-12 h-12 bg-beige border flex items-center justify-center text-xs">
                         sem foto
