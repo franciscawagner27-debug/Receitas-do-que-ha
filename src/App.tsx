@@ -37,6 +37,7 @@ export default function App() {
       <Route path="/receita/:id" element={<RecipePage />} />
       <Route path="/dias-sem-tempo" element={<DiasSemTempoPage />} />
       <Route path="/cozinhar/:id" element={<CozinharPage />} />
+      <Route path="/sobre" element={<Sobre />} /> 
     </Routes>
   );
 }
