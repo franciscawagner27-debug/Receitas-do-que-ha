@@ -440,7 +440,7 @@ function HomePage() {
             Ou crie uma nova receita.
           </p>
 
-          {/* Caixa de pesquisa + botão IA sobreposto à direita */}
+          {/* Caixa de pesquisa (sem botão IA dentro) */}
           <div className="relative mb-4">
             <input
               id="search-box"
@@ -454,7 +454,7 @@ function HomePage() {
                   handleSearch();
                 }
               }}
-              className="w-full p-4 pr-44 pl-12 rounded-xl border border-olive/40 shadow-md bg-white
+              className="w-full p-4 pr-12 pl-12 rounded-xl border border-olive/40 shadow-md bg-white
                 focus:ring-2 focus:ring-olive/40 focus:border-olive transition-all duration-200 text-lg"
             />
 
@@ -479,22 +479,25 @@ function HomePage() {
                 />
               </svg>
             </button>
+          </div>
 
-            {/* Botão amarelo – Criar receita (sobreposto à direita) */}
+          {/* Linha abaixo da caixa: texto + botão IA */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-2">
+            <span className="text-sm text-charcoal/70">
+              Não encontrou o que procura?
+            </span>
+
             <button
               type="button"
               onClick={handleGenerateAiRecipe}
               disabled={aiLoading}
-              className="absolute right-2 top-1/2 -translate-y-1/2
-                         inline-flex items-center gap-2 px-5 py-2 rounded-2xl 
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-2xl 
                          bg-[#F7D983] text-charcoal shadow-md
                          hover:bg-[#f4d16a] disabled:opacity-60 disabled:cursor-not-allowed
                          transition"
             >
               <span className="text-lg">💡</span>
-              <span className="text-sm md:text-base">
-                Criar receita
-              </span>
+              <span className="text-sm md:text-base">Criar receita</span>
             </button>
           </div>
 
