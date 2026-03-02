@@ -483,9 +483,9 @@ function HomePage() {
 
           {/* Linha abaixo da caixa: texto + botão IA */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-2">
-            <span className="text-sm text-charcoal/70">
-              Não encontrou o que procura?
-            </span>
+          <span className="text-charcoal/80 text-lg">
+  Não encontrou o que procura?
+</span>
 
             <button
               type="button"
