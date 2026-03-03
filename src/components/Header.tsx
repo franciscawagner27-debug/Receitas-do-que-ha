@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   onSelect: (category: string) => void;
@@ -16,6 +17,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
     "Vegetariano",
     "Sobremesas",
     "AirFryer",
+    "Sem Glúten",
     "Dias sem Tempo",
   ];
 
@@ -31,6 +33,11 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
       return;
     }
 
+    if (normalized === "sem glúten") {
+      window.location.href = "/sem-gluten";
+      return;
+    }
+
     onSelect(normalized);
   };
 
@@ -41,13 +48,13 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
           {/* LOGO */}
           <button
             onClick={() => (window.location.href = "/")}
-           className="flex items-center flex-shrink-0 mr-4 sm:mr-6"
+            className="flex items-center flex-shrink-0 mr-4 sm:mr-6"
             aria-label="Ir para a página inicial"
           >
             <img
               src="/icons/icon-512.png"
               alt="Receitas do Que Há"
-             className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain"
+              className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain"
             />
           </button>
 
