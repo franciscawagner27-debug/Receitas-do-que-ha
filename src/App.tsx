@@ -12,6 +12,7 @@ import RecipePage from "./pages/RecipePage";
 import DiasSemTempoPage from "./pages/DiasSemTempoPage";
 import CozinharPage from "./pages/cozinhar";
 import Sobre from "./pages/Sobre";
+import SemGlutenPage from "./pages/SemGlutenPage";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
@@ -38,6 +39,7 @@ export default function App() {
       <Route path="/dias-sem-tempo" element={<DiasSemTempoPage />} />
       <Route path="/cozinhar/:id" element={<CozinharPage />} />
       <Route path="/sobre" element={<Sobre />} /> 
+      <Route path="/sem-gluten" element={<SemGlutenPage />} />   
     </Routes>
   );
 }
