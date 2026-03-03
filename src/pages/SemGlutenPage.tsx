@@ -11,19 +11,26 @@ const SemGlutenPage: React.FC = () => {
     fetchRecipes();
   }, []);
 
-  async function fetchRecipes() {
-    const { data, error } = await supabase
-      .from("recipes")
-      .select("*")
-      .ilike("tags", "%semgluten%")
-      .order("id", { ascending: false });
+ async function fetchRecipes() {
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("*")
+    .order("id", { ascending: false });
 
-    if (!error && data) {
-      setRecipes(data as Recipe[]);
-    }
+  if (!error && data) {
+    const filtered = (data as any[]).filter((recipe) => {
+      const tags = Array.isArray(recipe.tags) ? recipe.tags : [];
 
-    setLoading(false);
+      return tags.some((t: string) =>
+        t.toString().toLowerCase().includes("semgluten")
+      );
+    });
+
+    setRecipes(filtered);
   }
+
+  setLoading(false);
+}
 
   return (
     <div className="bg-beige min-h-screen px-6 py-12">
