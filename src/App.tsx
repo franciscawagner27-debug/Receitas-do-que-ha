@@ -50,7 +50,9 @@ function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-
+  const PAGE_SIZE = 12;
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   // IA – receita gerada
   const [aiRecipe, setAiRecipe] = useState<any | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
@@ -133,44 +135,55 @@ function HomePage() {
   /* ----------------------------- FETCH RECEITAS ---------------------------- */
 
   useEffect(() => {
-    async function fetchRecipes() {
-      const { data, error } = await supabase
-        .from("recipes")
-        .select("*")
-        .order("priority", { ascending: true })
-        .order("id", { ascending: false });
+  fetchRecipes();
+}, [page]);
 
-      if (!error && data) {
-        const cleaned = data.map((r: any) => {
-          let tags: string[] = [];
+async function fetchRecipes() {
+  setLoading(true);
 
-          if (Array.isArray(r.tags)) {
-            tags = r.tags
-              .flatMap((t: any) =>
-                t
-                  .toString()
-                  .split(/[#\[\]",;]+/)
-                  .map((s) => s.trim().toLowerCase())
-              )
-              .filter((t) => t.length > 0);
-          } else if (typeof r.tags === "string") {
-            tags = r.tags
-              .replace(/[#\[\]"]/g, " ")
-              .split(/[\s,;]+/)
-              .map((t) => t.trim().toLowerCase())
-              .filter((t) => t.length > 0);
-          }
+  const from = page * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
 
-          return { ...r, tags };
-        });
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("*")
+    .order("priority", { ascending: true })
+    .order("id", { ascending: false })
+    .range(from, to);
 
-        setRecipes(cleaned as Recipe[]);
-      }
-      setLoading(false);
+  if (!error && data) {
+    if (data.length < PAGE_SIZE) {
+      setHasMore(false);
     }
 
-    fetchRecipes();
-  }, []);
+    const cleaned = data.map((r: any) => {
+      let tags: string[] = [];
+
+      if (Array.isArray(r.tags)) {
+        tags = r.tags
+          .flatMap((t: any) =>
+            t
+              .toString()
+              .split(/[#\[\]",;]+/)
+              .map((s) => s.trim().toLowerCase())
+          )
+          .filter((t) => t.length > 0);
+      } else if (typeof r.tags === "string") {
+        tags = r.tags
+          .replace(/[#\[\]"]/g, " ")
+          .split(/[\s,;]+/)
+          .map((t) => t.trim().toLowerCase())
+          .filter((t) => t.length > 0);
+      }
+
+      return { ...r, tags };
+    });
+
+    setRecipes((prev) => [...prev, ...cleaned] as Recipe[]);
+  }
+
+  setLoading(false);
+}
 
   /* ----------------------- ⭐ ORDENAR RECEITAS (DESTAQUES) ----------------- */
 
@@ -602,7 +615,17 @@ function HomePage() {
                 </motion.div>
               ))}
             </div>
-          )
+              {hasMore && !hasSearch && (
+    <div className="text-center mt-10">
+      <button
+        onClick={() => setPage((prev) => prev + 1)}
+        className="px-6 py-3 bg-olive text-white rounded-xl hover:bg-terracotta transition"
+      >
+        Carregar mais receitas
+      </button>
+    </div>
+  )}
+</div>          )
         ) : exactMatches.length === 0 && extendedMatches.length === 0 ? (
           <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
