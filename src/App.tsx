@@ -550,72 +550,74 @@ async function fetchRecipes() {
           finalRecipes.length === 0 ? (
             <p className="text-center text-stone">Nenhuma receita encontrada.</p>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {finalRecipes.map((r: any) => (
-                <motion.div
-                  key={r.id}
-                  onClick={() => setSelectedRecipe(r)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+   <>
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {finalRecipes.map((r: any) => (
+      <motion.div
+        key={r.id}
+        onClick={() => setSelectedRecipe(r)}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+      >
+        <div className="relative">
+          {r.image && (
+            <img
+              src={r.image}
+              alt={r.title}
+              loading="lazy"
+              className="w-full h-48 object-cover"
+            />
+          )}
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(r.id);
+            }}
+            className="absolute top-2 right-2 text-2xl drop-shadow-md"
+          >
+            {favorites.includes(r.id) ? "❤️" : "🤍"}
+          </button>
+        </div>
+
+        <div className="p-5">
+          <h3 className="text-xl font-semibold text-olive mb-2">
+            {r.title}
+          </h3>
+
+          {r.time_minutes && (
+            <p className="text-sm text-stone mb-2">
+              ⏱️ {r.time_minutes} min
+            </p>
+          )}
+
+          <p className="text-sm text-stone line-clamp-3 mb-3">
+            {Array.isArray(r.ingredients)
+              ? r.ingredients.slice(0, 3).join(", ")
+              : ""}
+            ...
+          </p>
+
+          {r.tags && r.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {r.tags.map((tag: string, i: number) => (
+                <span
+                  key={i}
+                  className="text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full"
                 >
-                  <div className="relative">
-                    {r.image && (
-                      <img
-                        src={r.image}
-                        alt={r.title}
-                        loading="lazy"
-                        className="w-full h-48 object-cover"
-                      />
-                    )}
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite(r.id);
-                      }}
-                      className="absolute top-2 right-2 text-2xl drop-shadow-md"
-                    >
-                      {favorites.includes(r.id) ? "❤️" : "🤍"}
-                    </button>
-                  </div>
-
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold text-olive mb-2">
-                      {r.title}
-                    </h3>
-
-                    {r.time_minutes && (
-                      <p className="text-sm text-stone mb-2">
-                        ⏱️ {r.time_minutes} min
-                      </p>
-                    )}
-
-                    <p className="text-sm text-stone line-clamp-3 mb-3">
-                      {Array.isArray(r.ingredients)
-                        ? r.ingredients.slice(0, 3).join(", ")
-                        : ""}
-                      ...
-                    </p>
-
-                    {r.tags && r.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {r.tags.map((tag: string, i: number) => (
-                          <span
-                            key={i}
-                            className="text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
+                  #{tag}
+                </span>
               ))}
             </div>
-              {hasMore && !hasSearch && (
+          )}
+        </div>
+      </motion.div>
+    ))}
+  </div>
+
+  {hasMore && !hasSearch && (
     <div className="text-center mt-10">
       <button
         onClick={() => setPage((prev) => prev + 1)}
@@ -625,7 +627,7 @@ async function fetchRecipes() {
       </button>
     </div>
   )}
-</div>          )
+</>        )
         ) : exactMatches.length === 0 && extendedMatches.length === 0 ? (
           <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
