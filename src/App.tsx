@@ -134,27 +134,33 @@ function HomePage() {
     });
   }, [recipes]);
 
-  /* ----------------------------- FETCH RECEITAS ---------------------------- */
+/* ----------------------------- FETCH RECEITAS ---------------------------- */
 
-  useEffect(() => {
+useEffect(() => {
   fetchRecipes();
-}, [page]);
+}, [page, searchTerm]);
 
 async function fetchRecipes() {
   setLoading(true);
 
-  const from = page * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
-
-  const { data, error } = await supabase
+  let query = supabase
     .from("recipes")
     .select("*")
     .order("priority", { ascending: true })
-    .order("id", { ascending: false })
-    .range(from, to);
+    .order("id", { ascending: false });
+
+  // Se NÃO houver pesquisa → usar paginação
+  if (!searchTerm.trim()) {
+    const from = page * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
+  const { data, error } = await query;
 
   if (!error && data) {
-    if (data.length < PAGE_SIZE) {
+    // Se estamos em paginação, verificar se ainda há mais receitas
+    if (!searchTerm.trim() && data.length < PAGE_SIZE) {
       setHasMore(false);
     }
 
@@ -181,12 +187,16 @@ async function fetchRecipes() {
       return { ...r, tags };
     });
 
-    setRecipes((prev) => [...prev, ...cleaned] as Recipe[]);
+    // Se há pesquisa substitui resultados, se não adiciona (paginação)
+    if (searchTerm.trim()) {
+      setRecipes(cleaned as Recipe[]);
+    } else {
+      setRecipes((prev) => [...prev, ...cleaned] as Recipe[]);
+    }
   }
 
   setLoading(false);
 }
-
   /* ----------------------- ⭐ ORDENAR RECEITAS (DESTAQUES) ----------------- */
 
   const sortedRecipes = [...recipes].sort((a, b) => {
