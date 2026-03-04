@@ -45,6 +45,30 @@ export default function App() {
       <Route path="/sem-gluten" element={<SemGlutenPage />} />  
       <Route path="/ingrediente/:nome" element={<IngredientePage />} /> 
       <Route path="/receitas-com-frango" element={<RecipesWithIngredient ingredient="frango" />} /> 
+      <Route
+  path="/receitas-com-ovos"
+  element={<RecipesWithIngredient ingredient="ovos" />}
+/>
+
+<Route
+  path="/receitas-com-atum"
+  element={<RecipesWithIngredient ingredient="atum" />}
+/>
+
+<Route
+  path="/receitas-com-arroz"
+  element={<RecipesWithIngredient ingredient="arroz" />}
+/>
+
+<Route
+  path="/receitas-com-batata"
+  element={<RecipesWithIngredient ingredient="batata" />}
+/>
+
+<Route
+  path="/receitas-com-massa"
+  element={<RecipesWithIngredient ingredient="massa" />}
+/>    
     </Routes>
   );
 }
