@@ -571,9 +571,7 @@ async function fetchRecipes() {
 <section className="bg-beige pb-14 px-4">
   <div className="max-w-3xl mx-auto text-center">
 
-    <h2 className="text-3xl font-serif font-bold text-olive mb-6">
-      Cozinhar com o que já tem
-    </h2>
+  
 
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
