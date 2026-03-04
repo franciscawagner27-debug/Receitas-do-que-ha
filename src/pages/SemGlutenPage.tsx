@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { motion } from "framer-motion";
 import type { Recipe } from "../types";
+import Header from "../components/Header";
 
 const SemGlutenPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -43,8 +44,12 @@ async function fetchRecipes() {
   setLoading(false);
 }
 
-  return (
-    <div className="bg-beige min-h-screen px-6 py-12">
+return (
+  <div className="bg-beige min-h-screen text-charcoal font-sans relative">
+
+    <Header onSelect={() => {}} />
+
+    <div className="px-6 py-12">
       <div className="max-w-5xl mx-auto">
 
         <h1 className="text-4xl md:text-5xl font-serif text-olive text-center mb-6">
@@ -98,7 +103,8 @@ async function fetchRecipes() {
         )}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default SemGlutenPage;
