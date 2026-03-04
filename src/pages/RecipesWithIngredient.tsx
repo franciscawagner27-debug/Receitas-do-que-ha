@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
-import RecipeCard from "../components/RecipeCard";
+import { Link } from "react-router-dom";
 
 export default function RecipesWithIngredient({ ingredient }: { ingredient: string }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -35,12 +35,29 @@ export default function RecipesWithIngredient({ ingredient }: { ingredient: stri
         Descubra receitas simples com {ingredient} que pode preparar com ingredientes que já tem em casa.
       </p>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
+     <div className="grid md:grid-cols-3 gap-6">
+  {recipes.map((recipe) => (
+    <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
+      <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+        
+        {recipe.image && (
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="w-full h-40 object-cover"
+          />
+        )}
 
+        <div className="p-4">
+          <h3 className="font-semibold text-lg">
+            {recipe.title}
+          </h3>
+        </div>
+
+      </div>
+    </Link>
+  ))}
+</div>
     </div>
   );
 }
