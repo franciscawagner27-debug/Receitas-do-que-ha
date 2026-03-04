@@ -1,8 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://receitasdoqueha.pt/</loc>
-    <lastmod>2025-11-12</lastmod>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/sobre</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/sem-gluten</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/dias-sem-tempo</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- páginas por ingrediente -->
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/frango</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/ovos</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/arroz</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/atum</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/batata</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/massa</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/cogumelos</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://receitasdoqueha.pt/ingrediente/tomate</loc>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
