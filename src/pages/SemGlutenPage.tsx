@@ -40,11 +40,31 @@ async function fetchRecipes() {
     });
 
     setRecipes(filtered);
+
+    // JSON-LD para SEO (lista de receitas sem glúten)
+    if (filtered.length > 0) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+
+      const jsonLD = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Receitas Sem Glúten",
+        itemListElement: filtered.map((recipe, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: `https://receitasdoqueha.pt/receita/${recipe.id}`,
+          name: recipe.title
+        }))
+      };
+
+      script.textContent = JSON.stringify(jsonLD);
+      document.head.appendChild(script);
+    }
   }
 
   setLoading(false);
 }
-
 return (
   <div className="bg-beige min-h-screen text-charcoal font-sans relative">
 
