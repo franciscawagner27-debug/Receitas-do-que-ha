@@ -7,11 +7,22 @@ const SemGlutenPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchRecipes();
-  }, []);
+ useEffect(() => {
+  // SEO da página
+  document.title = "Receitas Sem Glúten | Receitas do Que Há";
 
- async function fetchRecipes() {
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) {
+    meta.setAttribute(
+      "content",
+      "Receitas sem glúten simples e saborosas. Ideais para intolerância ao glúten ou para quem procura opções gluten-free fáceis para o dia a dia."
+    );
+  }
+
+  fetchRecipes();
+}, []);
+
+async function fetchRecipes() {
   const { data, error } = await supabase
     .from("recipes")
     .select("*")
