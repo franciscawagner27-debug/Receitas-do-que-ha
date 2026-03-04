@@ -13,9 +13,12 @@ export default function RecipesWithIngredient({ ingredient }: { ingredient: stri
         .select("*");
 
       if (data) {
-        const filtered = data.filter((recipe: Recipe) =>
-          recipe.ingredients?.join(" ").toLowerCase().includes(ingredient)
-        );
+       const filtered = data.filter((recipe: Recipe) =>
+  recipe.ingredients
+    ?.join(" ")
+    .toLowerCase()
+    .includes(ingredient.toLowerCase())
+);
 
         setRecipes(filtered);
       }
