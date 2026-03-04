@@ -15,6 +15,7 @@ import Sobre from "./pages/Sobre";
 import SemGlutenPage from "./pages/SemGlutenPage";
 import IngredientePage from "./pages/IngredientePage";
 import RecipesWithIngredient from "./pages/RecipesWithIngredient";
+import { Link } from "react-router-dom";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
