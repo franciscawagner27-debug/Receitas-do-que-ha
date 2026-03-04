@@ -32,7 +32,7 @@ export default function RecipesWithIngredient({ ingredient }: { ingredient: stri
 </h1>
 
       <p className="text-gray-600 mb-8">
-        Descubra receitas simples com {ingredient} que pode preparar com ingredientes que já tem em casa.
+        Descubra receitas com {ingredient} que pode preparar com ingredientes que já tem em casa.
       </p>
 
      <div className="grid md:grid-cols-3 gap-6">
