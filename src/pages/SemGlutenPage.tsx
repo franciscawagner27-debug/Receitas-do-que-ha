@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import { motion } from "framer-motion";
 import type { Recipe } from "../types";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 const SemGlutenPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -70,8 +71,9 @@ return (
           </p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recipes.map((r) => (
-              <motion.div
+          {recipes.map((r) => (
+  <Link key={r.id} to={`/receita/${r.id}`}>
+    <motion.div
                 key={r.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -97,7 +99,8 @@ return (
                     </p>
                   )}
                 </div>
-              </motion.div>
+            </motion.div>
+            </Link>
             ))}
           </div>
         )}
