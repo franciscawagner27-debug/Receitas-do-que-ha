@@ -10,8 +10,18 @@ const IngredientePage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // transformar frango-arroz -> frango arroz
+  const searchTerm = (nome || "").replace(/-/g, " ");
+
+  // título bonito
+  const title =
+    searchTerm
+      .split(" ")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ") || "";
+
   useEffect(() => {
-    document.title = `Receitas com ${nome} | Receitas do Que Há`;
+    document.title = `Receitas com ${title} | Receitas do Que Há`;
     fetchRecipes();
   }, [nome]);
 
@@ -23,7 +33,7 @@ const IngredientePage: React.FC = () => {
 
     if (!error && data) {
       const filtered = (data as Recipe[]).filter((recipe) => {
-        const result = smartSearch(recipe, nome || "");
+        const result = smartSearch(recipe, searchTerm);
         return result.matches;
       });
 
@@ -39,16 +49,20 @@ const IngredientePage: React.FC = () => {
 
       <div className="px-6 py-12 max-w-5xl mx-auto">
         <h1 className="text-4xl font-serif text-olive text-center mb-6">
-          Receitas com {nome}
+          Receitas com {title}
         </h1>
 
         {loading ? (
           <p className="text-center">A carregar receitas...</p>
+        ) : recipes.length === 0 ? (
+          <p className="text-center text-stone">
+            Não encontrámos receitas com este ingrediente.
+          </p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {recipes.map((r) => (
               <Link key={r.id} to={`/receita/${r.id}`}>
-                <div className="bg-white rounded-2xl shadow-soft overflow-hidden">
+                <div className="bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
                   {r.image && (
                     <img
                       src={r.image}
