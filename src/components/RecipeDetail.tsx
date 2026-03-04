@@ -72,21 +72,23 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         recipe.tags &&
         recipe.tags.some((tag) =>
           [
-            "doce", "doces",
-            "sobremesa", "sobremesas",
-            "bolo", "bolos",
-            "tarte", "tartes",
-            "pudim", "pudins",
-            "mousse", "mousses"
+            "doce",
+            "doces",
+            "sobremesa",
+            "sobremesas",
+            "bolo",
+            "bolos",
+            "tarte",
+            "tartes",
+            "pudim",
+            "pudins",
+            "mousse",
+            "mousses",
           ].includes(tag.toLowerCase())
         )
-      ) && (
-        <p className="text-stone mb-6">
-          Quantidade: 4 pessoas
-        </p>
-      )}
+      ) && <p className="text-stone mb-6">Quantidade: 4 pessoas</p>}
 
-      {/* BOTÃO — NOVO BOTÃO COM ÍCONE + COPY */}
+      {/* BOTÃO VOZ */}
       <div className="mb-6">
         <a
           href={`/cozinhar/${recipe.id}`}
@@ -97,7 +99,6 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
           Ouvir a receita passo-a-passo
         </a>
 
-        {/* Linha de apoio */}
         <p className="text-xs text-charcoal/70 mt-1 ml-1">
           Siga a receita com instruções faladas enquanto cozinha.
         </p>
@@ -115,6 +116,40 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
           <li>Sem ingredientes registados.</li>
         )}
       </ul>
+
+      {/* LINKS PARA PÁGINAS DE INGREDIENTE (SEO) */}
+      {ingredients.length > 0 && (
+        <>
+          <h3 className="text-lg font-semibold text-olive mb-3">
+            Receitas com estes ingredientes
+          </h3>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {ingredients.slice(0, 4).map((ing, i) => {
+              const clean = ing
+                .toLowerCase()
+                .replace(/[0-9]/g, "")
+                .replace(/g|kg|ml|cl|dl/g, "")
+                .replace(/[^a-zà-ÿ\s]/gi, "")
+                .trim()
+                .split(" ")
+                .pop();
+
+              if (!clean) return null;
+
+              return (
+                <a
+                  key={i}
+                  href={`/ingrediente/${clean}`}
+                  className="bg-beige text-olive px-3 py-1 rounded-full text-sm hover:bg-olive hover:text-white transition"
+                >
+                  {clean}
+                </a>
+              );
+            })}
+          </div>
+        </>
+      )}
 
       {/* PASSOS */}
       <h3 className="text-xl font-semibold text-olive mb-2">Passos</h3>
@@ -140,7 +175,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         </div>
       )}
 
-      {/* ❤️ FAVORITOS */}
+      {/* FAVORITOS + PARTILHA */}
       <div className="flex flex-col items-start gap-3 mb-6">
         <button
           onClick={() => toggleFavorite(recipe.id)}
@@ -152,7 +187,6 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
             : "❤️ Guardar esta receita"}
         </button>
 
-        {/* WHATSAPP SHARE */}
         <a
           href={`https://wa.me/?text=${encodeURIComponent(
             `${recipe.title} - Receitas DO QUE HÁ - https://receitasdoqueha.pt/receita/${recipe.id}`
