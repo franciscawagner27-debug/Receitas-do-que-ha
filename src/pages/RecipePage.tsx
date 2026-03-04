@@ -46,6 +46,21 @@ export default function RecipePage() {
   fetchRecipe();
 }, [id]);
 
+  
+// 👇 NOVO useEffect para SEO
+useEffect(() => {
+  if (!recipe) return;
+
+  document.title = `${recipe.title} | Receitas do Que Há`;
+
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) {
+    meta.setAttribute(
+      "content",
+      `Receita de ${recipe.title} com ingredientes simples e passo a passo completo no site Receitas do Que Há.`
+    );
+  }
+}, [recipe]);
 
   if (loading) return <p className="p-6">A carregar receita...</p>;
   if (!recipe) return <p className="p-6">Receita não encontrada.</p>;
