@@ -542,6 +542,62 @@ async function fetchRecipes() {
           )}
         </div>
       </section>
+      {/* IDEIAS COM INGREDIENTES */}
+<section className="bg-beige pb-14 px-4">
+  <div className="max-w-3xl mx-auto text-center">
+
+    <h2 className="text-3xl font-serif font-bold text-olive mb-6">
+      Cozinhar com o que já tem
+    </h2>
+
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+      <Link
+        to="/receitas-com-frango"
+        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+      >
+        🍗 Receitas com Frango
+      </Link>
+
+      <Link
+        to="/receitas-com-ovos"
+        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+      >
+        🥚 Receitas com Ovos
+      </Link>
+
+      <Link
+        to="/receitas-com-atum"
+        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+      >
+        🐟 Receitas com Atum
+      </Link>
+
+      <Link
+        to="/receitas-com-arroz"
+        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+      >
+        🍚 Receitas com Arroz
+      </Link>
+
+      <Link
+        to="/receitas-com-batata"
+        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+      >
+        🥔 Receitas com Batata
+      </Link>
+
+      <Link
+        to="/receitas-com-massa"
+        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+      >
+        🍝 Receitas com Massa
+      </Link>
+
+    </div>
+
+  </div>
+</section>      
 
       {/* LISTA */}
       <div id="recipe-list"></div>
