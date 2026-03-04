@@ -27,9 +27,9 @@ export default function RecipesWithIngredient({ ingredient }: { ingredient: stri
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       
-      <h1 className="text-3xl font-bold mb-4">
-        Receitas com {ingredient}
-      </h1>
+     <h1 className="text-4xl font-serif font-bold text-olive mb-3">
+  Receitas com {ingredient}
+</h1>
 
       <p className="text-gray-600 mb-8">
         Descubra receitas simples com {ingredient} que pode preparar com ingredientes que já tem em casa.
