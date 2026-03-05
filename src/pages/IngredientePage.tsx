@@ -21,10 +21,22 @@ const IngredientePage: React.FC = () => {
       .join(" ") || "";
 
   useEffect(() => {
-    document.title = `Receitas com ${title} | Receitas do Que Há`;
-    fetchRecipes();
-  }, [nome]);
+  document.title = `Receitas com ${title} | Receitas do Que Há`;
 
+  const metaDescription = document.querySelector(
+    'meta[name="description"]'
+  );
+
+  if (metaDescription) {
+    metaDescription.setAttribute(
+      "content",
+      `Descubra várias receitas com ${title.toLowerCase()} que pode preparar com ingredientes simples que já tem em casa.`
+    );
+  }
+
+  fetchRecipes();
+}, [nome]);
+  
   async function fetchRecipes() {
     const { data, error } = await supabase
       .from("recipes")
