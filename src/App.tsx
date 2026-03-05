@@ -171,7 +171,7 @@ useEffect(() => {
 
 useEffect(() => {
   fetchRecipes();
-}, [page, searchTerm, selectedCategory);
+}, [page, searchTerm, selectedCategory]);
 
 async function fetchRecipes() {
   setLoading(true);
