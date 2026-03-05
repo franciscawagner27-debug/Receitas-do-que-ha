@@ -28,7 +28,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
         )
     : typeof recipe.ingredients === "string"
     ? recipe.ingredients
-        .split(/\n+/)
+        .split(/\n|,|;/)
         .map((i) => i.trim())
         .filter((i) => i.length > 0)
     : [];
@@ -112,13 +112,16 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
 
       <ul className="list-disc list-inside space-y-1 mb-6">
         {ingredients.length > 0 ? (
-     ingredients.map((ing, i) => {
+    ingredients.map((ing, i) => {
   const mainIngredient = ing
     .toLowerCase()
     .replace(/[0-9]/g, "")
-    .replace(/g|kg|ml|l|colher|colheres|de|da|do/gi, "")
+    .replace(/\b(g|kg|ml|cl|dl|l)\b/g, "")
+    .replace(/\b(de|da|do|dos|das)\b/g, "")
+    .replace(/[^a-zà-ÿ\s]/gi, "")
     .trim()
-    .split(" ")[0];
+    .split(" ")
+    .filter((w) => w.length > 2)[0];
 
   return (
     <li key={i}>
@@ -145,14 +148,15 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
 
           <div className="flex flex-wrap gap-2 mb-6">
             {ingredients.slice(0, 4).map((ing, i) => {
-              const clean = ing
-                .toLowerCase()
-                .replace(/[0-9]/g, "")
-                .replace(/g|kg|ml|cl|dl/g, "")
-                .replace(/[^a-zà-ÿ\s]/gi, "")
-                .trim()
-                .split(" ")
-                .pop();
+             const clean = ing
+  .toLowerCase()
+  .replace(/[0-9]/g, "")
+  .replace(/\b(g|kg|ml|cl|dl|l)\b/g, "")
+  .replace(/\b(de|da|do|dos|das)\b/g, "")
+  .replace(/[^a-zà-ÿ\s]/gi, "")
+  .trim()
+  .split(" ")
+  .filter((w) => w.length > 2)[0];
 
               if (!clean) return null;
 
