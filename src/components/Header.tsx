@@ -60,16 +60,22 @@ const handleClick = (category: string) => {
 
           {/* CATEGORIAS */}
           <nav className="flex-1 overflow-x-auto no-scrollbar">
-            <div className="flex gap-2 py-1">
+ <div className="flex gap-2 py-1 min-w-max">
   {categories.map((category) => (
-  <button
-    key={category}
-    onClick={() => handleClick(category)}
-  >
-    {category}
-  </button>
-))}
-            </div>
+    <button
+      key={category}
+      onClick={() => handleClick(category)}
+      className={`px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+        ${
+          selected === category
+            ? "bg-olive text-white border-olive"
+            : "bg-white text-olive border-olive/40 hover:bg-olive/10"
+        }`}
+    >
+      {category}
+    </button>
+  ))}
+</div>
           </nav>
         </div>
       </div>
