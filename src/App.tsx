@@ -385,18 +385,18 @@ async function fetchRecipes() {
       airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
     };
 
-    let matchesCategory = true;
+   let matchesCategory = true;
 
-    if (selected === "favoritas") {
-      matchesCategory = favorites.includes(r.id);
-    } else if (selected !== "todas") {
-      const validTags = categoryMap[selected] || [];
-     matchesCategory =
-  Array.isArray(r.tags) &&
-  r.tags.some((tag: string) =>
-    validTags.includes(tag.toLowerCase().trim())
-  )
-
+if (selected === "favoritas") {
+  matchesCategory = favorites.includes(r.id);
+} else if (selected !== "todas") {
+  const validTags = categoryMap[selected] || [];
+  matchesCategory =
+    Array.isArray(r.tags) &&
+    r.tags.some((tag: string) =>
+      validTags.includes(tag.toLowerCase().trim())
+    );
+}
     // NOVA PESQUISA INTELIGENTE
     const {
       matches,
