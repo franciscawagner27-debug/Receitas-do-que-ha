@@ -6,40 +6,33 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onSelect }) => {
-  const categories = [
-    "Todas",
-    "Favoritas",
-    "Entradas",
-    "Sopas",
-    "Carne",
-    "Peixe",
-    "Massas",
-    "Vegetariano",
-    "Sobremesas",
-    "AirFryer",
-    "Sem Glúten",
-    "Dias sem Tempo",
-  ];
+ const categories = [
+  { label: "Todas", value: "todas" },
+  { label: "Favoritas", value: "favoritas" },
+  { label: "Entradas", value: "entradas" },
+  { label: "Sopas", value: "sopa" },
+  { label: "Carne", value: "carne" },
+  { label: "Peixe", value: "peixe" },
+  { label: "Massas", value: "massas" },
+  { label: "Vegetariano", value: "vegetariano" },
+  { label: "Sobremesas", value: "sobremesas" },
+  { label: "AirFryer", value: "airfryer" },
+  { label: "Sem Glúten", value: "sem-gluten", route: "/sem-gluten" },
+  { label: "Dias sem Tempo", value: "dias-sem-tempo", route: "/dias-sem-tempo" },
+];
 
-  const [selected, setSelected] = useState("Todas");
+const [selected, setSelected] = useState("todas");
 
-  const handleClick = (category: string) => {
-    setSelected(category);
+const handleClick = (item: any) => {
+  setSelected(item.value);
 
-    const normalized = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (item.route) {
+    window.location.href = item.route;
+    return;
+  }
 
-    if (normalized === "dias sem tempo") {
-      window.location.href = "/dias-sem-tempo";
-      return;
-    }
-
-    if (normalized === "sem glúten") {
-      window.location.href = "/sem-gluten";
-      return;
-    }
-
-    onSelect(normalized);
-  };
+  onSelect(item.value);
+};
 
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
@@ -61,19 +54,14 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
           {/* CATEGORIAS */}
           <nav className="flex-1 overflow-x-auto no-scrollbar">
             <div className="flex gap-2 py-1">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleClick(category)}
-                  className={[
-                    "shrink-0 rounded-full px-4 py-2 text-sm sm:text-base font-medium whitespace-nowrap transition-all duration-200",
-                    selected === category
-                      ? "bg-olive text-white shadow-sm"
-                      : "bg-white/50 text-olive hover:bg-white/70 hover:text-terracotta",
-                  ].join(" ")}
-                >
-                  {category}
-                </button>
+             {categories.map((c) => (
+  <button
+    key={c.value}
+    onClick={() => handleClick(c)}
+  >
+    {c.label}
+  </button>
+))}
               ))}
             </div>
           </nav>
