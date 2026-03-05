@@ -51,7 +51,9 @@ const IngredientePage: React.FC = () => {
         <h1 className="text-4xl font-serif text-olive text-center mb-6">
           Receitas com {title}
         </h1>
-
+        <p className="text-charcoal/80 text-center max-w-2xl mx-auto mb-10">
+  Descubra várias receitas com {title.toLowerCase()} que pode preparar com ingredientes simples que já tem em casa. Ideias práticas para o dia-a-dia na cozinha.
+</p>
         {loading ? (
           <p className="text-center">A carregar receitas...</p>
         ) : recipes.length === 0 ? (
