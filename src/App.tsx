@@ -413,7 +413,7 @@ if (selected === "favoritas") {
     // match por "conter" (mais robusto do que match exacto)
     matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
   }
-  }
+  
 
   // NOVA PESQUISA INTELIGENTE
   const { matches, score, isExactMatch, extraCount, matchedIngredientCount } =
