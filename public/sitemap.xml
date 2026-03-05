@@ -1,66 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://receitasdoqueha.pt/</loc>
-    <priority>1.0</priority>
-  </url>
+<!-- HOME -->
 
-  <url>
-    <loc>https://receitasdoqueha.pt/sobre</loc>
-    <priority>0.8</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/</loc>
+<priority>1.0</priority>
+<changefreq>daily</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/sem-gluten</loc>
-    <priority>0.8</priority>
-  </url>
+<!-- PÁGINAS PRINCIPAIS -->
 
-  <url>
-    <loc>https://receitasdoqueha.pt/dias-sem-tempo</loc>
-    <priority>0.8</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/sobre</loc>
+<priority>0.8</priority>
+<changefreq>monthly</changefreq>
+</url>
 
-  <!-- páginas por ingrediente -->
+<url>
+<loc>https://receitasdoqueha.pt/sem-gluten</loc>
+<priority>0.8</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/frango</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/dias-sem-tempo</loc>
+<priority>0.8</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/ovos</loc>
-    <priority>0.7</priority>
-  </url>
+<!-- PÁGINAS DE INGREDIENTE -->
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/arroz</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/frango</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/atum</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/ovos</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/batata</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/arroz</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/massa</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/atum</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/cogumelos</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/batata</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
 
-  <url>
-    <loc>https://receitasdoqueha.pt/ingrediente/tomate</loc>
-    <priority>0.7</priority>
-  </url>
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/massa</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/cogumelos</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/tomate</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/cebola</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/alho</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/cenoura</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/ingrediente/azeite</loc>
+<priority>0.7</priority>
+<changefreq>weekly</changefreq>
+</url>
 
 </urlset>
