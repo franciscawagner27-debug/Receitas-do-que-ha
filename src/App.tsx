@@ -247,12 +247,7 @@ async function fetchRecipes() {
 const handleCategorySelect = (category: string) => {
   const normalized = category.toLowerCase().trim();
 
-  if (normalized === "sopas") {
-    setSelectedCategory("sopa");
-  } else {
-    setSelectedCategory(normalized);
-  }
-
+  setSelectedCategory(normalized);   // guarda "sopas" mesmo
   setSearchTerm("");
 };
 
