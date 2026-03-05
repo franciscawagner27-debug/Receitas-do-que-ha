@@ -160,14 +160,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
     ingredients.map((ing, i) => {
 const mainIngredient = extractIngredientSlug(ing);
 if (!mainIngredient) return null;
-    .toLowerCase()
-    .replace(/[0-9]/g, "")
-    .replace(/\b(g|kg|ml|cl|dl|l)\b/g, "")
-    .replace(/\b(de|da|do|dos|das)\b/g, "")
-    .replace(/[^a-zà-ÿ\s]/gi, "")
-    .trim()
-    .split(" ")
-    .filter((w) => w.length > 2)[0];
+   
 
   return (
     <li key={i}>
