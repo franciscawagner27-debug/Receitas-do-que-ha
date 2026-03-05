@@ -244,10 +244,18 @@ async function fetchRecipes() {
 
   /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
 
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
-    setSearchTerm("");
-  };
+ const handleCategorySelect = (category: string) => {
+  const normalized = category.toLowerCase().trim();
+
+  // corrigir "Sopas" → tag real "sopa"
+  if (normalized === "sopas") {
+    setSelectedCategory("sopa");
+  } else {
+    setSelectedCategory(normalized);
+  }
+
+  setSearchTerm("");
+};
 
   const handleSearch = (term?: string) => {
     const finalTerm = (term ?? searchTerm).trim();
