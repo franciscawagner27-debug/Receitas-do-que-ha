@@ -92,10 +92,11 @@ function HomePage() {
   const [aiError, setAiError] = useState<string | null>(null);
 
   // Ler categoria via URL (?cat=carne)
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get("cat");
-    if (cat) {
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const cat = params.get("cat");
+
+  if (cat && cat !== selectedCategory) {
     handleCategorySelect(cat);
   }
 }, [location.search]);
