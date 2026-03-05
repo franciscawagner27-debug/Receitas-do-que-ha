@@ -332,97 +332,89 @@ async function fetchRecipes() {
       console.log("⏹️ [IA] Processo terminado");
       setAiLoading(false);
     }
+  }/* --------------------------- FILTRO GERAL ---------------------------- */
+
+// ❌ EXCLUIR SEMPRE as receitas dos Dias Sem Tempo da Homepage
+const recipesWithoutDST = sortedRecipes.filter(
+  (r) => !(r.tags && r.tags.includes("diassemtempo"))
+);
+
+const hasSearch = searchTerm.trim() !== "";
+
+// Normalizador (remove acentos + espaços + lowercase)
+const normalize = (s: string = "") =>
+  s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
+// 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
+let filteredRecipes = recipesWithoutDST.filter((r: any) => {
+  const selected = normalize(selectedCategory);
+
+  const categoryMap: Record<string, string[]> = {
+    entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+
+    // ✅ aceitar "sopa" e "sopas"
+    sopa: ["sopa", "sopas", "caldo", "caldos", "creme", "cremes"],
+    sopas: ["sopa", "sopas", "caldo", "caldos", "creme", "cremes"],
+
+    carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+    peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+    massas: ["massa", "massas", "pasta", "esparguete", "macarrao", "tagliatelle"],
+    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
+    sobremesas: [
+      "doce",
+      "doces",
+      "sobremesa",
+      "sobremesas",
+      "bolo",
+      "bolos",
+      "tarte",
+      "tartes",
+      "pudim",
+      "pudins",
+      "mousse",
+      "mousses",
+    ],
+    airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
+  };
+
+  let matchesCategory = true;
+
+  if (selected === "favoritas") {
+    matchesCategory = favorites.includes(r.id);
+  } else if (selected !== "todas") {
+    const valid = categoryMap[selected] || [];
+
+    // junta onde a categoria pode estar: tags + category + title
+    const haystack = normalize(
+      [
+        r.category ?? "",
+        Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
+        r.title ?? "",
+      ].join(" ")
+    );
+
+    // match por "conter" (mais robusto do que match exacto)
+    matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
   }
 
-  /* --------------------------- FILTRO GERAL ---------------------------- */
+  // NOVA PESQUISA INTELIGENTE
+  const { matches, score, isExactMatch, extraCount, matchedIngredientCount } =
+    smartSearch(r, searchTerm);
 
-  // ❌ EXCLUIR SEMPRE as receitas dos Dias Sem Tempo da Homepage
-  const recipesWithoutDST = sortedRecipes.filter(
-    (r) => !(r.tags && r.tags.includes("diassemtempo"))
-  );
+  // guardar no objeto (para ordenação)
+  (r as any)._searchScore = score;
+  (r as any)._isExactMatch = isExactMatch;
+  (r as any)._extraCount = extraCount;
+  (r as any)._matchedIngredientCount = matchedIngredientCount;
 
-  const hasSearch = searchTerm.trim() !== "";
+  const matchesSearch = !hasSearch ? true : matches;
 
-  // 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
-  let filteredRecipes = recipesWithoutDST.filter((r: any) => {
-    const selected = selectedCategory.trim().toLowerCase();
-    
-    
-    const categoryMap: Record<string, string[]> = {
-      entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
-        // ✅ aceitar o clique que vem como "sopa"
-      sopa: ["sopa", "sopas", "caldo", "caldos"],
-      sopas: ["sopa", "sopas", "caldo", "caldos"],
-      carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-      peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-      massas: [
-        "massa",
-        "massas",
-        "pasta",
-        "esparguete",
-        "macarrão",
-        "tagliatelle",
-      ],
-      vegetariano: [
-        "vegetariano",
-        "vegetariana",
-        "vegan",
-        "salada",
-        "legumes",
-        "legume",
-      ],
-      sobremesas: [
-        "doce",
-        "doces",
-        "sobremesa",
-        "sobremesas",
-        "bolo",
-        "bolos",
-        "tarte",
-        "tartes",
-        "pudim",
-        "pudins",
-        "mousse",
-        "mousses",
-      ],
-      airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
-    };
-    
-console.log("selectedCategory raw:", JSON.stringify(selectedCategory));
-console.log("selected normalized:", selected);
-console.log("categoryMap[selected]:", categoryMap[selected]);
-  
-    let matchesCategory = true;
-
-if (selected === "favoritas") {
-  matchesCategory = favorites.includes(r.id);
-} else if (selected !== "todas") {
-  const validTags = categoryMap[selected] || [];
-  matchesCategory =
-    Array.isArray(r.tags) &&
-    r.tags.some((tag: string) =>
-      validTags.includes(tag.toLowerCase().trim())
-    );
-}
-    // NOVA PESQUISA INTELIGENTE
-    const {
-      matches,
-      score,
-      isExactMatch,
-      extraCount,
-      matchedIngredientCount,
-    } = smartSearch(r, searchTerm);
-
-    // guardar no objeto (para ordenação)
-    (r as any)._searchScore = score;
-    (r as any)._isExactMatch = isExactMatch;
-    (r as any)._extraCount = extraCount;
-    (r as any)._matchedIngredientCount = matchedIngredientCount;
-
-    const matchesSearch = !hasSearch ? true : matches;
-
-    return matchesCategory && matchesSearch;
-  });
+  return matchesCategory && matchesSearch;
+});
 
   // Função de ordenação comum
   function sortByRelevance(a: any, b: any) {
