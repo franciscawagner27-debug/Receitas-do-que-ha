@@ -150,14 +150,18 @@ useEffect(() => {
 async function fetchRecipes() {
   setLoading(true);
 
-  let query = supabase
-    .from("recipes")
-    .select("*")
-    .order("priority", { ascending: true })
-    .order("id", { ascending: false });
- let query = supabase
+let query = supabase
   .from("recipes")
   .select("*");
+
+if (selectedCategory !== "todas") {
+  const category = selectedCategory === "sopas" ? "sopa" : selectedCategory;
+  query = query.ilike("tags", `%${category}%`);
+}
+
+query = query
+  .order("priority", { ascending: true })
+  .order("id", { ascending: false });
 
 if (selectedCategory !== "todas") {
   query = query.ilike("tags", `%${selectedCategory}%`);
