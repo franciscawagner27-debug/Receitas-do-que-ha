@@ -397,14 +397,13 @@ if (selected === "favoritas") {
 } else if (selected !== "todas") {
 
   const valid = categoryMap[selected] || [];
-
-  const haystack = normalize(
-    [
-      r.category ?? "",
-      Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
-      r.title ?? "",
-    ].join(" ")
-  );
+  
+const haystack = normalize(
+  [
+    r.category ?? "",
+    Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
+  ].join(" ")
+);
 
   matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
 }
