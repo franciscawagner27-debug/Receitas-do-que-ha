@@ -351,6 +351,8 @@ async function fetchRecipes() {
     
     const categoryMap: Record<string, string[]> = {
       entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+        // ✅ aceitar o clique que vem como "sopa"
+      sopa: ["sopa", "sopas", "caldo", "caldos"],
       sopas: ["sopa", "sopas", "caldo", "caldos"],
       carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
       peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
