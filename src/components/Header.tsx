@@ -6,32 +6,39 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onSelect }) => {
- const categories = [
-  { label: "Todas", value: "todas" },
-  { label: "Favoritas", value: "favoritas" },
-  { label: "Entradas", value: "entradas" },
-  { label: "Sopas", value: "sopa" },
-  { label: "Carne", value: "carne" },
-  { label: "Peixe", value: "peixe" },
-  { label: "Massas", value: "massas" },
-  { label: "Vegetariano", value: "vegetariano" },
-  { label: "Sobremesas", value: "sobremesas" },
-  { label: "AirFryer", value: "airfryer" },
-  { label: "Sem Glúten", value: "sem-gluten", route: "/sem-gluten" },
-  { label: "Dias sem Tempo", value: "dias-sem-tempo", route: "/dias-sem-tempo" },
+const categories = [
+  "Todas",
+  "Favoritas",
+  "Entradas",
+  "Sopas",
+  "Carne",
+  "Peixe",
+  "Massas",
+  "Vegetariano",
+  "Sobremesas",
+  "AirFryer",
+  "Sem Glúten",
+  "Dias sem Tempo",
 ];
 
-const [selected, setSelected] = useState("todas");
+const [selected, setSelected] = useState("Todas");
 
-const handleClick = (item: any) => {
-  setSelected(item.value);
+const handleClick = (category: string) => {
+  setSelected(category);
 
-  if (item.route) {
-    window.location.href = item.route;
+  const normalized = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  if (normalized === "dias sem tempo") {
+    window.location.href = "/dias-sem-tempo";
     return;
   }
 
-  onSelect(item.value);
+  if (normalized === "sem glúten") {
+    window.location.href = "/sem-gluten";
+    return;
+  }
+
+  onSelect(normalized);
 };
 
   return (
@@ -54,14 +61,14 @@ const handleClick = (item: any) => {
           {/* CATEGORIAS */}
           <nav className="flex-1 overflow-x-auto no-scrollbar">
             <div className="flex gap-2 py-1">
-             {categories.map((c) => (
+  {categories.map((category) => (
   <button
-    key={c.value}
-    onClick={() => handleClick(c)}
+    key={category}
+    onClick={() => handleClick(category)}
   >
-    {c.label}
+    {category}
   </button>
-              ))}
+))}
             </div>
           </nav>
         </div>
