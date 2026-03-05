@@ -26,7 +26,10 @@ const AI_FUNCTION_URL =
 /*                                   ROOT                                     */
 /* -------------------------------------------------------------------------- */
 
-  
+export default function App() {
+  const location = useLocation();
+
+  return (
     <Routes>
       {/* Página pública — agora recarrega quando voltas do admin */}
       <Route path="/" element={<HomePage key={location.pathname} />} />
