@@ -6,6 +6,14 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onSelect }) => {
+  
+function changeLanguage(lang: string) {
+  const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+  if (!select) return;
+
+  select.value = lang;
+  select.dispatchEvent(new Event("change"));
+}  
 const categories = [
   "Todas",
   "Favoritas",
