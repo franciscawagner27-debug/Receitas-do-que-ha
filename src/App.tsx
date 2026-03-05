@@ -180,8 +180,14 @@ async function fetchRecipes() {
   .from("recipes")
   .select("*");
 
-if (selectedCategory !== "todas") {
-  query = query.ilike("tags", `%${selectedCategory}%`);
+let category = selectedCategory;
+
+if (category === "sopas") {
+  category = "sopa";
+}
+
+if (category !== "todas") {
+  query = query.contains("tags", [category]);
 }
 
 query = query
