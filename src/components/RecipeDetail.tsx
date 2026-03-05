@@ -3,6 +3,53 @@ import type { Recipe } from "../types";
 import { Volume2 } from "react-feather";
 import { Link } from "react-router-dom";
 
+
+// Palavras que não queremos usar como ingrediente principal
+const STOPWORDS = [
+  "de","da","do","dos","das",
+  "uma","um","uns","umas","meia","meio",
+  "dente","dentes","colher","colheres","chá","sopa","café",
+  "mão","punhado","pitada","fio","folha","folhas",
+  "qb","q.b","q.b.","quanto","baste"
+];
+
+const UNITS = [
+  "g","kg","mg","ml","cl","dl","l"
+];
+
+const DESCRIPTORS = [
+  "pequeno","pequena","pequenos","pequenas",
+  "médio","média","médios","médias",
+  "grande","grandes",
+  "fresco","fresca","frescos","frescas",
+  "congelado","congelada","congelados","congeladas",
+  "picado","picada","picados","picadas",
+  "opcional","opcionais",
+  "gosto","aprox","aproximadamente"
+];
+
+function extractIngredientSlug(text: string) {
+  const cleaned = text
+    .toLowerCase()
+    .replace(/[0-9]/g, "")
+    .replace(/[^a-zà-ÿ\s]/gi, "")
+    .split(/\s+/)
+    .filter(
+      (w) =>
+        w &&
+        w.length > 2 &&
+        !STOPWORDS.includes(w) &&
+        !UNITS.includes(w) &&
+        !DESCRIPTORS.includes(w)
+    );
+
+  if (cleaned.length === 0) return null;
+
+  return cleaned[cleaned.length - 1];
+}
+
+interface RecipeDetailProps {
+
 interface RecipeDetailProps {
   recipe: Recipe;
   onBack: () => void;
@@ -113,7 +160,8 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
       <ul className="list-disc list-inside space-y-1 mb-6">
         {ingredients.length > 0 ? (
     ingredients.map((ing, i) => {
-  const mainIngredient = ing
+const mainIngredient = extractIngredientSlug(ing);
+if (!mainIngredient) return null;
     .toLowerCase()
     .replace(/[0-9]/g, "")
     .replace(/\b(g|kg|ml|cl|dl|l)\b/g, "")
@@ -148,7 +196,8 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
 
           <div className="flex flex-wrap gap-2 mb-6">
             {ingredients.slice(0, 4).map((ing, i) => {
-             const clean = ing
+             const clean = extractIngredientSlug(ing);
+             if (!clean) return null;
   .toLowerCase()
   .replace(/[0-9]/g, "")
   .replace(/\b(g|kg|ml|cl|dl|l)\b/g, "")
