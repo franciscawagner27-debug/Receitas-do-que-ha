@@ -26,7 +26,7 @@ const DESCRIPTORS = [
   "picado","picada","picados","picadas",
   "opcional","opcionais",
   "gosto","aprox","aproximadamente","branco","tinto","maduro","verde","roxa","branca","maduros","madura","maduras",
-  "fino","fina"
+  "fino","fina","escorrido","cozido","cozida","escorrida"
 ];
 
 function extractIngredientSlug(text: string) {
