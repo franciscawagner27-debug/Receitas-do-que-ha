@@ -1,6 +1,7 @@
 import React from "react";
 import type { Recipe } from "../types";
 import { Volume2 } from "react-feather";
+import { Link } from "react-router-dom";
 
 interface RecipeDetailProps {
   recipe: Recipe;
