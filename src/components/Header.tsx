@@ -61,7 +61,6 @@ const handleClick = (item: any) => {
   >
     {c.label}
   </button>
-))}
               ))}
             </div>
           </nav>
