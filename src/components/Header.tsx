@@ -60,10 +60,10 @@ const handleClick = (category: string) => {
             aria-label="Ir para a página inicial"
           >
             <img
-              src="/icons/icon-512.png"
-              alt="Receitas do Que Há"
-              className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain"
-            />
+  src="/icons/icon-512.png"
+  alt="Receitas do Que Há"
+  className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain notranslate"
+/>
           </button>
 
           {/* CATEGORIAS */}
