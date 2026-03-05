@@ -26,14 +26,7 @@ const AI_FUNCTION_URL =
 /*                                   ROOT                                     */
 /* -------------------------------------------------------------------------- */
 
-function HomePage() {
-  const location = useLocation();
-
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
-
-  return (
+  
     <Routes>
       {/* Página pública — agora recarrega quando voltas do admin */}
       <Route path="/" element={<HomePage key={location.pathname} />} />
@@ -84,6 +77,7 @@ function HomePage() {
 /* -------------------------------------------------------------------------- */
 
 function HomePage() {
+  const location = useLocation(); 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
