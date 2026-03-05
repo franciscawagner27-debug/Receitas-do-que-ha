@@ -25,7 +25,7 @@ const AirFryerPage: React.FC = () => {
     setRecipes(filtered);
   }
 }
-  }
+  
 
   return (
     <div className="bg-beige min-h-screen text-charcoal">
