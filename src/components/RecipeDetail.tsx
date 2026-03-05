@@ -25,7 +25,7 @@ const DESCRIPTORS = [
   "congelado","congelada","congelados","congeladas",
   "picado","picada","picados","picadas",
   "opcional","opcionais",
-  "gosto","aprox","aproximadamente","branco","tinto","maduro","verde","roxa","branca","maduros","madura","maduras"
+  "gosto","aprox","aproximadamente","branco","tinto","maduro","verde","roxa","branca","maduros","madura","maduras",
   "fino","fina"
 ];
 
