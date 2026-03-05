@@ -346,8 +346,7 @@ async function fetchRecipes() {
   // 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
   let filteredRecipes = recipesWithoutDST.filter((r: any) => {
     const selected = selectedCategory.trim().toLowerCase();
-    console.log("selectedCategory raw:", JSON.stringify(selectedCategory));
-     console.log("selected normalized:", selected);
+    
     
     const categoryMap: Record<string, string[]> = {
       entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
@@ -388,8 +387,12 @@ async function fetchRecipes() {
       ],
       airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
     };
-
-   let matchesCategory = true;
+    
+console.log("selectedCategory raw:", JSON.stringify(selectedCategory));
+console.log("selected normalized:", selected);
+console.log("categoryMap[selected]:", categoryMap[selected]);
+  
+    let matchesCategory = true;
 
 if (selected === "favoritas") {
   matchesCategory = favorites.includes(r.id);
