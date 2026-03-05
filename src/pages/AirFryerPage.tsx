@@ -12,13 +12,19 @@ const AirFryerPage: React.FC = () => {
     fetchRecipes();
   }, []);
 
-  async function fetchRecipes() {
-    const { data } = await supabase
-      .from("recipes")
-      .select("*")
-      .ilike("tags", "%airfryer%");
+ async function fetchRecipes() {
+  const { data } = await supabase
+    .from("recipes")
+    .select("*");
 
-    if (data) setRecipes(data as Recipe[]);
+  if (data) {
+    const filtered = (data as Recipe[]).filter((recipe) =>
+      recipe.tags?.some((tag) => tag.toLowerCase() === "airfryer")
+    );
+
+    setRecipes(filtered);
+  }
+}
   }
 
   return (
