@@ -8,55 +8,52 @@ const AirFryerPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const navigate = useNavigate();
 
-function handleHeaderSelect(category: string) {
-  const c = category.toLowerCase().trim();
+  function handleHeaderSelect(category: string) {
+    const c = category.toLowerCase().trim();
 
-  const routes: Record<string, string> = {
-    "sem glúten": "/sem-gluten",
-    "sem gluten": "/sem-gluten",
-    "dias sem tempo": "/dias-sem-tempo",
-    "air fryer": "/airfryer",
-    "airfryer": "/airfryer",
-    "sobre": "/sobre",
-  };
+    const routes: Record<string, string> = {
+      "sem glúten": "/sem-gluten",
+      "sem gluten": "/sem-gluten",
+      "dias sem tempo": "/dias-sem-tempo",
+      "air fryer": "/airfryer",
+      "airfryer": "/airfryer",
+      "sobre": "/sobre",
+    };
 
-  if (routes[c]) {
-    navigate(routes[c]);
-    return;
-  }
-
-  // corrigir caso das sopas
-  if (c.includes("sopa")) {
-    navigate("/?cat=Sopas");
-    return;
-  }
-
-  navigate(`/?cat=${encodeURIComponent(category)}`);
-}
+    if (routes[c]) {
+      navigate(routes[c]);
+      return;
     }
+
+    // corrigir caso das sopas
+    if (c.includes("sopa")) {
+      navigate("/?cat=Sopas");
+      return;
+    }
+
+    navigate(`/?cat=${encodeURIComponent(category)}`);
+  }
+
   useEffect(() => {
     document.title = "Receitas na Air Fryer | Receitas do Que Há";
     fetchRecipes();
   }, []);
 
- async function fetchRecipes() {
-  const { data } = await supabase
-    .from("recipes")
-    .select("*");
+  async function fetchRecipes() {
+    const { data } = await supabase.from("recipes").select("*");
 
-  if (data) {
-    const filtered = (data as Recipe[]).filter((recipe) =>
-      recipe.tags?.some((tag) => tag.toLowerCase() === "airfryer")
-    );
+    if (data) {
+      const filtered = (data as Recipe[]).filter((recipe) =>
+        recipe.tags?.some((tag) => tag.toLowerCase() === "airfryer")
+      );
 
-    setRecipes(filtered);
+      setRecipes(filtered);
+    }
   }
-}
-  
 
   return (
     <div className="bg-beige min-h-screen text-charcoal">
-     <Header onSelect={handleHeaderSelect} />
+      <Header onSelect={handleHeaderSelect} />
 
       <div className="px-6 py-12 max-w-5xl mx-auto">
         <h1 className="text-4xl font-serif text-olive text-center mb-6">
