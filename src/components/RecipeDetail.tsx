@@ -189,16 +189,6 @@ if (!mainIngredient) return null;
             {ingredients.slice(0, 4).map((ing, i) => {
              const clean = extractIngredientSlug(ing);
              if (!clean) return null;
-  .toLowerCase()
-  .replace(/[0-9]/g, "")
-  .replace(/\b(g|kg|ml|cl|dl|l)\b/g, "")
-  .replace(/\b(de|da|do|dos|das)\b/g, "")
-  .replace(/[^a-zà-ÿ\s]/gi, "")
-  .trim()
-  .split(" ")
-  .filter((w) => w.length > 2)[0];
-
-              if (!clean) return null;
 
               return (
                 <a
