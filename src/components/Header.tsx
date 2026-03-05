@@ -76,10 +76,13 @@ const handleClick = (category: string) => {
     </button>
   ))}
 </div>
-          </nav>
-        </div>
-      </div>
-    </header>
+         </nav>
+
+<div id="google_translate_element"></div>
+
+</div>
+</div>
+</header>
   );
 };
 
