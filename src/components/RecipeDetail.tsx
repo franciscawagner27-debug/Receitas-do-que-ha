@@ -112,16 +112,25 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
 
       <ul className="list-disc list-inside space-y-1 mb-6">
         {ingredients.length > 0 ? (
-       ingredients.map((ing, i) => (
-        <li key={i}>
-         <Link
-          to={`/ingrediente/${ing.toLowerCase().replace(/\s+/g, "-")}`}
-          className="text-olive hover:underline"
-    >
-      {ing}
-    </Link>
-  </li>
-))
+     ingredients.map((ing, i) => {
+  const mainIngredient = ing
+    .toLowerCase()
+    .replace(/[0-9]/g, "")
+    .replace(/g|kg|ml|l|colher|colheres|de|da|do/gi, "")
+    .trim()
+    .split(" ")[0];
+
+  return (
+    <li key={i}>
+      <Link
+        to={`/ingrediente/${mainIngredient}`}
+        className="text-olive hover:underline"
+      >
+        {ing}
+      </Link>
+    </li>
+  );
+})
         ) : (
           <li>Sem ingredientes registados.</li>
         )}
