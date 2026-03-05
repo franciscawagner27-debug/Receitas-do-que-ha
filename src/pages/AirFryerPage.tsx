@@ -27,7 +27,7 @@ const AirFryerPage: React.FC = () => {
 
     // corrigir caso das sopas
     if (c.includes("sopa")) {
-      navigate("/?cat=Sopas");
+    navigate("/?cat=sopa");
       return;
     }
 
