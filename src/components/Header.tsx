@@ -78,7 +78,12 @@ const handleClick = (category: string) => {
 </div>
          </nav>
 
-<div id="google_translate_element"></div>
+<div className="flex items-center gap-2">
+  <button onClick={() => changeLanguage("pt")}>🇵🇹</button>
+  <button onClick={() => changeLanguage("en")}>🇬🇧</button>
+</div>
+
+<div id="google_translate_element" style={{ display: "none" }}></div>
 
 </div>
 </div>
