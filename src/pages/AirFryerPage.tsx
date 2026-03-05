@@ -22,9 +22,17 @@ function handleHeaderSelect(category: string) {
 
   if (routes[c]) {
     navigate(routes[c]);
-  } else {
-    navigate(`/?cat=${encodeURIComponent(category)}`);
+    return;
   }
+
+  // corrigir caso das sopas
+  if (c.includes("sopa")) {
+    navigate("/?cat=Sopas");
+    return;
+  }
+
+  navigate(`/?cat=${encodeURIComponent(category)}`);
+}
     }
   useEffect(() => {
     document.title = "Receitas na Air Fryer | Receitas do Que Há";
