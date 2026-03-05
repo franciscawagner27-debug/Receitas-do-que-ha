@@ -391,10 +391,11 @@ async function fetchRecipes() {
       matchesCategory = favorites.includes(r.id);
     } else if (selected !== "todas") {
       const validTags = categoryMap[selected] || [];
-      matchesCategory =
-        Array.isArray(r.tags) &&
-        r.tags.some((tag: string) => validTags.includes(tag));
-    }
+     matchesCategory =
+  Array.isArray(r.tags) &&
+  r.tags.some((tag: string) =>
+    validTags.includes(tag.toLowerCase().trim())
+  );
 
     // NOVA PESQUISA INTELIGENTE
     const {
