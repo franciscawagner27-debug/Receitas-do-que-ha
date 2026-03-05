@@ -377,37 +377,37 @@ let filteredRecipes = recipesWithoutDST.filter((r: any) => {
 
   let matchesCategory = true;
 
- if (selected === "favoritas") {
+if (selected === "favoritas") {
   matchesCategory = favorites.includes(r.id);
+
+} else if (selected === "sopa" || selected === "sopas") {
+
+  const text = normalize(
+    [
+      r.category ?? "",
+      Array.isArray(r.tags) ? r.tags.join(" ") : "",
+      r.title ?? "",
+    ].join(" ")
+  );
+
+  matchesCategory =
+    text.includes("sopa") ||
+    text.includes("caldo") ||
+    text.includes("creme");
+
 } else if (selected !== "todas") {
 
-  // 🔧 FIX ESPECÍFICO PARA SOPAS
-  if (selected === "sopa" || selected === "sopas") {
-    const text = normalize(
-      [
-        r.category ?? "",
-        Array.isArray(r.tags) ? r.tags.join(" ") : "",
-        r.title ?? "",
-      ].join(" ")
-    );
+  const valid = categoryMap[selected] || [];
 
-    matchesCategory =
-      text.includes("sopa") ||
-      text.includes("caldo") ||
-      text.includes("creme");
-  } else {
-    const valid = categoryMap[selected] || [];
+  const haystack = normalize(
+    [
+      r.category ?? "",
+      Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
+      r.title ?? "",
+    ].join(" ")
+  );
 
-    const haystack = normalize(
-      [
-        r.category ?? "",
-        Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
-        r.title ?? "",
-      ].join(" ")
-    );
-
-    matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
-  }
+  matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
 }
 
     // match por "conter" (mais robusto do que match exacto)
