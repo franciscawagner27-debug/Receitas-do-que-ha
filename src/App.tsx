@@ -145,7 +145,6 @@ useEffect(() => {
 
 useEffect(() => {
   fetchRecipes();
-}, [page, searchTerm]);
 }, [page, searchTerm, selectedCategory];
 
 async function fetchRecipes() {
