@@ -84,7 +84,7 @@ function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const PAGE_SIZE = 100;
+  const PAGE_SIZE = 12;
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   // IA – receita gerada
@@ -171,16 +171,22 @@ useEffect(() => {
 
 useEffect(() => {
   fetchRecipes();
-}, [page, searchTerm]);
+}, [page, searchTerm, selectedCategory);
 
 async function fetchRecipes() {
   setLoading(true);
 
-  let query = supabase
-    .from("recipes")
-    .select("*")
-    .order("priority", { ascending: true })
-    .order("id", { ascending: false });
+ let query = supabase
+  .from("recipes")
+  .select("*");
+
+if (selectedCategory !== "todas") {
+  query = query.ilike("tags", `%${selectedCategory}%`);
+}
+
+query = query
+  .order("priority", { ascending: true })
+  .order("id", { ascending: false });
 
   // Se NÃO houver pesquisa → usar paginação
   if (!searchTerm.trim()) {
@@ -246,6 +252,10 @@ async function fetchRecipes() {
 
 const handleCategorySelect = (category: string) => {
   const normalized = category.toLowerCase().trim();
+ 
+  setRecipes([]);
+  setPage(0); 
+  
   setSelectedCategory(normalized);
   setSearchTerm("");
 };
