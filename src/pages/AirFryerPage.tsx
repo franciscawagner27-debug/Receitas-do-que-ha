@@ -11,15 +11,21 @@ const AirFryerPage: React.FC = () => {
 function handleHeaderSelect(category: string) {
   const c = category.toLowerCase().trim();
 
-  // páginas que já existem
-  if (c.includes("sem glúten") || c.includes("sem gluten")) return navigate("/sem-gluten");
-  if (c.includes("dias sem tempo")) return navigate("/dias-sem-tempo");
-  if (c.includes("air fryer") || c.includes("airfryer")) return navigate("/airfryer");
-  if (c === "sobre") return navigate("/sobre");
+  const routes: Record<string, string> = {
+    "sem glúten": "/sem-gluten",
+    "sem gluten": "/sem-gluten",
+    "dias sem tempo": "/dias-sem-tempo",
+    "air fryer": "/airfryer",
+    "airfryer": "/airfryer",
+    "sobre": "/sobre",
+  };
 
-  // tudo o resto vai para a homepage já filtrada
-  return navigate(`/?cat=${encodeURIComponent(category)}`);
-}
+  if (routes[c]) {
+    navigate(routes[c]);
+  } else {
+    navigate(`/?cat=${encodeURIComponent(category)}`);
+  }
+
   useEffect(() => {
     document.title = "Receitas na Air Fryer | Receitas do Que Há";
     fetchRecipes();
