@@ -29,7 +29,7 @@ const AirFryerPage: React.FC = () => {
 
   return (
     <div className="bg-beige min-h-screen text-charcoal">
-      <Header onSelect={() => {}} />
+      <Header onSelect={undefined as any} />
 
       <div className="px-6 py-12 max-w-5xl mx-auto">
         <h1 className="text-4xl font-serif text-olive text-center mb-6">
