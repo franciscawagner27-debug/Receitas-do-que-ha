@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ onSelect }) => {
   const handleClick = (category: string) => {
     setSelected(category);
 
-    const normalized = category.toLowerCase();
+    const normalized = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (normalized === "dias sem tempo") {
       window.location.href = "/dias-sem-tempo";
