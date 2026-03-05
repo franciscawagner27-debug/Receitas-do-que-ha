@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
 const AirFryerPage: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const navigate = useNavigate();
 
+function handleHeaderSelect(category: string) {
+  const c = category.toLowerCase().trim();
+
+  // páginas que já existem
+  if (c.includes("sem glúten") || c.includes("sem gluten")) return navigate("/sem-gluten");
+  if (c.includes("dias sem tempo")) return navigate("/dias-sem-tempo");
+  if (c.includes("air fryer") || c.includes("airfryer")) return navigate("/airfryer");
+  if (c === "sobre") return navigate("/sobre");
+
+  // tudo o resto vai para a homepage já filtrada
+  return navigate(`/?cat=${encodeURIComponent(category)}`);
+}
   useEffect(() => {
     document.title = "Receitas na Air Fryer | Receitas do Que Há";
     fetchRecipes();
@@ -29,7 +42,7 @@ const AirFryerPage: React.FC = () => {
 
   return (
     <div className="bg-beige min-h-screen text-charcoal">
-      <Header onSelect={undefined as any} />
+     <Header onSelect={handleHeaderSelect} />
 
       <div className="px-6 py-12 max-w-5xl mx-auto">
         <h1 className="text-4xl font-serif text-olive text-center mb-6">
