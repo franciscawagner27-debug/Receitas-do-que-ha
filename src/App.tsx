@@ -96,9 +96,9 @@ function HomePage() {
     const params = new URLSearchParams(window.location.search);
     const cat = params.get("cat");
     if (cat) {
-      setSelectedCategory(cat.replace(/-/g, " "));
-    }
-  }, []);
+    handleCategorySelect(cat);
+  }
+}, [location.search]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
