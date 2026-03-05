@@ -128,3 +128,25 @@ footer {
 /* Esconder scrollbar no scroll horizontal (categorias no header) */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------------- Google Translate ---------------- */
+
+/* esconder a barra superior do Google */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+/* esconder o logo Google */
+.goog-logo-link {
+  display: none !important;
+}
+
+/* esconder o dropdown feio */
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+
+/* evitar que o body desça quando traduz */
+body {
+  top: 0px !important;
+}
