@@ -49,8 +49,6 @@ function extractIngredientSlug(text: string) {
 }
 
 interface RecipeDetailProps {
-
-interface RecipeDetailProps {
   recipe: Recipe;
   onBack: () => void;
   favorites: number[];
