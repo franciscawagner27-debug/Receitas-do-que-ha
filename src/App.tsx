@@ -395,7 +395,7 @@ async function fetchRecipes() {
   Array.isArray(r.tags) &&
   r.tags.some((tag: string) =>
     validTags.includes(tag.toLowerCase().trim())
-  );
+  )
 
     // NOVA PESQUISA INTELIGENTE
     const {
