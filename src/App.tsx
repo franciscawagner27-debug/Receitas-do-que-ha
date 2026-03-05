@@ -84,7 +84,7 @@ function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = 30;
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   // IA – receita gerada
