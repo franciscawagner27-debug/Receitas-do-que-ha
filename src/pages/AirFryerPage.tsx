@@ -25,7 +25,7 @@ function handleHeaderSelect(category: string) {
   } else {
     navigate(`/?cat=${encodeURIComponent(category)}`);
   }
-
+    }
   useEffect(() => {
     document.title = "Receitas na Air Fryer | Receitas do Que Há";
     fetchRecipes();
