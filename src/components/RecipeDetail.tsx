@@ -25,7 +25,7 @@ const DESCRIPTORS = [
   "congelado","congelada","congelados","congeladas",
   "picado","picada","picados","picadas",
   "opcional","opcionais",
-  "gosto","aprox","aproximadamente","branco","tinto","maduro","verde"
+  "gosto","aprox","aproximadamente","branco","tinto","maduro","verde","roxa","branca"
 ];
 
 function extractIngredientSlug(text: string) {
