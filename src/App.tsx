@@ -26,8 +26,12 @@ const AI_FUNCTION_URL =
 /*                                   ROOT                                     */
 /* -------------------------------------------------------------------------- */
 
-export default function App() {
+function HomePage() {
   const location = useLocation();
+
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("Todas");
 
   return (
     <Routes>
