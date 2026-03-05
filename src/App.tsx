@@ -412,6 +412,7 @@ let filteredRecipes = recipesWithoutDST.filter((r: any) => {
 
     // match por "conter" (mais robusto do que match exacto)
     matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
+    }
   }
 
   // NOVA PESQUISA INTELIGENTE
