@@ -57,7 +57,7 @@ const handleClick = (category: string) => {
   {/* LOGO */}
   <button
     onClick={() => (window.location.href = "/")}
-    className="flex items-center flex-shrink-0 ml-4 mr-2"
+    className="flex items-center flex-shrink-0 ml-8 mr-2"
     aria-label="Ir para a página inicial"
   >
     <img
@@ -91,8 +91,8 @@ const handleClick = (category: string) => {
 
           <Link
   to="/sobre"
-  className="ml-4 px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
-             bg-white text-olive border-olive/40 hover:bg-olive/10"
+  className="ml-4 mr-8 px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+bg-white text-olive border-olive/40 hover:bg-olive/10"
 >
   Sobre
 </Link>
