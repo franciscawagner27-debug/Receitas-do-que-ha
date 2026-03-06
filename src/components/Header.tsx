@@ -51,23 +51,33 @@ const handleClick = (category: string) => {
 
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
-      <div className="mx-auto max-w-6xl px-2 sm:px-4 py-3">
+      <div className="mx-auto max-w-6xl px-1 sm:px-3 py-3">
         <div className="flex items-center gap-3">
-          {/* LOGO */}
-          <button
-            onClick={() => (window.location.href = "/")}
-            className="flex items-center flex-shrink-0 mr-4 sm:mr-6"
-            aria-label="Ir para a página inicial"
-          >
-            <img
-  src="/icons/icon-512.png"
-  alt="Receitas do Que Há"
-  className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain notranslate"
-/>
-          </button>
 
-          {/* CATEGORIAS */}
-          <nav className="flex-1 overflow-x-auto no-scrollbar">
+  {/* LOGO */}
+  <button
+    onClick={() => (window.location.href = "/")}
+    className="flex items-center flex-shrink-0 mr-2"
+    aria-label="Ir para a página inicial"
+  >
+    <img
+      src="/icons/icon-512.png"
+      alt="Receitas do Que Há"
+      className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain notranslate"
+    />
+  </button>
+
+  {/* SOBRE */}
+  <Link
+    to="/sobre"
+    className="px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+               bg-white text-olive border-olive/40 hover:bg-olive/10"
+  >
+    Sobre
+  </Link>
+
+  {/* CATEGORIAS */}
+  <nav className="flex-1 overflow-x-auto no-scrollbar">
  <div className="flex gap-2 py-1 min-w-max">
   {categories.map((category) => (
     <button
