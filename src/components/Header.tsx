@@ -91,7 +91,7 @@ const handleClick = (category: string) => {
 
           <Link
   to="/sobre"
-  className="ml-4 mr-20 px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+  className="ml-4 mr-30 px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
 bg-white text-olive border-olive/40 hover:bg-olive/10"
 >
   Sobre
