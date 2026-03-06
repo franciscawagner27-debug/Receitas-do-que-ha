@@ -55,11 +55,11 @@ const handleClick = (category: string) => {
        <div className="flex items-center gap-4 mr-24">
 
   {/* LOGO */}
-  <button
-    onClick={() => (window.location.href = "/")}
-   className="flex items-center flex-shrink-0 pl-12 mr-auto"
-    aria-label="Ir para a página inicial"
-  >
+ <button
+  onClick={() => (window.location.href = "/")}
+  className="flex items-center flex-shrink-0 ml-8"
+  aria-label="Ir para a página inicial"
+>
     <img
       src="/icons/icon-512.png"
       alt="Receitas do Que Há"
