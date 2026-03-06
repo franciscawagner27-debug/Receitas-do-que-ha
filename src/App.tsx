@@ -404,8 +404,9 @@ const haystack = normalize(
     Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
   ].join(" ")
 );
+const words = haystack.split(/\s+/);
 
-  matchesCategory = valid.some((v) => haystack.includes(normalize(v)));
+matchesCategory = valid.some((v) => words.includes(normalize(v)));
 }
 
 
