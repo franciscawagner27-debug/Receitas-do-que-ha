@@ -70,7 +70,7 @@ const handleClick = (category: string) => {
 
 
   {/* CATEGORIAS */}
-<nav className="flex-1 min-w-0 overflow-x-auto no-scrollbar ml-2 md:ml-28">
+<nav className="flex-1 min-w-0 overflow-x-auto no-scrollbar ml-0 md:ml-28">
  <div className="flex gap-2 py-1 min-w-max">
   {categories.map((category) => (
     <button
