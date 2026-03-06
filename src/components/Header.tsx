@@ -57,7 +57,7 @@ const handleClick = (category: string) => {
   {/* LOGO */}
   <button
     onClick={() => (window.location.href = "/")}
-    className="flex items-center flex-shrink-0 mr-2"
+    className="flex items-center flex-shrink-0 ml-4 mr-2"
     aria-label="Ir para a página inicial"
   >
     <img
@@ -67,14 +67,7 @@ const handleClick = (category: string) => {
     />
   </button>
 
-  {/* SOBRE */}
-  <Link
-    to="/sobre"
-   className="px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
-bg-white text-olive border-olive/40 hover:bg-olive/10 mr-6"
-  >
-    Sobre
-  </Link>
+
 
   {/* CATEGORIAS */}
 <nav className="flex-1 overflow-x-auto no-scrollbar ml-16">
@@ -96,6 +89,14 @@ bg-white text-olive border-olive/40 hover:bg-olive/10 mr-6"
 </div>
          </nav>
 
+          <Link
+  to="/sobre"
+  className="ml-4 px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+             bg-white text-olive border-olive/40 hover:bg-olive/10"
+>
+  Sobre
+</Link>
+          
 <div className="flex items-center gap-2 absolute right-4 top-4">
   <button onClick={() => changeLanguage("pt")}>🇵🇹</button>
   <button onClick={() => changeLanguage("en")}>🇬🇧</button>
