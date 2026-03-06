@@ -52,7 +52,7 @@ const handleClick = (category: string) => {
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
      <div className="w-full px-0 py-3">
-       <div className="flex items-center justify-between">
+       <div className="flex items-center gap-4 mr-24">
 
   {/* LOGO */}
   <button
@@ -70,7 +70,7 @@ const handleClick = (category: string) => {
 
 
   {/* CATEGORIAS */}
-<nav className="flex-1 max-w-3xl overflow-x-auto no-scrollbar ml-16">
+<nav className="flex-1 overflow-x-auto lg:overflow-visible no-scrollbar ml-16">
  <div className="flex gap-2 py-1 min-w-max">
   {categories.map((category) => (
     <button
