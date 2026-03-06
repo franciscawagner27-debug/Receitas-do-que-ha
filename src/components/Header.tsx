@@ -52,7 +52,7 @@ const handleClick = (category: string) => {
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
      <div className="w-full px-0 py-3">
-        <div className="flex items-center gap-3">
+       <div className="flex items-center justify-between">
 
   {/* LOGO */}
   <button
@@ -88,18 +88,20 @@ const handleClick = (category: string) => {
   ))}
 </div>
          </nav>
+         
+<div className="flex items-center gap-4 mr-8">
 
-          <Link
-  to="/sobre"
-  className="ml-4 mr-20 px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
-bg-white text-olive border-olive/40 hover:bg-olive/10"
->
-  Sobre
-</Link>
-          
-<div className="flex items-center gap-2 absolute right-4 top-4">
+  <Link
+    to="/sobre"
+    className="px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+    bg-white text-olive border-olive/40 hover:bg-olive/10"
+  >
+    Sobre
+  </Link>
+
   <button onClick={() => changeLanguage("pt")}>🇵🇹</button>
   <button onClick={() => changeLanguage("en")}>🇬🇧</button>
+
 </div>
 
 <div id="google_translate_element" style={{ display: "none" }}></div>
