@@ -57,7 +57,7 @@ const handleClick = (category: string) => {
   {/* LOGO */}
   <button
     onClick={() => (window.location.href = "/")}
-   className="flex items-center flex-shrink-0 pl-6 mr-2"
+   className="flex items-center flex-shrink-0 pl-10 mr-2"
     aria-label="Ir para a página inicial"
   >
     <img
