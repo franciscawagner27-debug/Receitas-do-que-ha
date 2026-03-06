@@ -60,10 +60,10 @@ const handleClick = (category: string) => {
   className="flex items-center flex-shrink-0 ml-8"
   aria-label="Ir para a página inicial"
 >
-   <img
+<img
   src="/icons/icon-512.png"
   alt="Receitas do Que Há"
-  className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain notranslate translate-x-12"
+  className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain notranslate md:translate-x-12"
 />
   </button>
 
