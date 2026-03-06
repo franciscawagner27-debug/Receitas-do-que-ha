@@ -77,7 +77,7 @@ bg-white text-olive border-olive/40 hover:bg-olive/10 mr-6"
   </Link>
 
   {/* CATEGORIAS */}
- <nav className="flex-1 overflow-x-auto no-scrollbar ml-8">
+<nav className="flex-1 overflow-x-auto no-scrollbar ml-16">
  <div className="flex gap-2 py-1 min-w-max">
   {categories.map((category) => (
     <button
