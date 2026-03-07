@@ -21,6 +21,7 @@ import Dicas from "./pages/Dicas";
 import ParaGrupos from "./pages/ParaGrupos";
 import Refeicoes10Pessoas from "./pages/Refeicoes10Pessoas";
 import QuantidadesPorPessoa from "./pages/QuantidadesPorPessoa";
+import IngredientesDespensa from "./pages/IngredientesDespensa";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
@@ -54,8 +55,12 @@ export default function App() {
       <Route path="/dicas" element={<Dicas />} />
       <Route path="/para-grupos" element={<ParaGrupos />} />
       <Route path="/para-grupos/refeicoes-10-pessoas" element={<Refeicoes10Pessoas />} /> 
-      <Route path="/dicas/quantidades-por-pessoa" element={<QuantidadesPorPessoa />} />   
+      <Route path="/dicas/quantidades-por-pessoa" element={<QuantidadesPorPessoa />} /> 
+      
       <Route
+  path="/dicas/ingredientes-despensa"
+  element={<IngredientesDespensa />}
+/>      <Route
   path="/receitas-com-ovos"
   element={<RecipesWithIngredient ingredient="ovos" />}
 />
