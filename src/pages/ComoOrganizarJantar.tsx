@@ -6,6 +6,12 @@ de organização antecipada ajuda a criar um ambiente acolhedor e a aproveitar
 melhor o momento com os convidados.
 </p>
 
+  <img
+  src="/images/jantar-em-casa-mesa.jpg"
+  alt="Mesa preparada para jantar em casa com flores e velas"
+  className="w-full rounded-xl shadow-sm mt-6 mb-8 object-cover max-h-[420px]"
+/>
+  
 <h2 className="text-xl font-semibold mt-6">
 Preparar a casa antes dos convidados chegarem
 </h2>
