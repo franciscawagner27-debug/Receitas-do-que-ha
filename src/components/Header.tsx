@@ -51,7 +51,7 @@ const handleClick = (category: string) => {
 
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
-    <div className="w-full px-0 py-2">
+    <div className="w-full px-0 pt-6 pb-2">
       <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mr-0 md:mr-24">
 
   {/* LOGO */}
