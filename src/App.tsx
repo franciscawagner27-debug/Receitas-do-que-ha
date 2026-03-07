@@ -478,7 +478,7 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
   /* ------------------------------- UI / RENDER ----------------------------- */
 
   return (
-    <div className="bg-beige min-h-screen text-charcoal font-sans relative">
+   <div className="bg-beige min-h-screen text-charcoal font-sans relative pb-24 md:pb-0">
       <Header onSelect={handleCategorySelect} />
 
       {/* HERO */}
