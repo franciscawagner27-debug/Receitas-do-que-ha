@@ -28,9 +28,10 @@ export default function Dicas() {
           </p>
         </div>
 
-        {/* Conteúdo em card */}
-        <section className="bg-white/60 backdrop-blur rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm">
-        <div className="space-y-5 leading-relaxed">
+{/* Conteúdo em card */}
+<section className="bg-white/60 backdrop-blur rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm">
+
+<div className="space-y-5 leading-relaxed">
 
 <p>
 Nesta secção encontra pequenas dicas que ajudam no dia a dia na cozinha —
@@ -88,24 +89,25 @@ Truques simples que facilitam cozinhar
 </ul>
 
 </div>
-          </div>
 
-          {/* Botões */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Link
-              to="/"
-              className="inline-flex justify-center rounded-xl px-5 py-3 bg-olive text-white hover:opacity-90 transition"
-            >
-              Voltar à página inicial
-            </Link>
+{/* Botões */}
+<div className="mt-8 flex flex-col sm:flex-row gap-3">
+  <Link
+    to="/"
+    className="inline-flex justify-center rounded-xl px-5 py-3 bg-olive text-white hover:opacity-90 transition"
+  >
+    Voltar à página inicial
+  </Link>
 
-            <Link
-              to="/"
-              className="inline-flex justify-center rounded-xl px-5 py-3 border border-olive text-olive hover:bg-olive/10 transition"
-            >
-              Pesquisar receitas por ingredientes
-            </Link>
-          </div>
+  <Link
+    to="/"
+    className="inline-flex justify-center rounded-xl px-5 py-3 border border-olive text-olive hover:bg-olive/10 transition"
+  >
+    Pesquisar receitas por ingredientes
+  </Link>
+</div>
+
+</section>
         </section>
       </main>
     </div>
