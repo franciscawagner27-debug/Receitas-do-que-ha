@@ -58,19 +58,19 @@ Exemplo de refeição para 10 pessoas
 <li>Tábua de queijos</li>
 
 <li>
-<Link to="/receita/guacamole" className="underline hover:text-terra">
+<Link to="/receita/e8c435e4-f7aa-4252-90f0-b1b797f451b3" className="underline hover:text-terra">
 Guacamole
 </Link>
 </li>
 
 <li>
-<Link to="/receita/humus" className="underline hover:text-terra">
+<Link to="/receita/b5a3affa-92f4-488c-be19-4efa4df7cd74" className="underline hover:text-terra">
 Húmus
 </Link>
 </li>
 
 <li>
-<Link to="/receita/arroz-de-frango-no-forno" className="underline hover:text-terra">
+<Link to="/receita/38efddee-7a90-4c0c-8f32-89723baf94a9" className="underline hover:text-terra">
 Arroz de frango no forno
 </Link>
 </li>
@@ -78,7 +78,7 @@ Arroz de frango no forno
 <li>Salada simples (alface, tomate e azeite)</li>
 
 <li>
-<Link to="/receita/bolo-de-chocolate-com-cobertura" className="underline hover:text-terra">
+<Link to="/receita/fc236f3a-b6d0-4afa-8720-06cb7f36186b" className="underline hover:text-terra">
 Bolo de chocolate com cobertura
 </Link>
 </li>
