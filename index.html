@@ -16,7 +16,7 @@
   />
 
   <!-- ⭐ TÍTULO MUITO IMPORTANTE PARA SEO -->
-  <title>Receitas do Que Há – Site Oficial</title>
+ <title>Receitas do Que Há | Receitas com os ingredientes que tem em casa</title>
 
   <!-- ⭐ META DESCRIPTION MELHORADA -->
   <meta
@@ -24,6 +24,8 @@
     content="O Receitas do Que Há é o site oficial onde pode descobrir receitas simples e rápidas feitas com os ingredientes que já tem em casa. Pesquise por ingredientes ou explore sugestões práticas e portuguesas."
   />
 
+  <link rel="canonical" href="https://receitasdoqueha.pt/" />
+  
   <!-- 🔹 Keywords opcionais (mantidas) -->
   <meta
     name="keywords"
@@ -90,8 +92,13 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Receitas do Que Há",
-  "url": "https://receitasdoqueha.pt",
+  "url": "https://receitasdoqueha.pt/",
   "description": "Site português com receitas simples feitas com os ingredientes que já tem em casa.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://receitasdoqueha.pt/?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
   "publisher": {
     "@type": "Organization",
     "name": "Receitas do Que Há",
