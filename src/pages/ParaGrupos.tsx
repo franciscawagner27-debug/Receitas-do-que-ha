@@ -48,14 +48,14 @@ export default function ParaGrupos() {
             <div className="mt-6 space-y-3">
 
               <Link
-                to="/para-grupos/comida-10-pessoas"
+              to="/para-grupos/refeicoes-10-pessoas"
                 className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
               >
                 Refeições para 10 pessoas
               </Link>
 
               <Link
-                to="/para-grupos/comida-20-pessoas"
+                to="/para-grupos/refeicoes-20-pessoas"
                 className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
               >
                 Refeições para 20 pessoas
