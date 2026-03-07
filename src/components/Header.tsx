@@ -89,7 +89,7 @@ const handleClick = (category: string) => {
 </div>
          </nav>
          
-<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto md:mr-8">
+<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto md:ml-auto">
 <Link
   to="/sobre"
 className="px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
