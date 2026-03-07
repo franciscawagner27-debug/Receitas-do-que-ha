@@ -33,45 +33,93 @@ export default function Refeicoes10Pessoas() {
         {/* Conteúdo */}
         <section className="bg-white/60 backdrop-blur rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm">
 
-          <div className="space-y-5 leading-relaxed">
+        <div className="space-y-5 leading-relaxed">
 
-            <p>
-              Quando se cozinha para várias pessoas, o mais importante é escolher
-              pratos que sejam fáceis de preparar em quantidade e que funcionem
-              bem em travessas grandes ou panelas grandes.
-            </p>
+<p>
+Cozinhar para 10 pessoas não precisa de ser complicado. O segredo é escolher
+pratos que possam ser preparados em quantidade, de preferência no forno
+ou numa panela grande, e que sejam fáceis de servir.
+</p>
 
-            <p>
-              Pratos de forno, receitas de arroz ou pratos de panela costumam
-              ser boas opções porque são fáceis de preparar e agradam à maioria
-              das pessoas.
-            </p>
+<p>
+Receitas de forno, pratos de arroz e algumas receitas tradicionais
+portuguesas são ideais porque rendem bem e normalmente agradam à maioria
+das pessoas.
+</p>
 
-            <h2 className="text-xl font-semibold mt-6">
-              Tipos de pratos que funcionam bem para grupos
-            </h2>
+<h2 className="text-xl font-semibold mt-6">
+Exemplo de refeição para 10 pessoas
+</h2>
 
-            <ul className="list-disc ml-6 space-y-2 text-olive">
-              <li>Pratos de massa no forno</li>
-              <li>Receitas de arroz de forno</li>
-              <li>Frango assado com batatas</li>
-              <li>Pratos de bacalhau no forno</li>
-              <li>Receitas de panela grande como feijoada</li>
-            </ul>
+<ul className="list-disc ml-6 space-y-2 text-olive">
 
-            <h2 className="text-xl font-semibold mt-6">
-              Quantidades aproximadas para 10 pessoas
-            </h2>
+<li>Cesto de pão variado e tostinhas</li>
 
-            <ul className="list-disc ml-6 space-y-2 text-olive">
-              <li>Arroz: cerca de 700–800 g</li>
-              <li>Massa: cerca de 900 g</li>
-              <li>Batatas: cerca de 2 kg</li>
-              <li>Carne: cerca de 1.5 a 2 kg</li>
-              <li>Peixe: cerca de 2 kg</li>
-            </ul>
+<li>Tábua de queijos</li>
 
-          </div>
+<li>
+<Link to="/receita/guacamole" className="underline hover:text-terra">
+Guacamole
+</Link>
+</li>
+
+<li>
+<Link to="/receita/humus" className="underline hover:text-terra">
+Húmus
+</Link>
+</li>
+
+<li>
+<Link to="/receita/arroz-de-frango-no-forno" className="underline hover:text-terra">
+Arroz de frango no forno
+</Link>
+</li>
+
+<li>Salada simples (alface, tomate e azeite)</li>
+
+<li>
+<Link to="/receita/bolo-de-chocolate-com-cobertura" className="underline hover:text-terra">
+Bolo de chocolate com cobertura
+</Link>
+</li>
+
+</ul>
+<h2 className="text-xl font-semibold mt-6">
+Pratos que funcionam bem para grupos
+</h2>
+
+<ul className="list-disc ml-6 space-y-2 text-olive">
+<li>Pratos de massa no forno</li>
+<li>Arroz de forno ou arroz de pato</li>
+<li>Frango assado com batatas</li>
+<li>Pratos de bacalhau no forno</li>
+<li>Feijoada ou outros pratos de panela grande</li>
+</ul>
+
+<h2 className="text-xl font-semibold mt-6">
+Quantidades aproximadas para 10 pessoas
+</h2>
+
+<ul className="list-disc ml-6 space-y-2 text-olive">
+<li>Arroz: cerca de 700 a 800 g</li>
+<li>Massa: cerca de 900 g</li>
+<li>Batatas: cerca de 2 kg</li>
+<li>Carne: cerca de 1.5 a 2 kg</li>
+<li>Peixe: cerca de 2 kg</li>
+<li>Salada: 2 a 3 alfaces grandes</li>
+</ul>
+
+<h2 className="text-xl font-semibold mt-6">
+Dica para cozinhar para várias pessoas
+</h2>
+
+<p>
+Sempre que possível prepare parte da refeição com antecedência.
+Pratos de forno e sobremesas frias podem ser feitos antes e apenas
+finalizados perto da hora de servir.
+</p>
+
+</div>
 
           {/* Botões */}
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
