@@ -57,7 +57,7 @@ const handleClick = (category: string) => {
   {/* LOGO */}
  <button
   onClick={() => (window.location.href = "/")}
-  className="flex items-center flex-shrink-0 ml-8"
+  className="flex items-center flex-shrink-0 ml-0 md:ml-8 justify-center w-full md:w-auto"
   aria-label="Ir para a página inicial"
 >
 <img
@@ -89,7 +89,7 @@ const handleClick = (category: string) => {
 </div>
          </nav>
          
-<div className="flex items-center gap-4 mr-8">
+<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto gap-4 md:mr-8">
 <Link
   to="/sobre"
   className="px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
