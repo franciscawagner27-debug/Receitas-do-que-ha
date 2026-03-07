@@ -52,7 +52,7 @@ const handleClick = (category: string) => {
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
    <div className="w-full px-0 pt-6 pb-2 md:pr-6">
-      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mr-0 md:mr-24">
+     <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mr-0">
 
   {/* LOGO */}
  <button
@@ -89,7 +89,7 @@ const handleClick = (category: string) => {
 </div>
          </nav>
          
-<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto md:ml-auto md:mr-2">
+<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto md:ml-auto">
 <Link
   to="/sobre"
 className="px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
