@@ -94,9 +94,7 @@ export default function Dicas() {
                 </Link>
               </li>
 
-              <li>Como descascar alho rapidamente</li>
-              <li>Como evitar que a cebola faça chorar</li>
-              <li>Como corrigir um prato demasiado salgado</li>
+           
 
             </ul>
 
