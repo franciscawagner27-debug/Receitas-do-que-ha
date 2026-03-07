@@ -28,6 +28,11 @@ export default function ParaGrupos() {
             jantares, festas ou reuniões em casa.
           </p>
         </div>
+<img
+  src="/images/jantar-em-grupo.jpg"
+  alt="Jantar em grupo à mesa com amigos"
+  className="w-full rounded-xl shadow-sm mt-6 mb-8 object-cover max-h-[420px]"
+/>        
 
         {/* Conteúdo em card */}
         <section className="bg-white/60 backdrop-blur rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm">
