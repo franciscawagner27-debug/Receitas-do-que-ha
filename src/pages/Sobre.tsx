@@ -20,12 +20,12 @@ export default function Sobre() {
           </Link>
 
           <h1 className="mt-5 text-3xl md:text-4xl font-serif text-charcoal">
-            Sobre o Receitas do Que Há
+           Sobre o projeto Receitas do Que Há
           </h1>
 
           <p className="mt-3 max-w-2xl text-olive">
-            Um projeto português para cozinhar com os ingredientes que já tem em casa.
-          </p>
+  O <strong>Receitas do Que Há</strong> é um site português onde pode descobrir receitas com os ingredientes que já tem em casa.
+</p>
         </div>
 
         {/* Conteúdo em “card” */}
