@@ -16,10 +16,10 @@ const Hero: React.FC = () => {
 
         {/* Texto centralizado */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
-          <h1 className="font-serif font-bold leading-tight drop-shadow-2xl text-5xl sm:text-6xl md:text-7xl">
-            <span className="block">Receitas</span>
-            <span className="block mt-1">DO QUE HÁ</span>
-          </h1>
+        <h1 className="font-serif font-bold leading-tight drop-shadow-2xl text-5xl sm:text-6xl md:text-7xl">
+  <span className="block">Receitas do</span>
+  <span className="block mt-1">Que Há</span>
+</h1>
           <p className="mt-6 text-lg sm:text-xl text-gray-100 drop-shadow-md">
             Descubra o que pode cozinhar com o que tem em casa.
           </p>
