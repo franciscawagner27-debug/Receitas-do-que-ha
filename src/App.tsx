@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import AirFryerPage from "./pages/AirFryerPage";
 import Dicas from "./pages/Dicas";
 import ParaGrupos from "./pages/ParaGrupos";
+import Refeicoes10Pessoas from "./pages/Refeicoes10Pessoas";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
