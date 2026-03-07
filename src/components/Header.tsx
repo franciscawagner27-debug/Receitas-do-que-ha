@@ -51,7 +51,7 @@ const handleClick = (category: string) => {
 
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
-     <div className="w-full px-0 py-3">
+    <div className="w-full px-0 py-2">
       <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mr-0 md:mr-24">
 
   {/* LOGO */}
@@ -63,7 +63,7 @@ const handleClick = (category: string) => {
 <img
   src="/icons/icon-512.png"
   alt="Receitas do Que Há"
-  className="h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain notranslate md:translate-x-10"
+ className="h-32 w-32 sm:h-36 sm:w-36 md:h-32 md:w-32 object-contain notranslate md:translate-x-10"
 />
   </button>
 
@@ -89,7 +89,7 @@ const handleClick = (category: string) => {
 </div>
          </nav>
          
-<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto gap-4 md:mr-8">
+<div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto md:mr-8">
 <Link
   to="/sobre"
   className="px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
@@ -98,9 +98,10 @@ const handleClick = (category: string) => {
   Sobre
 </Link>
 
+  <div className="flex gap-2">
   <button onClick={() => changeLanguage("pt")}>🇵🇹</button>
   <button onClick={() => changeLanguage("en")}>🇬🇧</button>
-
+</div>
 </div>
 
 <div id="google_translate_element" style={{ display: "none" }}></div>
