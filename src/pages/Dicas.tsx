@@ -30,42 +30,64 @@ export default function Dicas() {
 
         {/* Conteúdo em card */}
         <section className="bg-white/60 backdrop-blur rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm">
-          <div className="space-y-4 leading-relaxed">
-            <p>
-              Nesta secção encontra pequenas sugestões que ajudam no dia a dia na cozinha —
-              desde quantidades por pessoa até truques simples que facilitam a preparação das refeições.
-            </p>
+        <div className="space-y-5 leading-relaxed">
 
-            <p>
-              O objetivo é tornar a cozinha mais prática e ajudar a tirar melhor partido dos
-              ingredientes que já tem em casa.
-            </p>
+<p>
+Nesta secção encontra pequenas dicas que ajudam no dia a dia na cozinha —
+desde quantidades por pessoa até truques simples que facilitam a preparação
+das refeições.
+</p>
 
-            {/* Links para páginas */}
-            <div className="mt-6 space-y-3">
+<p>
+São sugestões práticas para cozinhar melhor, evitar desperdício e
+organizar refeições com ingredientes comuns.
+</p>
 
-              <Link
-                to="/dicas/quantidades-por-pessoa"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-                Quantidades por pessoa
-              </Link>
+<h2 className="text-xl font-semibold mt-6">
+Quantidades e organização
+</h2>
 
-              <Link
-                to="/dicas/truques-de-cozinha"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-                Truques de cozinha
-              </Link>
+<ul className="list-disc ml-6 space-y-2 text-olive">
 
-              <Link
-                to="/dicas/organizar-jantar"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-                Como organizar um jantar em casa
-              </Link>
+<li>
+<Link to="/dicas/quantidades-por-pessoa" className="underline hover:text-terra">
+Quantidades por pessoa
+</Link>
+</li>
 
-            </div>
+<li>
+<Link to="/dicas/como-organizar-jantar" className="underline hover:text-terra">
+Como organizar um jantar em casa
+</Link>
+</li>
+
+<li>
+<Link to="/dicas/ingredientes-despensa" className="underline hover:text-terra">
+Ingredientes que vale a pena ter sempre na despensa
+</Link>
+</li>
+
+</ul>
+
+<h2 className="text-xl font-semibold mt-6">
+Truques úteis na cozinha
+</h2>
+
+<ul className="list-disc ml-6 space-y-2 text-olive">
+
+<li>
+<Link to="/dicas/truques-de-cozinha" className="underline hover:text-terra">
+Truques simples que facilitam cozinhar
+</Link>
+</li>
+
+<li>Como descascar alho rapidamente</li>
+<li>Como evitar que a cebola faça chorar</li>
+<li>Como corrigir um prato demasiado salgado</li>
+
+</ul>
+
+</div>
           </div>
 
           {/* Botões */}
