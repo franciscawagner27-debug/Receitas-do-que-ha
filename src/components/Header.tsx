@@ -92,13 +92,14 @@ const handleClick = (category: string) => {
 <div className="flex items-center justify-between w-full px-6 md:px-0 md:w-auto md:mr-8">
 <Link
   to="/sobre"
-  className="px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
-  bg-olive text-white border border-olive"
+className="px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
+bg-olive text-white border border-olive
+md:bg-olive/10 md:text-olive md:border-olive/30 md:hover:bg-olive/20"
 >
   Sobre
 </Link>
 
-  <div className="flex gap-2">
+ <div className="flex gap-3 ml-2">
   <button onClick={() => changeLanguage("pt")}>🇵🇹</button>
   <button onClick={() => changeLanguage("en")}>🇬🇧</button>
 </div>
