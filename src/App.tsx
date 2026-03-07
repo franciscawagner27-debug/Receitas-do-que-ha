@@ -17,6 +17,8 @@ import IngredientePage from "./pages/IngredientePage";
 import RecipesWithIngredient from "./pages/RecipesWithIngredient";
 import { Link } from "react-router-dom";
 import AirFryerPage from "./pages/AirFryerPage";
+import Dicas from "./pages/Dicas";
+import ParaGrupos from "./pages/ParaGrupos";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
@@ -47,6 +49,8 @@ export default function App() {
       <Route path="/ingrediente/:nome" element={<IngredientePage />} /> 
       <Route path="/receitas-com-frango" element={<RecipesWithIngredient ingredient="frango" />} /> 
       <Route path="/airfryer" element={<AirFryerPage />} /> 
+      <Route path="/dicas" element={<Dicas />} />
+      <Route path="/para-grupos" element={<ParaGrupos />} />   
       <Route
   path="/receitas-com-ovos"
   element={<RecipesWithIngredient ingredient="ovos" />}
