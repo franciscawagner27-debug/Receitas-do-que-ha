@@ -74,12 +74,19 @@ export default function ParaGrupos() {
                 Pratos que rendem para muitas pessoas
               </Link>
 
-              <Link
-                to="/para-grupos/sobremesas-para-grupos"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-                Sobremesas para muitas pessoas
-              </Link>
+            <Link
+  to="/para-grupos/sobremesas-para-grupos"
+  className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+>
+  Sobremesas para muitas pessoas
+</Link>
+
+<Link
+  to="/dicas/como-organizar-jantar"
+  className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+>
+  Como organizar um jantar em casa
+</Link>
 
             </div>
           </div>
