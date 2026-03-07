@@ -50,7 +50,8 @@ export default function App() {
       <Route path="/receitas-com-frango" element={<RecipesWithIngredient ingredient="frango" />} /> 
       <Route path="/airfryer" element={<AirFryerPage />} /> 
       <Route path="/dicas" element={<Dicas />} />
-      <Route path="/para-grupos" element={<ParaGrupos />} />   
+      <Route path="/para-grupos" element={<ParaGrupos />} />
+      <Route path="/para-grupos/refeicoes-10-pessoas" element={<Refeicoes10Pessoas />} /> 
       <Route
   path="/receitas-com-ovos"
   element={<RecipesWithIngredient ingredient="ovos" />}
