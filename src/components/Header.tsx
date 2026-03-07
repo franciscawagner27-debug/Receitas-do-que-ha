@@ -52,7 +52,7 @@ const handleClick = (category: string) => {
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
      <div className="w-full px-0 py-3">
-       <div className="flex items-center gap-4 mr-24">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mr-0 md:mr-24">
 
   {/* LOGO */}
  <button
@@ -70,7 +70,7 @@ const handleClick = (category: string) => {
 
 
   {/* CATEGORIAS */}
-<nav className="flex-1 min-w-0 overflow-x-auto no-scrollbar ml-0 md:ml-28">
+<nav className="w-full overflow-x-auto no-scrollbar md:flex-1 md:min-w-0 ml-0 md:ml-28">
  <div className="flex gap-2 py-1 min-w-max">
   {categories.map((category) => (
     <button
