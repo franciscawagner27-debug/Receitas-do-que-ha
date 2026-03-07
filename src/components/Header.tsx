@@ -51,8 +51,8 @@ const handleClick = (category: string) => {
 
   return (
     <header className="bg-beige border-b border-olive/20 sticky top-0 z-50">
-  <div className="w-full px-0 pt-3 pb-2 md:pr-6">
-    <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 mr-0">
+  <div className="w-full px-0 pt-1 pb-2 md:pr-6">
+    <div className="flex flex-col md:flex-row md:items-center gap-0 md:gap-4 mr-0">
 
   {/* LOGO */}
  <button
