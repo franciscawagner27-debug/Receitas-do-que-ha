@@ -27,6 +27,12 @@ export default function Dicas() {
           <p className="mt-3 max-w-2xl text-olive">
             Sugestões úteis para cozinhar melhor e organizar refeições no dia a dia.
           </p>
+          
+          <img
+  src="/images/dicas-de-cozinha.jpg"
+  alt="Preparação de ingredientes numa tábua de cozinha"
+  className="w-full rounded-xl shadow-sm mt-6 mb-8 object-cover max-h-[420px]"
+/>       
         </div>
 
         {/* Card */}
