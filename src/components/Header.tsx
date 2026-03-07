@@ -107,6 +107,27 @@ const handleClick = (category: string) => {
 
 </div>
 </div>
+{/* MOBILE BOTTOM NAV */}
+<div className="md:hidden fixed bottom-0 left-0 w-full bg-beige border-t border-olive/20 z-50">
+  <div className="flex overflow-x-auto no-scrollbar gap-2 px-3 py-2">
+
+    {categories.map((category) => (
+      <button
+        key={category}
+        onClick={() => handleClick(category)}
+        className={`px-3 py-1.5 rounded-full border text-sm whitespace-nowrap transition
+        ${
+          selected === category
+            ? "bg-olive text-white border-olive"
+            : "bg-white text-olive border-olive/40"
+        }`}
+      >
+        {category}
+      </button>
+    ))}
+
+  </div>
+</div>
 </header>
   );
 };
