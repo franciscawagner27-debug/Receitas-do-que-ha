@@ -23,6 +23,7 @@ import Refeicoes10Pessoas from "./pages/Refeicoes10Pessoas";
 import QuantidadesPorPessoa from "./pages/QuantidadesPorPessoa";
 import IngredientesDespensa from "./pages/IngredientesDespensa";
 import ComoOrganizarJantar from "./pages/ComoOrganizarJantar";
+import TruquesCozinha from "./pages/TruquesCozinha";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
@@ -57,7 +58,8 @@ export default function App() {
       <Route path="/para-grupos" element={<ParaGrupos />} />
       <Route path="/para-grupos/refeicoes-10-pessoas" element={<Refeicoes10Pessoas />} /> 
       <Route path="/dicas/quantidades-por-pessoa" element={<QuantidadesPorPessoa />} /> 
-      <Route path="/dicas/como-organizar-jantar" element={<ComoOrganizarJantar />} />  
+      <Route path="/dicas/como-organizar-jantar" element={<ComoOrganizarJantar />} /> 
+      <Route path="/dicas/truques-de-cozinha" element={<TruquesCozinha />} />  
       
       <Route
   path="/dicas/ingredientes-despensa"
