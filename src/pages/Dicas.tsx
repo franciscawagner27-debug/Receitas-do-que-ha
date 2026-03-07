@@ -66,14 +66,7 @@ export default function Dicas() {
                 </Link>
               </li>
 
-              <li>
-                <Link
-                  to="/dicas/como-organizar-jantar"
-                  className="underline hover:text-terra"
-                >
-                  Como organizar um jantar em casa
-                </Link>
-              </li>
+
 
               <li>
                 <Link
