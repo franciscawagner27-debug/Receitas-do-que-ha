@@ -63,7 +63,7 @@ const handleClick = (category: string) => {
 <img
   src="/icons/icon-512.png"
   alt="Receitas do Que Há"
- className="h-40 w-40 md:h-32 md:w-32 object-contain notranslate md:translate-x-10"
+ className="h-48 w-48 md:h-32 md:w-32 object-contain notranslate md:translate-x-10"
 />
   </button>
 
