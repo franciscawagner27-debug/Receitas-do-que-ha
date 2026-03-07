@@ -41,46 +41,64 @@ export default function QuantidadesPorPessoa() {
               aproximada para refeições principais.
             </p>
 
-            <h2 className="text-xl font-semibold">
-              Quantidades médias por pessoa
-            </h2>
+          <h2 className="text-xl font-semibold">
+Quantidades médias por pessoa
+</h2>
 
-            <ul className="list-disc ml-6 space-y-2 text-olive">
+<p className="text-sm text-olive">
+As quantidades indicadas referem-se a ingredientes antes de cozinhar.
+</p>
 
-              <li>Arroz: cerca de 70–80 g cru</li>
+<div className="overflow-x-auto mt-4">
+<table className="w-full text-left border border-neutral-200 rounded-xl overflow-hidden">
 
-              <li>Massa: cerca de 80–100 g</li>
+<thead className="bg-olive/10 text-charcoal">
+<tr>
+<th className="px-4 py-3">Ingrediente</th>
+<th className="px-4 py-3">Quantidade por pessoa</th>
+</tr>
+</thead>
 
-              <li>Batatas: cerca de 200–250 g</li>
+<tbody className="divide-y divide-neutral-200">
 
-              <li>Carne: cerca de 150–200 g</li>
+<tr className="bg-white/70">
+<td className="px-4 py-3">Arroz</td>
+<td className="px-4 py-3">70–80 g</td>
+</tr>
 
-              <li>Peixe: cerca de 180–220 g</li>
+<tr className="bg-white/70">
+<td className="px-4 py-3">Massa</td>
+<td className="px-4 py-3">80–100 g</td>
+</tr>
 
-              <li>Salada: cerca de 50–70 g</li>
+<tr className="bg-white/70">
+<td className="px-4 py-3">Batatas</td>
+<td className="px-4 py-3">200–250 g</td>
+</tr>
 
-              <li>Pão: cerca de 60–80 g</li>
+<tr className="bg-white/70">
+<td className="px-4 py-3">Carne</td>
+<td className="px-4 py-3">150–200 g</td>
+</tr>
 
-            </ul>
+<tr className="bg-white/70">
+<td className="px-4 py-3">Peixe</td>
+<td className="px-4 py-3">180–220 g</td>
+</tr>
 
-            <h2 className="text-xl font-semibold">
-              Exemplo para 4 pessoas
-            </h2>
+<tr className="bg-white/70">
+<td className="px-4 py-3">Salada</td>
+<td className="px-4 py-3">50–70 g</td>
+</tr>
 
-            <ul className="list-disc ml-6 space-y-2 text-olive">
+<tr className="bg-white/70">
+<td className="px-4 py-3">Pão</td>
+<td className="px-4 py-3">60–80 g</td>
+</tr>
 
-              <li>Arroz: cerca de 300 g</li>
-
-              <li>Massa: cerca de 350 g</li>
-
-              <li>Batatas: cerca de 1 kg</li>
-
-              <li>Carne: cerca de 700 g</li>
-
-            </ul>
-
-          </div>
-
+</tbody>
+</table>
+</div>
           {/* Botões */}
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
 
