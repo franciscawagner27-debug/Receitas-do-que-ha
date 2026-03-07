@@ -31,22 +31,28 @@ export default function Sobre() {
         {/* Conteúdo em “card” */}
         <section className="bg-white/60 backdrop-blur rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm">
           <div className="space-y-4 leading-relaxed">
-            <p>
-              O <strong>Receitas do Que Há</strong> nasceu para facilitar o dia a dia:
-              pesquisar por ingredientes e encontrar ideias práticas, com sabores portugueses e
-              ingredientes comuns.
-            </p>
+         <p>
+  O <Link to="/" className="underline hover:text-terra">
+  Receitas do Que Há
+  </Link>{" "}
+  nasceu para facilitar o dia a dia: pesquisar por ingredientes e encontrar ideias práticas, com sabores portugueses e ingredientes comuns.
+</p>
 
-            <p>
-              A ideia é simples: reduzir desperdício, poupar tempo e transformar o que existe na
-              despensa em refeições que funcionam.
-            </p>
+           <p>
+  A ideia é simples: ajudar a descobrir o que cozinhar com os ingredientes que já tem em casa, reduzir desperdício e poupar tempo na cozinha.
+</p>
 
             <p>
               No site pode pesquisar por ingredientes, explorar categorias e descobrir sugestões
               adaptadas a diferentes rotinas — desde refeições rápidas a opções mais completas.
             </p>
-
+            
+            <p>
+             No <strong>Receitas do Que Há</strong> encontra receitas simples,
+            rápidas e económicas, com ingredientes fáceis de encontrar e
+             pensadas para o dia a dia.
+            </p>
+            
             <p className="text-olive">
               Para sugestões, parcerias ou feedback:{" "}
               <a
