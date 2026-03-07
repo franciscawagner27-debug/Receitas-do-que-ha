@@ -51,14 +51,14 @@ export default function ParaGrupos() {
                 to="/para-grupos/comida-10-pessoas"
                 className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
               >
-                Comida para 10 pessoas
+                Refeições para 10 pessoas
               </Link>
 
               <Link
                 to="/para-grupos/comida-20-pessoas"
                 className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
               >
-                Comida para 20 pessoas
+                Refeições para 20 pessoas
               </Link>
 
               <Link
