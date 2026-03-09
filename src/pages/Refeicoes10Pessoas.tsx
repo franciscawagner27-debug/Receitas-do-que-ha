@@ -104,6 +104,7 @@ export default function Refeicoes10Pessoas() {
            
               <li>Bacalhau com natas</li>
               <li>Frango assado com batatas</li>
+              <li>Rosbife</li>             
               <li>Lasanha de carne ou de legumes</li>
               <li>Caril de frango</li>
               <li>Arroz de pato</li>
