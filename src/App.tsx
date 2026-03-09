@@ -25,6 +25,7 @@ import IngredientesDespensa from "./pages/IngredientesDespensa";
 import ComoOrganizarJantar from "./pages/ComoOrganizarJantar";
 import TruquesCozinha from "./pages/TruquesCozinha";
 import Refeicoes20Pessoas from "./pages/Refeicoes20Pessoas";
+import SobremesasParaGrupos from "./pages/SobremesasParaGrupos";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
@@ -64,7 +65,8 @@ export default function App() {
 <Route
   path="/para-grupos/refeicoes-20-pessoas"
   element={<Refeicoes20Pessoas />}
-/>      
+/>   
+      <Route path="/para-grupos/sobremesas-para-grupos" element={<SobremesasParaGrupos />} />   
       
       <Route
   path="/dicas/ingredientes-despensa"
