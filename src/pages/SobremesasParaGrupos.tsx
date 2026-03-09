@@ -82,12 +82,12 @@ export default function SobremesasParaGrupos() {
               Voltar à página de grupos
             </Link>
 
-            <Link
-              to="/"
-              className="inline-flex justify-center rounded-xl px-5 py-3 border border-olive text-olive hover:bg-olive/10 transition"
-            >
-              Ver receitas
-            </Link>
+         <Link
+  to="/sobremesas"
+  className="inline-flex justify-center rounded-xl px-5 py-3 border border-olive text-olive hover:bg-olive/10 transition"
+>
+  Ver receitas de sobremesas
+</Link>
 
           </div>
 
