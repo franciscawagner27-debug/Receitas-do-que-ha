@@ -71,8 +71,7 @@ export default function ParaGrupos() {
                 to="/para-grupos/pratos-que-rendem"
                 className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
               >
-                Pratos que rendem para muitas pessoas
-              </Link>
+            
 
             <Link
   to="/para-grupos/sobremesas-para-grupos"
