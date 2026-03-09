@@ -30,7 +30,7 @@ export default function ComoOrganizarJantar() {
           </p>
 
           <img
-            src="/images/jantar-em-casa.jpg"
+            src="/images/jantar-em-casa-mesa.jpg"
             alt="Mesa posta para um jantar em casa"
             className="w-full rounded-xl shadow-sm mt-6 mb-8 object-cover max-h-[420px]"
           />
