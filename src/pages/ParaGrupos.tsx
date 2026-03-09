@@ -50,44 +50,45 @@ export default function ParaGrupos() {
               funcionam bem para grupos.
             </p>
 
-            {/* Links */}
-            <div className="mt-6 space-y-3">
+    {/* Links */}
+<div className="mt-6 space-y-3">
 
-              <Link
-              to="/para-grupos/refeicoes-10-pessoas"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-                Refeições para 10 pessoas
-              </Link>
+  <Link
+    to="/para-grupos/refeicoes-10-pessoas"
+    className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+  >
+    Refeições para 10 pessoas
+  </Link>
 
-              <Link
-                to="/para-grupos/refeicoes-20-pessoas"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-                Refeições para 20 pessoas
-              </Link>
+  <Link
+    to="/para-grupos/refeicoes-20-pessoas"
+    className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+  >
+    Refeições para 20 pessoas
+  </Link>
 
-              <Link
-                to="/para-grupos/pratos-que-rendem"
-                className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
-              >
-            
+  <Link
+    to="/para-grupos/pratos-que-rendem"
+    className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+  >
+    Pratos que rendem para muitas pessoas
+  </Link>
 
-            <Link
-  to="/para-grupos/sobremesas-para-grupos"
-  className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
->
-  Sobremesas para muitas pessoas
-</Link>
+  <Link
+    to="/para-grupos/sobremesas-para-grupos"
+    className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+  >
+    Sobremesas para muitas pessoas
+  </Link>
 
-<Link
-  to="/dicas/como-organizar-jantar"
-  className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
->
-  Como organizar um jantar em casa
-</Link>
+  <Link
+    to="/dicas/como-organizar-jantar"
+    className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
+  >
+    Como organizar um jantar em casa
+  </Link>
 
-            </div>
+</div>
           </div>
 
           {/* Botões */}
