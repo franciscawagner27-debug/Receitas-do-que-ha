@@ -83,7 +83,7 @@ export default function SobremesasParaGrupos() {
             </Link>
 
 <Link
-  to="/?categoria=sobremesas"
+  to="/?cat=sobremesas"
   className="inline-flex justify-center rounded-xl px-5 py-3 border border-olive text-olive hover:bg-olive/10 transition"
 >
   Ver receitas de sobremesas
