@@ -67,7 +67,66 @@ Exemplo de menu para 20 pessoas
 <li>Crumble de maçã</li>
 <li>Mousse de limão</li>
 </ul>
+            <h2 className="text-xl font-semibold mt-8">
+Quantidades aproximadas para 20 pessoas
+</h2>
 
+<p className="text-olive mt-2">
+Quando se cozinha para grupos grandes, é útil ter uma ideia das
+quantidades necessárias. Estes valores são aproximados e referem-se
+a ingredientes antes de cozinhar.
+</p>
+
+<div className="overflow-x-auto mt-4">
+<table className="w-full text-left border border-neutral-200 rounded-xl overflow-hidden">
+
+<thead className="bg-olive/10 text-charcoal">
+<tr>
+<th className="px-4 py-3">Ingrediente</th>
+<th className="px-4 py-3">Quantidade para 20 pessoas</th>
+</tr>
+</thead>
+
+<tbody className="divide-y divide-neutral-200">
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Arroz</td>
+<td className="px-4 py-3">1,4 – 1,6 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Massa</td>
+<td className="px-4 py-3">1,6 – 2 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Batatas</td>
+<td className="px-4 py-3">4 – 5 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Carne</td>
+<td className="px-4 py-3">3 – 4 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Peixe</td>
+<td className="px-4 py-3">4 – 4,5 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Salada</td>
+<td className="px-4 py-3">4 – 5 alfaces grandes</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Pão</td>
+<td className="px-4 py-3">1,2 – 1,5 kg</td>
+</tr>
+
+</tbody>
+</table>
+</div>
             <p className="text-olive mt-6">
               Para organizar melhor a refeição e preparar a casa antes
               dos convidados chegarem, veja também as nossas
