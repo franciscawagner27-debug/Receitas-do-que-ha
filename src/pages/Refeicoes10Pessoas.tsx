@@ -83,32 +83,85 @@ Bolo de chocolate com cobertura
 </Link>
 </li>
 
-</ul>
+
+
 <h2 className="text-xl font-semibold mt-6">
-Pratos que funcionam bem para grupos
+Outras ideias de pratos principais
 </h2>
 
 <ul className="list-disc ml-6 space-y-2 text-olive">
-<li>Pratos de massa no forno</li>
-<li>Arroz de forno ou arroz de pato</li>
+
+
+<li>Bacalhau com natas</li>
+
 <li>Frango assado com batatas</li>
-<li>Pratos de bacalhau no forno</li>
-<li>Feijoada ou outros pratos de panela grande</li>
+
+<li>Lasanha de carne ou de legumes</li>
+
+<li>Caril de frango</li>
+
+<li>Arroz de pato</li>
+
+<li>Massada de peixe</li>
+
+<li>Lombinhos de porco</li>
+
 </ul>
 
 <h2 className="text-xl font-semibold mt-6">
 Quantidades aproximadas para 10 pessoas
 </h2>
 
-<ul className="list-disc ml-6 space-y-2 text-olive">
-<li>Arroz: cerca de 700 a 800 g</li>
-<li>Massa: cerca de 900 g</li>
-<li>Batatas: cerca de 2 kg</li>
-<li>Carne: cerca de 1.5 a 2 kg</li>
-<li>Peixe: cerca de 2 kg</li>
-<li>Salada: 2 a 3 alfaces grandes</li>
-</ul>
+<div className="overflow-x-auto mt-4">
+<table className="w-full text-left border border-neutral-200 rounded-xl overflow-hidden">
 
+<thead className="bg-olive/10 text-charcoal">
+<tr>
+<th className="px-4 py-3">Ingrediente</th>
+<th className="px-4 py-3">Quantidade para 10 pessoas</th>
+</tr>
+</thead>
+
+<tbody className="divide-y divide-neutral-200">
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Arroz</td>
+<td className="px-4 py-3">700 – 800 g</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Massa</td>
+<td className="px-4 py-3">800 – 900 g</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Batatas</td>
+<td className="px-4 py-3">2 – 2,5 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Carne</td>
+<td className="px-4 py-3">1,5 – 2 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Peixe</td>
+<td className="px-4 py-3">2 – 2,5 kg</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Salada</td>
+<td className="px-4 py-3">2 – 3 alfaces grandes</td>
+</tr>
+
+<tr className="bg-white/70">
+<td className="px-4 py-3">Pão</td>
+<td className="px-4 py-3">600 – 800 g</td>
+</tr>
+
+</tbody>
+</table>
+</div>
 <h2 className="text-xl font-semibold mt-6">
 Dica para cozinhar para várias pessoas
 </h2>
