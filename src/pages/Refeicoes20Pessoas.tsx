@@ -67,6 +67,30 @@ Exemplo de menu para 20 pessoas
 <li>Crumble de maçã</li>
 <li>Mousse de limão</li>
 </ul>
+
+            <h2 className="text-xl font-semibold mt-8">
+Outras ideias de pratos principais para 20 pessoas
+</h2>
+
+<ul className="list-disc ml-6 space-y-2 text-olive">
+
+<li>Arroz de pato no forno</li>
+
+<li>Lasanha grande de carne ou legumes</li>
+
+<li>Frango assado no forno com batatas</li>
+
+<li>Bacalhau com natas em tabuleiro grande</li>
+
+<li>Caril de frango com arroz basmati</li>
+
+<li>Chili com carne e feijão</li>
+
+<li>Massada de peixe ou marisco</li>
+
+<li>Empadão de carne ou de bacalhau</li>
+
+</ul>  
             <h2 className="text-xl font-semibold mt-8">
 Quantidades aproximadas para 20 pessoas
 </h2>
