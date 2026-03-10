@@ -368,7 +368,7 @@ const normalize = (s: string = "") =>
 
 // 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
 let filteredRecipes = recipesWithoutDST.filter((r: any) => {
-  const selected = normalize(selectedCategory);
+ const selected = normalize(selectedCategory).replace(/[\s-]/g, "");
 
   const categoryMap: Record<string, string[]> = {
     entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
