@@ -96,7 +96,7 @@ export default function DiasSemTempoPage() {
   <div className="absolute inset-0 bg-black/40" />
 
 
-  {/* TEXTO CENTRADO */}
+  {/* TEXTO CENTRADO */} 
   <div className="relative z-10 px-4 max-w-2xl mx-auto text-center pt-10 sm:pt-0">
     <h1 className="text-4xl md:text-5xl font-serif text-white mb-3 drop-shadow">
       Dias Sem Tempo
