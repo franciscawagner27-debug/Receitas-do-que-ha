@@ -128,7 +128,7 @@ export default function DiasSemTempoPage() {
 
           <input
             type="text"
-            placeholder="Ex: croquetes, batatas assadas, folhado..."
+            placeholder="Ex: frango, atum, massas..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-4 rounded-xl border border-olive/40 shadow bg-white 
