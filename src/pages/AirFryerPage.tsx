@@ -55,14 +55,30 @@ const AirFryerPage: React.FC = () => {
     <div className="bg-beige min-h-screen text-charcoal">
       <Header onSelect={handleHeaderSelect} />
 
-      <div className="px-6 py-12 max-w-5xl mx-auto">
-        <h1 className="text-4xl font-serif text-olive text-center mb-6">
-          Receitas na Air Fryer
-        </h1>
+     {/* HERO */}
+<section
+  className="relative h-[40vh] sm:h-[45vh] flex flex-col justify-center items-center text-center bg-cover bg-[center_60%]"
+  style={{
+    backgroundImage:
+      "url('URL-DA-IMAGEM-AIRFRYER')",
+  }}
+>
+  {/* overlay */}
+  <div className="absolute inset-0 bg-black/40" />
 
-        <p className="text-center text-charcoal/80 mb-10">
-          Descubra receitas simples e rápidas feitas na Air Fryer.
-        </p>
+  <div className="relative z-10 max-w-xl px-6">
+    <h1 className="text-3xl sm:text-4xl font-serif text-white mb-3">
+      Receitas na Air Fryer
+    </h1>
+
+    <p className="text-white/90 text-sm sm:text-base">
+      Descubra receitas simples, rápidas e crocantes feitas na Air Fryer.
+      Ideias práticas para o dia a dia com menos gordura e muito sabor.
+    </p>
+  </div>
+</section>
+
+<div className="px-6 py-12 max-w-5xl mx-auto">
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {recipes.map((r) => (
