@@ -103,10 +103,10 @@ export default function DiasSemTempoPage() {
     </h1>
 
     <p className="text-white/90 max-w-xl mx-auto text-lg drop-shadow">
-      Porque nem todos os dias há tempo para cozinhar, reunimos aqui soluções rápidas
-      e produtos que já experimentámos e recomendamos. São opções práticas para dias
-      apressados — pensadas para ajudar, não para substituir as refeições caseiras do
-      dia a dia.
+     Nem todos os dias há tempo para cozinhar com calma. Nesta secção
+      reunimos receitas rápidas e práticas que pode preparar em poucos minutos,
+      com ingredientes simples que normalmente já tem em casa. São ideias pensadas para aqueles dias mais apressados,
+      quando precisa de uma refeição fácil, mas não quer abdicar de algo caseiro.
     </p>
   </div>
 </section>
