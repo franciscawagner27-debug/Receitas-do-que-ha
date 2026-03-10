@@ -33,7 +33,9 @@ const [selected, setSelected] = useState("Todas");
 
 const handleClick = (category: string) => {
   setSelected(category);
-
+  
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  
   const normalized = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   if (normalized === "dias sem tempo") {
