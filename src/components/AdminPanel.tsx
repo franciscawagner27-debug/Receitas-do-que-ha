@@ -138,7 +138,7 @@ async function deleteRecipe(id: string) {
 
   loadRecipes();
 }
-}
+
 
   async function updatePriority(id: string) {
     const raw = priorityEdits[id];
