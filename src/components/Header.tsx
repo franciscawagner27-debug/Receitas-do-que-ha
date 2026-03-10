@@ -42,7 +42,7 @@ setTimeout(() => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
     window.scrollTo({
-      top: scrollTop + rect.top - 40,
+      top: scrollTop + rect.top - 120,
       behavior: "smooth",
     });
   }
