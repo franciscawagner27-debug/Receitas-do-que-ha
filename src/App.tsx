@@ -396,6 +396,7 @@ let filteredRecipes = recipesWithoutDST.filter((r: any) => {
       "mousses",
     ],
     airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
+    semgluten: ["semgluten"], 
   };
 
   let matchesCategory = true;
