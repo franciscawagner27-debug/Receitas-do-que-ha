@@ -26,6 +26,7 @@ import ComoOrganizarJantar from "./pages/ComoOrganizarJantar";
 import TruquesCozinha from "./pages/TruquesCozinha";
 import Refeicoes20Pessoas from "./pages/Refeicoes20Pessoas";
 import SobremesasParaGrupos from "./pages/SobremesasParaGrupos";
+import ScrollToTop from "./components/ScrollToTop";
 
 // URL da função de IA no Supabase
 const AI_FUNCTION_URL =
@@ -39,6 +40,9 @@ export default function App() {
   const location = useLocation();
 
   return (
+ <>
+      <ScrollToTop />    
+   
     <Routes>
       {/* Página pública — agora recarrega quando voltas do admin */}
       <Route path="/" element={<HomePage key={location.pathname} />} />
