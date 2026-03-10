@@ -55,12 +55,11 @@ const AirFryerPage: React.FC = () => {
     <div className="bg-beige min-h-screen text-charcoal">
       <Header onSelect={handleHeaderSelect} />
 
-     {/* HERO */}
+   {/* HERO */}
 <section
   className="relative h-[40vh] sm:h-[45vh] flex flex-col justify-center items-center text-center bg-cover bg-[center_60%]"
   style={{
-    backgroundImage:
-      "url('URL-DA-IMAGEM-AIRFRYER')",
+    backgroundImage: "url('/images/airfryer-hero.jpg')",
   }}
 >
   {/* overlay */}
@@ -77,7 +76,6 @@ const AirFryerPage: React.FC = () => {
     </p>
   </div>
 </section>
-
 <div className="px-6 py-12 max-w-5xl mx-auto">
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
