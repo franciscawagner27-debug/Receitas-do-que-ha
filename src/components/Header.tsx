@@ -41,7 +41,7 @@ setTimeout(() => {
     const rect = el.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
- const offset = window.innerWidth < 768 ? 180 : 120;
+ const offset = window.innerWidth < 768 ? 200 : 120;
 
 window.scrollTo({
   top: scrollTop + rect.top - offset,
