@@ -41,10 +41,12 @@ setTimeout(() => {
     const rect = el.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    window.scrollTo({
-      top: scrollTop + rect.top - 120,
-      behavior: "smooth",
-    });
+ const offset = window.innerWidth < 768 ? 180 : 120;
+
+window.scrollTo({
+  top: scrollTop + rect.top - offset,
+  behavior: "smooth",
+});
   }
 }, 50);
   
