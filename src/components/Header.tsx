@@ -152,7 +152,7 @@ if (normalized === "airfryer") {
 </div>
 
 {/* MOBILE BOTTOM NAV */}
-<div className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 w-[96%] bg-beige/95 backdrop-blur rounded-2xl border border-olive/20 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.12)] py-4">
+<div className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-[96%] bg-beige/95 backdrop-blur rounded-2xl border border-olive/20 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.12)] py-4">
   <div className="flex overflow-x-auto no-scrollbar gap-2 px-3 py-2 whitespace-nowrap">
     
     {categories.map((category) => (
