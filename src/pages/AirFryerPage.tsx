@@ -66,11 +66,11 @@ const AirFryerPage: React.FC = () => {
   <div className="absolute inset-0 bg-black/40" />
 
   <div className="relative z-10 max-w-xl px-6">
-    <h1 className="text-3xl sm:text-4xl font-serif text-white mb-3">
+   <h1 className="text-4xl sm:text-5xl font-serif text-white mb-4">
       Receitas na Air Fryer
     </h1>
 
-    <p className="text-white/90 text-sm sm:text-base">
+   <p className="text-white/90 text-base sm:text-lg max-w-2xl mx-auto">
       Descubra receitas simples, rápidas e crocantes feitas na Air Fryer.
       Ideias práticas para o dia a dia com menos gordura e muito sabor.
     </p>
