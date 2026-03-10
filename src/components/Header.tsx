@@ -52,15 +52,20 @@ window.scrollTo({
   
   const normalized = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  if (normalized === "dias sem tempo") {
-    window.location.href = "/dias-sem-tempo";
-    return;
-  }
+if (normalized === "dias sem tempo") {
+  window.location.href = "/dias-sem-tempo";
+  return;
+}
 
-  if (normalized === "sem glúten") {
-    window.location.href = "/sem-gluten";
-    return;
-  }
+if (normalized === "sem gluten") {
+  window.location.href = "/sem-gluten";
+  return;
+}
+
+if (normalized === "airfryer") {
+  window.location.href = "/airfryer";
+  return;
+}
 
   onSelect(normalized);
 };
