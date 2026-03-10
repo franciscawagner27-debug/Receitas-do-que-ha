@@ -119,14 +119,24 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
 
     if (onRecipeCreated) onRecipeCreated(data as Recipe);
   };
+  
+async function deleteRecipe(id: string) {
+  if (!confirm("Tem a certeza que quer apagar esta receita?")) return;
 
-  async function deleteRecipe(id: string) {
-    if (!confirm("Tem a certeza que quer apagar esta receita?")) return;
+  const { error } = await supabase
+    .from("recipes")
+    .delete()
+    .eq("id", id);
 
-    const { error } = await supabase.from("recipes").delete().eq("id", id);
-
-    if (!error) loadRecipes();
+  if (error) {
+    console.error("Erro ao apagar:", error);
+    alert("Erro ao apagar receita");
+    return;
   }
+
+  console.log("Receita apagada:", id);
+  loadRecipes();
+}
 
   async function updatePriority(id: string) {
     const raw = priorityEdits[id];
