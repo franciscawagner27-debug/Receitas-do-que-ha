@@ -86,7 +86,7 @@ export default function DiasSemTempoPage() {
 
 {/* HERO */}
 <section
-  className="relative h-[40vh] flex flex-col sm:justify-center items-center text-center bg-cover bg-top"
+  className="relative h-[40vh] flex flex-col sm:justify-center items-center text-center bg-cover bg-[center_30%]"
   style={{
     backgroundImage:
       "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
