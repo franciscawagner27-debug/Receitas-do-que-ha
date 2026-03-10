@@ -356,10 +356,8 @@ const handleCategorySelect = (category: string) => {
     }
   }/* --------------------------- FILTRO GERAL ---------------------------- */
 
-// ❌ EXCLUIR SEMPRE as receitas dos Dias Sem Tempo da Homepage
-const recipesWithoutDST = sortedRecipes.filter(
-  (r) => !(r.tags && r.tags.includes("diassemtempo"))
-);
+// ✅ incluir todas as receitas (Dias Sem Tempo passa a ser uma categoria normal)
+const recipesWithoutDST = sortedRecipes;
 
 const hasSearch = searchTerm.trim() !== "";
 
