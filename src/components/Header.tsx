@@ -34,7 +34,19 @@ const [selected, setSelected] = useState("Todas");
 const handleClick = (category: string) => {
   setSelected(category);
   
-  window.scrollTo({ top: 0, behavior: "smooth" });
+setTimeout(() => {
+  const el = document.getElementById("recipe-list");
+
+  if (el) {
+    const rect = el.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    window.scrollTo({
+      top: scrollTop + rect.top - 40,
+      behavior: "smooth",
+    });
+  }
+}, 50);
   
   const normalized = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
