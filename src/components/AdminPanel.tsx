@@ -129,13 +129,11 @@ async function deleteRecipe(id: string) {
     .eq("id", id);
 
   if (error) {
-    console.error("Erro ao apagar:", error);
-    alert("Erro ao apagar receita");
+    console.error(error);
     return;
   }
 
-  console.log("Receita apagada:", id);
-  loadRecipes();
+  setRecipeList((prev) => prev.filter((r) => r.id !== id));
 }
 
   async function updatePriority(id: string) {
