@@ -100,6 +100,7 @@ export default function App() {
   element={<RecipesWithIngredient ingredient="massa" />}
 />    
     </Routes>
+     </> 
   );
 }
 
