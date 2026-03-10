@@ -1016,9 +1016,32 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
               favorites={favorites}
               toggleFavorite={toggleFavorite}
             />
-          </div>
-        </div>
-      )}
+       </div>
+</div>
+)}
+
+{/* TEXTO SEO HOMEPAGE */}
+<section className="max-w-3xl mx-auto px-6 py-10 text-sm text-gray-600">
+  <h2 className="text-lg font-semibold mb-3">
+    Receitas do Que Há
+  </h2>
+
+  <p>
+    O <strong>Receitas do Que Há</strong> é um site português que ajuda a
+    descobrir o que cozinhar com os ingredientes que já tem em casa. Aqui pode
+    encontrar receitas simples e práticas para o dia a dia, ideias rápidas para
+    quando não há muito tempo e sugestões de pratos tradicionais adaptados ao
+    que tem na sua cozinha.
+  </p>
+
+  <p className="mt-3">
+    Explore receitas de carne, peixe, massas, sopas ou sobremesas, utilize a
+    pesquisa para encontrar receitas com ingredientes específicos ou descubra
+    novas ideias nas categorias como Air Fryer, Dias Sem Tempo ou receitas sem
+    glúten.
+  </p>
+</section>
+
 {/* FOOTER */}
 <footer className="text-center py-8 text-sm text-olive">
   <p>Feito com ❤️ em Portugal</p>
