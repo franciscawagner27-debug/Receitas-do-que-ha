@@ -131,7 +131,7 @@ const handleClick = (category: string) => {
 </div>
 
 {/* MOBILE BOTTOM NAV */}
-<div className="md:hidden fixed bottom-2 left-1/2 -translate-x-1/2 w-[96%] bg-beige/95 backdrop-blur rounded-2xl border border-olive/20 z-50 shadow-lg py-2">
+<div className="md:hidden fixed bottom-1 left-1/2 -translate-x-1/2 w-[96%] bg-beige/95 backdrop-blur rounded-2xl border border-olive/20 z-50 shadow-lg py-4">
   <div className="flex overflow-x-auto gap-2 px-3 py-2 whitespace-nowrap">
     
     {categories.map((category) => (
