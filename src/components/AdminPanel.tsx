@@ -121,22 +121,23 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   };
   
 async function deleteRecipe(id: string) {
-  console.log("ID recebido:", id);
+  console.log("A tentar apagar receita:", id);
 
   if (!confirm("Tem a certeza que quer apagar esta receita?")) return;
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("recipes")
     .delete()
-    .eq("id", id)
-    .select();
+    .match({ id });
 
-  console.log("Resultado delete:", data);
-  console.log("Erro:", error);
-
-  if (!error) {
-    setRecipeList((prev) => prev.filter((r) => r.id !== id));
+  if (error) {
+    console.error("Erro ao apagar:", error);
+    alert("Erro ao apagar receita");
+    return;
   }
+
+  loadRecipes();
+}
 }
 
   async function updatePriority(id: string) {
