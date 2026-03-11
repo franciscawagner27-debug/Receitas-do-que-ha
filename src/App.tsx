@@ -207,7 +207,7 @@ async function fetchRecipes() {
 
 let query = supabase
   .from("recipes")
-  .select("id,title,image,category,tags,priority,ingredients")
+  .select("*")
   .order("priority", { ascending: true })
   .order("id", { ascending: false });
 
