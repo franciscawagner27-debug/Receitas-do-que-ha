@@ -77,7 +77,7 @@ export default function ParaGrupos() {
   </Link>
 
   <Link
-    to="/dicas/como-organizar-jantar"
+    to="/para-grupos/como-organizar-jantar"
     className="block p-4 rounded-xl border border-neutral-200 hover:bg-olive/5 transition"
   >
     Como organizar um jantar em casa
