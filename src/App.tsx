@@ -64,7 +64,7 @@ export default function App() {
       <Route path="/para-grupos" element={<ParaGrupos />} />
       <Route path="/para-grupos/refeicoes-10-pessoas" element={<Refeicoes10Pessoas />} /> 
       <Route path="/dicas/quantidades-por-pessoa" element={<QuantidadesPorPessoa />} /> 
-      <Route path="/dicas/como-organizar-jantar" element={<ComoOrganizarJantar />} /> 
+      <Route path="/para-grupos/como-organizar-jantar" element={<ComoOrganizarJantar />} /> 
       <Route path="/dicas/truques-de-cozinha" element={<TruquesCozinha />} />   
 <Route
   path="/para-grupos/refeicoes-20-pessoas"
