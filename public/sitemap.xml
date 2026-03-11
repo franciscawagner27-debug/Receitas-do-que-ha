@@ -30,18 +30,69 @@
 <changefreq>weekly</changefreq>
 </url>
 
-  <url>
+<url>
 <loc>https://receitasdoqueha.pt/airfryer</loc>
 <priority>0.8</priority>
 <changefreq>weekly</changefreq>
 </url>
 
-    <url>
+<url>
+<loc>https://receitasdoqueha.pt/dicas</loc>
+<priority>0.7</priority>
+<changefreq>monthly</changefreq>
+</url>
+
+  <!-- PÁGINAS DE DICAS -->
+
+<url>
+<loc>https://receitasdoqueha.pt/dicas/quantidades-por-pessoa</loc>
+<priority>0.7</priority>
+<changefreq>monthly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/dicas/truques-de-cozinha</loc>
+<priority>0.7</priority>
+<changefreq>monthly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/dicas/ingredientes-despensa</loc>
+<priority>0.7</priority>
+<changefreq>monthly</changefreq>
+</url>
+<url>
 <loc>https://receitasdoqueha.pt/para-grupos</loc>
 <priority>0.8</priority>
 <changefreq>weekly</changefreq>
-</url>  
-  
+</url>
+
+<!-- PÁGINAS PARA GRUPOS -->
+
+<url>
+<loc>https://receitasdoqueha.pt/para-grupos/refeicoes-10-pessoas</loc>
+<priority>0.9</priority>
+<changefreq>monthly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/para-grupos/refeicoes-20-pessoas</loc>
+<priority>0.9</priority>
+<changefreq>monthly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/para-grupos/como-organizar-jantar</loc>
+<priority>0.9</priority>
+<changefreq>monthly</changefreq>
+</url>
+
+<url>
+<loc>https://receitasdoqueha.pt/para-grupos/sobremesas-para-grupos</loc>
+<priority>0.8</priority>
+<changefreq>monthly</changefreq>
+</url>
+
 <!-- PÁGINAS DE INGREDIENTE -->
 
 <url>
