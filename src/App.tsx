@@ -203,11 +203,15 @@ useEffect(() => {
 }, [page, searchTerm]);
 
 async function fetchRecipes() {
+
+  // ⛔ evitar fetch desnecessário
+  if (recipes.length > 0 && page === 0 && !searchTerm) return;
+
   setLoading(true);
 
   let query = supabase
     .from("recipes")
-    .select("*")
+    .select("id,title,image,category,tags,priority")
     .order("priority", { ascending: true })
     .order("id", { ascending: false });
 
