@@ -205,11 +205,11 @@ useEffect(() => {
 async function fetchRecipes() {
   setLoading(true);
 
-  let query = supabase
-    .from("recipes")
-    .select("id,title,image,category,tags,priority")
-    .order("priority", { ascending: true })
-    .order("id", { ascending: false });
+let query = supabase
+  .from("recipes")
+  .select("id,title,image,category,tags,priority,ingredients")
+  .order("priority", { ascending: true })
+  .order("id", { ascending: false });
 
   // Se NÃO houver pesquisa → usar paginação
   if (!searchTerm.trim()) {
