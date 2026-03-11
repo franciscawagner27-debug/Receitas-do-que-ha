@@ -203,10 +203,6 @@ useEffect(() => {
 }, [page, searchTerm]);
 
 async function fetchRecipes() {
-
-  // ⛔ evitar fetch desnecessário
-  if (recipes.length > 0 && page === 0 && !searchTerm) return;
-
   setLoading(true);
 
   let query = supabase
