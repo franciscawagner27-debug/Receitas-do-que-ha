@@ -196,36 +196,33 @@ useEffect(() => {
     });
   }, [recipes]);
 
-/* ----------------------------- FETCH RECEITAS ---------------------------- */
+ /* ----------------------------- FETCH RECEITAS ---------------------------- */
 
 useEffect(() => {
   fetchRecipes();
-}, [page, searchTerm]);
+}, []); // ✅ CORRIGIDO (antes tinha [page, searchTerm])
 
 async function fetchRecipes() {
   setLoading(true);
 
-let query = supabase
-  .from("recipes")
-  .select("*")
-  .order("priority", { ascending: true })
-  .order("id", { ascending: false });
+  // 🔥 CACHE LOCAL
+  const cache = localStorage.getItem("recipes");
 
-  // Se NÃO houver pesquisa → usar paginação
-  if (!searchTerm.trim()) {
-    const from = page * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
-    query = query.range(from, to);
+  if (cache) {
+    setRecipes(JSON.parse(cache));
+    setLoading(false);
+    return;
   }
+
+  let query = supabase
+    .from("recipes")
+    .select("*")
+    .order("priority", { ascending: true })
+    .order("id", { ascending: false });
 
   const { data, error } = await query;
 
   if (!error && data) {
-    // Se estamos em paginação, verificar se ainda há mais receitas
-    if (!searchTerm.trim() && data.length < PAGE_SIZE) {
-      setHasMore(false);
-    }
-
     const cleaned = data.map((r: any) => {
       let tags: string[] = [];
 
@@ -249,16 +246,15 @@ let query = supabase
       return { ...r, tags };
     });
 
-    // Se há pesquisa substitui resultados, se não adiciona (paginação)
-    if (searchTerm.trim()) {
-      setRecipes(cleaned as Recipe[]);
-    } else {
-      setRecipes((prev) => [...prev, ...cleaned] as Recipe[]);
-    }
+    setRecipes(cleaned as Recipe[]);
+
+    // 🔥 guardar cache
+    localStorage.setItem("recipes", JSON.stringify(cleaned));
   }
 
   setLoading(false);
 }
+
   /* ----------------------- ⭐ ORDENAR RECEITAS (DESTAQUES) ----------------- */
 
   const sortedRecipes = [...recipes].sort((a, b) => {
