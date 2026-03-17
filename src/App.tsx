@@ -39,6 +39,26 @@ const AI_FUNCTION_URL =
 export default function App() {
   const location = useLocation();
 
+  const maintenance = true; // 🔥 LIGAR / DESLIGAR AQUI
+
+  if (maintenance) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-beige text-center px-6">
+        <div>
+          <h1 className="text-4xl font-serif text-olive mb-4">
+            Estamos a fazer melhorias 👩‍🍳
+          </h1>
+          <p className="text-lg text-charcoal/80 mb-6">
+            O site estará disponível novamente em breve.
+          </p>
+          <p className="text-sm text-stone">
+            Obrigado pela sua compreensão 💛
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
  <>
       <ScrollToTop />    
