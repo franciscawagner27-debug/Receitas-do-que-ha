@@ -139,9 +139,24 @@ if (normalized === "airfryer") {
   Sobre
 </Link>
 
-<div className="flex gap-3 ml-2">
-  <button onClick={() => changeLanguage("pt")}>🇵🇹</button>
-  <button onClick={() => changeLanguage("en")}>🇬🇧</button>
+<div className="flex items-center gap-2 ml-2 text-xs md:text-sm font-semibold tracking-wide text-olive">
+  <button
+    onClick={() => changeLanguage("pt")}
+    className="hover:opacity-70 transition"
+    aria-label="Mudar idioma para português"
+  >
+    PT
+  </button>
+
+  <span className="text-olive/30">|</span>
+
+  <button
+    onClick={() => changeLanguage("en")}
+    className="hover:opacity-70 transition"
+    aria-label="Change language to English"
+  >
+    EN
+  </button>
 </div>
 
 </div>
