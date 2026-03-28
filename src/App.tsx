@@ -244,13 +244,20 @@ function HomePage() {
   async function fetchRecipes() {
     setLoading(true);
 
-    const cache = localStorage.getItem("recipes");
+   const cache = localStorage.getItem("recipes");
+const cacheTime = localStorage.getItem("recipes_time");
 
-    if (cache) {
-      setRecipes(JSON.parse(cache));
-      setLoading(false);
-      return;
-    }
+const ONE_HOUR = 1000 * 60 * 60;
+
+if (cache && cacheTime) {
+  const isValid = Date.now() - Number(cacheTime) < ONE_HOUR;
+
+  if (isValid) {
+    setRecipes(JSON.parse(cache));
+    setLoading(false);
+    return;
+  }
+}
 
     const { data, error } = await supabase
       .from("recipes")
@@ -285,6 +292,7 @@ function HomePage() {
       setRecipes(cleaned as Recipe[]);
       localStorage.setItem("recipes", JSON.stringify(cleaned));
     }
+    localStorage.setItem("recipes_time", Date.now().toString());
 
     setLoading(false);
   }
