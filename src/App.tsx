@@ -39,7 +39,7 @@ const AI_FUNCTION_URL =
 export default function App() {
   const location = useLocation();
 
-  const maintenance = true; // 🔥 LIGAR / DESLIGAR AQUI
+  const maintenance = false; // 🔥 LIGAR / DESLIGAR AQUI
 
   if (maintenance) {
     return (
@@ -60,67 +60,86 @@ export default function App() {
   }
 
   return (
- <>
-      <ScrollToTop />    
-   
-    <Routes>
-      {/* Página pública — agora recarrega quando voltas do admin */}
-      <Route path="/" element={<HomePage key={location.pathname} />} />
+    <>
+      <ScrollToTop />
 
-      {/* Página privada /admin */}
-      <Route path="/admin" element={<AdminPage />} />
+      <Routes>
+        {/* Página pública — agora recarrega quando voltas do admin */}
+        <Route path="/" element={<HomePage key={location.pathname} />} />
 
-      {/* Página de edição */}
-      <Route path="/admin/edit/:id" element={<EditRecipe />} />
-      <Route path="/receita/:id" element={<RecipePage />} />
-      <Route path="/dias-sem-tempo" element={<DiasSemTempoPage />} />
-      <Route path="/cozinhar/:id" element={<CozinharPage />} />
-      <Route path="/sobre" element={<Sobre />} /> 
-      <Route path="/sem-gluten" element={<SemGlutenPage />} />  
-      <Route path="/ingrediente/:nome" element={<IngredientePage />} /> 
-      <Route path="/receitas-com-frango" element={<RecipesWithIngredient ingredient="frango" />} /> 
-      <Route path="/airfryer" element={<AirFryerPage />} /> 
-      <Route path="/dicas" element={<Dicas />} />
-      <Route path="/para-grupos" element={<ParaGrupos />} />
-      <Route path="/para-grupos/refeicoes-10-pessoas" element={<Refeicoes10Pessoas />} /> 
-      <Route path="/dicas/quantidades-por-pessoa" element={<QuantidadesPorPessoa />} /> 
-      <Route path="/para-grupos/como-organizar-jantar" element={<ComoOrganizarJantar />} /> 
-      <Route path="/dicas/truques-de-cozinha" element={<TruquesCozinha />} />   
-<Route
-  path="/para-grupos/refeicoes-20-pessoas"
-  element={<Refeicoes20Pessoas />}
-/>   
-      <Route path="/para-grupos/sobremesas-para-grupos" element={<SobremesasParaGrupos />} />   
-      
-      <Route
-  path="/dicas/ingredientes-despensa"
-  element={<IngredientesDespensa />}
-/>      <Route
-  path="/receitas-com-ovos"
-  element={<RecipesWithIngredient ingredient="ovos" />}
-/>
+        {/* Página privada /admin */}
+        <Route path="/admin" element={<AdminPage />} />
 
-<Route
-  path="/receitas-com-atum"
-  element={<RecipesWithIngredient ingredient="atum" />}
-/>
+        {/* Página de edição */}
+        <Route path="/admin/edit/:id" element={<EditRecipe />} />
+        <Route path="/receita/:id" element={<RecipePage />} />
+        <Route path="/dias-sem-tempo" element={<DiasSemTempoPage />} />
+        <Route path="/cozinhar/:id" element={<CozinharPage />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/sem-gluten" element={<SemGlutenPage />} />
+        <Route path="/ingrediente/:nome" element={<IngredientePage />} />
+        <Route
+          path="/receitas-com-frango"
+          element={<RecipesWithIngredient ingredient="frango" />}
+        />
+        <Route path="/airfryer" element={<AirFryerPage />} />
+        <Route path="/dicas" element={<Dicas />} />
+        <Route path="/para-grupos" element={<ParaGrupos />} />
+        <Route
+          path="/para-grupos/refeicoes-10-pessoas"
+          element={<Refeicoes10Pessoas />}
+        />
+        <Route
+          path="/dicas/quantidades-por-pessoa"
+          element={<QuantidadesPorPessoa />}
+        />
+        <Route
+          path="/para-grupos/como-organizar-jantar"
+          element={<ComoOrganizarJantar />}
+        />
+        <Route
+          path="/dicas/truques-de-cozinha"
+          element={<TruquesCozinha />}
+        />
+        <Route
+          path="/para-grupos/refeicoes-20-pessoas"
+          element={<Refeicoes20Pessoas />}
+        />
+        <Route
+          path="/para-grupos/sobremesas-para-grupos"
+          element={<SobremesasParaGrupos />}
+        />
 
-<Route
-  path="/receitas-com-arroz"
-  element={<RecipesWithIngredient ingredient="arroz" />}
-/>
+        <Route
+          path="/dicas/ingredientes-despensa"
+          element={<IngredientesDespensa />}
+        />
+        <Route
+          path="/receitas-com-ovos"
+          element={<RecipesWithIngredient ingredient="ovos" />}
+        />
 
-<Route
-  path="/receitas-com-batata"
-  element={<RecipesWithIngredient ingredient="batata" />}
-/>
+        <Route
+          path="/receitas-com-atum"
+          element={<RecipesWithIngredient ingredient="atum" />}
+        />
 
-<Route
-  path="/receitas-com-massa"
-  element={<RecipesWithIngredient ingredient="massa" />}
-/>    
-    </Routes>
-     </> 
+        <Route
+          path="/receitas-com-arroz"
+          element={<RecipesWithIngredient ingredient="arroz" />}
+        />
+
+        <Route
+          path="/receitas-com-batata"
+          element={<RecipesWithIngredient ingredient="batata" />}
+        />
+
+        <Route
+          path="/receitas-com-massa"
+          element={<RecipesWithIngredient ingredient="massa" />}
+        />
+      </Routes>
+    </>
   );
 }
 
@@ -129,7 +148,7 @@ export default function App() {
 /* -------------------------------------------------------------------------- */
 
 function HomePage() {
-  const location = useLocation(); 
+  const location = useLocation();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
@@ -142,14 +161,14 @@ function HomePage() {
   const [aiError, setAiError] = useState<string | null>(null);
 
   // Ler categoria via URL (?cat=carne)
-useEffect(() => {
-  const params = new URLSearchParams(location.search);
-  const cat = params.get("cat");
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get("cat");
 
-  if (cat && cat !== selectedCategory) {
-    handleCategorySelect(cat);
-  }
-}, [location.search]);
+    if (cat && cat !== selectedCategory) {
+      handleCategorySelect(cat);
+    }
+  }, [location.search]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -216,64 +235,59 @@ useEffect(() => {
     });
   }, [recipes]);
 
- /* ----------------------------- FETCH RECEITAS ---------------------------- */
+  /* ----------------------------- FETCH RECEITAS ---------------------------- */
 
-useEffect(() => {
-  fetchRecipes();
-}, []); // ✅ CORRIGIDO (antes tinha [page, searchTerm])
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
 
-async function fetchRecipes() {
-  setLoading(true);
+  async function fetchRecipes() {
+    setLoading(true);
 
-  // 🔥 CACHE LOCAL
-  const cache = localStorage.getItem("recipes");
+    const cache = localStorage.getItem("recipes");
 
-  if (cache) {
-    setRecipes(JSON.parse(cache));
+    if (cache) {
+      setRecipes(JSON.parse(cache));
+      setLoading(false);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .order("priority", { ascending: true })
+      .order("id", { ascending: false });
+
+    if (!error && data) {
+      const cleaned = data.map((r: any) => {
+        let tags: string[] = [];
+
+        if (Array.isArray(r.tags)) {
+          tags = r.tags
+            .flatMap((t: any) =>
+              t
+                .toString()
+                .split(/[#\[\]",;]+/)
+                .map((s) => s.trim().toLowerCase())
+            )
+            .filter((t) => t.length > 0);
+        } else if (typeof r.tags === "string") {
+          tags = r.tags
+            .replace(/[#\[\]"]/g, " ")
+            .split(/[\s,;]+/)
+            .map((t) => t.trim().toLowerCase())
+            .filter((t) => t.length > 0);
+        }
+
+        return { ...r, tags };
+      });
+
+      setRecipes(cleaned as Recipe[]);
+      localStorage.setItem("recipes", JSON.stringify(cleaned));
+    }
+
     setLoading(false);
-    return;
   }
-
-  let query = supabase
-    .from("recipes")
-    .select("*")
-    .order("priority", { ascending: true })
-    .order("id", { ascending: false });
-
-  const { data, error } = await query;
-
-  if (!error && data) {
-    const cleaned = data.map((r: any) => {
-      let tags: string[] = [];
-
-      if (Array.isArray(r.tags)) {
-        tags = r.tags
-          .flatMap((t: any) =>
-            t
-              .toString()
-              .split(/[#\[\]",;]+/)
-              .map((s) => s.trim().toLowerCase())
-          )
-          .filter((t) => t.length > 0);
-      } else if (typeof r.tags === "string") {
-        tags = r.tags
-          .replace(/[#\[\]"]/g, " ")
-          .split(/[\s,;]+/)
-          .map((t) => t.trim().toLowerCase())
-          .filter((t) => t.length > 0);
-      }
-
-      return { ...r, tags };
-    });
-
-    setRecipes(cleaned as Recipe[]);
-
-    // 🔥 guardar cache
-    localStorage.setItem("recipes", JSON.stringify(cleaned));
-  }
-
-  setLoading(false);
-}
 
   /* ----------------------- ⭐ ORDENAR RECEITAS (DESTAQUES) ----------------- */
 
@@ -289,15 +303,17 @@ async function fetchRecipes() {
 
   /* --------------------------- CATEGORIAS + PESQUISA ----------------------- */
 
-const handleCategorySelect = (category: string) => {
-  const normalized = category.toLowerCase().trim();
-  setSelectedCategory(normalized);
-  setSearchTerm("");
-};
+  const handleCategorySelect = (category: string) => {
+    const normalized = category.toLowerCase().trim();
+    setSelectedCategory(normalized);
+    setSearchTerm("");
+    setPage(0);
+  };
 
   const handleSearch = (term?: string) => {
     const finalTerm = (term ?? searchTerm).trim();
     setSearchTerm(finalTerm);
+    setPage(0);
 
     const el = document.getElementById("recipe-list");
     if (el) {
@@ -370,106 +386,115 @@ const handleCategorySelect = (category: string) => {
       console.log("⏹️ [IA] Processo terminado");
       setAiLoading(false);
     }
-  }/* --------------------------- FILTRO GERAL ---------------------------- */
+  }
 
-// ✅ incluir todas as receitas (Dias Sem Tempo passa a ser uma categoria normal)
-const recipesWithoutDST = sortedRecipes;
+  /* --------------------------- FILTRO GERAL ---------------------------- */
 
-const hasSearch = searchTerm.trim() !== "";
+  // ✅ incluir todas as receitas (Dias Sem Tempo passa a ser uma categoria normal)
+  const recipesWithoutDST = sortedRecipes;
 
-// Normalizador (remove acentos + espaços + lowercase)
-const normalize = (s: string = "") =>
-  s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .trim();
+  const hasSearch = searchTerm.trim() !== "";
 
-// 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
-let filteredRecipes = recipesWithoutDST.filter((r: any) => {
- const selected = normalize(selectedCategory).replace(/[\s-]/g, "");
+  // Normalizador (remove acentos + espaços + lowercase)
+  const normalize = (s: string = "") =>
+    s
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
 
-  const categoryMap: Record<string, string[]> = {
-    entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
+  // 1) Filtrar por categoria + pesquisa (mas ainda sem dividir secções)
+  let filteredRecipes = recipesWithoutDST.filter((r: any) => {
+    const selected = normalize(selectedCategory).replace(/[\s-]/g, "");
 
-    // ✅ aceitar "sopa" e "sopas"
-    sopa: ["sopa", "sopas", "caldo", "caldos", "creme", "cremes"],
-    sopas: ["sopa", "sopas", "caldo", "caldos", "creme", "cremes"],
+    const categoryMap: Record<string, string[]> = {
+      entradas: ["entrada", "entradas", "aperitivo", "petisco", "petiscos"],
 
-    carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
-    peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
-    massas: ["massa", "massas", "pasta", "esparguete", "macarrao", "tagliatelle"],
-    vegetariano: ["vegetariano", "vegetariana", "vegan", "salada", "legumes", "legume"],
-    sobremesas: [
-      "doce",
-      "doces",
-      "sobremesa",
-      "sobremesas",
-      "bolo",
-      "bolos",
-      "tarte",
-      "tartes",
-      "pudim",
-      "pudins",
-      "mousse",
-      "mousses",
-    ],
-    airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
-    semgluten: ["semgluten"], 
-  };
+      // ✅ aceitar "sopa" e "sopas"
+      sopa: ["sopa", "sopas", "caldo", "caldos", "creme", "cremes"],
+      sopas: ["sopa", "sopas", "caldo", "caldos", "creme", "cremes"],
 
-  let matchesCategory = true;
+      carne: ["carne", "carnes", "frango", "porco", "bife", "vaca"],
+      peixe: ["peixe", "peixes", "bacalhau", "atum", "marisco", "mariscos"],
+      massas: [
+        "massa",
+        "massas",
+        "pasta",
+        "esparguete",
+        "macarrao",
+        "tagliatelle",
+      ],
+      vegetariano: [
+        "vegetariano",
+        "vegetariana",
+        "vegan",
+        "salada",
+        "legumes",
+        "legume",
+      ],
+      sobremesas: [
+        "doce",
+        "doces",
+        "sobremesa",
+        "sobremesas",
+        "bolo",
+        "bolos",
+        "tarte",
+        "tartes",
+        "pudim",
+        "pudins",
+        "mousse",
+        "mousses",
+      ],
+      airfryer: ["airfryer", "air fryer", "fritadeira", "fritadeira sem oleo"],
+      semgluten: ["semgluten"],
+    };
 
-if (selected === "favoritas") {
-  matchesCategory = favorites.includes(r.id);
+    let matchesCategory = true;
 
-} else if (selected === "sopa" || selected === "sopas") {
+    if (selected === "favoritas") {
+      matchesCategory = favorites.includes(r.id);
+    } else if (selected === "sopa" || selected === "sopas") {
+      const text = normalize(
+        [
+          r.category ?? "",
+          Array.isArray(r.tags) ? r.tags.join(" ") : "",
+          r.title ?? "",
+        ].join(" ")
+      );
 
-  const text = normalize(
-    [
-      r.category ?? "",
-      Array.isArray(r.tags) ? r.tags.join(" ") : "",
-      r.title ?? "",
-    ].join(" ")
-  );
+      matchesCategory =
+        text.includes("sopa") ||
+        text.includes("caldo") ||
+        text.includes("creme");
+    } else if (selected !== "todas") {
+      const valid = categoryMap[selected] || [];
 
-  matchesCategory =
-    text.includes("sopa") ||
-    text.includes("caldo") ||
-    text.includes("creme");
+      const haystack = normalize(
+        [
+          r.category ?? "",
+          Array.isArray(r.tags) ? r.tags.join(" ") : r.tags ?? "",
+        ].join(" ")
+      );
+      const words = haystack.split(/\s+/);
 
-} else if (selected !== "todas") {
+      matchesCategory = valid.some((v) => words.includes(normalize(v)));
+    }
 
-  const valid = categoryMap[selected] || [];
-  
-const haystack = normalize(
-  [
-    r.category ?? "",
-    Array.isArray(r.tags) ? r.tags.join(" ") : (r.tags ?? ""),
-  ].join(" ")
-);
-const words = haystack.split(/\s+/);
+    // NOVA PESQUISA INTELIGENTE
+    const { matches, score, isExactMatch, extraCount, matchedIngredientCount } =
+      smartSearch(r, searchTerm);
 
-matchesCategory = valid.some((v) => words.includes(normalize(v)));
-}
+    // guardar no objeto (para ordenação)
+    (r as any)._searchScore = score;
+    (r as any)._isExactMatch = isExactMatch;
+    (r as any)._extraCount = extraCount;
+    (r as any)._matchedIngredientCount = matchedIngredientCount;
 
+    const matchesSearch = !hasSearch ? true : matches;
 
-  
-
-  // NOVA PESQUISA INTELIGENTE
-  const { matches, score, isExactMatch, extraCount, matchedIngredientCount } =
-    smartSearch(r, searchTerm);
-
-  // guardar no objeto (para ordenação)
-  (r as any)._searchScore = score;
-  (r as any)._isExactMatch = isExactMatch;
-  (r as any)._extraCount = extraCount;
-  (r as any)._matchedIngredientCount = matchedIngredientCount;
-
-  const matchesSearch = !hasSearch ? true : matches;
-
-  return matchesCategory && matchesSearch;
-});
+    return matchesCategory && matchesSearch;
+  });
 
   // Função de ordenação comum
   function sortByRelevance(a: any, b: any) {
@@ -519,10 +544,22 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
     finalRecipes = [...filteredRecipes].sort(sortByRelevance);
   }
 
+  const visibleRecipes = !hasSearch
+    ? finalRecipes.slice(0, (page + 1) * PAGE_SIZE)
+    : [];
+
+  useEffect(() => {
+    if (!hasSearch) {
+      setHasMore(finalRecipes.length > (page + 1) * PAGE_SIZE);
+    } else {
+      setHasMore(false);
+    }
+  }, [finalRecipes.length, page, hasSearch]);
+
   /* ------------------------------- UI / RENDER ----------------------------- */
 
   return (
-   <div className="bg-beige min-h-screen text-charcoal font-sans relative pb-24 md:pb-0">
+    <div className="bg-beige min-h-screen text-charcoal font-sans relative pb-24 md:pb-0">
       <Header onSelect={handleCategorySelect} />
 
       {/* HERO */}
@@ -536,14 +573,14 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative z-10 px-4">
           <h1
-  className="text-5xl md:text-6xl font-serif text-white mb-6 drop-shadow-lg leading-tight notranslate"
-  translate="no"
->
-  <span className="block tracking-wide">Receitas</span>
-  <span className="block mt-1 tracking-widest text-6xl md:text-7xl uppercase">
-    DO QUE HÁ
-  </span>
-</h1>
+            className="text-5xl md:text-6xl font-serif text-white mb-6 drop-shadow-lg leading-tight notranslate"
+            translate="no"
+          >
+            <span className="block tracking-wide">Receitas</span>
+            <span className="block mt-1 tracking-widest text-6xl md:text-7xl uppercase">
+              DO QUE HÁ
+            </span>
+          </h1>
           <p className="text-lg text-white/90">
             Descubra o que pode cozinhar com o que tem em casa.
           </p>
@@ -562,8 +599,7 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
 
           <p className="text-charcoal/80 text-lg mb-10">
             Encontre receitas com os ingredientes que já tem em casa.
-            <br className="hidden md:block" />
- {" "}Ou crie uma nova receita.
+            <br className="hidden md:block" /> Ou crie uma nova receita.
           </p>
 
           {/* Caixa de pesquisa (sem botão IA dentro) */}
@@ -609,9 +645,9 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
 
           {/* Linha abaixo da caixa: texto + botão IA */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-2">
-          <span className="text-charcoal/80 text-lg">
-          Não encontrou o que procura?
-           </span>
+            <span className="text-charcoal/80 text-lg">
+              Não encontrou o que procura?
+            </span>
 
             <button
               type="button"
@@ -637,60 +673,55 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
           )}
         </div>
       </section>
+
       {/* IDEIAS COM INGREDIENTES */}
-<section className="bg-beige pb-14 px-4">
-  <div className="max-w-3xl mx-auto text-center">
+      <section className="bg-beige pb-14 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <Link
+              to="/receitas-com-frango"
+              className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+            >
+              🍗 Receitas com Frango
+            </Link>
 
-  
+            <Link
+              to="/receitas-com-ovos"
+              className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+            >
+              🥚 Receitas com Ovos
+            </Link>
 
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <Link
+              to="/receitas-com-atum"
+              className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+            >
+              🐟 Receitas com Atum
+            </Link>
 
-      <Link
-        to="/receitas-com-frango"
-        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
-      >
-        🍗 Receitas com Frango
-      </Link>
+            <Link
+              to="/receitas-com-arroz"
+              className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+            >
+              🍚 Receitas com Arroz
+            </Link>
 
-      <Link
-        to="/receitas-com-ovos"
-        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
-      >
-        🥚 Receitas com Ovos
-      </Link>
+            <Link
+              to="/receitas-com-batata"
+              className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+            >
+              🥔 Receitas com Batata
+            </Link>
 
-      <Link
-        to="/receitas-com-atum"
-        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
-      >
-        🐟 Receitas com Atum
-      </Link>
-
-      <Link
-        to="/receitas-com-arroz"
-        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
-      >
-        🍚 Receitas com Arroz
-      </Link>
-
-      <Link
-        to="/receitas-com-batata"
-        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
-      >
-        🥔 Receitas com Batata
-      </Link>
-
-      <Link
-        to="/receitas-com-massa"
-        className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
-      >
-        🍝 Receitas com Massa
-      </Link>
-
-    </div>
-
-  </div>
-</section>      
+            <Link
+              to="/receitas-com-massa"
+              className="bg-white border border-olive/30 rounded-xl py-3 px-4 shadow-sm hover:shadow-md hover:border-olive transition"
+            >
+              🍝 Receitas com Massa
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* LISTA */}
       <div id="recipe-list"></div>
@@ -715,84 +746,85 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
           finalRecipes.length === 0 ? (
             <p className="text-center text-stone">Nenhuma receita encontrada.</p>
           ) : (
-   <>
-  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {finalRecipes.map((r: any) => (
-      <motion.div
-        key={r.id}
-        onClick={() => setSelectedRecipe(r)}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
-      >
-        <div className="relative">
-          {r.image && (
-            <img
-              src={r.image}
-              alt={r.title}
-              loading="lazy"
-              className="w-full h-48 object-cover"
-            />
-          )}
+            <>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {visibleRecipes.map((r: any) => (
+                  <motion.div
+                    key={r.id}
+                    onClick={() => setSelectedRecipe(r)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="relative">
+                      {r.image && (
+                        <img
+                          src={r.image}
+                          alt={r.title}
+                          loading="lazy"
+                          className="w-full h-48 object-cover"
+                        />
+                      )}
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleFavorite(r.id);
-            }}
-            className="absolute top-2 right-2 text-2xl drop-shadow-md"
-          >
-            {favorites.includes(r.id) ? "❤️" : "🤍"}
-          </button>
-        </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(r.id);
+                        }}
+                        className="absolute top-2 right-2 text-2xl drop-shadow-md"
+                      >
+                        {favorites.includes(r.id) ? "❤️" : "🤍"}
+                      </button>
+                    </div>
 
-        <div className="p-5">
-          <h3 className="text-xl font-semibold text-olive mb-2">
-            {r.title}
-          </h3>
+                    <div className="p-5">
+                      <h3 className="text-xl font-semibold text-olive mb-2">
+                        {r.title}
+                      </h3>
 
-          {r.time_minutes && (
-            <p className="text-sm text-stone mb-2">
-              ⏱️ {r.time_minutes} min
-            </p>
-          )}
+                      {r.time_minutes && (
+                        <p className="text-sm text-stone mb-2">
+                          ⏱️ {r.time_minutes} min
+                        </p>
+                      )}
 
-          <p className="text-sm text-stone line-clamp-3 mb-3">
-            {Array.isArray(r.ingredients)
-              ? r.ingredients.slice(0, 3).join(", ")
-              : ""}
-            ...
-          </p>
+                      <p className="text-sm text-stone line-clamp-3 mb-3">
+                        {Array.isArray(r.ingredients)
+                          ? r.ingredients.slice(0, 3).join(", ")
+                          : ""}
+                        ...
+                      </p>
 
-          {r.tags && r.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {r.tags.map((tag: string, i: number) => (
-                <span
-                  key={i}
-                  className="text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      </motion.div>
-    ))}
-  </div>
+                      {r.tags && r.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {r.tags.map((tag: string, i: number) => (
+                            <span
+                              key={i}
+                              className="text-xs bg-beige text-charcoal/80 px-2 py-1 rounded-full"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
 
-  {hasMore && !hasSearch && (
-    <div className="text-center mt-10">
-      <button
-        onClick={() => setPage((prev) => prev + 1)}
-        className="px-6 py-3 bg-olive text-white rounded-xl hover:bg-terracotta transition"
-      >
-        Carregar mais receitas
-      </button>
-    </div>
-  )}
-</>        )
+              {hasMore && !hasSearch && (
+                <div className="text-center mt-10">
+                  <button
+                    onClick={() => setPage((prev) => prev + 1)}
+                    className="px-6 py-3 bg-olive text-white rounded-xl hover:bg-terracotta transition"
+                  >
+                    Carregar mais receitas
+                  </button>
+                </div>
+              )}
+            </>
+          )
         ) : exactMatches.length === 0 && extendedMatches.length === 0 ? (
           <p className="text-center text-stone">Nenhuma receita encontrada.</p>
         ) : (
@@ -1030,91 +1062,86 @@ matchesCategory = valid.some((v) => words.includes(normalize(v)));
               favorites={favorites}
               toggleFavorite={toggleFavorite}
             />
-       </div>
-</div>
-)}
+          </div>
+        </div>
+      )}
 
-{/* TEXTO SEO HOMEPAGE */}
-<section className="max-w-3xl mx-auto px-6 py-10 text-sm text-gray-600">
-  <h2 className="text-lg font-semibold mb-3">
-    Receitas do Que Há
-  </h2>
+      {/* TEXTO SEO HOMEPAGE */}
+      <section className="max-w-3xl mx-auto px-6 py-10 text-sm text-gray-600">
+        <h2 className="text-lg font-semibold mb-3">Receitas do Que Há</h2>
 
-  <p>
-    O <strong>Receitas do Que Há</strong> é um site português que ajuda a
-    descobrir o que cozinhar com os ingredientes que já tem em casa. Aqui pode
-    encontrar receitas simples e práticas para o dia a dia, ideias rápidas para
-    quando não há muito tempo e sugestões de pratos tradicionais adaptados ao
-    que tem na sua cozinha.
-  </p>
+        <p>
+          O <strong>Receitas do Que Há</strong> é um site português que ajuda a
+          descobrir o que cozinhar com os ingredientes que já tem em casa. Aqui
+          pode encontrar receitas simples e práticas para o dia a dia, ideias
+          rápidas para quando não há muito tempo e sugestões de pratos
+          tradicionais adaptados ao que tem na sua cozinha.
+        </p>
 
-  <p className="mt-3">
-    Explore receitas de carne, peixe, massas, sopas ou sobremesas, utilize a
-    pesquisa para encontrar receitas com ingredientes específicos ou descubra
-    novas ideias nas categorias como Air Fryer, Dias Sem Tempo ou receitas sem
-    glúten.
-  </p>
-</section>
+        <p className="mt-3">
+          Explore receitas de carne, peixe, massas, sopas ou sobremesas, utilize
+          a pesquisa para encontrar receitas com ingredientes específicos ou
+          descubra novas ideias nas categorias como Air Fryer, Dias Sem Tempo ou
+          receitas sem glúten.
+        </p>
+      </section>
 
-{/* FOOTER */}
-<footer className="text-center py-8 text-sm text-olive">
-  <p>Feito com ❤️ em Portugal</p>
-  <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
-  <p>
-    <a
-      href="mailto:contacto@receitasdoqueha.pt"
-      className="underline hover:text-terra transition"
-    >
-      contacto@receitasdoqueha.pt
-    </a>
-  </p>
+      {/* FOOTER */}
+      <footer className="text-center py-8 text-sm text-olive">
+        <p>Feito com ❤️ em Portugal</p>
+        <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
+        <p>
+          <a
+            href="mailto:contacto@receitasdoqueha.pt"
+            className="underline hover:text-terra transition"
+          >
+            contacto@receitasdoqueha.pt
+          </a>
+        </p>
 
-  <p>
-    <a
-      href="/sobre"
-      className="underline hover:text-terra transition"
-    >
-      Sobre o Receitas do Que Há
-    </a>
-  </p>
-  <div className="flex justify-center gap-6 mt-4">
-  {/* Instagram */}
-  <a
-    href="https://www.instagram.com/receitasdoqueha/"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Instagram Receitas do Que Há"
-    className="text-olive hover:text-terra transition"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-7 h-7"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0120 7.75v8.5A3.75 3.75 0 0116.25 20h-8.5A3.75 3.75 0 014 16.25v-8.5A3.75 3.75 0 017.75 4zm8.75 1.5a.75.75 0 100 1.5.75.75 0 000-1.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
-    </svg>
-  </a>
+        <p>
+          <a href="/sobre" className="underline hover:text-terra transition">
+            Sobre o Receitas do Que Há
+          </a>
+        </p>
+        <div className="flex justify-center gap-6 mt-4">
+          {/* Instagram */}
+          <a
+            href="https://www.instagram.com/receitasdoqueha/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram Receitas do Que Há"
+            className="text-olive hover:text-terra transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-7 h-7"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0120 7.75v8.5A3.75 3.75 0 0116.25 20h-8.5A3.75 3.75 0 014 16.25v-8.5A3.75 3.75 0 017.75 4zm8.75 1.5a.75.75 0 100 1.5.75.75 0 000-1.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z" />
+            </svg>
+          </a>
 
-  {/* Facebook */}
-  <a
-    href="https://www.facebook.com/receitasdoqueha/"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Facebook Receitas do Que Há"
-    className="text-olive hover:text-terra transition"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-7 h-7"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path d="M22 12a10 10 0 10-11.56 9.87v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.88 3.78-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.88h-2.34v6.99A10 10 0 0022 12z"/>
-    </svg>
-  </a>
-</div>
-</footer>
-      </div> 
+          {/* Facebook */}
+          <a
+            href="https://www.facebook.com/receitasdoqueha/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook Receitas do Que Há"
+            className="text-olive hover:text-terra transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-7 h-7"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M22 12a10 10 0 10-11.56 9.87v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.88 3.78-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.88h-2.34v6.99A10 10 0 0022 12z" />
+            </svg>
+          </a>
+        </div>
+      </footer>
+    </div>
   );
-}      
+}
