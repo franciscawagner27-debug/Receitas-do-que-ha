@@ -240,62 +240,63 @@ function HomePage() {
   useEffect(() => {
     fetchRecipes();
   }, []);
+async function fetchRecipes() {
+  setLoading(true);
 
-  async function fetchRecipes() {
-    setLoading(true);
+  const cache = localStorage.getItem("recipes");
+  const cacheTime = localStorage.getItem("recipes_time");
 
-   const cache = localStorage.getItem("recipes");
-const cacheTime = localStorage.getItem("recipes_time");
+  const CACHE_DURATION = 1000 * 60 * 5; // ⏱️ 5 minutos
 
-const ONE_HOUR = 1000 * 60 * 60;
+  if (cache && cacheTime) {
+    const isValid = Date.now() - Number(cacheTime) < CACHE_DURATION;
 
-if (cache && cacheTime) {
-  const isValid = Date.now() - Number(cacheTime) < ONE_HOUR;
-
-  if (isValid) {
-    setRecipes(JSON.parse(cache));
-    setLoading(false);
-    return;
-  }
-}
-
-    const { data, error } = await supabase
-      .from("recipes")
-      .select("*")
-      .order("priority", { ascending: true })
-      .order("id", { ascending: false });
-
-    if (!error && data) {
-      const cleaned = data.map((r: any) => {
-        let tags: string[] = [];
-
-        if (Array.isArray(r.tags)) {
-          tags = r.tags
-            .flatMap((t: any) =>
-              t
-                .toString()
-                .split(/[#\[\]",;]+/)
-                .map((s) => s.trim().toLowerCase())
-            )
-            .filter((t) => t.length > 0);
-        } else if (typeof r.tags === "string") {
-          tags = r.tags
-            .replace(/[#\[\]"]/g, " ")
-            .split(/[\s,;]+/)
-            .map((t) => t.trim().toLowerCase())
-            .filter((t) => t.length > 0);
-        }
-
-        return { ...r, tags };
-      });
-
-      setRecipes(cleaned as Recipe[]);
-      localStorage.setItem("recipes", JSON.stringify(cleaned));
+    if (isValid) {
+      setRecipes(JSON.parse(cache));
+      setLoading(false);
+      return;
     }
-    localStorage.setItem("recipes_time", Date.now().toString());
-
-    setLoading(false);
   }
+
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("*")
+    .order("priority", { ascending: true })
+    .order("id", { ascending: false });
+
+  if (!error && data) {
+    const cleaned = data.map((r: any) => {
+      let tags: string[] = [];
+
+      if (Array.isArray(r.tags)) {
+        tags = r.tags
+          .flatMap((t: any) =>
+            t
+              .toString()
+              .split(/[#\[\]",;]+/)
+              .map((s) => s.trim().toLowerCase())
+          )
+          .filter((t) => t.length > 0);
+      } else if (typeof r.tags === "string") {
+        tags = r.tags
+          .replace(/[#\[\]"]/g, " ")
+          .split(/[\s,;]+/)
+          .map((t) => t.trim().toLowerCase())
+          .filter((t) => t.length > 0);
+      }
+
+      return { ...r, tags };
+    });
+
+    setRecipes(cleaned as Recipe[]);
+
+    // 🔥 guardar cache + timestamp
+    localStorage.setItem("recipes", JSON.stringify(cleaned));
+    localStorage.setItem("recipes_time", Date.now().toString());
+  }
+
+  setLoading(false);
+}
 
   /* ----------------------- ⭐ ORDENAR RECEITAS (DESTAQUES) ----------------- */
 
