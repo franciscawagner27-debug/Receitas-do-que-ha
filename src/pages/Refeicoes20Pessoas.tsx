@@ -140,7 +140,7 @@ export default function Refeicoes20Pessoas() {
               Para organizar melhor a refeição e preparar a casa antes dos convidados
               chegarem, veja também as nossas
               <Link
-                to="/dicas/como-organizar-jantar"
+                to="/como-organizar-jantar"
                 className="underline hover:text-terra ml-1"
               >
                 dicas para organizar um jantar em casa
