@@ -1,0 +1,2586 @@
+{
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/creme%20espinafres.png": {
+    "originalBytes": 2327713,
+    "variants": [
+      {
+        "src": "/optimized-recipes/0124f10e15a652a5-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 74080
+      },
+      {
+        "src": "/optimized-recipes/0124f10e15a652a5-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 180080
+      },
+      {
+        "src": "/optimized-recipes/0124f10e15a652a5-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 212166
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/favas%20guisadas.png": {
+    "originalBytes": 2540679,
+    "variants": [
+      {
+        "src": "/optimized-recipes/2afe88080bea70e0-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 49360
+      },
+      {
+        "src": "/optimized-recipes/2afe88080bea70e0-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 165078
+      },
+      {
+        "src": "/optimized-recipes/2afe88080bea70e0-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 216306
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/empada%20frango%20grande.jpeg": {
+    "originalBytes": 95835,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f4ac6290e0b00931-480w.webp",
+        "width": 480,
+        "height": 327,
+        "bytes": 25676
+      },
+      {
+        "src": "/optimized-recipes/f4ac6290e0b00931-960w.webp",
+        "width": 960,
+        "height": 653,
+        "bytes": 67252
+      },
+      {
+        "src": "/optimized-recipes/f4ac6290e0b00931-1164w.webp",
+        "width": 1164,
+        "height": 792,
+        "bytes": 99228
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/ervilhas%20com%20ovos.jpeg": {
+    "originalBytes": 93764,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f76c562940c215d4-480w.webp",
+        "width": 480,
+        "height": 511,
+        "bytes": 50692
+      },
+      {
+        "src": "/optimized-recipes/f76c562940c215d4-764w.webp",
+        "width": 764,
+        "height": 814,
+        "bytes": 92394
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/acorda%20alentejana.png": {
+    "originalBytes": 2660069,
+    "variants": [
+      {
+        "src": "/optimized-recipes/e2580e9417d24671-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 84560
+      },
+      {
+        "src": "/optimized-recipes/e2580e9417d24671-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 235752
+      },
+      {
+        "src": "/optimized-recipes/e2580e9417d24671-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 296490
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bacalhau%20a%20bras.png": {
+    "originalBytes": 1869772,
+    "variants": [
+      {
+        "src": "/optimized-recipes/5b403a873c8f63f4-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 46858
+      },
+      {
+        "src": "/optimized-recipes/5b403a873c8f63f4-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 146632
+      },
+      {
+        "src": "/optimized-recipes/5b403a873c8f63f4-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 181916
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/acorda%20de%20bacalhau.png": {
+    "originalBytes": 2665214,
+    "variants": [
+      {
+        "src": "/optimized-recipes/092beeffda00b704-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 91018
+      },
+      {
+        "src": "/optimized-recipes/092beeffda00b704-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 243728
+      },
+      {
+        "src": "/optimized-recipes/092beeffda00b704-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 300506
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bacalhau%20com%20natas%202.jpg": {
+    "originalBytes": 589049,
+    "variants": [
+      {
+        "src": "/optimized-recipes/85f92567c4726229-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 25950
+      },
+      {
+        "src": "/optimized-recipes/85f92567c4726229-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 63010
+      },
+      {
+        "src": "/optimized-recipes/85f92567c4726229-1600w.webp",
+        "width": 1600,
+        "height": 1066,
+        "bytes": 138560
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/sopa%20tomate.png": {
+    "originalBytes": 2379349,
+    "variants": [
+      {
+        "src": "/optimized-recipes/de0ffcffdabd401c-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 81428
+      },
+      {
+        "src": "/optimized-recipes/de0ffcffdabd401c-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 194054
+      },
+      {
+        "src": "/optimized-recipes/de0ffcffdabd401c-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 233514
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/sopa%20de%20grao%20e%20espinafres.jpeg": {
+    "originalBytes": 14799,
+    "variants": [
+      {
+        "src": "/optimized-recipes/c8e66ae586aedc36-443w.webp",
+        "width": 443,
+        "height": 323,
+        "bytes": 13568
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/sopa%20de%20legumes.jpg": {
+    "originalBytes": 1407170,
+    "variants": [
+      {
+        "src": "/optimized-recipes/9cfedbb8b4436ec5-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 20496
+      },
+      {
+        "src": "/optimized-recipes/9cfedbb8b4436ec5-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 55324
+      },
+      {
+        "src": "/optimized-recipes/9cfedbb8b4436ec5-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 132898
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/carbonara.jpg": {
+    "originalBytes": 2460997,
+    "variants": [
+      {
+        "src": "/optimized-recipes/73c19cafdf4d7b83-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 18348
+      },
+      {
+        "src": "/optimized-recipes/73c19cafdf4d7b83-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 46194
+      },
+      {
+        "src": "/optimized-recipes/73c19cafdf4d7b83-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 141740
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/esparguete%20bolonhesa.jpg": {
+    "originalBytes": 1081928,
+    "variants": [
+      {
+        "src": "/optimized-recipes/9f0dfe43631e2cb2-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 18092
+      },
+      {
+        "src": "/optimized-recipes/9f0dfe43631e2cb2-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 45496
+      },
+      {
+        "src": "/optimized-recipes/9f0dfe43631e2cb2-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 106554
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/carbonara%20natas.jpg": {
+    "originalBytes": 1312366,
+    "variants": [
+      {
+        "src": "/optimized-recipes/4667eee6ea8a64ee-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 20926
+      },
+      {
+        "src": "/optimized-recipes/4667eee6ea8a64ee-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 67914
+      },
+      {
+        "src": "/optimized-recipes/4667eee6ea8a64ee-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 189796
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bolo%20chocolate.png": {
+    "originalBytes": 2445094,
+    "variants": [
+      {
+        "src": "/optimized-recipes/c3f7d737008a546d-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 60308
+      },
+      {
+        "src": "/optimized-recipes/c3f7d737008a546d-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 158834
+      },
+      {
+        "src": "/optimized-recipes/c3f7d737008a546d-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 210116
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pasteis%20de%20nata.png": {
+    "originalBytes": 1551633,
+    "variants": [
+      {
+        "src": "/optimized-recipes/d468f47b8620182e-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 33448
+      },
+      {
+        "src": "/optimized-recipes/d468f47b8620182e-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 86752
+      },
+      {
+        "src": "/optimized-recipes/d468f47b8620182e-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 107496
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/baba%20de%20camelo.png": {
+    "originalBytes": 1880255,
+    "variants": [
+      {
+        "src": "/optimized-recipes/77b0b0f7c2fcea50-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 31324
+      },
+      {
+        "src": "/optimized-recipes/77b0b0f7c2fcea50-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 113490
+      },
+      {
+        "src": "/optimized-recipes/77b0b0f7c2fcea50-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 162126
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/massa%20frango%20natas.png": {
+    "originalBytes": 2365381,
+    "variants": [
+      {
+        "src": "/optimized-recipes/e8beb34bd059cb43-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 65404
+      },
+      {
+        "src": "/optimized-recipes/e8beb34bd059cb43-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 162642
+      },
+      {
+        "src": "/optimized-recipes/e8beb34bd059cb43-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 200558
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/rolo%20de%20carne.png": {
+    "originalBytes": 2916607,
+    "variants": [
+      {
+        "src": "/optimized-recipes/a806faa4345af088-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 55510
+      },
+      {
+        "src": "/optimized-recipes/a806faa4345af088-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 163378
+      },
+      {
+        "src": "/optimized-recipes/a806faa4345af088-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 346056
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/tosta%20queijo%20e%20ovo.png": {
+    "originalBytes": 2419368,
+    "variants": [
+      {
+        "src": "/optimized-recipes/48ad6d4f7ab9c49f-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 77002
+      },
+      {
+        "src": "/optimized-recipes/48ad6d4f7ab9c49f-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 195524
+      },
+      {
+        "src": "/optimized-recipes/48ad6d4f7ab9c49f-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 238036
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/peixinhos%20da%20horta.png": {
+    "originalBytes": 2481288,
+    "variants": [
+      {
+        "src": "/optimized-recipes/3ee61a1d5eaf7bfc-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 81254
+      },
+      {
+        "src": "/optimized-recipes/3ee61a1d5eaf7bfc-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 202868
+      },
+      {
+        "src": "/optimized-recipes/3ee61a1d5eaf7bfc-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 254226
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/massa%20ameijoas%20bulhao%20pato.jpg": {
+    "originalBytes": 964872,
+    "variants": [
+      {
+        "src": "/optimized-recipes/6362777b2b95231e-480w.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 32492
+      },
+      {
+        "src": "/optimized-recipes/6362777b2b95231e-960w.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 87238
+      },
+      {
+        "src": "/optimized-recipes/6362777b2b95231e-1600w.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 255894
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/guacamole.png": {
+    "originalBytes": 2459087,
+    "variants": [
+      {
+        "src": "/optimized-recipes/194cbab7a74c3e33-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 84704
+      },
+      {
+        "src": "/optimized-recipes/194cbab7a74c3e33-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 207622
+      },
+      {
+        "src": "/optimized-recipes/194cbab7a74c3e33-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 250198
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/lombo%20porco.jpg": {
+    "originalBytes": 1310590,
+    "variants": [
+      {
+        "src": "/optimized-recipes/78acbdb927cbbf33-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 58474
+      },
+      {
+        "src": "/optimized-recipes/78acbdb927cbbf33-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 170716
+      },
+      {
+        "src": "/optimized-recipes/78acbdb927cbbf33-1600w.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 488246
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/cogumelos%20salteados.png": {
+    "originalBytes": 2460409,
+    "variants": [
+      {
+        "src": "/optimized-recipes/a09df4daf9212a63-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 82694
+      },
+      {
+        "src": "/optimized-recipes/a09df4daf9212a63-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 202280
+      },
+      {
+        "src": "/optimized-recipes/a09df4daf9212a63-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 248084
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/Francesinha.png": {
+    "originalBytes": 2521395,
+    "variants": [
+      {
+        "src": "/optimized-recipes/5390a0cf8227e195-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 50028
+      },
+      {
+        "src": "/optimized-recipes/5390a0cf8227e195-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 175016
+      },
+      {
+        "src": "/optimized-recipes/5390a0cf8227e195-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 229046
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/fondue%20carne.png": {
+    "originalBytes": 3045507,
+    "variants": [
+      {
+        "src": "/optimized-recipes/8ae099c32c5453b4-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 49882
+      },
+      {
+        "src": "/optimized-recipes/8ae099c32c5453b4-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 159530
+      },
+      {
+        "src": "/optimized-recipes/8ae099c32c5453b4-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 337262
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20basmati.jpg": {
+    "originalBytes": 1693819,
+    "variants": [
+      {
+        "src": "/optimized-recipes/eff1ca4e47d0e4d6-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 22892
+      },
+      {
+        "src": "/optimized-recipes/eff1ca4e47d0e4d6-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 60264
+      },
+      {
+        "src": "/optimized-recipes/eff1ca4e47d0e4d6-1600w.webp",
+        "width": 1600,
+        "height": 1600,
+        "bytes": 146674
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/Creme%20de%20legumes.png": {
+    "originalBytes": 2355182,
+    "variants": [
+      {
+        "src": "/optimized-recipes/1d7968a9740eeb65-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 75996
+      },
+      {
+        "src": "/optimized-recipes/1d7968a9740eeb65-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 191152
+      },
+      {
+        "src": "/optimized-recipes/1d7968a9740eeb65-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 232940
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/humus.png": {
+    "originalBytes": 2245315,
+    "variants": [
+      {
+        "src": "/optimized-recipes/b433f380f91bcae1-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 73288
+      },
+      {
+        "src": "/optimized-recipes/b433f380f91bcae1-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 171940
+      },
+      {
+        "src": "/optimized-recipes/b433f380f91bcae1-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 206268
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bitoque.png": {
+    "originalBytes": 2560848,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f3cade601f9c7c9d-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 89044
+      },
+      {
+        "src": "/optimized-recipes/f3cade601f9c7c9d-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 232302
+      },
+      {
+        "src": "/optimized-recipes/f3cade601f9c7c9d-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 283484
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/cubos%20frango.png": {
+    "originalBytes": 1919493,
+    "variants": [
+      {
+        "src": "/optimized-recipes/6a9344b8ee707d87-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 57672
+      },
+      {
+        "src": "/optimized-recipes/6a9344b8ee707d87-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 164502
+      },
+      {
+        "src": "/optimized-recipes/6a9344b8ee707d87-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 201186
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/acorda%20de%20camarao.png": {
+    "originalBytes": 2673970,
+    "variants": [
+      {
+        "src": "/optimized-recipes/9f7951bf1cc3c0a2-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 94546
+      },
+      {
+        "src": "/optimized-recipes/9f7951bf1cc3c0a2-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 255460
+      },
+      {
+        "src": "/optimized-recipes/9f7951bf1cc3c0a2-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 311326
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/courgette%20airfryer.png": {
+    "originalBytes": 1831623,
+    "variants": [
+      {
+        "src": "/optimized-recipes/9afff2b567adf2c4-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 43664
+      },
+      {
+        "src": "/optimized-recipes/9afff2b567adf2c4-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 139074
+      },
+      {
+        "src": "/optimized-recipes/9afff2b567adf2c4-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 172792
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/crumble%20maca%20airfryer.png": {
+    "originalBytes": 2488103,
+    "variants": [
+      {
+        "src": "/optimized-recipes/1cc83418c8fa2a0f-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 70230
+      },
+      {
+        "src": "/optimized-recipes/1cc83418c8fa2a0f-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 172256
+      },
+      {
+        "src": "/optimized-recipes/1cc83418c8fa2a0f-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 212952
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/canja%20galinha.png": {
+    "originalBytes": 2257203,
+    "variants": [
+      {
+        "src": "/optimized-recipes/cc5d40d705699a65-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 75870
+      },
+      {
+        "src": "/optimized-recipes/cc5d40d705699a65-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 180216
+      },
+      {
+        "src": "/optimized-recipes/cc5d40d705699a65-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 210926
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/ovos%20rotos.png": {
+    "originalBytes": 2591681,
+    "variants": [
+      {
+        "src": "/optimized-recipes/69624bec0e3c7a9e-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 81280
+      },
+      {
+        "src": "/optimized-recipes/69624bec0e3c7a9e-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 211386
+      },
+      {
+        "src": "/optimized-recipes/69624bec0e3c7a9e-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 253176
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/focaccia.png": {
+    "originalBytes": 2566876,
+    "variants": [
+      {
+        "src": "/optimized-recipes/bcf29d436b7f586a-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 94006
+      },
+      {
+        "src": "/optimized-recipes/bcf29d436b7f586a-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 231494
+      },
+      {
+        "src": "/optimized-recipes/bcf29d436b7f586a-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 281682
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/banana%20frita.png": {
+    "originalBytes": 2587313,
+    "variants": [
+      {
+        "src": "/optimized-recipes/40e1cd9adf8d1176-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 72722
+      },
+      {
+        "src": "/optimized-recipes/40e1cd9adf8d1176-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 192468
+      },
+      {
+        "src": "/optimized-recipes/40e1cd9adf8d1176-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 232540
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/morango%20do%20amor.png": {
+    "originalBytes": 2442789,
+    "variants": [
+      {
+        "src": "/optimized-recipes/64b1ef9b59a06aa4-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 86194
+      },
+      {
+        "src": "/optimized-recipes/64b1ef9b59a06aa4-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 217530
+      },
+      {
+        "src": "/optimized-recipes/64b1ef9b59a06aa4-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 260730
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/maca%20assada.png": {
+    "originalBytes": 2450041,
+    "variants": [
+      {
+        "src": "/optimized-recipes/320d6acb87f1eccd-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 70700
+      },
+      {
+        "src": "/optimized-recipes/320d6acb87f1eccd-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 182690
+      },
+      {
+        "src": "/optimized-recipes/320d6acb87f1eccd-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 223146
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/calzone%20pao%20pita.png": {
+    "originalBytes": 2548164,
+    "variants": [
+      {
+        "src": "/optimized-recipes/8d36353fe3e735e5-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 75398
+      },
+      {
+        "src": "/optimized-recipes/8d36353fe3e735e5-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 194124
+      },
+      {
+        "src": "/optimized-recipes/8d36353fe3e735e5-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 236160
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/crumble%20maca.png": {
+    "originalBytes": 2703509,
+    "variants": [
+      {
+        "src": "/optimized-recipes/6a44e2b6d8c3f8d1-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 83652
+      },
+      {
+        "src": "/optimized-recipes/6a44e2b6d8c3f8d1-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 223686
+      },
+      {
+        "src": "/optimized-recipes/6a44e2b6d8c3f8d1-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 271720
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20atum%20malandrinho.png": {
+    "originalBytes": 2446404,
+    "variants": [
+      {
+        "src": "/optimized-recipes/47df98049aa5c0fb-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 71362
+      },
+      {
+        "src": "/optimized-recipes/47df98049aa5c0fb-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 177792
+      },
+      {
+        "src": "/optimized-recipes/47df98049aa5c0fb-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 214878
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/ovos%20cozidos%20air%20fryer.png": {
+    "originalBytes": 1570521,
+    "variants": [
+      {
+        "src": "/optimized-recipes/5f14f72217b1dee0-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 18098
+      },
+      {
+        "src": "/optimized-recipes/5f14f72217b1dee0-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 63422
+      },
+      {
+        "src": "/optimized-recipes/5f14f72217b1dee0-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 88702
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/medalhoes%20pescada.png": {
+    "originalBytes": 1503859,
+    "variants": [
+      {
+        "src": "/optimized-recipes/bf953d061621f0ab-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 28890
+      },
+      {
+        "src": "/optimized-recipes/bf953d061621f0ab-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 68860
+      },
+      {
+        "src": "/optimized-recipes/bf953d061621f0ab-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 85008
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/batata%20doce%20frita.png": {
+    "originalBytes": 1789030,
+    "variants": [
+      {
+        "src": "/optimized-recipes/918e46486d92efb7-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 56884
+      },
+      {
+        "src": "/optimized-recipes/918e46486d92efb7-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 156596
+      },
+      {
+        "src": "/optimized-recipes/918e46486d92efb7-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 192526
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pasteis%20filo%20frango.png": {
+    "originalBytes": 2391230,
+    "variants": [
+      {
+        "src": "/optimized-recipes/1e76543a8279ab00-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 81746
+      },
+      {
+        "src": "/optimized-recipes/1e76543a8279ab00-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 192718
+      },
+      {
+        "src": "/optimized-recipes/1e76543a8279ab00-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 235698
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/gratinado%20atum.png": {
+    "originalBytes": 1791242,
+    "variants": [
+      {
+        "src": "/optimized-recipes/1c659aba750450b0-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 52644
+      },
+      {
+        "src": "/optimized-recipes/1c659aba750450b0-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 139584
+      },
+      {
+        "src": "/optimized-recipes/1c659aba750450b0-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 173362
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/raclette.png": {
+    "originalBytes": 2302354,
+    "variants": [
+      {
+        "src": "/optimized-recipes/21254fa34adeda61-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 63972
+      },
+      {
+        "src": "/optimized-recipes/21254fa34adeda61-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 152696
+      },
+      {
+        "src": "/optimized-recipes/21254fa34adeda61-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 183022
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/banana%20bread.jpg": {
+    "originalBytes": 2044560,
+    "variants": [
+      {
+        "src": "/optimized-recipes/afd9fbe7b7c042e1-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 56272
+      },
+      {
+        "src": "/optimized-recipes/afd9fbe7b7c042e1-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 152684
+      },
+      {
+        "src": "/optimized-recipes/afd9fbe7b7c042e1-1600w.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 432076
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/strogonoff%20frango%20courgete.png": {
+    "originalBytes": 2695948,
+    "variants": [
+      {
+        "src": "/optimized-recipes/84584394dd9d0eba-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 83874
+      },
+      {
+        "src": "/optimized-recipes/84584394dd9d0eba-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 213580
+      },
+      {
+        "src": "/optimized-recipes/84584394dd9d0eba-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 256478
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20de%20pato.png": {
+    "originalBytes": 2773508,
+    "variants": [
+      {
+        "src": "/optimized-recipes/653970cca10b1733-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 104862
+      },
+      {
+        "src": "/optimized-recipes/653970cca10b1733-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 288436
+      },
+      {
+        "src": "/optimized-recipes/653970cca10b1733-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 353732
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/carne%20picada%20cogumelos%20e%20natas%202.png": {
+    "originalBytes": 2638158,
+    "variants": [
+      {
+        "src": "/optimized-recipes/945c43c56a6c9b61-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 103688
+      },
+      {
+        "src": "/optimized-recipes/945c43c56a6c9b61-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 252668
+      },
+      {
+        "src": "/optimized-recipes/945c43c56a6c9b61-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 310176
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/tomates%20assados.png": {
+    "originalBytes": 2150605,
+    "variants": [
+      {
+        "src": "/optimized-recipes/8573dded5b15bfd4-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 71364
+      },
+      {
+        "src": "/optimized-recipes/8573dded5b15bfd4-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 211750
+      },
+      {
+        "src": "/optimized-recipes/8573dded5b15bfd4-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 259392
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/brownie.png": {
+    "originalBytes": 2715043,
+    "variants": [
+      {
+        "src": "/optimized-recipes/0c752db277bba5e7-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 83652
+      },
+      {
+        "src": "/optimized-recipes/0c752db277bba5e7-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 222358
+      },
+      {
+        "src": "/optimized-recipes/0c752db277bba5e7-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 274048
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bolo%20iogurte.png": {
+    "originalBytes": 2510526,
+    "variants": [
+      {
+        "src": "/optimized-recipes/e50ba2e45b703c2b-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 74814
+      },
+      {
+        "src": "/optimized-recipes/e50ba2e45b703c2b-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 198504
+      },
+      {
+        "src": "/optimized-recipes/e50ba2e45b703c2b-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 250852
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/peito%20frango%20airfryer.jpg": {
+    "originalBytes": 1803138,
+    "variants": [
+      {
+        "src": "/optimized-recipes/21d2e6e31c578056-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 67390
+      },
+      {
+        "src": "/optimized-recipes/21d2e6e31c578056-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 222594
+      },
+      {
+        "src": "/optimized-recipes/21d2e6e31c578056-1600w.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 566420
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pica%20pau%202.png": {
+    "originalBytes": 2622834,
+    "variants": [
+      {
+        "src": "/optimized-recipes/028bfffcc44d9f68-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 48310
+      },
+      {
+        "src": "/optimized-recipes/028bfffcc44d9f68-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 140836
+      },
+      {
+        "src": "/optimized-recipes/028bfffcc44d9f68-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 283096
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pasteis%20de%20bacalhau.png": {
+    "originalBytes": 2615256,
+    "variants": [
+      {
+        "src": "/optimized-recipes/32d16d25f6dcfe82-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 86220
+      },
+      {
+        "src": "/optimized-recipes/32d16d25f6dcfe82-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 235636
+      },
+      {
+        "src": "/optimized-recipes/32d16d25f6dcfe82-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 297032
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pizza%20pao%20pita.png": {
+    "originalBytes": 2623657,
+    "variants": [
+      {
+        "src": "/optimized-recipes/17b7f69b242d442f-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 74722
+      },
+      {
+        "src": "/optimized-recipes/17b7f69b242d442f-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 196744
+      },
+      {
+        "src": "/optimized-recipes/17b7f69b242d442f-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 244636
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/salmao%20braseado%20sementes.png": {
+    "originalBytes": 2499460,
+    "variants": [
+      {
+        "src": "/optimized-recipes/a73ca75c30f61131-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 55732
+      },
+      {
+        "src": "/optimized-recipes/a73ca75c30f61131-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 161722
+      },
+      {
+        "src": "/optimized-recipes/a73ca75c30f61131-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 204726
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/frango%20bras.jpeg": {
+    "originalBytes": 140138,
+    "variants": [
+      {
+        "src": "/optimized-recipes/5e11b9853433d5ae-480w.webp",
+        "width": 480,
+        "height": 512,
+        "bytes": 86144
+      },
+      {
+        "src": "/optimized-recipes/5e11b9853433d5ae-749w.webp",
+        "width": 749,
+        "height": 799,
+        "bytes": 160058
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/strogonoff%20de%20frango.jpg": {
+    "originalBytes": 62348,
+    "variants": [
+      {
+        "src": "/optimized-recipes/aca61de1632ae9ce-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 34732
+      },
+      {
+        "src": "/optimized-recipes/aca61de1632ae9ce-600w.webp",
+        "width": 600,
+        "height": 400,
+        "bytes": 60630
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/carne%20vaca.jpg": {
+    "originalBytes": 5825428,
+    "variants": [
+      {
+        "src": "/optimized-recipes/0b894e91721b0247-480w.webp",
+        "width": 480,
+        "height": 637,
+        "bytes": 31864
+      },
+      {
+        "src": "/optimized-recipes/0b894e91721b0247-960w.webp",
+        "width": 960,
+        "height": 1274,
+        "bytes": 83938
+      },
+      {
+        "src": "/optimized-recipes/0b894e91721b0247-1600w.webp",
+        "width": 1600,
+        "height": 2124,
+        "bytes": 174042
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/filetes%20com%20crosta%20de%20ervas.jpeg": {
+    "originalBytes": 231228,
+    "variants": [
+      {
+        "src": "/optimized-recipes/e79249d8e1cec293-480w.webp",
+        "width": 480,
+        "height": 425,
+        "bytes": 61600
+      },
+      {
+        "src": "/optimized-recipes/e79249d8e1cec293-960w.webp",
+        "width": 960,
+        "height": 850,
+        "bytes": 203482
+      },
+      {
+        "src": "/optimized-recipes/e79249d8e1cec293-1167w.webp",
+        "width": 1167,
+        "height": 1033,
+        "bytes": 301138
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/tortilha%203.png": {
+    "originalBytes": 2868130,
+    "variants": [
+      {
+        "src": "/optimized-recipes/e7d934ee60d49357-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 55212
+      },
+      {
+        "src": "/optimized-recipes/e7d934ee60d49357-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 172228
+      },
+      {
+        "src": "/optimized-recipes/e7d934ee60d49357-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 369894
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/caldo%20verde%202.jpeg": {
+    "originalBytes": 76138,
+    "variants": [
+      {
+        "src": "/optimized-recipes/7396509221b8de88-480w.webp",
+        "width": 480,
+        "height": 374,
+        "bytes": 27844
+      },
+      {
+        "src": "/optimized-recipes/7396509221b8de88-960w.webp",
+        "width": 960,
+        "height": 748,
+        "bytes": 62700
+      },
+      {
+        "src": "/optimized-recipes/7396509221b8de88-964w.webp",
+        "width": 964,
+        "height": 751,
+        "bytes": 71572
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/mousse%20de%20laranja%202.jpeg": {
+    "originalBytes": 159103,
+    "variants": [
+      {
+        "src": "/optimized-recipes/24662584e371a230-480w.webp",
+        "width": 480,
+        "height": 469,
+        "bytes": 21558
+      },
+      {
+        "src": "/optimized-recipes/24662584e371a230-960w.webp",
+        "width": 960,
+        "height": 939,
+        "bytes": 57026
+      },
+      {
+        "src": "/optimized-recipes/24662584e371a230-1600w.webp",
+        "width": 1600,
+        "height": 1565,
+        "bytes": 140890
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/feijoada.jpg": {
+    "originalBytes": 5460586,
+    "variants": [
+      {
+        "src": "/optimized-recipes/6de5c279a75cda6d-480w.webp",
+        "width": 480,
+        "height": 274,
+        "bytes": 20980
+      },
+      {
+        "src": "/optimized-recipes/6de5c279a75cda6d-960w.webp",
+        "width": 960,
+        "height": 548,
+        "bytes": 55368
+      },
+      {
+        "src": "/optimized-recipes/6de5c279a75cda6d-1600w.webp",
+        "width": 1600,
+        "height": 914,
+        "bytes": 138686
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/frango%20assado%203.jpeg": {
+    "originalBytes": 81527,
+    "variants": [
+      {
+        "src": "/optimized-recipes/beab43175d873eea-480w.webp",
+        "width": 480,
+        "height": 676,
+        "bytes": 77694
+      },
+      {
+        "src": "/optimized-recipes/beab43175d873eea-541w.webp",
+        "width": 541,
+        "height": 762,
+        "bytes": 92268
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20atum%20pimentos%202.png": {
+    "originalBytes": 2730702,
+    "variants": [
+      {
+        "src": "/optimized-recipes/26474e05586f3f0e-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 108024
+      },
+      {
+        "src": "/optimized-recipes/26474e05586f3f0e-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 284680
+      },
+      {
+        "src": "/optimized-recipes/26474e05586f3f0e-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 335784
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/tarte%20de%20maca%202.jpeg": {
+    "originalBytes": 168428,
+    "variants": [
+      {
+        "src": "/optimized-recipes/5dffebbb055a090b-480w.webp",
+        "width": 480,
+        "height": 386,
+        "bytes": 41428
+      },
+      {
+        "src": "/optimized-recipes/5dffebbb055a090b-960w.webp",
+        "width": 960,
+        "height": 773,
+        "bytes": 124380
+      },
+      {
+        "src": "/optimized-recipes/5dffebbb055a090b-1200w.webp",
+        "width": 1200,
+        "height": 966,
+        "bytes": 186996
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/salada%20grao.jpg": {
+    "originalBytes": 2207438,
+    "variants": [
+      {
+        "src": "/optimized-recipes/b5db9abe0522e906-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 45684
+      },
+      {
+        "src": "/optimized-recipes/b5db9abe0522e906-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 132952
+      },
+      {
+        "src": "/optimized-recipes/b5db9abe0522e906-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 310702
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/mousse%20de%20limao.jpeg": {
+    "originalBytes": 214330,
+    "variants": [
+      {
+        "src": "/optimized-recipes/5aa4cb48f10fefd0-480w.webp",
+        "width": 480,
+        "height": 443,
+        "bytes": 39452
+      },
+      {
+        "src": "/optimized-recipes/5aa4cb48f10fefd0-960w.webp",
+        "width": 960,
+        "height": 887,
+        "bytes": 114366
+      },
+      {
+        "src": "/optimized-recipes/5aa4cb48f10fefd0-1440w.webp",
+        "width": 1440,
+        "height": 1330,
+        "bytes": 222338
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/penne%20cremoso%20cogumelos.jpg": {
+    "originalBytes": 1105895,
+    "variants": [
+      {
+        "src": "/optimized-recipes/69be592eef195c6f-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 26100
+      },
+      {
+        "src": "/optimized-recipes/69be592eef195c6f-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 61016
+      },
+      {
+        "src": "/optimized-recipes/69be592eef195c6f-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 130674
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20de%20frango%203.png": {
+    "originalBytes": 2561386,
+    "variants": [
+      {
+        "src": "/optimized-recipes/c38409e4a2a12d84-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 95768
+      },
+      {
+        "src": "/optimized-recipes/c38409e4a2a12d84-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 235522
+      },
+      {
+        "src": "/optimized-recipes/c38409e4a2a12d84-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 293492
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/quiche%20brocolos.jpg": {
+    "originalBytes": 1111749,
+    "variants": [
+      {
+        "src": "/optimized-recipes/4b8c7905a0f17d49-480w.webp",
+        "width": 480,
+        "height": 318,
+        "bytes": 44370
+      },
+      {
+        "src": "/optimized-recipes/4b8c7905a0f17d49-960w.webp",
+        "width": 960,
+        "height": 636,
+        "bytes": 120740
+      },
+      {
+        "src": "/optimized-recipes/4b8c7905a0f17d49-1600w.webp",
+        "width": 1600,
+        "height": 1060,
+        "bytes": 263500
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/lombo%20salmao%20legumes.png": {
+    "originalBytes": 2534144,
+    "variants": [
+      {
+        "src": "/optimized-recipes/c040ab8fcd80bb5b-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 27860
+      },
+      {
+        "src": "/optimized-recipes/c040ab8fcd80bb5b-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 93070
+      },
+      {
+        "src": "/optimized-recipes/c040ab8fcd80bb5b-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 240508
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bacalhau%20espiritual%202.png": {
+    "originalBytes": 2908678,
+    "variants": [
+      {
+        "src": "/optimized-recipes/d47d9ddaf70a6be4-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 98154
+      },
+      {
+        "src": "/optimized-recipes/d47d9ddaf70a6be4-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 303198
+      },
+      {
+        "src": "/optimized-recipes/d47d9ddaf70a6be4-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 377884
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/creme%20de%20ervilhas%20e%20courgete.jpg": {
+    "originalBytes": 240638,
+    "variants": [
+      {
+        "src": "/optimized-recipes/a3fd26d140c6a464-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 60032
+      },
+      {
+        "src": "/optimized-recipes/a3fd26d140c6a464-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 146994
+      },
+      {
+        "src": "/optimized-recipes/a3fd26d140c6a464-1200w.webp",
+        "width": 1200,
+        "height": 1800,
+        "bytes": 236770
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bolo%20laranja%202.jpg": {
+    "originalBytes": 1639258,
+    "variants": [
+      {
+        "src": "/optimized-recipes/60bc1e9245ffc369-480w.webp",
+        "width": 480,
+        "height": 721,
+        "bytes": 71956
+      },
+      {
+        "src": "/optimized-recipes/60bc1e9245ffc369-960w.webp",
+        "width": 960,
+        "height": 1443,
+        "bytes": 200620
+      },
+      {
+        "src": "/optimized-recipes/60bc1e9245ffc369-1600w.webp",
+        "width": 1600,
+        "height": 2405,
+        "bytes": 451672
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/lombinhos%20peru.jpg": {
+    "originalBytes": 1026635,
+    "variants": [
+      {
+        "src": "/optimized-recipes/3c8b045820a5de03-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 27442
+      },
+      {
+        "src": "/optimized-recipes/3c8b045820a5de03-960w.webp",
+        "width": 960,
+        "height": 1439,
+        "bytes": 70916
+      },
+      {
+        "src": "/optimized-recipes/3c8b045820a5de03-1600w.webp",
+        "width": 1600,
+        "height": 2399,
+        "bytes": 172932
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pao%20alho%20queijo.jpg": {
+    "originalBytes": 1388436,
+    "variants": [
+      {
+        "src": "/optimized-recipes/05d58d8d351876d0-480w.webp",
+        "width": 480,
+        "height": 319,
+        "bytes": 31344
+      },
+      {
+        "src": "/optimized-recipes/05d58d8d351876d0-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 87282
+      },
+      {
+        "src": "/optimized-recipes/05d58d8d351876d0-1600w.webp",
+        "width": 1600,
+        "height": 1066,
+        "bytes": 207616
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pavlova%202.jpeg": {
+    "originalBytes": 113798,
+    "variants": [
+      {
+        "src": "/optimized-recipes/713b8803803a8acb-480w.webp",
+        "width": 480,
+        "height": 329,
+        "bytes": 30456
+      },
+      {
+        "src": "/optimized-recipes/713b8803803a8acb-960w.webp",
+        "width": 960,
+        "height": 658,
+        "bytes": 76328
+      },
+      {
+        "src": "/optimized-recipes/713b8803803a8acb-1200w.webp",
+        "width": 1200,
+        "height": 823,
+        "bytes": 116412
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/leite%20creme.jpg": {
+    "originalBytes": 8642424,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f5718c3f431099fb-480w.webp",
+        "width": 480,
+        "height": 702,
+        "bytes": 71674
+      },
+      {
+        "src": "/optimized-recipes/f5718c3f431099fb-960w.webp",
+        "width": 960,
+        "height": 1403,
+        "bytes": 199026
+      },
+      {
+        "src": "/optimized-recipes/f5718c3f431099fb-1600w.webp",
+        "width": 1600,
+        "height": 2338,
+        "bytes": 492376
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/cheesecake.jpeg": {
+    "originalBytes": 190108,
+    "variants": [
+      {
+        "src": "/optimized-recipes/865a60dd9dfcf50a-480w.webp",
+        "width": 480,
+        "height": 503,
+        "bytes": 32264
+      },
+      {
+        "src": "/optimized-recipes/865a60dd9dfcf50a-960w.webp",
+        "width": 960,
+        "height": 1005,
+        "bytes": 102226
+      },
+      {
+        "src": "/optimized-recipes/865a60dd9dfcf50a-1333w.webp",
+        "width": 1333,
+        "height": 1396,
+        "bytes": 198306
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/folhado%20queijo%20cabra.png": {
+    "originalBytes": 2673989,
+    "variants": [
+      {
+        "src": "/optimized-recipes/71eaac4317924841-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 23838
+      },
+      {
+        "src": "/optimized-recipes/71eaac4317924841-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 93544
+      },
+      {
+        "src": "/optimized-recipes/71eaac4317924841-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 247138
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bolo%20de%20limao.jpg": {
+    "originalBytes": 87958,
+    "variants": [
+      {
+        "src": "/optimized-recipes/0231a8fee28dbe5c-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 23012
+      },
+      {
+        "src": "/optimized-recipes/0231a8fee28dbe5c-800w.webp",
+        "width": 800,
+        "height": 1200,
+        "bytes": 50966
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/legumes%20salteados%20airfryer.png": {
+    "originalBytes": 1743285,
+    "variants": [
+      {
+        "src": "/optimized-recipes/921043d11cee0efb-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 34004
+      },
+      {
+        "src": "/optimized-recipes/921043d11cee0efb-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 107342
+      },
+      {
+        "src": "/optimized-recipes/921043d11cee0efb-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 137788
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/douradas%20batatas%20no%20forno.jpeg": {
+    "originalBytes": 153442,
+    "variants": [
+      {
+        "src": "/optimized-recipes/b0770d1df0582dd2-480w.webp",
+        "width": 480,
+        "height": 408,
+        "bytes": 55810
+      },
+      {
+        "src": "/optimized-recipes/b0770d1df0582dd2-928w.webp",
+        "width": 928,
+        "height": 788,
+        "bytes": 191068
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/ovos%20mexidos%20farinheira.png": {
+    "originalBytes": 2822883,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f444e6364dcd6040-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 63412
+      },
+      {
+        "src": "/optimized-recipes/f444e6364dcd6040-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 206592
+      },
+      {
+        "src": "/optimized-recipes/f444e6364dcd6040-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 282658
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/lasanha%20de%20espinafres.jpeg": {
+    "originalBytes": 91352,
+    "variants": [
+      {
+        "src": "/optimized-recipes/bdd29c1c37656448-480w.webp",
+        "width": 480,
+        "height": 505,
+        "bytes": 30842
+      },
+      {
+        "src": "/optimized-recipes/bdd29c1c37656448-960w.webp",
+        "width": 960,
+        "height": 1010,
+        "bytes": 73816
+      },
+      {
+        "src": "/optimized-recipes/bdd29c1c37656448-1012w.webp",
+        "width": 1012,
+        "height": 1065,
+        "bytes": 87584
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/vichyssoise.jpg": {
+    "originalBytes": 94823,
+    "variants": [
+      {
+        "src": "/optimized-recipes/4aa624a8f0b2629a-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 51306
+      },
+      {
+        "src": "/optimized-recipes/4aa624a8f0b2629a-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 140464
+      },
+      {
+        "src": "/optimized-recipes/4aa624a8f0b2629a-1200w.webp",
+        "width": 1200,
+        "height": 1800,
+        "bytes": 184650
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20camarao.jpg": {
+    "originalBytes": 6487657,
+    "variants": [
+      {
+        "src": "/optimized-recipes/9c27f2e3700d6152-480w.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 51062
+      },
+      {
+        "src": "/optimized-recipes/9c27f2e3700d6152-960w.webp",
+        "width": 960,
+        "height": 1200,
+        "bytes": 154488
+      },
+      {
+        "src": "/optimized-recipes/9c27f2e3700d6152-1600w.webp",
+        "width": 1600,
+        "height": 2000,
+        "bytes": 517988
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/lasanha%207.jpeg": {
+    "originalBytes": 167812,
+    "variants": [
+      {
+        "src": "/optimized-recipes/e73028e2a9ea9002-480w.webp",
+        "width": 480,
+        "height": 462,
+        "bytes": 46852
+      },
+      {
+        "src": "/optimized-recipes/e73028e2a9ea9002-960w.webp",
+        "width": 960,
+        "height": 924,
+        "bytes": 137582
+      },
+      {
+        "src": "/optimized-recipes/e73028e2a9ea9002-1106w.webp",
+        "width": 1106,
+        "height": 1065,
+        "bytes": 194112
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/massa%20atum.jpg": {
+    "originalBytes": 1707750,
+    "variants": [
+      {
+        "src": "/optimized-recipes/37ed81bf3ab6f37f-480w.webp",
+        "width": 480,
+        "height": 641,
+        "bytes": 26862
+      },
+      {
+        "src": "/optimized-recipes/37ed81bf3ab6f37f-960w.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 77718
+      },
+      {
+        "src": "/optimized-recipes/37ed81bf3ab6f37f-1600w.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 185146
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20de%20frango%20forno.jpeg": {
+    "originalBytes": 77174,
+    "variants": [
+      {
+        "src": "/optimized-recipes/8c725e05753692a0-480w.webp",
+        "width": 480,
+        "height": 426,
+        "bytes": 37450
+      },
+      {
+        "src": "/optimized-recipes/8c725e05753692a0-804w.webp",
+        "width": 804,
+        "height": 713,
+        "bytes": 71042
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/bifinhos%20vitela%20cogumelos.jpeg": {
+    "originalBytes": 45614,
+    "variants": [
+      {
+        "src": "/optimized-recipes/47cf3242a1c37b15-480w.webp",
+        "width": 480,
+        "height": 388,
+        "bytes": 53442
+      },
+      {
+        "src": "/optimized-recipes/47cf3242a1c37b15-493w.webp",
+        "width": 493,
+        "height": 399,
+        "bytes": 56738
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/panquecas.jpg": {
+    "originalBytes": 425879,
+    "variants": [
+      {
+        "src": "/optimized-recipes/886662915f1a0898-480w.webp",
+        "width": 480,
+        "height": 293,
+        "bytes": 23754
+      },
+      {
+        "src": "/optimized-recipes/886662915f1a0898-960w.webp",
+        "width": 960,
+        "height": 586,
+        "bytes": 68238
+      },
+      {
+        "src": "/optimized-recipes/886662915f1a0898-1600w.webp",
+        "width": 1600,
+        "height": 977,
+        "bytes": 176872
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/quiche%20legumes%20sem%20massa.jpeg": {
+    "originalBytes": 38927,
+    "variants": [
+      {
+        "src": "/optimized-recipes/707eaf27c2e8b425-381w.webp",
+        "width": 381,
+        "height": 413,
+        "bytes": 46660
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/tomatada%20ovos%20escalfados.jpg": {
+    "originalBytes": 3214235,
+    "variants": [
+      {
+        "src": "/optimized-recipes/fcc256f6d51aea60-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 33122
+      },
+      {
+        "src": "/optimized-recipes/fcc256f6d51aea60-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 100446
+      },
+      {
+        "src": "/optimized-recipes/fcc256f6d51aea60-1600w.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 619886
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/omelete%20simples.jpg": {
+    "originalBytes": 1805697,
+    "variants": [
+      {
+        "src": "/optimized-recipes/fc26d8be190d408f-480w.webp",
+        "width": 480,
+        "height": 719,
+        "bytes": 50026
+      },
+      {
+        "src": "/optimized-recipes/fc26d8be190d408f-960w.webp",
+        "width": 960,
+        "height": 1438,
+        "bytes": 138096
+      },
+      {
+        "src": "/optimized-recipes/fc26d8be190d408f-1600w.webp",
+        "width": 1600,
+        "height": 2397,
+        "bytes": 325564
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/frango%20ervilhas%20caril%202.png": {
+    "originalBytes": 2467677,
+    "variants": [
+      {
+        "src": "/optimized-recipes/7f4eb05b5e25061c-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 86896
+      },
+      {
+        "src": "/optimized-recipes/7f4eb05b5e25061c-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 213174
+      },
+      {
+        "src": "/optimized-recipes/7f4eb05b5e25061c-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 261286
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/massa%20camarao%20natas.jpg": {
+    "originalBytes": 1800910,
+    "variants": [
+      {
+        "src": "/optimized-recipes/13ccddc85b324ae3-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 34236
+      },
+      {
+        "src": "/optimized-recipes/13ccddc85b324ae3-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 80656
+      },
+      {
+        "src": "/optimized-recipes/13ccddc85b324ae3-1600w.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 236598
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/arroz%20tomate%20malandrinho.png": {
+    "originalBytes": 2827343,
+    "variants": [
+      {
+        "src": "/optimized-recipes/adab540b7d373cbe-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 74920
+      },
+      {
+        "src": "/optimized-recipes/adab540b7d373cbe-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 220206
+      },
+      {
+        "src": "/optimized-recipes/adab540b7d373cbe-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 287376
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/lombo%20porco%20fatiado%20cogumelos.jpeg": {
+    "originalBytes": 132350,
+    "variants": [
+      {
+        "src": "/optimized-recipes/cefe800ce2485153-480w.webp",
+        "width": 480,
+        "height": 397,
+        "bytes": 60384
+      },
+      {
+        "src": "/optimized-recipes/cefe800ce2485153-919w.webp",
+        "width": 919,
+        "height": 760,
+        "bytes": 145462
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/pao%20de%20lo%20humido.jpg": {
+    "originalBytes": 59205,
+    "variants": [
+      {
+        "src": "/optimized-recipes/be12dad9c3f888b4-480w.webp",
+        "width": 480,
+        "height": 288,
+        "bytes": 26990
+      },
+      {
+        "src": "/optimized-recipes/be12dad9c3f888b4-617w.webp",
+        "width": 617,
+        "height": 370,
+        "bytes": 43240
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/batatas%20rustica%20ovos%20estrelados.png": {
+    "originalBytes": 1714889,
+    "variants": [
+      {
+        "src": "/optimized-recipes/4acbd1e33aa6764c-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 37792
+      },
+      {
+        "src": "/optimized-recipes/4acbd1e33aa6764c-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 116304
+      },
+      {
+        "src": "/optimized-recipes/4acbd1e33aa6764c-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 146008
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/omelete%20courgete%20queijo.jpg": {
+    "originalBytes": 2905705,
+    "variants": [
+      {
+        "src": "/optimized-recipes/06b5b2c7fad7d04d-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 53352
+      },
+      {
+        "src": "/optimized-recipes/06b5b2c7fad7d04d-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 174350
+      },
+      {
+        "src": "/optimized-recipes/06b5b2c7fad7d04d-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 472302
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/camembert%20nozes%20doce.png": {
+    "originalBytes": 2352521,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f6228ff47441338f-480w.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 63664
+      },
+      {
+        "src": "/optimized-recipes/f6228ff47441338f-960w.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 144800
+      },
+      {
+        "src": "/optimized-recipes/f6228ff47441338f-1024w.webp",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 172104
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/massa%20tomate%202.jpg": {
+    "originalBytes": 2154643,
+    "variants": [
+      {
+        "src": "/optimized-recipes/9bf7d830257ed23d-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 32156
+      },
+      {
+        "src": "/optimized-recipes/9bf7d830257ed23d-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 84680
+      },
+      {
+        "src": "/optimized-recipes/9bf7d830257ed23d-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 196132
+      }
+    ]
+  },
+  "https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png": {
+    "originalBytes": 2142714,
+    "variants": [
+      {
+        "src": "/optimized-recipes/dc0575ced28942f1-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 28780
+      },
+      {
+        "src": "/optimized-recipes/dc0575ced28942f1-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 68542
+      },
+      {
+        "src": "/optimized-recipes/dc0575ced28942f1-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 136284
+      }
+    ]
+  },
+  "/icons/icon-512.png": {
+    "originalBytes": 1463855,
+    "variants": [
+      {
+        "src": "/optimized-recipes/4b489ee8c553454c-480w.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 27102
+      },
+      {
+        "src": "/optimized-recipes/4b489ee8c553454c-960w.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 86254
+      },
+      {
+        "src": "/optimized-recipes/4b489ee8c553454c-1024w.webp",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 90916
+      }
+    ]
+  },
+  "/images/airfryer-hero.jpg": {
+    "originalBytes": 2127133,
+    "variants": [
+      {
+        "src": "/optimized-recipes/f36047858b431d48-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 27106
+      },
+      {
+        "src": "/optimized-recipes/f36047858b431d48-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 70056
+      },
+      {
+        "src": "/optimized-recipes/f36047858b431d48-1536w.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 135242
+      }
+    ]
+  },
+  "https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg": {
+    "originalBytes": 1568304,
+    "variants": [
+      {
+        "src": "/optimized-recipes/4e81cc994fe7954f-480w.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 23226
+      },
+      {
+        "src": "/optimized-recipes/4e81cc994fe7954f-960w.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 59652
+      },
+      {
+        "src": "/optimized-recipes/4e81cc994fe7954f-1600w.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 151604
+      }
+    ]
+  }
+}

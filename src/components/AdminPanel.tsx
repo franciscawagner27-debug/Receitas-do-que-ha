@@ -1,3 +1,4 @@
+import { invalidateRecipeCatalogue } from '../lib/recipeCatalogue';
 import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
@@ -106,6 +107,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       return;
     }
 
+    invalidateRecipeCatalogue();
     setMessage("Receita guardada com sucesso ✨");
 
     setTitle("");
@@ -136,6 +138,7 @@ async function deleteRecipe(id: string) {
     return;
   }
 
+  invalidateRecipeCatalogue();
   loadRecipes();
 }
 
@@ -144,7 +147,8 @@ async function deleteRecipe(id: string) {
     const raw = priorityEdits[id];
     const num = raw === "" ? null : Number(raw);
 
-    await supabase.from("recipes").update({ priority: num }).eq("id", id);
+    const { error } = await supabase.from("recipes").update({ priority: num }).eq("id", id);
+    if (!error) invalidateRecipeCatalogue();
 
     loadRecipes();
   }

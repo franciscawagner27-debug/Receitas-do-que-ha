@@ -1,3 +1,4 @@
+import RecipeImage from './RecipeImage';
 import React from "react";
 import type { Recipe } from "../types";
 import { Volume2 } from "react-feather";
@@ -98,7 +99,8 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({
   return (
     <div className="p-6 sm:p-8 text-charcoal">
       {recipe.image && (
-        <img
+        <RecipeImage
+          variant="detail"
           src={recipe.image}
           alt={recipe.title}
           loading="lazy"

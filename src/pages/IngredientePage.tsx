@@ -1,3 +1,5 @@
+import { getRecipes } from '../lib/recipeCatalogue';
+import RecipeImage from '../components/RecipeImage';
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -38,10 +40,7 @@ const IngredientePage: React.FC = () => {
 }, [nome]);
   
   async function fetchRecipes() {
-    const { data, error } = await supabase
-      .from("recipes")
-      .select("*")
-      .order("id", { ascending: false });
+    const { data, error } = await getRecipes();
 
     if (!error && data) {
       const filtered = (data as Recipe[]).filter((recipe) => {
@@ -78,7 +77,7 @@ const IngredientePage: React.FC = () => {
               <Link key={r.id} to={`/receita/${r.id}`}>
                 <div className="bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
                   {r.image && (
-                    <img
+                    <RecipeImage
                       src={r.image}
                       alt={r.title}
                       className="w-full h-48 object-cover"

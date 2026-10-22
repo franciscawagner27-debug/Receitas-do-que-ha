@@ -1,3 +1,4 @@
+import { invalidateRecipeCatalogue } from '../lib/recipeCatalogue';
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -144,6 +145,7 @@ export default function EditRecipe() {
         return;
       }
 
+      invalidateRecipeCatalogue();
       alert("Receita atualizada com sucesso!");
       navigate("/admin");
     } catch (err) {

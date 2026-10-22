@@ -1,3 +1,5 @@
+import { getRecipes } from '../lib/recipeCatalogue';
+import RecipeImage from '../components/RecipeImage';
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
@@ -32,9 +34,7 @@ export default function DiasSemTempoPage() {
   // Buscar apenas receitas Dias Sem Tempo (tag "diassemtempo")
   useEffect(() => {
     async function fetchDiasSemTempo() {
-      const { data, error } = await supabase
-        .from("recipes")
-        .select("*");
+      const { data, error } = await getRecipes();
 
       if (!error && data) {
         const filtered = (data as any[]).filter((recipe) => {
@@ -87,11 +87,12 @@ export default function DiasSemTempoPage() {
 {/* HERO */}
 <section
   className="relative h-[40vh] flex flex-col sm:justify-center items-center text-center bg-cover bg-[center_75%]"
-  style={{
-    backgroundImage:
-      "url('https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png')",
-  }}
 >
+  <RecipeImage
+    src="https://ejnzzxrfqkfxglnmkkyl.supabase.co/storage/v1/object/public/recipe-images/dias-sem-tempo-hero.png"
+    variant="hero" eager sizes="100vw" alt=""
+    className="absolute inset-0 w-full h-full object-cover object-[center_75%]"
+  />
   {/* overlay */}
   <div className="absolute inset-0 bg-black/40" />
 
@@ -152,7 +153,7 @@ export default function DiasSemTempoPage() {
                 className="cursor-pointer bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition duration-300"
               >
                 {r.image && (
-                  <img
+                  <RecipeImage
                     src={r.image}
                     alt={r.title}
                     className="w-full h-48 object-cover"

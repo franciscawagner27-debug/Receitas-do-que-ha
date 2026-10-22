@@ -1,3 +1,5 @@
+import { getRecipes } from '../lib/recipeCatalogue';
+import RecipeImage from '../components/RecipeImage';
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
@@ -40,7 +42,7 @@ const AirFryerPage: React.FC = () => {
   }, []);
 
   async function fetchRecipes() {
-    const { data } = await supabase.from("recipes").select("*");
+    const { data } = await getRecipes();
 
     if (data) {
       const filtered = (data as Recipe[]).filter((recipe) =>
@@ -58,10 +60,9 @@ const AirFryerPage: React.FC = () => {
    {/* HERO */}
 <section
   className="relative h-[40vh] sm:h-[45vh] flex flex-col justify-center items-center text-center bg-cover bg-[center_60%]"
-  style={{
-    backgroundImage: "url('/images/airfryer-hero.jpg')",
-  }}
 >
+  <RecipeImage src="/images/airfryer-hero.jpg" variant="hero" eager sizes="100vw" alt=""
+    className="absolute inset-0 w-full h-full object-cover object-[center_60%]" />
   {/* overlay */}
   <div className="absolute inset-0 bg-black/40" />
 
@@ -83,7 +84,7 @@ const AirFryerPage: React.FC = () => {
             <Link key={r.id} to={`/receita/${r.id}`}>
               <div className="bg-white rounded-2xl shadow-soft overflow-hidden hover:-translate-y-1 hover:shadow-lg transition">
                 {r.image && (
-                  <img
+                  <RecipeImage
                     src={r.image}
                     alt={r.title}
                     className="w-full h-48 object-cover"

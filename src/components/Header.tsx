@@ -1,3 +1,4 @@
+import RecipeImage from './RecipeImage';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -81,7 +82,7 @@ if (normalized === "airfryer") {
   className="flex items-center flex-shrink-0 ml-0 md:ml-8 justify-center w-full md:w-auto"
   aria-label="Ir para a página inicial"
 >
-<img
+<RecipeImage eager
   src="/icons/icon-512.png"
   alt="Receitas do Que Há"
  className="h-48 w-48 md:h-32 md:w-32 object-contain notranslate md:translate-x-10"
