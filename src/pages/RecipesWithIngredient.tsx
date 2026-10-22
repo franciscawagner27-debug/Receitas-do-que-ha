@@ -1,3 +1,5 @@
+import { getRecipes } from '../lib/recipeCatalogue';
+import RecipeImage from '../components/RecipeImage';
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import type { Recipe } from "../types";
@@ -8,9 +10,7 @@ export default function RecipesWithIngredient({ ingredient }: { ingredient: stri
 
   useEffect(() => {
     async function fetchRecipes() {
-      const { data } = await supabase
-        .from("recipes")
-        .select("*");
+      const { data } = await getRecipes();
 
       if (data) {
         const filtered = data.filter((recipe: Recipe) =>
@@ -42,7 +42,7 @@ export default function RecipesWithIngredient({ ingredient }: { ingredient: stri
           <Link key={recipe.id} to={`/receita/${recipe.id}`}>
             <div className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
               {recipe.image && (
-                <img
+                <RecipeImage
                   src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-40 object-cover"

@@ -17,6 +17,8 @@ import IngredientePage from "./pages/IngredientePage";
 import RecipesWithIngredient from "./pages/RecipesWithIngredient";
 import { Link } from "react-router-dom";
 import AirFryerPage from "./pages/AirFryerPage";
+import { getRecipes } from './lib/recipeCatalogue';
+import RecipeImage from './components/RecipeImage';
 import Dicas from "./pages/Dicas";
 import ParaGrupos from "./pages/ParaGrupos";
 import Refeicoes10Pessoas from "./pages/Refeicoes10Pessoas";
@@ -243,26 +245,7 @@ function HomePage() {
 async function fetchRecipes() {
   setLoading(true);
 
-  const cache = localStorage.getItem("recipes");
-  const cacheTime = localStorage.getItem("recipes_time");
-
-  const CACHE_DURATION = 1000 * 60 * 5; // ⏱️ 5 minutos
-
-  if (cache && cacheTime) {
-    const isValid = Date.now() - Number(cacheTime) < CACHE_DURATION;
-
-    if (isValid) {
-      setRecipes(JSON.parse(cache));
-      setLoading(false);
-      return;
-    }
-  }
-
-  const { data, error } = await supabase
-    .from("recipes")
-    .select("*")
-    .order("priority", { ascending: true })
-    .order("id", { ascending: false });
+  const { data, error } = await getRecipes();
 
   if (!error && data) {
     const cleaned = data.map((r: any) => {
@@ -290,9 +273,7 @@ async function fetchRecipes() {
 
     setRecipes(cleaned as Recipe[]);
 
-    // 🔥 guardar cache + timestamp
-    localStorage.setItem("recipes", JSON.stringify(cleaned));
-    localStorage.setItem("recipes_time", Date.now().toString());
+    // The shared cache stores raw data; keep this page's tag normalization local.
   }
 
   setLoading(false);
@@ -574,11 +555,10 @@ async function fetchRecipes() {
       {/* HERO */}
       <section
         className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg')",
-        }}
       >
+        <RecipeImage src="https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg"
+          variant="hero" eager sizes="100vw" alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative z-10 px-4">
           <h1
@@ -768,7 +748,7 @@ async function fetchRecipes() {
                   >
                     <div className="relative">
                       {r.image && (
-                        <img
+                        <RecipeImage
                           src={r.image}
                           alt={r.title}
                           loading="lazy"
@@ -855,7 +835,7 @@ async function fetchRecipes() {
                     >
                       <div className="relative">
                         {r.image && (
-                          <img
+                          <RecipeImage
                             src={r.image}
                             alt={r.title}
                             loading="lazy"
@@ -928,7 +908,7 @@ async function fetchRecipes() {
                     >
                       <div className="relative">
                         {r.image && (
-                          <img
+                          <RecipeImage
                             src={r.image}
                             alt={r.title}
                             loading="lazy"

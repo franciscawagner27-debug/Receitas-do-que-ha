@@ -1,3 +1,5 @@
+import { getRecipes } from '../lib/recipeCatalogue';
+import RecipeImage from '../components/RecipeImage';
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { motion } from "framer-motion";
@@ -25,12 +27,10 @@ const SemGlutenPage: React.FC = () => {
 }, []);
 
 async function fetchRecipes() {
-  const { data, error } = await supabase
-    .from("recipes")
-    .select("*")
-    .order("id", { ascending: false });
+  const { data, error } = await getRecipes();
 
   if (!error && data) {
+    data.sort((a, b) => a.id < b.id ? 1 : a.id > b.id ? -1 : 0);
     const filtered = (data as any[]).filter((recipe) => {
       const tags = Array.isArray(recipe.tags) ? recipe.tags : [];
 
@@ -101,7 +101,7 @@ return (
                 className="bg-white rounded-2xl shadow-soft overflow-hidden"
               >
                 {r.image && (
-                  <img
+                  <RecipeImage
                     src={r.image}
                     alt={r.title}
                     className="w-full h-48 object-cover"
