@@ -552,6 +552,24 @@ async function fetchRecipes() {
     <div className="bg-beige min-h-screen text-charcoal font-sans relative pb-24 md:pb-0">
       <Header onSelect={handleCategorySelect} />
 
+      {/* Divulgação da aplicação iOS, antes do hero e fora do cabeçalho fixo. */}
+      <aside aria-label="Aplicação para iPhone" className="bg-beige px-3 py-2 sm:px-6">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 rounded-xl border border-olive/30 bg-beige-soft px-3 py-2.5 sm:px-5">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold leading-5 text-olive sm:text-base">Já estamos na App Store!</p>
+          </div>
+          <a
+            href="https://apps.apple.com/pt/app/receitas-do-que-h%C3%A1/id6825818170"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Descarregar grátis o Receitas do Que Há na App Store"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-full bg-olive px-3 text-xs font-semibold text-white transition-colors hover:bg-olive/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive sm:px-5 sm:text-sm"
+          >
+            Descarregar grátis <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </aside>
+
       {/* HERO */}
       <section
         className="relative h-[40vh] flex flex-col justify-center items-center text-center bg-cover bg-center"
