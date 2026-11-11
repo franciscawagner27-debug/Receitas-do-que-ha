@@ -1095,6 +1095,7 @@ async function fetchRecipes() {
 
       {/* FOOTER */}
       <footer className="text-center py-8 text-sm text-olive">
+        <p><a href="/privacidade" className="underline hover:text-terra transition">Política de Privacidade</a></p>
         <p>Feito com ❤️ em Portugal</p>
         <p>© 2025 Receitas do Que Há — Todos os direitos reservados</p>
         <p>
