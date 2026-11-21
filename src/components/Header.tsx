@@ -79,13 +79,13 @@ if (normalized === "airfryer") {
   {/* LOGO */}
  <button
   onClick={() => (window.location.href = "/")}
-  className="flex items-center flex-shrink-0 ml-0 md:ml-8 justify-center w-full md:w-auto"
+  className="flex items-center flex-shrink-0 ml-0 md:ml-8 justify-center w-full md:w-auto pt-2 pb-4 md:py-2"
   aria-label="Ir para a página inicial"
 >
 <RecipeImage eager
-  src="/icons/icon-512.png"
+  src="/images/receitas-do-que-ha-logo.png"
   alt="Receitas do Que Há"
- className="h-48 w-48 md:h-32 md:w-32 object-contain notranslate md:translate-x-10"
+ className="h-28 w-28 md:h-28 md:w-28 object-contain notranslate md:translate-x-10"
 />
   </button>
 

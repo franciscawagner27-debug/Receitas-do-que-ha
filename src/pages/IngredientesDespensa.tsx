@@ -15,9 +15,9 @@ export default function IngredientesDespensa() {
         <div className="flex flex-col items-center text-center mb-10">
           <Link to="/" className="inline-flex items-center gap-3">
             <img
-              src="/icons/icon-180.png"
+              src="/images/receitas-do-que-ha-logo.png"
               alt="Receitas do Que Há"
-              className="w-[120px] h-[120px] rounded-full shadow-md"
+              className="w-[120px] h-[120px] object-contain shadow-md"
             />
           </Link>
 
