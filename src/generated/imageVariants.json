@@ -2514,29 +2514,6 @@
       }
     ]
   },
-  "/icons/icon-512.png": {
-    "originalBytes": 1463855,
-    "variants": [
-      {
-        "src": "/optimized-recipes/4b489ee8c553454c-480w.webp",
-        "width": 480,
-        "height": 480,
-        "bytes": 27102
-      },
-      {
-        "src": "/optimized-recipes/4b489ee8c553454c-960w.webp",
-        "width": 960,
-        "height": 960,
-        "bytes": 86254
-      },
-      {
-        "src": "/optimized-recipes/4b489ee8c553454c-1024w.webp",
-        "width": 1024,
-        "height": 1024,
-        "bytes": 90916
-      }
-    ]
-  },
   "/images/airfryer-hero.jpg": {
     "originalBytes": 2127133,
     "variants": [
