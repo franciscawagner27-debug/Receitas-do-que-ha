@@ -12,7 +12,6 @@ mkdirSync(output, { recursive: true });
 const entries = JSON.parse(readFileSync(input, 'utf8'));
 // Local heroes do not incur Storage egress, but can use the same free encoding pipeline.
 for (const [url, file] of [
- ['/icons/icon-512.png', 'public/icons/icon-512.png'],
  ['/images/airfryer-hero.jpg', 'public/images/airfryer-hero.jpg'],
  ['https://receitas-do-que-ha.vercel.app/mesa-ingredientes.jpg', 'public/mesa-ingredientes.jpg'],
 ]) if (existsSync(file)) entries.push({ url, localFile: path.resolve(file), bytes: statSync(file).size });

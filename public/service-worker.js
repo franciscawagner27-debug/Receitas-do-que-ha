@@ -1,14 +1,16 @@
 // Nome da cache
-const CACHE_NAME = 'receitas-do-que-ha-v3';
+const CACHE_NAME = 'receitas-do-que-ha-v4';
 
 // Ficheiros estáticos principais
 const ASSETS = [
   '/',
   '/manifest.json',
   '/offline.html',
-  '/icons/icon-180.png',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  '/favicon.ico',
+  '/images/receitas-do-que-ha-logo.png',
+  '/icons/receitas-do-que-ha-180.png',
+  '/icons/receitas-do-que-ha-192.png',
+  '/icons/receitas-do-que-ha-512.png',
   '/splash-1125x2436.png',
   '/splash-1170x2532.png',
   '/splash-1242x2688.png',

@@ -5,7 +5,6 @@ import { supabase } from "../lib/supabase";
 import Header from "../components/Header";
 import RecipeDetail from "../components/RecipeDetail";
 import type { Recipe } from "../types";
-import logo512 from "/icons/icon-512.png";
 
 
 export default function DiasSemTempoPage() {
